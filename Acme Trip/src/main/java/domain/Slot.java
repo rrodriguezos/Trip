@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -74,7 +75,7 @@ public class Slot extends DomainEntity {
 		this.title = title;
 	}
 
-
+	@URL
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;

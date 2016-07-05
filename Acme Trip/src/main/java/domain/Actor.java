@@ -48,8 +48,8 @@ public abstract class Actor extends DomainEntity {
 			this.surname = surname;
 		}
 		
-		@NotBlank
-		//@Pattern(regexp = "^(\\d{9})$")
+		
+		@Pattern(regexp = "^\\+(\\d|\\d\\d)(\\(\\d\\)|\\(\\d\\d\\)|\\(\\d\\d\\d\\))?(\\d{4,9})$") 
 		public String getPhone() {
 			return phone;
 		}

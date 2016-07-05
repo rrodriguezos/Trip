@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
@@ -67,7 +69,7 @@ public class Trip extends Commentable {
 		this.title = title;
 	}
 
-
+	@URL
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;

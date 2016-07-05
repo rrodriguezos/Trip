@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 
 @Entity
@@ -64,7 +65,7 @@ public class DailyPlan extends DomainEntity {
 		this.title = title;
 	}
 
-
+	@URL
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;
