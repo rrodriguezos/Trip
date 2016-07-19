@@ -2,6 +2,7 @@ package services;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.AdministratorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
@@ -33,6 +35,21 @@ public class AdministratorService {
 		}
 		
 		//Simple CRUD methods ----------------------
+		
+		//An administrators must be able to register a new trainer to the system
+		public Administrator create(){
+			Administrator result = new Administrator();
+			
+			Authority auth = new Authority();
+			auth.setAuthority("ADMIN");
+			Collection<Authority> lia = new ArrayList<Authority>();
+			lia.add(auth);
+			UserAccount ua = new UserAccount();
+			ua.setAuthorities(lia);
+			result.setUserAccount(ua);
+			return result;
+		}
+		
 		
 		public Collection<Administrator> findAll(){
 			return administratorRepository.findAll();

@@ -16,6 +16,11 @@ import security.LoginService;
 import utilities.DPMessage;
 import utilities.DPUtils;
 import security.UserAccount;
+import domain.Administrator;
+import domain.Campaign;
+import domain.Comment;
+import domain.CreditCard;
+import domain.Folder;
 import domain.Manager;
 import domain.User;
 
@@ -31,6 +36,8 @@ public class ManagerService {
 			
 			@Autowired
 			private FolderService folderService;
+			@Autowired
+			private AdministratorService administratorService;
 			
 			//Constructors ----------------------------
 			public ManagerService() {
@@ -43,9 +50,23 @@ public class ManagerService {
 				return managerRepository.findAll();
 			}
 			
+
 			public Manager create(){
-				Manager result;
-				result = new Manager();
+				Administrator principal = administratorService.findByPrincipal();
+				Assert.notNull(principal);
+				Manager result = new Manager();
+				result.setCampaigns(new ArrayList<Campaign>());
+				result.setComments(new ArrayList<Comment>());
+				result.setCreditCards(new ArrayList<CreditCard>());
+				
+				Authority auth = new Authority();
+				auth.setAuthority("MANAGER");
+				Collection<Authority> lia = new ArrayList<Authority>();
+				lia.add(auth);
+				UserAccount ua = new UserAccount();
+				ua.setAuthorities(lia);
+				result.setUserAccount(ua);
+				
 				return result;
 			}
 			

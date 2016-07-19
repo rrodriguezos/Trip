@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.CommentRepository;
+import domain.Activity;
+import domain.Administrator;
 import domain.Comment;
 
 @Service
@@ -24,6 +26,9 @@ public class CommentService {
 		private CommentableService commentableService;
 		@Autowired
 		private ActorService actorService;
+		
+		@Autowired
+		private AdministratorService administratorService;
 		
 		//Constructors --------------------------------
 		public CommentService() {
@@ -49,7 +54,19 @@ public class CommentService {
 			commentRepository.save(comment);
 		}
 		
+		
 		//Other business methods -----------------------
+		
+		public void flagCommentAsInappropriate(Comment comment) {
+			Assert.notNull(comment);
+			Administrator admin = administratorService.findByPrincipal();
+			Assert.notNull(admin);
+			
+			comment.setIsAppropiate(false);
+			
+			
+			commentRepository.saveAndFlush(comment);
+		}
 
 
 //		public Comment reconstruct(CommentForm commentForm, int commentableId) {

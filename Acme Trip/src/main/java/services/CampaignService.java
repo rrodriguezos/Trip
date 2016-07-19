@@ -9,10 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Banner;
 import domain.Campaign;
+import domain.ChargeRecord;
+import domain.CreditCard;
 import domain.Manager;
 
 import repositories.CampaignRepository;
+import security.Authority;
+import utilities.DPMessage;
+import utilities.DPUtils;
 
 
 @Service
@@ -36,6 +42,15 @@ public class CampaignService {
 		}
 		
 		//Simple CRUD methods ---------------------
+		
+		public Campaign create() {
+			Assert.isTrue(DPUtils.hasRole(Authority.MANAGER), DPMessage.NO_PERMISSIONS);
+			Campaign result = new Campaign();
+			result.setBanners(new ArrayList<Banner>());
+			return result;
+		}
+		
+		
 		public Campaign findOne(int campaignId) {
 			Assert.isTrue(campaignId > 0);
 			Campaign result = campaignRepository.findOne(campaignId);

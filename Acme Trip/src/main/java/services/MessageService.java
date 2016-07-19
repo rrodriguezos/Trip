@@ -99,6 +99,36 @@ public class MessageService {
 			return messageRepository.messagesOfAFolder(folderId);
 		}
 		
+		public void flagAsSpamSave(Message message) {
+			Assert.notNull(message);
+			Actor actor = actorService.findByPrincipal();
+			Assert.notNull(actor);
+			Assert.isTrue(actor.equals(message.getFolder().getActor()));
+			
+			message.getFolder().getMessages().remove(message);		
+			Folder folder = folderService.findSpamFolferOfActor(actor.getId());			
+			folder.getMessages().add(message);
+			message.setFolder(folder);
+			messageRepository.saveAndFlush(message);
+		}
+		
+		public void flagAsStarredSave(Message message) {
+			Assert.notNull(message);
+			Actor actor = actorService.findByPrincipal();
+			Assert.notNull(actor);
+			Assert.isTrue(actor.equals(message.getFolder().getActor()));
+			
+			message.getFolder().getMessages().remove(message);		
+			Folder folder = folderService.foldersStarredFolderOfActor(actor.getId());			
+			folder.getMessages().add(message);
+			message.setFolder(folder);
+			messageRepository.saveAndFlush(message);
+		}
+		
+		
+		
+		
+		
 //		public Double averageNumberMessagesPerActor() {
 //			Assert.isTrue(DPUtils.hasRole(Authority.ADMIN), DPMessage.NO_PERMISSIONS);
 //			Double result = messageRepository.averageNumberMessagesPerActor();

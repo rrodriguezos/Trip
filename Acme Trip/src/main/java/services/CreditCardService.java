@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -9,10 +10,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.ChargeRecord;
+import domain.Comment;
 import domain.CreditCard;
+import domain.DailyPlan;
 import domain.Manager;
+import domain.Trip;
 
 import repositories.CreditCardRepository;
+import security.Authority;
+import utilities.DPMessage;
+import utilities.DPUtils;
 
 @Service
 @Transactional
@@ -33,6 +41,15 @@ public class CreditCardService {
 	}
 
 	// Simple CRUD methods ---------------------
+	public CreditCard create() {
+		Assert.isTrue(DPUtils.hasRole(Authority.MANAGER), DPMessage.NO_PERMISSIONS);
+		CreditCard result = new CreditCard();
+		result.setChargeRecords(new ArrayList<ChargeRecord>());
+		return result;
+	}
+	
+	
+	
 	public CreditCard findOne(int creditCardId) {
 		Assert.isTrue(creditCardId > 0);
 		CreditCard result = creditCardRepository.findOne(creditCardId);
@@ -52,6 +69,13 @@ public class CreditCardService {
 		Collection<CreditCard> result = creditCardRepository.findAll();
 		Assert.notNull(result);
 		return result;
+	}
+	
+	public void delete(CreditCard ccard){
+		Assert.isTrue(DPUtils.hasRole(Authority.MANAGER), DPMessage.NO_PERMISSIONS);
+		
+		ccard.getChargeRecords().removeAll(ccard.getChargeRecords());
+		creditCardRepository.delete(ccard);
 	}
 
 	// Other business methods ------------------	

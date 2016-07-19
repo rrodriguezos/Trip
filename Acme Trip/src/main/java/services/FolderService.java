@@ -126,6 +126,14 @@ public class FolderService {
 			actor.setFolders(folders);
 		}
 		
+		public Folder findSpamFolferOfActor(int actorId){
+			return folderRepository.foldersSpamFolderOfActor(actorId);
+		}
+		
+		public Folder foldersStarredFolderOfActor(int actorId){
+			return folderRepository.foldersStarredFolderOfActor(actorId);
+		}
+		
 		
 
 }

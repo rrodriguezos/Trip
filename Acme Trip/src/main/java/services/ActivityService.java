@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Activity;
+import domain.Administrator;
 import domain.User;
 
 import repositories.ActivityRepository;
@@ -27,6 +28,9 @@ public class ActivityService {
 		// Supporting Services -----------------------------
 		@Autowired
 		private UserService userService;
+		
+		@Autowired
+		private AdministratorService administratorService;
 
 
 		// Constructors ------------------------------------
@@ -53,6 +57,17 @@ public class ActivityService {
 			Collection<Activity> result = activityRepository.activitiesByUser(user.getId());
 			Assert.notNull(result);
 			return result;
+		}
+		
+		public void flagActivityAsInappropriate(Activity activity) {
+			Assert.notNull(activity);
+			Administrator admin = administratorService.findByPrincipal();
+			Assert.notNull(admin);
+			
+			activity.setIsAppropiate(false);
+			
+			
+			activityRepository.saveAndFlush(activity);
 		}
 		
 		
