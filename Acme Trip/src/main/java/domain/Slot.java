@@ -75,7 +75,7 @@ public class Slot extends DomainEntity {
 		this.title = title;
 	}
 
-	@URL
+	
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;

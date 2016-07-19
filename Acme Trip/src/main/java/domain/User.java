@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -48,6 +49,18 @@ public class User extends Actor {
 
 	public void setActivities(Collection<Activity> activities) {
 		this.activities = activities;
+	}
+	
+	private Collection<Trip> tripSubscribes;
+	
+	@Valid
+	@ManyToMany(mappedBy = "users")
+	public Collection<Trip> getTripSubscribes() {
+		return tripSubscribes;
+	}
+
+	public void setTripSubscribes(Collection<Trip> tripSubscribes) {
+		this.tripSubscribes = tripSubscribes;
 	}
 
 }

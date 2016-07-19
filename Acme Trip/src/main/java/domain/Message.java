@@ -23,9 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes={
-		@Index(columnList=("spam")),
-		@Index(columnList=("messageState"))})
+@Table(indexes={@Index(columnList=("messagePriority"))})
 public class Message extends DomainEntity {
 	
 	//Constructors -----------------------------
@@ -35,15 +33,14 @@ public class Message extends DomainEntity {
 			
 			//Attributes -------------------------------
 			
-			public enum MessageState
+			public enum MessagePriority
 			{
 				LOW,NEUTRAL,HIGH;
 			}
-			private MessageState messageState;
+			private MessagePriority messagePriority;
 			private String subject;
 			private String body;
 			private Date moment;
-			private Boolean spam;
 			
 			@Past
 			@NotNull
@@ -63,7 +60,7 @@ public class Message extends DomainEntity {
 			public void setSubject(String subject) {
 				this.subject = subject;
 			}
-			@SafeHtml(whitelistType = WhiteListType.NONE)
+			//@SafeHtml(whitelistType = WhiteListType.NONE)
 			@NotBlank
 			public String getBody() {
 				return body;
@@ -73,22 +70,15 @@ public class Message extends DomainEntity {
 				this.body = body;
 			}
 			
-			@NotNull
-			public Boolean getSpam() {
-				return spam;
-			}
-			public void setSpam(Boolean spam) {
-				this.spam = spam;
-			}
-			
+					
 			@NotNull
 			@Enumerated(EnumType.STRING)
-			public MessageState getMessageState() {
-				return messageState;
+			public MessagePriority getMessagePriority() {
+				return messagePriority;
 			}
 
-			public void setMessageState(MessageState messageState) {
-				this.messageState = messageState;
+			public void setMessagePriority(MessagePriority messagePriority) {
+				this.messagePriority = messagePriority;
 			}
 
 			

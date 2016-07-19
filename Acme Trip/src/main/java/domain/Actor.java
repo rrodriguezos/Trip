@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Email;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,6 +30,7 @@ public abstract class Actor extends DomainEntity {
 		private String name;
 		private String surname;
 		private String phone;
+		private String emailAddress;
 		
 		@NotBlank
 		public String getName() {
@@ -56,6 +58,15 @@ public abstract class Actor extends DomainEntity {
 		
 		public void setPhone(String phone) {
 			this.phone = phone;
+		}
+		
+		@Email
+		@NotBlank
+		public String getEmailAddress() {
+			return emailAddress;
+		}
+		public void setEmailAddress(String emailAddress) {
+			this.emailAddress = emailAddress;
 		}
 		//Relationships --------------------------
 		private UserAccount userAccount;

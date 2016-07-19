@@ -43,7 +43,7 @@ public class Activity extends Commentable {
 			this.title = title;
 		}
 
-		@URL
+		
 		@ElementCollection
 		public Collection<String> getPhotos() {
 			return photos;
@@ -62,6 +62,8 @@ public class Activity extends Commentable {
 			this.isAppropiate = isAppropiate;
 		}
 		
+		//Relationships --------------------------
+		
 		private Collection<Slot> slots;
 		
 		@Valid
@@ -74,7 +76,7 @@ public class Activity extends Commentable {
 		public void setSlots(Collection<Slot> slots) {
 			this.slots = slots;
 		}
-		//Relationships --------------------------
+		
 		
 		private ActivityType activityType;
 
@@ -94,11 +96,11 @@ public class Activity extends Commentable {
 		@NotNull
 		@Valid
 		@ManyToOne(optional=false)
-		public User getCustomer() {
+		public User getUser() {
 			return user;
 		}
 
-		public void setCustomer(User user) {
+		public void setUser(User user) {
 			this.user = user;
 		}
 }

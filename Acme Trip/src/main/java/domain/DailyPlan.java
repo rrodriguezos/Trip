@@ -17,26 +17,25 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class DailyPlan extends DomainEntity {
-	
+
 	public DailyPlan() {
 		super();
 	}
-	
-	// ------------ Attributes ------------ 
-	
-	public enum WeekDay
-	{
-		MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY;
+
+	// ------------ Attributes ------------
+
+	public enum WeekDay {
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
 	}
+
 	private WeekDay weekDay;
 	private String description;
 	private String title;
 	private Collection<String> photos;
-	
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	public WeekDay getWeekDay() {
@@ -65,7 +64,7 @@ public class DailyPlan extends DomainEntity {
 		this.title = title;
 	}
 
-	@URL
+	
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;
@@ -74,14 +73,14 @@ public class DailyPlan extends DomainEntity {
 	public void setPhotos(Collection<String> photos) {
 		this.photos = photos;
 	}
-	
-	// ------------ Relationships ------------ 
+
+	// ------------ Relationships ------------
 
 	private Trip trip;
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Trip getTrip() {
 		return trip;
 	}
@@ -89,18 +88,16 @@ public class DailyPlan extends DomainEntity {
 	public void setTrip(Trip trip) {
 		this.trip = trip;
 	}
-	
+
 	private Collection<Slot> slots;
 
-
-	
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "dailyplan")
 	public Collection<Slot> getSlots() {
 		return slots;
 	}
-	
+
 	public void setSlots(Collection<Slot> slots) {
 		this.slots = slots;
 	}

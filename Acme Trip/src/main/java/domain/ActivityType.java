@@ -33,7 +33,7 @@ public class ActivityType extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "activitytype")
+	@OneToMany(mappedBy = "activityType")
 	public Collection<Activity> getActivities() {
 		return activities;
 	}

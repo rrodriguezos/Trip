@@ -10,6 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,7 +36,8 @@ public class Trip extends Commentable {
 	
 	// ------------ Attributes ------------ 
 	
-	private Date organisedDate;
+	private Date endDate;
+	private Date startDate;
 	private String description;
 	private String title;
 	private Collection<String> photos;
@@ -44,11 +46,22 @@ public class Trip extends Commentable {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getOrganisedDate() {
-		return organisedDate;
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setOrganisedDate(Date organisedDate) {
-		this.organisedDate = organisedDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
+	@Past
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	@NotBlank
@@ -69,7 +82,7 @@ public class Trip extends Commentable {
 		this.title = title;
 	}
 
-	@URL
+	
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;
@@ -87,17 +100,15 @@ public class Trip extends Commentable {
 		@NotNull
 		@Valid
 		@ManyToOne(optional=false)
-		public User getCustomer() {
+		public User getUser() {
 			return user;
 		}
 
-		public void setCustomer(User user) {
+		public void setUser(User user) {
 			this.user = user;
 		}
 		
 		private Collection<DailyPlan> dailyplans;
-
-
 		
 		@Valid
 		@NotNull
@@ -109,6 +120,19 @@ public class Trip extends Commentable {
 		public void setDailyplans(Collection<DailyPlan> dailyplans) {
 			this.dailyplans = dailyplans;
 		}
+		
+		private Collection<User> users;
+		
+		@Valid
+		@ManyToMany
+		public Collection<User> getUsers() {
+			return users;
+		}
+		public void setUsers(Collection<User> users) {
+			this.users = users;
+		}
+		
+		
 	
 	
 
