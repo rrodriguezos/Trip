@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
+import forms.AdministratorForm;
 
 @Service
 @Transactional
@@ -79,20 +80,21 @@ public class AdministratorService {
 			return result;
 		}
 
-//		public Administrator reconstruct(AdministratorForm administratorForm) {
-//			Administrator result = findByPrincipal();
-//
-//			result.setName(administratorForm.getName());
-//			result.setPhone(administratorForm.getPhone());
-//			result.setSurname(administratorForm.getSurname());
-//			
-//			if (!administratorForm.getPassword().equals("")){			
-//				Md5PasswordEncoder password = new Md5PasswordEncoder();
-//				String encodedPassword = password.encodePassword(administratorForm.getPassword(), null);
-//				result.getUserAccount().setPassword(encodedPassword);
-//			}
-//			return result;
-//		}
+		public Administrator reconstruct(AdministratorForm administratorForm) {
+			Administrator result = findByPrincipal();
+
+			result.setName(administratorForm.getName());
+			result.setPhone(administratorForm.getPhone());
+			result.setSurname(administratorForm.getSurname());
+			result.setEmailAddress(administratorForm.getEmailAddress());
+			
+			if (!administratorForm.getPassword().equals("")){			
+				Md5PasswordEncoder password = new Md5PasswordEncoder();
+				String encodedPassword = password.encodePassword(administratorForm.getPassword(), null);
+				result.getUserAccount().setPassword(encodedPassword);
+			}
+			return result;
+		}
 		
 
 }

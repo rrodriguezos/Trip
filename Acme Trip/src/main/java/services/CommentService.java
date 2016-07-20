@@ -12,6 +12,7 @@ import repositories.CommentRepository;
 import domain.Activity;
 import domain.Administrator;
 import domain.Comment;
+import forms.CommentForm;
 
 @Service
 @Transactional
@@ -69,16 +70,16 @@ public class CommentService {
 		}
 
 
-//		public Comment reconstruct(CommentForm commentForm, int commentableId) {
-//			Comment result = new Comment();
-//			result.setActor(actorService.findByPrincipal());
-//			result.setCommentable(commentableService.findOne(commentableId));
-//			result.setDeleted(false);
-//			result.setMoment(new Date(System.currentTimeMillis()-1000));
-//			result.setRating(commentForm.getRating());
-//			result.setText(commentForm.getText());
-//			return result;
-//		}
+		public Comment reconstruct(CommentForm commentForm, int commentableId) {
+			Comment result = new Comment();
+			result.setActor(actorService.findByPrincipal());
+			result.setCommentable(commentableService.findOne(commentableId));
+			result.setIsAppropiate(true);
+			result.setMoment(new Date(System.currentTimeMillis()-1000));
+			result.setTitle(commentForm.getTitle());
+			result.setText(commentForm.getText());
+			return result;
+		}
 		
 
 }

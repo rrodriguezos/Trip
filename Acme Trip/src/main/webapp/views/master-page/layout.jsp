@@ -51,6 +51,22 @@
 </head>
 
 <body>
+	
+	<jstl:if test="${!empty agree and !agree}">
+	<div class="banner">
+		<spring:message code="master.text"></spring:message>
+	</div>
+	</jstl:if>	
+	
+	<div id="privacy" class="modalDialog">
+		<a class="close" onclick="toggle('#privacy')">X</a>
+		<spring:message	code="master.privacy" />
+	</div>
+	
+	<div id="cookies" class="modalDialog">
+		<a class="close" onclick="toggle('#cookies')">X</a>	
+		<spring:message	code="master.cookie" />
+	</div>
 
 	<div>
 		<tiles:insertAttribute name="header" />

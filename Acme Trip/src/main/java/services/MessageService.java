@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
+import forms.MessageForm;
 
 import repositories.MessageRepository;
 
@@ -124,7 +125,16 @@ public class MessageService {
 			message.setFolder(folder);
 			messageRepository.saveAndFlush(message);
 		}
-		
+		public Message reconstruct(MessageForm messageForm) {
+			Assert.notNull(messageForm);
+			Message result = create();
+			Actor recipient = actorService.findOne(messageForm.getRecipient());
+			Assert.notNull(recipient);
+			result.setBody(messageForm.getBody());
+			result.setRecipient(recipient);
+			result.setSubject(messageForm.getSubject());
+			return result;
+		}
 		
 		
 		
@@ -136,15 +146,4 @@ public class MessageService {
 //			return result;
 //		}
 //
-//		public Message reconstruct(MessageForm messageForm) {
-//			Assert.notNull(messageForm);
-//			Message result = create();
-//			Actor recipient = actorService.findOne(messageForm.getRecipient());
-//			Assert.notNull(recipient);
-//			result.setBody(messageForm.getBody());
-//			result.setRecipient(recipient);
-//			result.setSubject(messageForm.getSubject());
-//			return result;
-//		}
-
 }
