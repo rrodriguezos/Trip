@@ -10,33 +10,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="${actionURI}" modelAttribute="${actor}" >  
-	
+<form:form action="${actionURI}" modelAttribute="${actor}" >
 
-	<jstl:if test="${administrator!=null}">
-		<acme:textbox code="actor.name" 		 path="name"		  value="${administrator.name}" />
-		<acme:textbox code="actor.surname" 		 path="surname"		  value="${administrator.surname}"/>
-		<acme:textbox code="actor.phone" 		 path="phone"		  value="${administrator.phone}"/>
-		<acme:textbox code="actor.emailAdress" 	 path="emailAdress"	  value="${administrator.emailAdress}"/>
-	</jstl:if>
-	
-	<jstl:if test="${user!=null||userRegisterForm!=null}">
-		<acme:textbox code="actor.name" 		 path="name"		  value="${customer.name}"/>
-		<acme:textbox code="actor.surname" 		 path="surname"		  value="${customer.surname}"/>
-		<acme:textbox code="actor.phone" 		 path="phone"		  value="${customer.phone}"/>
-		<acme:textbox code="actor.emailAdress" 	 path="emailAdress"	  value="${administrator.emailAdress}"/>	
+  <acme:textbox code="actor.name" path="name" value="${user.name}"/>
+  <acme:textbox code="actor.surname" path="surname" value="${user.surname}" />
+  <acme:textbox code="actor.phone" path="phone" value="${user.phone}"/>
+  <acme:textbox code="actor.emailAdress" path="emailAdress" value="${user.emailAdress}"/>
+  
+  <jstl:if test="${registerForm!=null}">
+  <acme:textbox code="actor.username" path="username" />
+  <acme:password code="actor.password" path="password"  />
+  </jstl:if>
+  
+  <acme:password code="actor.confirmPassword" path="confirmPassword" />
+  
+  <acme:submit name="save" code="actor.save" />
+  <acme:cancel url="${cancelURI}" code="actor.cancel" />
 
-	</jstl:if>
-	
-	<acme:textbox  code="actor.username"	 path="username"	test="${userRegisterForm!=null}"/>
-	<acme:password code="actor.password" 	 path="password"/>	
-	
-	<jstl:if test="${userRegisterForm!=null}">
-	<acme:password code="actor.password" 	 path="repeatedPassword"/>	
-	</jstl:if>
- 
-	
-  	<acme:submit name="save" code="actor.save"/>
-	<acme:cancel url="" code="actor.cancel"/>
-	
 </form:form>

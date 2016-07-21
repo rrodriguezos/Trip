@@ -9,8 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+
+import domain.Activity;
 import domain.Administrator;
+import domain.Comment;
+import domain.Trip;
 import domain.User;
+import forms.UserForm;
+import forms.UserRegisterForm;
 
 import repositories.UserRepository;
 import security.Authority;
@@ -104,51 +110,46 @@ public class UserService {
 		return result;
 	}
 
-	// public User reconstruct(CustomerRegisterForm customerForm) {
-	// User result = create();
-	//
-	// result.setBookings(new ArrayList<Booking>());
-	// result.setFeePayments(new ArrayList<FeePayment>());
-	// result.setComments(new ArrayList<Comment>());
-	// folderService.generateSystemFolders(result);
-	// result.setLink(customerForm.getLink());
-	// result.setName(customerForm.getName());
-	// result.setNick(customerForm.getNick());
-	// result.setPhone(customerForm.getPhone());
-	// result.setPhoto(customerForm.getPhoto());
-	// result.setSocialNetwork(customerForm.getSocialNetwork());
-	// result.setSurname(customerForm.getSurname());
-	//
-	// Authority auth = new Authority();
-	// auth.setAuthority("CUSTOMER");
-	// Collection<Authority> lia = new ArrayList<Authority>();
-	// lia.add(auth);
-	// UserAccount ua = new UserAccount();
-	// ua.setAuthorities(lia);
-	// ua.setUsername(customerForm.getUsername());
-	// ua.setPassword(customerForm.getPassword());
-	// result.setUserAccount(ua);
-	// return result;
-	// }
-	//
-	// public Customer reconstruct(CustomerForm customerForm) {
-	// Customer result = findByPrincipal();
-	//
-	// result.setLink(customerForm.getLink());
-	// result.setName(customerForm.getName());
-	// result.setNick(customerForm.getNick());
-	// result.setPhone(customerForm.getPhone());
-	// result.setPhoto(customerForm.getPhoto());
-	// result.setSocialNetwork(customerForm.getSocialNetwork());
-	// result.setSurname(customerForm.getSurname());
-	//
-	// if (!customerForm.getPassword().equals("")){
-	// Md5PasswordEncoder password = new Md5PasswordEncoder();
-	// String encodedPassword =
-	// password.encodePassword(customerForm.getPassword(), null);
-	// result.getUserAccount().setPassword(encodedPassword);
-	// }
-	// return result;
-	// }
+	public User reconstruct(UserRegisterForm userForm) {
+		User result = create();
+
+		result.setTrips(new ArrayList<Trip>());
+		result.setTripSubscribes(new ArrayList<Trip>());
+		result.setActivities(new ArrayList<Activity>());
+		result.setComments(new ArrayList<Comment>());
+		folderService.generateSystemFolders(result);
+		result.setEmailAddress(userForm.getEmailAddress());
+		result.setName(userForm.getName());
+		result.setPhone(userForm.getPhone());
+		result.setSurname(userForm.getSurname());
+
+		Authority auth = new Authority();
+		auth.setAuthority("USER");
+		Collection<Authority> lia = new ArrayList<Authority>();
+		lia.add(auth);
+		UserAccount ua = new UserAccount();
+		ua.setAuthorities(lia);
+		ua.setUsername(userForm.getUsername());
+		ua.setPassword(userForm.getPassword());
+		result.setUserAccount(ua);
+		return result;
+	}
+
+	public User reconstruct(UserForm userForm) {
+		User result = findByPrincipal();
+
+		result.setEmailAddress(userForm.getEmailAddress());
+		result.setName(userForm.getName());
+		result.setPhone(userForm.getPhone());
+		result.setSurname(userForm.getSurname());
+
+		if (!userForm.getPassword().equals("")) {
+			Md5PasswordEncoder password = new Md5PasswordEncoder();
+			String encodedPassword = password.encodePassword(
+					userForm.getPassword(), null);
+			result.getUserAccount().setPassword(encodedPassword);
+		}
+		return result;
+	}
 
 }

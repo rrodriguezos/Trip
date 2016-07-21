@@ -3,6 +3,7 @@ package services;
 import java.util.Collection;
 
 import repositories.DailyPlanRepository;
+import security.LoginService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.DailyPlan;
+import domain.Trip;
 
 
 @Service
@@ -41,11 +43,32 @@ public class DailyPlanService {
 
 		public Collection<DailyPlan> findAll() {
 			return dailyPlanRepository.findAll();
+		}		
+		
+		
+		public DailyPlan save(DailyPlan dPlan){
+			Assert.isTrue(dPlan.getTrip().getUser().getUserAccount().equals(LoginService.getPrincipal()));
+			dPlan.setTrip(tripService.findByPrincipal());
+			
+			return dailyPlanRepository.save(dPlan);
+			
 		}
 		
-		public void delete(DailyPlan dailyPlan) {
-			Assert.notNull(dailyPlan);
-			dailyPlanRepository.delete(dailyPlan);
+		
+		public DailyPlan create(){
+			DailyPlan result = new DailyPlan();
+
+			Assert.isTrue(tripService.findByPrincipal() != null, "noTripAssociated");
+			result.setTrip(tripService.findByPrincipal());
+			return result;
+		}
+			
+		
+		public void delete(DailyPlan dPlan){
+			Assert.isTrue(dPlan.getTrip().getUser().getUserAccount().equals(LoginService.getPrincipal()));
+			Trip trip = tripService.findByPrincipal();
+			trip.getDailyplans().remove(dPlan);
+			tripService.save(trip);
 		}
 		
 		
@@ -64,6 +87,10 @@ public class DailyPlanService {
 		
 		public Double averageNumberOfDailyPlansByTrip(){
 			return dailyPlanRepository.averageNumberOfDailyPlansByTrip();
+		}
+		
+		public DailyPlan findByPrincipal(){
+			return dailyPlanRepository.findByUserAccountID(LoginService.getPrincipal().getId());
 		}
 		
 		

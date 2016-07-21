@@ -26,6 +26,13 @@
 	
 	<spring:message	code="actor.emailAdress"  var="emailAdress"/>
 	<display:column property="emailAdress" title="${emailAdress}" sortable="true" />	
+	
+	<spring:message	code="actor.trips" var="trips"/>
+	<display:column title="${trips}">
+		<a href="public/listTrips.do?userId=<jstl:out value='${row.id}'/>">
+			<spring:message	code="actor.see" />
+		</a>
+	</display:column>
 
 	
 		<spring:message	code="actor.manage" var="management"/>

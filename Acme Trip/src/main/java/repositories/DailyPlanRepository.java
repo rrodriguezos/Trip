@@ -21,5 +21,8 @@ public interface DailyPlanRepository extends JpaRepository<DailyPlan, Integer> {
 	// It was not easy, but population standard deviation of dailyPlans by trips
 	@Query("select stddev(t.dailyPlans.size) from Trip t")
 	Double standardDeviationOfDailyPlansByTrip();
+	
+	@Query("select a from DailyPlan a where a.trip.user.userAccount.id = ?1")
+	DailyPlan findByUserAccountID(int UserAccountID);
 
 }

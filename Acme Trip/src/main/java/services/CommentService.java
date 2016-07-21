@@ -68,6 +68,9 @@ public class CommentService {
 			
 			commentRepository.saveAndFlush(comment);
 		}
+		public Collection<Comment> findCommentsByCommentableId(int commentableId) {
+			return commentRepository.findCommentsByCommentableId(commentableId);
+		}
 
 
 		public Comment reconstruct(CommentForm commentForm, int commentableId) {

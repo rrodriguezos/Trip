@@ -9,8 +9,10 @@ import org.springframework.util.Assert;
 
 import repositories.DailyPlanRepository;
 import repositories.SlotRepository;
+import security.LoginService;
 import domain.DailyPlan;
 import domain.Slot;
+import domain.Trip;
 
 
 @Service
@@ -41,6 +43,32 @@ public class SlotService {
 
 			public Collection<Slot> findAll() {
 				return slotRepository.findAll();
+			}
+			
+			
+			public Slot save(Slot slot){
+				Assert.isTrue(slot.getDailyplan().getTrip().getUser().getUserAccount().equals(LoginService.getPrincipal()));
+				slot.setDailyplan(dailyPlanService.findByPrincipal());
+				
+				return slotRepository.save(slot);
+				
+			}
+			
+			
+			public Slot create(){
+				Slot result = new Slot();
+
+				Assert.isTrue(dailyPlanService.findByPrincipal() != null, "noDailyPlanAssociated");
+				result.setDailyplan(dailyPlanService.findByPrincipal());
+				return result;
+			}
+				
+			
+			public void delete(Slot slot){
+				Assert.isTrue(slot.getDailyplan().getTrip().getUser().getUserAccount().equals(LoginService.getPrincipal()));
+				DailyPlan dPlan = dailyPlanService.findByPrincipal();
+				dPlan.getSlots().remove(slot);
+				dailyPlanService.save(dPlan);
 			}
 			
 			

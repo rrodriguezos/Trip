@@ -16,7 +16,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	
 	
 	@Query("select u.trips from User u where u.id = ?1")
-	public Collection<Trip> tripsByUser(int userId);
+	public Collection<Trip> findTripsByUser(int userId);
 	
 	
 	@Query("select avg(u.trips.size) from User u")
@@ -25,5 +25,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	// It was not easy, but population standard deviation of trips by users
 	@Query("select stddev(u.trips.size) from User u")
 	Double standardDeviationOfTripsByUser();
+	
+	@Query("select a from Trip a where a.user.userAccount.id = ?1")
+	Trip findByUserAccountID(int UserAccountID);
+	
+	
 
 }

@@ -25,9 +25,10 @@
 			<spring:message code="master.page.home" /></a>
 		</li>		
 		
-		<li><a href="trip/list.do"><spring:message code="master.page.public.tripList" /></a>
+		<li><a href="anonymous/tripsCatalogue.do"><spring:message code="master.page.public.tripList" /></a>
 		<li><a href="users/list.do"><spring:message code="master.page.public.usersList" /></a>
-		<li><a href="activitytype/list.do"><spring:message code="master.page.public.activitytypeList" /></a>		
+		<li><a href="activitytype/list.do"><spring:message code="master.page.public.activitytypeList" /></a>	
+	
 		
 		
 	<security:authorize access="isAnonymous()">

@@ -28,7 +28,9 @@
 
 		<tr><td><acme:select code="trip.dailyplans" path="dailyplans" items="${dailyplans}" itemLabel="title" id="dailyplans" /></td></tr>
 		
+		
 		<tr>
+
 			
 			<td>
 				<acme:submit name="save" code="common.save"/>

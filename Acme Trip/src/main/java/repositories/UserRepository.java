@@ -19,5 +19,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	// The users who have registered at least 80% the maximum number of trips that a user has registered.
 		@Query("select u from User u where u.trips.size >= 0.8*(select max(u2.trips.size) from User u2)")
 		Collection<User> usersWhoRegisteredAtLeast80Maximum();
+		
 
 }

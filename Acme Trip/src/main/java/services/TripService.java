@@ -21,6 +21,7 @@ import domain.User;
 import repositories.MessageRepository;
 import repositories.TripRepository;
 import security.Authority;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -87,6 +88,10 @@ public class TripService {
 	public Trip findOne(int id) {
 		return tripRepository.findOne(id);
 	}
+	
+	public Trip findByPrincipal(){
+		return tripRepository.findByUserAccountID(LoginService.getPrincipal().getId());
+	}
 
 	// Other business methods -----------------------
 	public Double standardDeviationOfTripsByUsers() {
@@ -95,6 +100,13 @@ public class TripService {
 
 	public Double averageNumberOfTripsByActors() {
 		return tripRepository.averageNumberOfTripsByUser();
+	}
+	
+	public Collection<Trip> findTripsByUser(int userId) {
+		User user = userService.findOne(userId);
+		Collection<Trip> result = tripRepository.findTripsByUser(user.getId());
+		Assert.notNull(result);
+		return result;
 	}
 
 	public Collection<Trip> tripsByActivityType(int activityTypeId) {

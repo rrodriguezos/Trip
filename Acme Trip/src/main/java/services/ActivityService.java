@@ -1,4 +1,5 @@
 package services;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -11,7 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Activity;
+import domain.ActivityType;
 import domain.Administrator;
+import domain.Comment;
+import domain.DailyPlan;
+import domain.Slot;
+import domain.Trip;
 import domain.User;
 
 import repositories.ActivityRepository;
@@ -46,6 +52,29 @@ public class ActivityService {
 			return result;
 		}
 		
+		public Activity create(ActivityType aType) {
+			Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
+			Activity result = new Activity();
+			result.setActivityType(aType);
+			result.setSlots(new ArrayList<Slot>());
+			result.setComments(new ArrayList<Comment>());
+			return result;
+		}
+
+		public Activity save(Activity activity) {
+			Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
+			return activityRepository.save(activity);
+		}
+
+		public void delete(Activity activity) {
+			Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
+			
+
+			activity.getSlots().removeAll(activity.getSlots());
+			activityRepository.delete(activity);
+		}
+
+		
 	
 
 		
@@ -69,19 +98,6 @@ public class ActivityService {
 			
 			activityRepository.saveAndFlush(activity);
 		}
-		
-		
-//		public Booking reconstruct(BookingForm bookingForm, int gymId, int serviceId) {
-//			Customer customer = userService.findByPrincipal();
-//			Assert.notNull(customer);
-//			Booking result = new Booking();
-//			result.setRequestedMoment(bookingForm.getRequestedMoment());
-//			result.setServiceDuration(bookingForm.getServiceDuration());
-//			result.setService(serviceService.findOne(serviceId));
-//			result.setCustomer(customer);
-//			result.setBookingState(BookingState.PENDING);
-//			result.setCreationMoment(new Date(System.currentTimeMillis() - 1000));
-//			return result;
-//		}
-//	
 }
+		
+		
