@@ -134,10 +134,10 @@ public class TripService {
 
 	}
 
-	public Collection<Trip> searchByKeyword(String keyword) {
-
-		return tripRepository.searchByKeyword(keyword);
-	}
+//	public Collection<Trip> searchByKeyword(String keyword) {
+//
+//		return tripRepository.searchByKeyword(keyword);
+//	}
 	
 	public void checkPrincipalByJoinedUser(Trip trip) {
 

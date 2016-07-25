@@ -64,12 +64,12 @@ public class ChargeRecordService {
 		//Other business methods ------------------
 		
 		
-		public Collection<ChargeRecord> findChargeRecordsByCreditCard(int creditCardId) {
-			CreditCard ccard = creditCardService.findOne(creditCardId);
-			Collection<ChargeRecord> result = chargeRecordRepository.findChargeRecordsByCreditCard(ccard.getId());
-			Assert.notNull(result);
-			return result;
-		}
+//		public Collection<ChargeRecord> findChargeRecordsByCreditCard(int creditCardId) {
+//			CreditCard ccard = creditCardService.findOne(creditCardId);
+//			Collection<ChargeRecord> result = chargeRecordRepository.findChargeRecordsByCreditCard(ccard.getId());
+//			Assert.notNull(result);
+//			return result;
+//		}
 		
 		
 		

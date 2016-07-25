@@ -78,27 +78,27 @@ public class CampaignService {
 		
 		
 
-		public Collection<Campaign> findCampaignsByPrincipal() {
-			Manager manager = managerService.findByPrincipal();
-			Collection<Campaign> result = campaignRepository.findCampaignsByManager(manager.getId());
-			Assert.notNull(result);
-			return result;
-		}
-		public Collection<Campaign> findCampaignsByManager(int managerId) {
-			Manager manager = managerService.findOne(managerId);
-			Collection<Campaign> result = campaignRepository.findCampaignsByManager(manager.getId());
-			Assert.notNull(result);
-			return result;
-		}
-		
-		
-		public Double standardDeviationOfNumberDaysCampaignsLast() {
-			return campaignRepository.standardDeviationOfNumberDaysCampaignsLast();
-		}
-		
-		public Double averageNumberDaysCampaignsLast(){
-			return campaignRepository.averageNumberDaysCampaignsLast();
-		}
+//		public Collection<Campaign> findCampaignsByPrincipal() {
+//			Manager manager = managerService.findByPrincipal();
+//			Collection<Campaign> result = campaignRepository.findCampaignsByManager(manager.getId());
+//			Assert.notNull(result);
+//			return result;
+//		}
+//		public Collection<Campaign> findCampaignsByManager(int managerId) {
+//			Manager manager = managerService.findOne(managerId);
+//			Collection<Campaign> result = campaignRepository.findCampaignsByManager(manager.getId());
+//			Assert.notNull(result);
+//			return result;
+//		}
+//		
+//		
+//		public Double standardDeviationOfNumberDaysCampaignsLast() {
+//			return campaignRepository.standardDeviationOfNumberDaysCampaignsLast();
+//		}
+//		
+//		public Double averageNumberDaysCampaignsLast(){
+//			return campaignRepository.averageNumberDaysCampaignsLast();
+//		}
 		
 
 	

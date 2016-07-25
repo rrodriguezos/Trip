@@ -11,9 +11,9 @@ import domain.Trip;
 
 public interface TripRepository extends JpaRepository<Trip, Integer> {
 	
-	@Query("select u.trips from User u where (u.title like CONCAT('%',?1,'%') or u.description like CONCAT('%',?1,'%'))")
-	public Collection<Trip> searchByKeyword(String keyword);
-	
+//	@Query("select u.trips from User u where (u.title like CONCAT('%',?1,'%') or u.description like CONCAT('%',?1,'%'))")
+//	public Collection<Trip> searchByKeyword(String keyword);
+//	
 	
 	@Query("select u.trips from User u where u.id = ?1")
 	public Collection<Trip> findTripsByUser(int userId);

@@ -31,11 +31,13 @@
 		<value>/views/comment/messages</value>
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
+		<value>/views/anonymous/messages</value>
 		<value>/views/actor/messages</value>
 		<value>/views/slot/messages</value>
 		<value>/views/trip/messages</value>
 		<value>/views/dailyplan/messages</value>
 		<value>/views/customer/messages</value>
+		<value>/views/user/messages</value>
 		<value>/views/profile/messages</value>
 	</util:list>
 

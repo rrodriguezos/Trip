@@ -88,6 +88,10 @@ public class ActivityService {
 			return result;
 		}
 		
+		public Activity activityBySlot(int slotId){
+			return activityRepository.activityBySlot(slotId);
+		}
+		
 		public void flagActivityAsInappropriate(Activity activity) {
 			Assert.notNull(activity);
 			Administrator admin = administratorService.findByPrincipal();

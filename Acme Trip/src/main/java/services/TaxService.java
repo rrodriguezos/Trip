@@ -67,13 +67,13 @@ public class TaxService {
 		
 		// Other Business Methods ---------------------------
 		
-		public Collection<Tax> taxesByChargeRecord(int chargeRecordId){
-			return taxRepository.taxesByChargeRecord(chargeRecordId);
-		}
-		
-		public Collection<Tax> taxesByBanner(int bannerId){
-			return taxRepository.taxesByBanner(bannerId);
-		}
+//		public Collection<Tax> taxesByChargeRecord(int chargeRecordId){
+//			return taxRepository.taxesByChargeRecord(chargeRecordId);
+//		}
+//		
+//		public Collection<Tax> taxesByBanner(int bannerId){
+//			return taxRepository.taxesByBanner(bannerId);
+//		}
 		
 		
 		

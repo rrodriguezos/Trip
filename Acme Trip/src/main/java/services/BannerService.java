@@ -59,13 +59,13 @@ public class BannerService {
 
 	
 
-	public Collection<Banner> findBannersByCampaign(int campaignId) {
-		Campaign campaign = campaignService.findOne(campaignId);
-		Collection<Banner> result = bannerRepository.findBannersByCampaign(campaign
-				.getId());
-		Assert.notNull(result);
-		return result;
-	}
+//	public Collection<Banner> findBannersByCampaign(int campaignId) {
+//		Campaign campaign = campaignService.findOne(campaignId);
+//		Collection<Banner> result = bannerRepository.findBannersByCampaign(campaign
+//				.getId());
+//		Assert.notNull(result);
+//		return result;
+//	}
 
 	
 //	public Barter reconstruct(BarterForm barterForm) {

@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
 
 
-@ScriptAssert(lang = "javascript", script = "_this.password.equals(_this.repeatedPassword)")
+@ScriptAssert(lang = "javascript", script = "_this.password.equals(_this.confirmPassword)")
 public class UserRegisterForm {
 	
 	
@@ -22,7 +22,7 @@ public class UserRegisterForm {
 	private String emailAddress;
 	private String username;
 	private String password;
-	private String repeatedPassword;
+	private String confirmPassword;
 		
 	// Getters Setters----------------------------------------------------
 
@@ -64,11 +64,11 @@ public class UserRegisterForm {
 		this.password = password;
 	}
 	@NotBlank
-	public String getRepeatedPassword() {
-		return repeatedPassword;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
-	public void setRepeatedPassword(String repeatedPassword) {
-		this.repeatedPassword = repeatedPassword;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 	
 	@Email

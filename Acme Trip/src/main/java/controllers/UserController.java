@@ -77,7 +77,7 @@ public class UserController extends AbstractController {
 		User user;
 		if (binding.hasErrors()) {
 			String msg = !userRegisterForm.getPassword().equals(
-					userRegisterForm.getRepeatedPassword()) ? "actor.password.notequal"
+					userRegisterForm.getConfirmPassword()) ? "actor.password.notequal"
 					: "actor.commit.not.valid";
 			result = createEditModelAndView(userRegisterForm, msg);
 		} else {
@@ -104,6 +104,7 @@ public class UserController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("actor", "userRegisterForm");
 		result.addObject("actionURI", "user/save.do");
+		result.addObject("cancelURI", "welcome/index.do");
 		return result;
 	}
 

@@ -14,12 +14,12 @@ public interface TaxRepository  extends JpaRepository<Tax, Integer>{
 	
 	
 	
-	@Query("select c.taxes from ChargeRecord c where c.id = ?1")
-	public Collection<Tax> taxesByChargeRecord(int chargeRecordId);
-	
-	@Query("select b.taxes from Banner b where b.id = ?1")
-	public Collection<Tax> taxesByBanner(int bannerId);
-	
+//	@Query("select c.taxes from ChargeRecord c where c.id = ?1")
+//	public Collection<Tax> taxesByChargeRecord(int chargeRecordId);
+//	
+//	@Query("select b.taxes from Banner b where b.id = ?1")
+//	public Collection<Tax> taxesByBanner(int bannerId);
+//	
 
 
 }

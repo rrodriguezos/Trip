@@ -12,12 +12,12 @@ import domain.ChargeRecord;;
 public interface ChargeRecordRepository extends JpaRepository<ChargeRecord, Integer>  {
 	
 	
-	@Query("select c from ChargeRecord c where c.creditCard.id = ?1")
-	Collection<ChargeRecord> findChargeRecordsByCreditCard(int ccardId);
-	
-	
-	//no esta bien
-	@Query("select avg(c.creditCard.chargeRecord.amountMoney) from Campaing c")
-	Double averageNumberOfCommentsPerGym();
+//	@Query("select c from ChargeRecord c where c.creditCard.id = ?1")
+//	Collection<ChargeRecord> findChargeRecordsByCreditCard(int ccardId);
+//	
+//	
+//	//no esta bien
+//	@Query("select avg(c.creditCard.chargeRecord.amountMoney) from Campaing c")
+//	Double averageNumberOfCommentsPerGym();
 
 }

@@ -37,7 +37,7 @@ public class UserForm {
 		this.surname = surname;
 	}
 		
-	@NotBlank
+
 	@Pattern(regexp = "^\\+(\\d|\\d\\d)(\\(\\d\\)|\\(\\d\\d\\)|\\(\\d\\d\\d\\))?(\\d{4,9})$")
 	public String getPhone() {
 		return phone;

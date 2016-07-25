@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,29 @@ public class AnonymousController extends AbstractController {
 
 		return result;
 	}
+	
+	// Trip details ---------------------------------------------------------------		
+//	
+//	@RequestMapping(value = "/tripDetails", method = RequestMethod.GET) 
+//	public ModelAndView listTrip(@RequestParam(defaultValue="0") Integer tripId) {
+//		ModelAndView result;
+//		Trip trip = tripService.findOne(tripId);
+//		Assert.notNull(trip);
+//		Collection<DailyPlan> dailyplans = trip.getDailyplans();
+//		System.out.println(dailyplans);
+//		
+//		
+//		result = new ModelAndView("dailyplan/list");
+//		result.addObject("trip", trip);
+//		result.addObject("dailyplans", dailyplans);
+//		result.addObject("requestURI", "trip/tripDetails.do");
+//		
+//		return result;
+//	}
+	
+
+	
+	
 	
 	// Listing trips of activity types ---------------------------------------------------------------	
 	

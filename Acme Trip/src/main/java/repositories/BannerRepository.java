@@ -13,7 +13,7 @@ import domain.Banner;
 public interface BannerRepository extends JpaRepository<Banner, Integer>  {
 	
 	
-	@Query("select b from Banner b where b.campaign.id = ?1 and b.campaign.getIsActive = true")
-	Collection<Banner> findBannersByCampaign(int campaignId);
+//	@Query("select b from Banner b where b.campaign.id = ?1 and b.campaign.getIsActive = true")
+//	Collection<Banner> findBannersByCampaign(int campaignId);
 
 }

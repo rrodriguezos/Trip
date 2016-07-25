@@ -1129,6 +1129,9 @@
 		</property>
 		<property name="photos">
 			<list>
+			<value>https://content.edmc.edu/assets/modules/ContentWebParts/AI/Locations/New-York-City/startpage-masthead-slide.jpg</value>
+			<value>https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2625/SITours/new-york-city-hop-on-hop-off-tour-in-new-york-city-292892.jpg</value>
+			<value>http://cdn.ek.aero/es/spanish/images/New-York-1_tcm466-2256848.jpg</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1152,6 +1155,7 @@
 		</property>
 		<property name="photos">
 			<list>
+			<value>http://i1.mendozapost.com/files/image/78/78129/573af901ab40d.jpg</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1174,6 +1178,7 @@
 		</property>
 		<property name="photos">
 			<list>
+			<value>http://www.deanshu.com/wp-content/uploads/2015/03/harvard7_revised.jpg</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1196,6 +1201,7 @@
 		</property>
 		<property name="photos">
 			<list>
+			<value>http://image.posta.com.mx/sites/default/files/photo-epel-stanford-campus.jpg</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1218,6 +1224,8 @@
 		</property>
 		<property name="photos">
 			<list>
+			<value>http://dominio.fm/wp-content/uploads/2016/05/132164119557.jpg</value>
+			<value>http://www.nuevayork.com/wp-content/uploads/2014/10/Excursion-de-un-dia-a-Washington-DC-Monumento.jpg</value>
 			</list>
 		</property>
 		<property name="comments">
