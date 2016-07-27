@@ -22,9 +22,11 @@
 		<value>/views/trip/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
 		<value>/views/activity/tiles.xml</value>
+		<value>/views/search/tiles.xml</value>
 		<value>/views/activitytype/tiles.xml</value>
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/dailyplan/tiles.xml</value>
+		<value>/views/legality/tiles.xml</value>
 		<value>/views/slot/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
 		<value>/views/anonymous/tiles.xml</value>	

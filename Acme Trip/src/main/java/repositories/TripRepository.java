@@ -11,12 +11,23 @@ import domain.Trip;
 
 public interface TripRepository extends JpaRepository<Trip, Integer> {
 	
-//	@Query("select u.trips from User u where (u.title like CONCAT('%',?1,'%') or u.description like CONCAT('%',?1,'%'))")
-//	public Collection<Trip> searchByKeyword(String keyword);
-//	
+	@Query("select DISTINCT t from Trip t join t.dailyplans " +
+			"r join r.slots s where (t.title like concat('%', concat(?1,'%')) or " +
+			"t.description like concat('%', concat(?1,'%')) or " +
+			"r.title like concat('%', concat(?1,'%')) or r.description like concat(" +
+			"'%', concat(?1,'%')) or s.title like concat('%', concat(?1,'%'))or " +
+			"s.description like concat('%', concat(?1,'%'))or s.activity.title like concat" +
+			"('%', concat(?1,'%'))or s.activity.description like concat('%', concat(?1,'%')))")
+	public Collection<Trip> searchByKeyword(String keyword);
+	
 	
 	@Query("select u.trips from User u where u.id = ?1")
 	public Collection<Trip> findTripsByUser(int userId);
+	
+	@Query("select d.trip from DailyPlan d where d.id = ?1")
+	public Trip tripByDailyplan(int dailyplanId);
+	
+
 	
 	
 	@Query("select avg(u.trips.size) from User u")

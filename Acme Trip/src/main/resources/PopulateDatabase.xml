@@ -471,6 +471,8 @@
 		<property name="activities">
 			<list>
 				<ref bean="activity1" />
+				<ref bean="activity2" />
+				<ref bean="activity3" />
 			</list>
 		</property>
 	</bean>
@@ -479,7 +481,6 @@
 		<property name="name" value="activity type 2" />
 		<property name="activities">
 			<list>
-				<ref bean="activity2" />
 			</list>
 		</property>
 	</bean>
@@ -488,7 +489,6 @@
 		<property name="name" value="activity type 3" />
 		<property name="activities">
 			<list>
-				<ref bean="activity3" />
 			</list>
 		</property>
 	</bean>
@@ -864,7 +864,7 @@
 		<property name="description" value="Activity description 2" />
 		<property name="title" value="Activity title 2" />
 		<property name="user" ref="user1" />
-		<property name="activityType" ref="activitytype2" />
+		<property name="activityType" ref="activitytype1" />
 		<property name="photos">
 			<list>
 			</list>
@@ -887,7 +887,7 @@
 		<property name="description" value="Activity description 3" />
 		<property name="title" value="Activity title 3" />
 		<property name="user" ref="user1" />
-		<property name="activityType" ref="activitytype3" />
+		<property name="activityType" ref="activitytype1" />
 		<property name="photos">
 			<list>
 			</list>

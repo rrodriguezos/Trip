@@ -52,24 +52,21 @@ public class AnonymousController extends AbstractController {
 		return result;
 	}
 	
-	// Trip details ---------------------------------------------------------------		
-//	
-//	@RequestMapping(value = "/tripDetails", method = RequestMethod.GET) 
-//	public ModelAndView listTrip(@RequestParam(defaultValue="0") Integer tripId) {
-//		ModelAndView result;
-//		Trip trip = tripService.findOne(tripId);
-//		Assert.notNull(trip);
-//		Collection<DailyPlan> dailyplans = trip.getDailyplans();
-//		System.out.println(dailyplans);
-//		
-//		
-//		result = new ModelAndView("dailyplan/list");
-//		result.addObject("trip", trip);
-//		result.addObject("dailyplans", dailyplans);
-//		result.addObject("requestURI", "trip/tripDetails.do");
-//		
-//		return result;
-//	}
+	// Listing activity Types  ---------------------------------------------------------------		
+	
+		@RequestMapping(value = "/activitytypes", method = RequestMethod.GET)
+		public ModelAndView listActivityTypes() {
+			ModelAndView result;
+			Collection <ActivityType> activitytypes = activityTypeService.findAll();
+			
+			result = new ModelAndView("anonymous/activitytypes");
+			result.addObject("activitytypes", activitytypes);
+			result.addObject("requestURI", "anonymous/activitytypes.do");
+
+			return result;
+		}
+		
+	
 	
 
 	
@@ -114,25 +111,9 @@ public class AnonymousController extends AbstractController {
 
 		return result;
 	}
-		
 	
 	
-	// Search trips ---------------------------------------------------------------		
 	
-//	@RequestMapping(value = "/searchTrips", method = RequestMethod.GET)
-//	public ModelAndView searchBulletins(@RequestParam(defaultValue="") String q) {
-//		ModelAndView result;
-//		
-//		if("".equals(q)) {
-//			result = new ModelAndView("redirect:bartersCatalogue.do");
-//		} else {
-//			result = new ModelAndView("public/bartersCatalogue");
-//			result.addObject("q", q);
-//			result.addObject("barters", tripService.searchByKeyword(q));
-//			result.addObject("requestURI", "public/searchBarters.do");
-//		}
-//		
-//		return result;
-//	}
-//	
+	
+	
 }

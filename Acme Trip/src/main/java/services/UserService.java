@@ -15,6 +15,7 @@ import domain.Administrator;
 import domain.Comment;
 import domain.Trip;
 import domain.User;
+import forms.ActorForm;
 import forms.UserForm;
 import forms.UserRegisterForm;
 
@@ -135,21 +136,24 @@ public class UserService {
 		return result;
 	}
 
-	public User reconstruct(UserForm userForm) {
-		User result = findByPrincipal();
 
-		result.setEmailAddress(userForm.getEmailAddress());
-		result.setName(userForm.getName());
-		result.setPhone(userForm.getPhone());
-		result.setSurname(userForm.getSurname());
-
-		if (!userForm.getPassword().equals("")) {
-			Md5PasswordEncoder password = new Md5PasswordEncoder();
-			String encodedPassword = password.encodePassword(
-					userForm.getPassword(), null);
-			result.getUserAccount().setPassword(encodedPassword);
-		}
-		return result;
+	public User reconstruct(ActorForm actorForm) {
+		User principal = findByPrincipal();
+		Assert.notNull(principal);
+		principal.setName(actorForm.getName());
+		principal.setSurname(actorForm.getSurname());
+		principal.setPhone(actorForm.getPhone());
+		return principal;
 	}
+	
+	
+	public boolean isWrongPassword(String confirmPassword) {
+		User u = findByPrincipal();
+		Assert.notNull(u);
+		Md5PasswordEncoder password = new Md5PasswordEncoder();
+		String encodedPassword = password.encodePassword(confirmPassword, null);
+		return !u.getUserAccount().getPassword().equals(encodedPassword);
+	}
+
 
 }

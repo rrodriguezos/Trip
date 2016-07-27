@@ -18,18 +18,15 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="comments" />
+	<form:hidden path="users" />
 	
 	<table class="formTable">
 		<tr><td><acme:textbox code="trip.title" path="title"/></td></tr>
 		<tr><td><acme:textarea code="trip.description" path="description"/></td></tr>
 		<tr><td><acme:textbox code="trip.startDate" path="startDate" /></td></tr>
 		<tr><td><acme:textbox code="trip.endDate" path="endDate" /></td></tr>
-		<tr><td><acme:textbox code="trip.photos" path="photos"/><tr><td>
-
-		<tr><td><acme:select code="trip.dailyplans" path="dailyplans" items="${dailyplans}" itemLabel="title" id="dailyplans" /></td></tr>
-		
-		
-		<tr>
+		<tr><td><acme:textbox code="trip.photos" path="photos"/><tr><td>		
+		<tr><td><acme:select code="trip.dailyplans" path="dailyplans" items="${trip.dailyplans}" itemLabel="title" id="dailyplans" /></td></tr>
 
 			
 			<td>

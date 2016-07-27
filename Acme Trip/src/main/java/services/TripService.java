@@ -52,16 +52,20 @@ public class TripService {
 	// Simple CRUD Methods -----------------------------
 
 	public Trip create() {
-		Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
+		User user = userService.findByPrincipal();
+		Assert.notNull(user);
 		Trip result = new Trip();
 		result.setDailyplans(new ArrayList<DailyPlan>());
 		result.setComments(new ArrayList<Comment>());
+		result.setUsers(new ArrayList<User>());
 		return result;
 	}
 
-	public Trip save(Trip trip) {
-		Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
-		return tripRepository.save(trip);
+	public void save(Trip trip) {
+		Assert.notNull(trip);
+		User user = userService.findByPrincipal();
+		Assert.notNull(user);		
+		tripRepository.saveAndFlush(trip);
 	}
 
 	public void delete(Trip trip) {
@@ -108,6 +112,14 @@ public class TripService {
 		Assert.notNull(result);
 		return result;
 	}
+	
+	
+	public Trip tripByDailyplan(int dailyPlanId){
+		
+		return tripRepository.tripByDailyplan(dailyPlanId);
+	
+	}
+	
 
 	public Collection<Trip> tripsByActivityType(int activityTypeId) {
 		Collection<Trip> trips = null;
@@ -134,10 +146,10 @@ public class TripService {
 
 	}
 
-//	public Collection<Trip> searchByKeyword(String keyword) {
-//
-//		return tripRepository.searchByKeyword(keyword);
-//	}
+	public Collection<Trip> searchByKeyword(String keyword) {
+
+		return tripRepository.searchByKeyword(keyword);
+	}
 	
 	public void checkPrincipalByJoinedUser(Trip trip) {
 

@@ -23,133 +23,117 @@ import domain.CreditCard;
 import domain.Folder;
 import domain.Manager;
 import domain.User;
+import forms.RegisterForm;
+import forms.UserRegisterForm;
 
 @Service
 @Transactional
 public class ManagerService {
-	
-	//Managed repository ----------------------
-			@Autowired
-			private ManagerRepository managerRepository;
-			
-			//Supporting services ---------------------
-			
-			@Autowired
-			private FolderService folderService;
-			@Autowired
-			private AdministratorService administratorService;
-			
-			//Constructors ----------------------------
-			public ManagerService() {
-				super();
-			}
-			
-			//Simple CRUD methods ---------------------
-			
-			public Collection <Manager> findAll(){
-				return managerRepository.findAll();
-			}
-			
 
-			public Manager create(){
-				Administrator principal = administratorService.findByPrincipal();
-				Assert.notNull(principal);
-				Manager result = new Manager();
-				result.setCampaigns(new ArrayList<Campaign>());
-				result.setComments(new ArrayList<Comment>());
-				result.setCreditCards(new ArrayList<CreditCard>());
-				
-				Authority auth = new Authority();
-				auth.setAuthority("MANAGER");
-				Collection<Authority> lia = new ArrayList<Authority>();
-				lia.add(auth);
-				UserAccount ua = new UserAccount();
-				ua.setAuthorities(lia);
-				result.setUserAccount(ua);
-				
-				return result;
-			}
-			
-			public Manager save(Manager manager) {
-				if(manager.getId()==0){
-					Assert.isTrue(!DPUtils.hasRole(Authority.MANAGER,Authority.ADMIN), DPMessage.ALREADY_REGISTERED);
-					Md5PasswordEncoder password = new Md5PasswordEncoder();
-					String encodedPassword = password.encodePassword(manager.getUserAccount().getPassword(), null);
-					manager.getUserAccount().setPassword(encodedPassword);
-					Assert.notNull(manager);
-				}
-				return managerRepository.save(manager);
-			}
-			
-			//Other business methods ------------------
-			public Manager findByPrincipal() {
-				Manager result;
-				UserAccount userAccount;
-				userAccount = LoginService.getPrincipal();
-				Assert.notNull(userAccount);
-				result = findByUserAccount(userAccount);
-				Assert.notNull(result);
-				return result;
-			}
-			
-			public Manager findByUserAccount(UserAccount userAccount) {
-				Assert.notNull(userAccount);
-				Manager result;
-				result = managerRepository.findByUserAccount(userAccount.getId());
-				return result;
-			}
+	// Managed repository ----------------------
+	@Autowired
+	private ManagerRepository managerRepository;
 
-			public Manager findOne(Integer profileId) {
-				return managerRepository.findOne(profileId);
-			}
+	// Supporting services ---------------------
 
-//			public User reconstruct(CustomerRegisterForm customerForm) {
-//				User result = create();
-	//
-//				result.setBookings(new ArrayList<Booking>());
-//				result.setFeePayments(new ArrayList<FeePayment>());
-//				result.setComments(new ArrayList<Comment>());
-//				folderService.generateSystemFolders(result);
-//				result.setLink(customerForm.getLink());
-//				result.setName(customerForm.getName());
-//				result.setNick(customerForm.getNick());
-//				result.setPhone(customerForm.getPhone());
-//				result.setPhoto(customerForm.getPhoto());
-//				result.setSocialNetwork(customerForm.getSocialNetwork());
-//				result.setSurname(customerForm.getSurname());
-//				
-//				Authority auth = new Authority();
-//				auth.setAuthority("CUSTOMER");
-//				Collection<Authority> lia = new ArrayList<Authority>();
-//				lia.add(auth);
-//				UserAccount ua = new UserAccount();
-//				ua.setAuthorities(lia);
-//				ua.setUsername(customerForm.getUsername());
-//				ua.setPassword(customerForm.getPassword());
-//				result.setUserAccount(ua);
-//				return result;
-//			}
-//			
-//			public Customer reconstruct(CustomerForm customerForm) {
-//				Customer result = findByPrincipal();
-	//
-//				result.setLink(customerForm.getLink());
-//				result.setName(customerForm.getName());
-//				result.setNick(customerForm.getNick());
-//				result.setPhone(customerForm.getPhone());
-//				result.setPhoto(customerForm.getPhoto());
-//				result.setSocialNetwork(customerForm.getSocialNetwork());
-//				result.setSurname(customerForm.getSurname());
-//				
-//				if (!customerForm.getPassword().equals("")){			
-//					Md5PasswordEncoder password = new Md5PasswordEncoder();
-//					String encodedPassword = password.encodePassword(customerForm.getPassword(), null);
-//					result.getUserAccount().setPassword(encodedPassword);
-//				}
-//				return result;
-//			}
+	@Autowired
+	private FolderService folderService;
+	@Autowired
+	private AdministratorService administratorService;
+
+	// Constructors ----------------------------
+	public ManagerService() {
+		super();
+	}
+
+	// Simple CRUD methods ---------------------
+
+	public Collection<Manager> findAll() {
+		return managerRepository.findAll();
+	}
+
+	public Manager create() {
+		Administrator principal = administratorService.findByPrincipal();
+		Assert.notNull(principal);
+		Manager result = new Manager();
+
+		Authority auth = new Authority();
+		auth.setAuthority("MANAGER");
+		Collection<Authority> lia = new ArrayList<Authority>();
+		lia.add(auth);
+		UserAccount ua = new UserAccount();
+		ua.setAuthorities(lia);
+		result.setUserAccount(ua);
+		
+		return result;
+	}
+
+	public void save(Manager manager) {
+		Assert.notNull(manager);
+		if(manager.getId()==0){//Saving as admin
+			//Encoding Password
+			Administrator principal = administratorService.findByPrincipal();
+			Assert.notNull(principal);
+			Md5PasswordEncoder password = new Md5PasswordEncoder();
+			String encodedPassword = password.encodePassword(manager.getUserAccount().getPassword(), null);
+			manager.getUserAccount().setPassword(encodedPassword);
 			
-			
-			
+		} else {//Only principal can modify its profile
+			Manager principal = findByPrincipal();
+			Assert.notNull(principal);
+			Assert.isTrue(manager.getId()==principal.getId());
+		}
+		managerRepository.saveAndFlush(manager);
+	}
+
+	// Other business methods ------------------
+	public Manager findByPrincipal() {
+		Manager result;
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		result = findByUserAccount(userAccount);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Manager findByUserAccount(UserAccount userAccount) {
+		Assert.notNull(userAccount);
+		Manager result;
+		result = managerRepository.findByUserAccount(userAccount.getId());
+		return result;
+	}
+
+	public Manager findOne(Integer profileId) {
+		return managerRepository.findOne(profileId);
+	}
+
+	public Manager reconstruct(UserRegisterForm registerForm) {
+		Manager result = new Manager();
+
+		result.setComments(new ArrayList<Comment>());
+		result.setCampaigns(new ArrayList<Campaign>());
+		result.setCreditCards(new ArrayList<CreditCard>());
+		folderService.generateSystemFolders(result);
+		result.setEmailAddress(registerForm.getEmailAddress());
+		result.setName(registerForm.getName());
+		result.setPhone(registerForm.getPhone());
+		result.setSurname(registerForm.getSurname());
+
+		Authority auth = new Authority();
+		auth.setAuthority("MANAGER");
+		Collection<Authority> lia = new ArrayList<Authority>();
+		lia.add(auth);
+		UserAccount ua = new UserAccount();
+		ua.setAuthorities(lia);
+		ua.setUsername(registerForm.getUsername());
+		ua.setPassword(registerForm.getPassword());
+		result.setUserAccount(ua);
+		return result;
+	}
+
+	public void checkPrincipal() {
+		Assert.isTrue(findByPrincipal() != null);
+	}
 
 }

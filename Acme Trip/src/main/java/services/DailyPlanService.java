@@ -80,6 +80,11 @@ public class DailyPlanService {
 			return dailyPlanRepository.dailyPlansByTrip(tripId);
 		}
 		
+		public DailyPlan dailyPlanBySlot(int slotId){
+			return dailyPlanRepository.dailyPlanBySlot(slotId);
+		}
+		
+		
 
 		public Double standardDeviationOfDailyPlansByTrip() {
 			return dailyPlanRepository.standardDeviationOfDailyPlansByTrip();

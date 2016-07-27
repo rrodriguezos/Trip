@@ -11,14 +11,9 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <jsp:useBean id="date" class="java.util.Date" />
 
 <hr />
 
-
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme Trip Co., Inc.</b>
-<div class="links">
-	<a onclick="toggle('#privacy')"><spring:message	code="master.privacy.name" /></a> | <a onclick="toggle('#cookies')"><spring:message	code="master.cookies.name" /></a>
-</div>

@@ -25,7 +25,7 @@ public class ActivityTypeController extends AbstractController   {
 		super();
 	}
 	
-	//Listing by gym ---------------
+	//Listing by Activity ---------------
 	@RequestMapping(value="/listByActivity", method = RequestMethod.GET)
 	public ModelAndView listByActivity(@RequestParam int activityId) {
 		ModelAndView result;

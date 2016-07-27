@@ -52,7 +52,7 @@ public class UserController extends AbstractController {
 
 		result.addObject("users", users);
 		result.addObject("actor", "users");
-		result.addObject("requestURI", "user/list.do");
+		result.addObject("requestURI", "users/list.do");
 
 		return result;
 	}

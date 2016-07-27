@@ -13,6 +13,12 @@
 		<put-attribute name="title" value="See Activity" />
 		<put-attribute name="body" value="/views/activity/list.jsp" />
 	</definition>
+	
+	<definition name="activity/listAll" extends="master.page">
+  <put-attribute name="title" value="See Activities" /> 
+  <put-attribute name="body" value="/views/activity/listAll.jsp" /> 
+  </definition>
+	
 	<definition name="activity/edit" extends="master.page">
 		<put-attribute name="title" value="Register User: Edit Activity" />
 		<put-attribute name="body" value="/views/activity/edit.jsp" />

@@ -15,8 +15,14 @@ import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Activity;
 import domain.Administrator;
+import domain.Comment;
+import domain.Trip;
+import domain.User;
 import forms.AdministratorForm;
+import forms.RegisterForm;
+import forms.UserRegisterForm;
 
 @Service
 @Transactional
@@ -27,7 +33,12 @@ public class AdministratorService {
 		@Autowired
 		private AdministratorRepository administratorRepository;
 		
+		
 		//Supporting services ----------------------
+		
+		
+		@Autowired
+		private FolderService folderService;
 		
 		
 		//Constructors -----------------------------
@@ -37,32 +48,45 @@ public class AdministratorService {
 		
 		//Simple CRUD methods ----------------------
 		
-		//An administrators must be able to register a new trainer to the system
 		public Administrator create(){
+			Administrator principal = this.findByPrincipal();
+			Assert.notNull(principal);
 			Administrator result = new Administrator();
-			
+
 			Authority auth = new Authority();
-			auth.setAuthority("ADMIN");
+			auth.setAuthority("ADMINISTRATOR");
 			Collection<Authority> lia = new ArrayList<Authority>();
 			lia.add(auth);
 			UserAccount ua = new UserAccount();
 			ua.setAuthorities(lia);
 			result.setUserAccount(ua);
+			
 			return result;
 		}
 		
-		
-		public Collection<Administrator> findAll(){
-			return administratorRepository.findAll();
+		public Collection<Administrator> findAll() {
+			Assert.notNull(this.findByPrincipal());
+			Collection<Administrator> result = administratorRepository.findAll();
+			Assert.notNull(result);
+			return result;
+		}
+
+		public void save(Administrator administrator) {
+			checkPrincipal();
+			Assert.notNull(administrator);
+			Assert.isTrue(administrator.getName() != ""
+					&& administrator.getSurname() != "" && administrator.getEmailAddress()!= "");
+			administratorRepository.saveAndFlush(administrator);
+		}
+
+		// Other Business Methods ---------------------------
+		public Administrator findByUserAccount(UserAccount userAccount) {
+			Assert.notNull(userAccount);
+			Administrator result;
+			result = administratorRepository.findByUserAccount(userAccount.getId());
+			return result;
 		}
 		
-		public Administrator save(Administrator administrator){
-			Administrator ad = findByPrincipal();
-			Assert.notNull(ad);
-			return administratorRepository.save(administrator);
-		}
-		
-		//Other business methods -------------------
 		public Administrator findByPrincipal() {
 			Administrator result;
 			UserAccount userAccount;
@@ -72,28 +96,30 @@ public class AdministratorService {
 			Assert.notNull(result);
 			return result;
 		}
-		
-		public Administrator findByUserAccount(UserAccount userAccount) {
-			Assert.notNull(userAccount);
-			Administrator result;
-			result = administratorRepository.findByUserAccount(userAccount.getId());
+
+		public Administrator reconstruct(UserRegisterForm registerForm) {
+			Administrator result = new Administrator();
+
+			result.setComments(new ArrayList<Comment>());
+			folderService.generateSystemFolders(result);
+			result.setEmailAddress(registerForm.getEmailAddress());
+			result.setName(registerForm.getName());
+			result.setPhone(registerForm.getPhone());
+			result.setSurname(registerForm.getSurname());
+
+			Authority auth = new Authority();
+			auth.setAuthority("ADMIN");
+			Collection<Authority> lia = new ArrayList<Authority>();
+			lia.add(auth);
+			UserAccount ua = new UserAccount();
+			ua.setAuthorities(lia);
+			ua.setUsername(registerForm.getUsername());
+			ua.setPassword(registerForm.getPassword());
+			result.setUserAccount(ua);
 			return result;
 		}
-
-		public Administrator reconstruct(AdministratorForm administratorForm) {
-			Administrator result = findByPrincipal();
-
-			result.setName(administratorForm.getName());
-			result.setPhone(administratorForm.getPhone());
-			result.setSurname(administratorForm.getSurname());
-			result.setEmailAddress(administratorForm.getEmailAddress());
-			
-			if (!administratorForm.getPassword().equals("")){			
-				Md5PasswordEncoder password = new Md5PasswordEncoder();
-				String encodedPassword = password.encodePassword(administratorForm.getPassword(), null);
-				result.getUserAccount().setPassword(encodedPassword);
-			}
-			return result;
+		public void checkPrincipal() {
+			Assert.isTrue(findByPrincipal() != null);
 		}
 		
 

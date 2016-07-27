@@ -1,4 +1,3 @@
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="acme"	tagdir="/WEB-INF/tags"%>
@@ -11,19 +10,13 @@
    
 <form:form action="message/edit.do" modelAttribute="messageForm" >  
 
-	<table class="formTable">
-		<tr><td><acme:select code="recipient.name" path="recipient" items="${actors}" itemLabel="name" id="actors" /></td></tr>
-		<tr><td><acme:textbox code="message.subject" path="subject"/></td></tr>
-		<tr><td><acme:textarea code="message.body" path="body"/></td></tr>
-		
-			<tr>
-			<td>
-				<acme:submit name="save" code="common.save"/>
-			</td>
-			
-			<td>
-				<acme:cancel url="folder/list.do" code="common.cancel"/>
-			</td>
-		</tr>
-	</table>
+	<acme:select code="recipient.name" path="recipient" items="${actors}" itemLabel="name" id="actors" />
+	<acme:textbox code="message.subject" path="subject"/>
+	<acme:textbox code="message.messagePriority" path="messagePriority"/>
+	<acme:textarea code="message.body" path="body"/>
+
+	<acme:submit name="save" code="message.save"/>
+
+	<acme:cancel url="folder/list.do" code="message.cancel"/>
+
 </form:form>

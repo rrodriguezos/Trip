@@ -19,6 +19,12 @@
   <put-attribute name="title" value="Ver Ranuras" /> 
   <put-attribute name="body" value="/views/slot/list.jsp" /> 
   </definition>
+  
+   <definition name="slot/listAll" extends="master.page">
+  <put-attribute name="title" value="Ver Ranuras" /> 
+  <put-attribute name="body" value="/views/slot/listAll.jsp" /> 
+  </definition>
+  
  <definition name="slot/edit" extends="master.page">
   <put-attribute name="title" value="Usuario registrado: Editar Ranura" /> 
   <put-attribute name="body" value="/views/slot/edit.jsp" /> 

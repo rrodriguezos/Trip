@@ -21,5 +21,9 @@
 		<put-attribute name="body" value="/views/anonymous/tripsCatalogue.jsp" />
 	</definition>
 	
+			<definition name="anonymous/activitytypes" extends="master.page">	
+		<put-attribute name="title" value="List Activity Types" />
+		<put-attribute name="body" value="/views/anonymous/activitytypes.jsp" />
+	</definition>
 	
 </tiles-definitions>

@@ -1,9 +1,14 @@
 package forms;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+
+import domain.Message.MessagePriority;
 
 public class MessageForm {
 	
@@ -13,6 +18,11 @@ public class MessageForm {
 		}
 			
 		//Attributes -------------------------------
+		public enum MessagePriority
+		{
+			LOW,NEUTRAL,HIGH;
+		}
+		private MessagePriority messagePriority;
 		private String subject;
 		private String body;
 		private int recipient;
@@ -42,6 +52,15 @@ public class MessageForm {
 		}
 		public void setRecipient(int recipient) {
 			this.recipient = recipient;
+		}
+		@NotNull
+		@Enumerated(EnumType.STRING)
+		public MessagePriority getMessagePriority() {
+			return messagePriority;
+		}
+
+		public void setMessagePriority(MessagePriority messagePriority) {
+			this.messagePriority = messagePriority;
 		}
 
 }

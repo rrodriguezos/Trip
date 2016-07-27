@@ -24,19 +24,29 @@
  
 <%@ attribute name="path" required="true" %>
 <%@ attribute name="code" required="true" %>
+<%@ attribute name="value" required="false" %>
+<%@ attribute name="test" required="false" %>
 
 <%@ attribute name="readonly" required="false" %>
 
 <jstl:if test="${readonly == null}">
 	<jstl:set var="readonly" value="false" />
 </jstl:if>
+<jstl:if test="${value == null}">
+	<jstl:set var="value" value="" />
+</jstl:if>
+<jstl:if test="${test == null}">
+	<jstl:set var="test" value="true" />
+</jstl:if>
 
 <%-- Definition --%>
 
+<jstl:if test="${test}">
 <div>
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>	
-	<form:input path="${path}" readonly="${readonly}" />	
+	<form:input path="${path}" value="${value}" readonly="${readonly}" />	
 	<form:errors path="${path}" cssClass="error" />
 </div>	
+</jstl:if>

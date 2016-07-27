@@ -29,7 +29,7 @@ public class ActivityController  extends AbstractController  {
 				super();
 			}
 			
-			//Listing by gym ---------------
+			//Listing by slot ---------------
 			@RequestMapping(value="/listBySlot", method = RequestMethod.GET)
 			public ModelAndView listBySlot(@RequestParam int slotId) {
 				ModelAndView result;
@@ -37,6 +37,17 @@ public class ActivityController  extends AbstractController  {
 				result = new ModelAndView("activity/list");
 				result.addObject("activity", activity);
 				result.addObject("requestURI", "activity/listBySlot.do");
+				return result;
+			}
+			
+			//Listing by navigate from activity type ---------------
+			@RequestMapping(value="/navigateByActivitytype", method = RequestMethod.GET)
+			public ModelAndView navigateByActivitytype(@RequestParam int activitytypeId) {
+				ModelAndView result;
+				Collection<Activity> activities = activityService.activitiesByActivityType(activitytypeId);
+				result = new ModelAndView("activity/listAll");
+				result.addObject("activities", activities);
+				result.addObject("requestURI", "activities/navigateByActivitytype.do");
 				return result;
 			}
 

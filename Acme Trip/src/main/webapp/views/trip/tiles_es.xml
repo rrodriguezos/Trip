@@ -21,9 +21,20 @@
 		<put-attribute name="body" value="/views/trip/list.jsp" />
 	</definition>
 	
-	<definition name="trip/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar viaje" />
-		<put-attribute name="body" value="/views/trip/edit.jsp" />
+	<definition name="trip/user/list" extends="master.page">	
+		<put-attribute name="title" value="Ver mis viajes" />
+		<put-attribute name="body" value="/views/trip/list.jsp" />
 	</definition>
 	
-</tiles-definitions>
+	
+	<definition name="trip/listAll" extends="master.page">	
+		<put-attribute name="title" value="Ver viaje" />
+		<put-attribute name="body" value="/views/trip/listAll.jsp" />
+	</definition>
+	
+<definition name="trip/user/edit" extends="master.page">
+  <put-attribute name="title" value="Usuario registrado: Editar viaje" /> 
+  <put-attribute name="body" value="/views/trip/edit.jsp" /> 
+  </definition>
+  </tiles-definitions>
+	

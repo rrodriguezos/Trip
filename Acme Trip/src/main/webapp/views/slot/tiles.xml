@@ -13,6 +13,12 @@
 		<put-attribute name="title" value="See Slots" />
 		<put-attribute name="body" value="/views/slot/list.jsp" />
 	</definition>
+	
+	   <definition name="slot/listAll" extends="master.page">
+  <put-attribute name="title" value="See Slots" /> 
+  <put-attribute name="body" value="/views/slot/listAll.jsp" /> 
+  </definition>
+	
 	<definition name="slot/edit" extends="master.page">
 		<put-attribute name="title" value="Register User: Edit Slot" />
 		<put-attribute name="body" value="/views/slot/edit.jsp" />

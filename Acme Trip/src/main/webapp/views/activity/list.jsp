@@ -49,6 +49,12 @@
 						href="activitytype/listByActivity.do?activityId=<jstl:out value="${row.id}"/> "><spring:message
 							code="activity.activityType" /></a>
 				</display:column>
+				
+				<display:column>
+      <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
+        <spring:message code="activity.comment" />
+      </a>
+    </display:column>
 				</display:table>
 				</jstl:when>
 

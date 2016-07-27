@@ -19,6 +19,12 @@
   <put-attribute name="title" value="Ver Planes Diarios" /> 
   <put-attribute name="body" value="/views/dailyplan/list.jsp" /> 
   </definition>
+  
+   <definition name="dailyplan/listAll" extends="master.page">
+  <put-attribute name="title" value="Ver Plan Diario" /> 
+  <put-attribute name="body" value="/views/dailyplan/listAll.jsp" /> 
+  </definition>
+  
  <definition name="dailyplan/edit" extends="master.page">
   <put-attribute name="title" value="Usuario registrado: Editar Plan Diario" /> 
   <put-attribute name="body" value="/views/dailyplan/edit.jsp" /> 

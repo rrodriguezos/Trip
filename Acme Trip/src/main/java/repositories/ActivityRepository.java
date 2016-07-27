@@ -19,5 +19,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 	
 	@Query("select s.activity from Slot s where s.id = ?1")
 	public Activity activityBySlot(int slotId);
+	
+	@Query("select a.activities from ActivityType a where a.id = ?1")
+	public Collection<Activity> activitiesByActivityType(int activitytypeId);
 
 }

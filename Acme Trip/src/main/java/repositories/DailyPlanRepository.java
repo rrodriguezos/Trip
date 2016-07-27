@@ -14,6 +14,9 @@ public interface DailyPlanRepository extends JpaRepository<DailyPlan, Integer> {
 	@Query("select t.dailyplans from Trip t where t.id = ?1")
 	public Collection<DailyPlan> dailyPlansByTrip(int tripId);
 	
+	@Query("select s.dailyplan from Slot s where s.id = ?1")
+	public DailyPlan dailyPlanBySlot(int slotId);
+	
 	
 	@Query("select avg(t.dailyplans.size) from Trip t")
 	Double averageNumberOfDailyPlansByTrip();

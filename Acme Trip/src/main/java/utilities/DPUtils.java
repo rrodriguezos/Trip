@@ -47,7 +47,7 @@ public class DPUtils {
 		return res;
 	}
 	
-	public static String calculateNextOrderTicker(String previousTicker) { //previousTicker en formato xxxxxx-xxxx
+	public static String calculateNextOrderTicker(String previousTicker) { 
 		
 		if(previousTicker == null) {
 			return "000000-0000";

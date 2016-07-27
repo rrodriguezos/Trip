@@ -92,6 +92,10 @@ public class ActivityService {
 			return activityRepository.activityBySlot(slotId);
 		}
 		
+		public Collection<Activity> activitiesByActivityType(int activitytypeId){
+			return activityRepository.activitiesByActivityType(activitytypeId);
+		}
+		
 		public void flagActivityAsInappropriate(Activity activity) {
 			Assert.notNull(activity);
 			Administrator admin = administratorService.findByPrincipal();

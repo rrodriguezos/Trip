@@ -18,12 +18,12 @@
 	
 	<definition name="folder/list" extends="master.page">	
 		<put-attribute name="title" value="Profile: Mail folder" />
-		<put-attribute name="body" value="/views/folder/listFolder.jsp" />
+		<put-attribute name="body" value="/views/folder/list.jsp" />
 	</definition>
 	
 	<definition name="folder/edit" extends="master.page">	
 		<put-attribute name="title" value="Profile: Create mail folder" />
-		<put-attribute name="body" value="/views/folder/editFolder.jsp" />
+		<put-attribute name="body" value="/views/folder/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

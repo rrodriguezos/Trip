@@ -58,37 +58,45 @@ public class MessageService {
 		public void save(Message message) {
 			Assert.notNull(message);
 			if (message.getId() == 0) {
-				Message message2 = new Message();			
+				Message message2 = new Message();
+							
+				message2.setBody(message.getBody());
+				message2.setMoment(message.getMoment());
+				message2.setRecipient(message.getRecipient());
+				message2.setMessagePriority(message.getMessagePriority());
+				message2.setSender(message.getSender());
+				message2.setSubject(message.getSubject());
+				message2.setFolder(folderService.findInFolderOfActor(message.getRecipient().getId()));
+
+				message2.getFolder().getMessages().add(message2);
+				folderService.save(message2.getFolder());
+				messageRepository.saveAndFlush(message2);
 				
-				message.setBody(message.getBody());
-				message.setMoment(message.getMoment());
-				message.setRecipient(message.getRecipient());
-				message.setSender(message.getSender());
-				message.setSubject(message.getSubject());				
-			
+				message.getFolder().getMessages().add(message);
+				folderService.save(message.getFolder());
 			}
-			messageRepository.save(message);
+			messageRepository.saveAndFlush(message);
 		}
 		
 		public void delete(Message message) {
-			Collection <Message> messages = new HashSet <Message>();
-			if (!message.getFolder().getName().equals("Trash Folder")) {
-				Collection<Message> messagesOrigin = message.getFolder().getMessages();
-				messagesOrigin.remove(message);
-		
-				messages.addAll(messagesOrigin);
-				//messageRepository.delete(message);
+			Assert.notNull(message);
+			Actor actor = actorService.findByPrincipal();
+			Assert.notNull(actor);
+			Assert.isTrue(actor.equals(message.getFolder().getActor()));
+			if (!message.getFolder().getName().equals("Trash folder")) {
 				
-				Actor actor = actorService.findByPrincipal();
-				Folder folder = folderService.findTrashFolderOfActor(actor.getId());
-				
-				Collection <Message> trashMessages = folder.getMessages();
-				trashMessages.add(message);
-				folder.setMessages(trashMessages);
-				
+				message.getFolder().getMessages().remove(message);
+				folderService.save(message.getFolder());
+					
+				Folder folder = folderService.findTrashFolderOfActor(actor.getId());			
+				folder.getMessages().add(message);
+
 				message.setFolder(folder);
-				messageRepository.save(message);
+				folderService.save(folder);
+				messageRepository.saveAndFlush(message);
 			} else {
+				message.getFolder().getMessages().remove(message);
+				folderService.save(message.getFolder());
 				messageRepository.delete(message);
 			}
 		}
@@ -127,23 +135,19 @@ public class MessageService {
 		}
 		public Message reconstruct(MessageForm messageForm) {
 			Assert.notNull(messageForm);
+			Actor actor = actorService.findByPrincipal();
+			Assert.notNull(actor);
 			Message result = create();
 			Actor recipient = actorService.findOne(messageForm.getRecipient());
 			Assert.notNull(recipient);
 			result.setBody(messageForm.getBody());
 			result.setRecipient(recipient);
+//			result.setMessagePriority(messageForm.getMessagePriority());
 			result.setSubject(messageForm.getSubject());
 			return result;
 		}
 		
 		
 		
-		
-//		public Double averageNumberMessagesPerActor() {
-//			Assert.isTrue(DPUtils.hasRole(Authority.ADMIN), DPMessage.NO_PERMISSIONS);
-//			Double result = messageRepository.averageNumberMessagesPerActor();
-//			Assert.notNull(result);
-//			return result;
-//		}
-//
+
 }

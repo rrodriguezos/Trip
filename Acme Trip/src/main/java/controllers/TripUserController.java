@@ -16,26 +16,50 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.DailyPlanService;
 import services.TripService;
+import services.UserService;
 import controllers.AbstractController;
 import domain.DailyPlan;
 import domain.Trip;
+import domain.User;
 
 @Controller
-@RequestMapping("/trip/User")
+@RequestMapping("/trip/user/")
 public class TripUserController extends AbstractController {
 	
 	//Services -----------------------------
 		@Autowired
 		private TripService tripService;	
+
 		@Autowired
-		private DailyPlanService dailyPlanService;
+		private UserService userService;
 		
 		//Constructor --------------------------
 		public TripUserController() {
 			super();
 		}
 		
-		//Creation -----------------------------
+		// List--------------------------------------------------------------
+
+		@RequestMapping(value = "/list", method = RequestMethod.GET)
+		public ModelAndView list() {
+
+			ModelAndView result;
+			Collection<Trip> trips;
+			User user = userService.findByPrincipal();
+			trips = tripService.findTripsByUser(user.getId());
+			
+			result = new ModelAndView("trip/list");
+			result.addObject("trips", trips);
+			result.addObject("user", user);
+			result.addObject("actor", "/user");
+			result.addObject("userId", user.getId());
+			result.addObject("requestURI", "trip/user/list.do");
+
+			return result;
+
+		}
+		
+		//Creation ---------------------------------------------------------------------
 		@RequestMapping(value="/create", method = RequestMethod.GET)
 		public ModelAndView create() {
 			ModelAndView result;
@@ -45,34 +69,46 @@ public class TripUserController extends AbstractController {
 			return result;
 		}
 		
-		//Edition -------------------------------
+		//Edition -----------------------------------------------------------------------
 		@RequestMapping(value = "/edit", method = RequestMethod.GET)
 		public ModelAndView edit(@RequestParam Integer tripId) {
 			Trip trip = tripService.findOne(tripId);
 			Assert.notNull(trip);
-			return createEditModelAndView(trip, null);
+			User user = userService.findByPrincipal();
+			if (user.equals(tripService.findOne(tripId).getUser())) {
+				trip = tripService.findOne(tripId);
+			} else {
+				throw new IllegalArgumentException("NotPrincipal");
+			}
+			return createEditModelAndView(trip,null);
+
+
 		}
 
+		//Save -----------------------------------------------------------------------
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 		public ModelAndView save(@Valid Trip trip, BindingResult binding,
 				 RedirectAttributes redirectAttrs) {
 			ModelAndView result;	
 
 			if (binding.hasErrors()) {
+				System.out.print(binding.hasErrors());
+				System.out.print(binding.getFieldError());
 				result = createEditModelAndView(trip, "trip.commit.error");
 			} else {
 				try {
 					tripService.save(trip);
 					redirectAttrs.addFlashAttribute("message", "trip.commit.ok");	
 					result = new ModelAndView("redirect:/trip/list.do");
-				} catch (Throwable oops) {				
-					result = createEditModelAndView(trip, "trip.commit.error");				
+				} catch (Throwable oops) {	
+					result = createEditModelAndView(trip, "trip.commit.error");
+
 				}
 			}
 
 			return result;
 		}
-				
+		//Delete -----------------------------------------------------------------------
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 		public ModelAndView delete(Trip trip, BindingResult binding,
 				 RedirectAttributes redirectAttrs) {
@@ -89,16 +125,16 @@ public class TripUserController extends AbstractController {
 		}
 		
 		
-		//Ancillary methods ---------------------
+		//Ancillary methods -------------------------------------------------
 		
 		protected ModelAndView createEditModelAndView(Trip trip, String message) {
-			ModelAndView result;
-			Collection<DailyPlan> dailyPlans = dailyPlanService.findAll();
+			ModelAndView result;		
+
 					
-			result = new ModelAndView("trip/edit");
+			result = new ModelAndView("trip/user/edit");
 			result.addObject("trip", trip);
 			result.addObject("message", message);
-			result.addObject("dailyPlans", dailyPlans);
+
 			
 			return result;
 		}
