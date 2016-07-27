@@ -12,6 +12,7 @@ import repositories.CommentRepository;
 import domain.Activity;
 import domain.Administrator;
 import domain.Comment;
+import domain.Manager;
 import forms.CommentForm;
 
 @Service
@@ -43,6 +44,9 @@ public class CommentService {
 			Assert.notNull(result);
 			return result;
 		}
+		public Collection<Comment> findAll(){
+			return commentRepository.findAll();
+		}
 		
 		public void save(Comment comment) {
 			Assert.notNull(comment);
@@ -58,15 +62,12 @@ public class CommentService {
 		
 		//Other business methods -----------------------
 		
-		public void flagCommentAsInappropriate(Comment comment) {
-			Assert.notNull(comment);
+		public void flagCommentAsInappropriate(int commentId) {
 			Administrator admin = administratorService.findByPrincipal();
 			Assert.notNull(admin);
-			
+			Comment comment = findOne(commentId);
+			Assert.isTrue(comment.getIsAppropiate());
 			comment.setIsAppropiate(false);
-			
-			
-			commentRepository.saveAndFlush(comment);
 		}
 		public Collection<Comment> findCommentsByCommentableId(int commentableId) {
 			return commentRepository.findCommentsByCommentableId(commentableId);

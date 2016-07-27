@@ -16,6 +16,7 @@ import domain.ActivityType;
 import domain.Administrator;
 import domain.Comment;
 import domain.DailyPlan;
+import domain.Manager;
 import domain.Slot;
 import domain.Trip;
 import domain.User;
@@ -37,6 +38,9 @@ public class ActivityService {
 		
 		@Autowired
 		private AdministratorService administratorService;
+		
+		@Autowired
+		private ManagerService managerService;
 
 
 		// Constructors ------------------------------------
@@ -73,6 +77,10 @@ public class ActivityService {
 			activity.getSlots().removeAll(activity.getSlots());
 			activityRepository.delete(activity);
 		}
+		
+		public Collection<Activity> findAll() {
+			return activityRepository.findAll();
+		}
 
 		
 	
@@ -96,15 +104,14 @@ public class ActivityService {
 			return activityRepository.activitiesByActivityType(activitytypeId);
 		}
 		
-		public void flagActivityAsInappropriate(Activity activity) {
-			Assert.notNull(activity);
-			Administrator admin = administratorService.findByPrincipal();
-			Assert.notNull(admin);
-			
+	
+		
+		public void flagActivityAsInappropriate(int activityId) {
+			Manager manager = managerService.findByPrincipal();
+			Assert.notNull(manager);
+			Activity activity = findOne(activityId);
+			Assert.isTrue(activity.getIsAppropiate());
 			activity.setIsAppropiate(false);
-			
-			
-			activityRepository.saveAndFlush(activity);
 		}
 }
 		

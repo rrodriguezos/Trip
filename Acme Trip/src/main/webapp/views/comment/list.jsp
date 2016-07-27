@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!-- Listing grid -->
+<!-- Listing comments -->
 <div class=center-text>
 <display:table name="comments"  id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true" >
 
@@ -27,7 +27,7 @@
   
   <security:authorize access="hasRole('ADMIN')">
 		<display:column>
-				<a href='comment/administrator/inappropriate.do?commentId=<jstl:out value="${row.id}"/>&id=<jstl:out value="${id}"/>'>
+				<a href='comment/administrator/mark.do?commentId=<jstl:out value="${row.id}"/>&id=<jstl:out value="${id}"/>'>
 					<spring:message	code="comment.inappropriate" />
 				</a>
 		</display:column>

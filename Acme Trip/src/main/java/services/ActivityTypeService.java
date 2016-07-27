@@ -59,6 +59,16 @@ public class ActivityTypeService {
 		activityTypeRepository.flush();
 	}
 	
+	public void delete(ActivityType activityType) {
+		Assert.notNull(activityType);
+		Manager manager = managerService.findByPrincipal();
+		Assert.notNull(manager);
+		for (Activity a: activityType.getActivities()) {
+			activityService.delete(a);
+		}
+		activityTypeRepository.delete(activityType);
+	}
+	
 	
 	
 	public ActivityType findOne(int activityTypeId) {

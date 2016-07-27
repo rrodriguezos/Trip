@@ -13,20 +13,11 @@
 
 
 <!-- Listing activity -->
-<div>
-	<jstl:choose>
-			<jstl:when test="${activity.isAppropiate  == false}">
+<div>		
 
-				<spring:message code="activity.isNotAppropiate" />
-				<br />
-				<a href="slot/list.do"> <spring:message code="activity.back" />
-				</a>
-			</jstl:when>
 
-		<jstl:when test="${activity.isAppropiate  == true}">
 		
-		<display:table name="activity" id="row" requestURI="${requestURI}"
-			pagesize="5" class="displaytag" keepStatus="true">
+		<display:table name="activities" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true">
 				<!-- Attributes -->
 				<spring:message code="activity.title" var="title" />
 				<display:column property="title" title="${title}" sortable="true" />
@@ -51,13 +42,27 @@
 				</display:column>
 				
 				<display:column>
+	  <spring:message code="activity.comment" var="comment" />
       <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
         <spring:message code="activity.comment" />
       </a>
     </display:column>
-				</display:table>
-				</jstl:when>
+    <security:authorize access="hasRole('USER')">
+      <display:column>
+      <a href="activity/manager/edit.do?activityId=<jstl:out value="${row.id}"/> "><spring:message code="activity.edit"/></a>
+  		</display:column>
+  		
+  		</security:authorize>
+    
+    <security:authorize access="hasRole('MANAGER')">
 
-	</jstl:choose>
+  <display:column>
+    <jstl:if test="${row.isAppropiate == true}">
+      <a href="activity/manager/mark.do?activityId=<jstl:out value="${row.id}"/> "><spring:message code="activity.markInnapropiate"/></a>
+     </jstl:if>
+  </display:column>
+  </security:authorize>
+				</display:table>
+
 </div>
 

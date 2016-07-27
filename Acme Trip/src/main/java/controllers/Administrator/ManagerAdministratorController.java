@@ -1,4 +1,4 @@
-package controllers;
+package controllers.Administrator;
 
 import javax.validation.Valid;
 
@@ -57,13 +57,9 @@ public class ManagerAdministratorController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "actor.commit.ok");
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (Throwable oops) {
-				System.out.println(binding.getFieldError());
-				System.out.println(binding.getFieldError().getCode());
-				System.out.println(binding.getAllErrors());
+
 				result = createEditModelAndView(registerForm, "actor.commit.error");
-				System.out.println(binding.getFieldError());
-				System.out.println(binding.getFieldError().getCode());
-				System.out.println(binding.getAllErrors());
+
 			}
 		}
 		return result;

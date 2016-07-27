@@ -49,13 +49,7 @@
 			<security:authorize access="hasRole('ADMIN')">
 				<li><a class="fNiv" href="dashboard/administrator/list.do">
 						<spring:message code="master.page.administrator.dashboard" />
-				</a></li>
-				<li>
-						<a href="manager/administrator/register.do"><spring:message code="master.page.administrator.register.manager" /></a>
-					</li>
-					<li>
-						<a href="administrator/administrator/register.do"><spring:message code="master.page.administrator.register.administrator" /></a>
-					</li>
+				</a></li>							
 			</security:authorize>
 			
 			
@@ -77,6 +71,9 @@
 						<security:authorize access="hasRole('MANAGER')">
 							<li><a href="activity/manager/list.do"><spring:message
 										code="master.page.manager.activities" /></a></li>
+										<li><a href="activitytype/manager/list.do"><spring:message
+										code="master.page.manager.activitytpes" /></a></li>									
+										
 						</security:authorize>
 
 						<security:authorize access="hasRole('ADMIN')">
@@ -84,7 +81,7 @@
 										code="master.page.administrator.register.manager" /></a></li>
 							<li><a href="administrator/administrator/register.do"><spring:message
 										code="master.page.administrator.register.administrator" /></a></li>
-							<li><a href="comment/administrator/list.do"><spring:message
+							<li><a href="comment/list.do"><spring:message
 										code="master.page.administrator.comments" /></a></li>
 						</security:authorize>
 

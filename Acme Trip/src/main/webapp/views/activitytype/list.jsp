@@ -12,13 +12,30 @@
 
 <!-- Listing activitytype -->
 
-
-<display:table name="activitytype" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true">
-
+<div class=center-text>
+<display:table name="activitytypes"  id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true" >
 
 <!-- Attributes -->
-  <spring:message	code="activitytype.name"  var="name"/>
-	<display:column property="name" title="${name}" sortable="true" />
-		
-	
+
+  <spring:message code="activitytype.name" var="nameHeader" />
+  <display:column property="name" title="${nameHeader}" sortable="true" />
+
+  
+  <security:authorize access="hasRole('MANAGER')">
+    <display:column>
+      <a href='activitytype/manager/edit.do?activitytypeId=<jstl:out value="${row.id}"/>'>
+        <spring:message code="activitytype.edit" />
+      </a>
+    </display:column>
+  </security:authorize>
+
 </display:table>
+</div>
+
+<security:authorize access="hasRole('MANAGER')">
+  <div>
+     <a href='activitytype/manager/create.do'>
+        <spring:message code="activitytype.create" />
+      </a>
+  </div>
+</security:authorize>

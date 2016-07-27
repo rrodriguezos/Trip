@@ -52,7 +52,7 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
-		 <security:intercept-url pattern="/comment/list.do" access="permitAll" /> 
+		 <security:intercept-url pattern="/comment/list.do" access="isAuthenticated()" /> 
   		<security:intercept-url pattern="/comment/edit.do" access="isAuthenticated()" /> 
   		<security:intercept-url pattern="/comment/create.do" access="isAuthenticated()" /> 
   		
@@ -74,37 +74,31 @@
   		
   		
   		<security:intercept-url pattern="/folder/**" access="isAuthenticated()" />
-  		<security:intercept-url pattern="/message/**" access="isAuthenticated()" /> 
-  		  		 
+  		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />  		 
   		
 		
 
-		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
-		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/manager/administrator/register.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/administrator/administrator/register.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/administrator/administrator/**" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/manager/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/comment/administrator/**" access="hasRole('ADMIN')" />
 		
 		
 		<security:intercept-url pattern="/trip/user/list.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/edit.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/trip/user/create.do" access="hasRole('USER')" /> 
-		 
+		
+		
+		<security:intercept-url pattern="/activitytype/manager/**" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/activity/manager/**" access="hasRole('MANAGER')" />
+		
 		
 		
 		
 		
 		<security:intercept-url pattern="/user/user/**" access="isAuthenticated()" />
-		
-		 
 
-		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
-		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
-
-		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
