@@ -38,14 +38,15 @@ public class CommentService {
 		}
 		
 		//Simple CRUD methods -------------------------
+		public Collection<Comment> findAll(){
+			return commentRepository.findAll();
+		}
+		
 		public Comment findOne(int commentId) {
 			Assert.isTrue(commentId != 0);
 			Comment result = commentRepository.findOne(commentId);
 			Assert.notNull(result);
 			return result;
-		}
-		public Collection<Comment> findAll(){
-			return commentRepository.findAll();
 		}
 		
 		public void save(Comment comment) {
@@ -55,8 +56,10 @@ public class CommentService {
 		
 		public void delete(Comment comment) {
 			Assert.notNull(comment);
-			//commentRepository.delete(comment);
-			commentRepository.save(comment);
+			Administrator admin = administratorService.findByPrincipal();
+			Assert.notNull(admin);
+			comment.setIsAppropiate(true);
+			commentRepository.delete(comment);
 		}
 		
 		
@@ -75,12 +78,13 @@ public class CommentService {
 
 
 		public Comment reconstruct(CommentForm commentForm, int commentableId) {
+			Assert.notNull(commentableId);
 			Comment result = new Comment();
 			result.setActor(actorService.findByPrincipal());
 			result.setCommentable(commentableService.findOne(commentableId));
 			result.setIsAppropiate(true);
-			result.setMoment(new Date(System.currentTimeMillis()-1000));
 			result.setTitle(commentForm.getTitle());
+			result.setMoment(new Date(System.currentTimeMillis()-1000));
 			result.setText(commentForm.getText());
 			return result;
 		}

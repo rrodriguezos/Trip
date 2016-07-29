@@ -14,6 +14,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
+	
 
 <div>
 	<a><img src="images/logo.png" alt="Acme Trip Co., Inc."
@@ -64,8 +65,10 @@
 						<security:authorize access="hasRole('USER')">
 							<li><a href="user/user/list.do"><spring:message
 										code="master.page.user.profile" /></a></li>
-							<li><a href="trip/list.do"><spring:message
+							<li><a href="trip/user/list.do"><spring:message
 										code="master.page.user.trips" /></a></li>
+							<li><a href="trip/user/create.do"><spring:message
+										code="master.page.user.createTrips" /></a></li>
 						</security:authorize>
 
 						<security:authorize access="hasRole('MANAGER')">

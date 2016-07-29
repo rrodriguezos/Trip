@@ -24,7 +24,7 @@ import domain.User;
 import repositories.ActivityRepository;
 import security.Authority;
 
-@Service
+@org.springframework.stereotype.Service
 @Transactional
 public class ActivityService {
 
@@ -41,6 +41,9 @@ public class ActivityService {
 		
 		@Autowired
 		private ManagerService managerService;
+		
+		@Autowired
+		private CommentService commentService;
 
 
 		// Constructors ------------------------------------
@@ -75,6 +78,9 @@ public class ActivityService {
 			
 
 			activity.getSlots().removeAll(activity.getSlots());
+			for (Comment tc : activity.getComments()) {
+				commentService.delete(tc);
+			}
 			activityRepository.delete(activity);
 		}
 		

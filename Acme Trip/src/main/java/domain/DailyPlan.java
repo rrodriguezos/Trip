@@ -1,21 +1,20 @@
 package domain;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.Access;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -78,9 +77,9 @@ public class DailyPlan extends DomainEntity {
 
 	private Trip trip;
 
-	@NotNull
+	
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Trip getTrip() {
 		return trip;
 	}

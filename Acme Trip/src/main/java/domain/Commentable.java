@@ -11,28 +11,28 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public abstract class Commentable extends DomainEntity{
-
+public abstract class Commentable extends DomainEntity {
 	
 	//Constructors -----------------------------
-		public Commentable() {
-			super();
-		}	
+	public Commentable() {
+		super();
+	}	
 
-		//Attributes -----------------------------
-		
-		//Relationships --------------------------
-		private Collection<Comment> comments;
+	//Attributes -----------------------------
+	
+	//Relationships --------------------------
+	private Collection<Comment> comments;
 
-		@Valid
-		@NotNull
-		@OneToMany(mappedBy = "commentable")
-		public Collection<Comment> getComments() {
-			return comments;
-		}
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "commentable")
+	public Collection<Comment> getComments() {
+		return comments;
+	}
 
-		public void setComments(Collection<Comment> comments) {
-			this.comments = comments;
-		}
-		
+	public void setComments(Collection<Comment> comments) {
+		this.comments = comments;
+	}
+	
+
 }

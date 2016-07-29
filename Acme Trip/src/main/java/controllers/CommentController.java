@@ -1,5 +1,4 @@
 package controllers;
-
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -51,6 +50,7 @@ public class CommentController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam int commentableId) {
 		ModelAndView result;
+		
 		CommentForm commentForm = new CommentForm();
 		result = createEditModelAndView(commentForm, null, commentableId);
 		result.addObject("commentableId", commentableId);
@@ -58,27 +58,34 @@ public class CommentController extends AbstractController {
 	}
 	
 	//Edition ----------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid CommentForm commentForm, BindingResult binding,
-			@ModelAttribute("commentableId") int commentableId, SessionStatus status, RedirectAttributes redirectAttrs) {
-		
-		ModelAndView result;
-		
-		if (binding.hasErrors()) {
-			result = createEditModelAndView(commentForm, "comment.commit.error", commentableId);
-		} else{
-			try {
-				Comment comment = commentService.reconstruct(commentForm, commentableId);
-				commentService.save(comment);		
-				redirectAttrs.addFlashAttribute("message", "comment.commit.ok");		
-				result = new ModelAndView("redirect:list.do?id="+commentableId);
-				status.setComplete();
-			} catch (Throwable oops) {
-				result = createEditModelAndView(commentForm, "comment.commit.error", commentableId);				
+		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+		public ModelAndView save(@Valid CommentForm commentForm, BindingResult binding,
+				@ModelAttribute("commentableId") int commentableId, SessionStatus status, RedirectAttributes redirectAttrs) {
+			
+			ModelAndView result;
+			
+			if (binding.hasErrors()) {
+				result = createEditModelAndView(commentForm, "comment.commit.error", commentableId);
+			} else{
+				try {
+					System.out.print(binding.getFieldError());
+					System.out.print(binding.getGlobalError());
+					Comment comment = commentService.reconstruct(commentForm, commentableId);
+					commentService.save(comment);	
+					System.out.print(binding.getFieldError());
+					System.out.print(binding.getGlobalError());
+					redirectAttrs.addFlashAttribute("message", "comment.commit.ok");		
+					result = new ModelAndView("redirect:list.do?id="+commentableId);
+					status.setComplete();
+				} catch (Throwable oops) {
+					System.out.print(binding.getFieldError());
+					System.out.print(binding.getGlobalError());
+					result = createEditModelAndView(commentForm, "comment.commit.error", commentableId);				
+				}
 			}
+			return result;
 		}
-		return result;
-	}
+
 
 
 	//Ancillary methods -------------

@@ -12,19 +12,19 @@ import repositories.CommentableRepository;
 @Transactional
 public class CommentableService {
 	
-	//ManagedRepository ---------------------------
-		@Autowired
-		CommentableRepository commentableRepository;
-		
-		//Supporting services -------------------------
-		
-		//Constructors --------------------------------
-		public CommentableService() {
-			super();
-		}
+	///ManagedRepository ---------------------------
+	@Autowired
+	private CommentableRepository commentableRepository;
+	
+	//Supporting services -------------------------
+	
+	//Constructors --------------------------------
+	public CommentableService() {
+		super();
+	}
 
-		public Commentable findOne(int commentableId) {
-			return commentableRepository.findOne(commentableId);
-		}
+	public Commentable findOne(int commentableId) {
+		return commentableRepository.findOne(commentableId);
+	}
 
 }

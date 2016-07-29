@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!-- Listing comments -->
+<!-- Listing grid -->
 <div class=center-text>
 <display:table name="comments"  id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true" >
 

@@ -1,15 +1,17 @@
 package services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
-import utilities.DPMessage;
-import utilities.DPUtils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.TripRepository;
+import security.Authority;
+import security.LoginService;
+import utilities.DPMessage;
+import utilities.DPUtils;
 import domain.Activity;
 import domain.ActivityType;
 import domain.Comment;
@@ -18,12 +20,7 @@ import domain.Slot;
 import domain.Trip;
 import domain.User;
 
-import repositories.MessageRepository;
-import repositories.TripRepository;
-import security.Authority;
-import security.LoginService;
-
-@Service
+@org.springframework.stereotype.Service
 @Transactional
 public class TripService {
 
@@ -58,14 +55,13 @@ public class TripService {
 		result.setDailyplans(new ArrayList<DailyPlan>());
 		result.setComments(new ArrayList<Comment>());
 		result.setUsers(new ArrayList<User>());
+		result.setUser(userService.findByPrincipal());
 		return result;
 	}
 
-	public void save(Trip trip) {
-		Assert.notNull(trip);
-		User user = userService.findByPrincipal();
-		Assert.notNull(user);		
-		tripRepository.saveAndFlush(trip);
+	public Trip save(Trip trip) {
+		Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
+		return tripRepository.save(trip);
 	}
 
 	public void delete(Trip trip) {
@@ -112,6 +108,19 @@ public class TripService {
 		Assert.notNull(result);
 		return result;
 	}
+	public Collection<Trip> findAllTripsByUserId() 
+	{
+		Collection<Trip> all;
+		User user;
+		int userId;
+
+		user = userService.findByPrincipal();
+		userId = user.getId();
+		all = tripRepository.findAllTripsByUserId(userId);
+
+		return all;
+	}
+	
 	
 	
 	public Trip tripByDailyplan(int dailyPlanId){
@@ -190,6 +199,50 @@ public class TripService {
 		save(trip);
 		userService.save(user);
 
+	}
+	
+	public Collection<Trip> findAllTripsCreatedByUserId() {
+
+		Collection<Trip> all;
+		User user;
+		int userId;
+
+		user = userService.findByPrincipal();
+		userId = user.getId();
+		all = tripRepository.findAllTripsCreatedByUserId(userId);
+
+		return all;
+
+	}
+	
+	public Collection<Trip> findAllTripsJoinUser(){
+		Collection<Trip> all;
+		Collection<Trip> createdByUser;
+		Collection<Trip> myTrips;
+		User user;
+		
+		all = findAll();
+		user = userService.findByPrincipal();
+		myTrips = new ArrayList<Trip>();
+		createdByUser = tripRepository.findAllTripsCreatedByUserId(user.getId());
+		
+		for(Trip itero : all){
+			if(itero.getUsers().contains(user)){
+				myTrips.add(itero);
+			}
+		}
+		
+		for(Trip itero : createdByUser){
+			if(!myTrips.contains(itero)){
+				myTrips.add(itero);
+			}
+		}
+		
+		return myTrips;
+	}
+
+	public void saveAguasArriba(Trip barquito2) {
+		tripRepository.saveAndFlush(barquito2);
 	}
 
 }

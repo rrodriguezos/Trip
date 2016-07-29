@@ -24,7 +24,7 @@
   <acme:textbox code="actor.phone" path="phone" value="${user.phone}"/>
   <acme:textbox code="actor.emailAddress" path="emailAddress" value="${user.emailAddress}"/>
   
-  <jstl:if test="${registerForm!=null}">
+  <jstl:if test="${userRegisterForm!=null}">
   <acme:textbox code="actor.username" path="username" />
   <acme:password code="actor.password" path="password"  />
   </jstl:if>

@@ -17,31 +17,40 @@
 <form:form modelAttribute="trip" action="trip/user/edit.do">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="comments" />
 	<form:hidden path="users" />
-	
+	<form:hidden path="user" />
+	<jstl:if test="${trip.id==0}">		
+			<form:hidden path="dailyplans" />
+			<form:hidden path="user" />
+			<h3><spring:message code="trip.alerta.actividades" /></h3>
+			<h3><spring:message code="trip.alerta.anidado" /></h3>
+	</jstl:if>
 	<table class="formTable">
 		<tr><td><acme:textbox code="trip.title" path="title"/></td></tr>
 		<tr><td><acme:textarea code="trip.description" path="description"/></td></tr>
 		<tr><td><acme:textbox code="trip.startDate" path="startDate" /></td></tr>
 		<tr><td><acme:textbox code="trip.endDate" path="endDate" /></td></tr>
-		<tr><td><acme:textbox code="trip.photos" path="photos"/><tr><td>		
-		<tr><td><acme:select code="trip.dailyplans" path="dailyplans" items="${trip.dailyplans}" itemLabel="title" id="dailyplans" /></td></tr>
-
-			
+		<tr><td><acme:textbox code="trip.photos" path="photos"/><tr><td>
+		<jstl:if test="${trip.id!=0}">		
+			<tr><td><acme:select code="trip.dailyplans" path="dailyplans" items="${trip.dailyplans}" itemLabel="title" id="dailyplans" /></td></tr>
+		</jstl:if>
+		<tr>
 			<td>
-				<acme:submit name="save" code="common.save"/>
+				<jstl:if test="${trip.id==0}">
+					<acme:submit name="save" code="common.save"/>
+				</jstl:if>
+				<jstl:if test="${trip.id!=0}">
+					<acme:submit name="saveEdit" code="common.save"/>
+				</jstl:if>
 			</td>
-		
 			<td>
 				<jstl:if test="${trip.id!=0}">
 				  <input type="submit" name="delete" value="<spring:message code="common.delete" />" 
 					onclick="return confirm('<spring:message code="trip.confirm.delete" />')" />
 				</jstl:if>
 			</td>
-			
 			<td>
-				<acme:cancel url="trip/list.do" code="common.cancel"/>
+				<acme:cancel url="trip/user/list.do" code="common.cancel"/>
 			</td>
 		</tr>
 	</table>

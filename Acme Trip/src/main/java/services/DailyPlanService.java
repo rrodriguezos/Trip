@@ -1,17 +1,18 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
-
-import repositories.DailyPlanRepository;
-import security.LoginService;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.DailyPlanRepository;
+import security.LoginService;
 import domain.DailyPlan;
+import domain.DailyPlan.WeekDay;
+import domain.Slot;
 import domain.Trip;
 
 
@@ -46,20 +47,39 @@ public class DailyPlanService {
 		}		
 		
 		
-		public DailyPlan save(DailyPlan dPlan){
-			Assert.isTrue(dPlan.getTrip().getUser().getUserAccount().equals(LoginService.getPrincipal()));
-			dPlan.setTrip(tripService.findByPrincipal());
-			
-			return dailyPlanRepository.save(dPlan);
-			
+//		public DailyPlan save(DailyPlan dPlan){
+//			Assert.isTrue(dPlan.getTrip().getUser().getUserAccount().equals(LoginService.getPrincipal()));
+//			DailyPlan plan = dailyPlanRepository.saveAndFlush(dPlan);
+//			Trip barquito2 = tripService.findOne(dPlan.getTrip().getId());
+//			Collection<DailyPlan> planesMolones = barquito2.getDailyplans();
+//			planesMolones.add(dPlan);
+//			barquito2.setDailyplans(planesMolones);
+//			tripService.saveAguasArriba(barquito2);
+//			return plan;
+//		}
+		public DailyPlan save(DailyPlan dailyplan) {
+
+			Assert.notNull(dailyplan);
+			dailyplan.setTrip(dailyplan.getTrip());
+			dailyPlanRepository.save(dailyplan);
+			dailyPlanRepository.flush();
+			return dailyplan;
 		}
 		
 		
-		public DailyPlan create(){
+//		public DailyPlan create(int tripId){
+//			DailyPlan result = new DailyPlan();
+//			Trip barquito = tripService.findOne(tripId);
+//			Assert.notNull(barquito);
+//			result.setTrip(barquito);
+//			result.setSlots(new ArrayList<Slot>());
+//			return result;
+//		}
+		public DailyPlan create(int tripId) {
 			DailyPlan result = new DailyPlan();
-
-			Assert.isTrue(tripService.findByPrincipal() != null, "noTripAssociated");
-			result.setTrip(tripService.findByPrincipal());
+			Trip trip = tripService.findOne(tripId);
+			result.setTrip(trip);
+			result.setSlots(new ArrayList<Slot>());
 			return result;
 		}
 			
@@ -96,6 +116,10 @@ public class DailyPlanService {
 		
 		public DailyPlan findByPrincipal(){
 			return dailyPlanRepository.findByUserAccountID(LoginService.getPrincipal().getId());
+		}
+
+		public void saveAguasArriba(DailyPlan dailis) {
+			dailyPlanRepository.saveAndFlush(dailis);			
 		}
 		
 		

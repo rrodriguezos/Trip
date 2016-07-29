@@ -15,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActivityTypeService;
 import services.TripService;
 import services.DailyPlanService;
+import services.UserService;
 import domain.Activity;
 import domain.ActivityType;
 import domain.Trip;
 import domain.DailyPlan;
+import domain.User;
 
 @Controller
 @RequestMapping("/anonymous")
@@ -32,6 +34,9 @@ public class AnonymousController extends AbstractController {
 	@Autowired
 	private ActivityTypeService activityTypeService;
 	
+	@Autowired
+	private UserService userService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public AnonymousController() {
@@ -44,6 +49,7 @@ public class AnonymousController extends AbstractController {
 	public ModelAndView listTrips() {
 		ModelAndView result;
 		Collection <Trip> trips = tripService.findAll();
+		
 		
 		result = new ModelAndView("anonymous/tripsCatalogue");
 		result.addObject("trips", trips);

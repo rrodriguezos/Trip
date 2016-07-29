@@ -35,28 +35,28 @@ public class AdministratorAdministratorController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		UserRegisterForm registerForm;
+		UserRegisterForm userRegisterForm;
 
-		registerForm = new UserRegisterForm();
-		result = createEditModelAndView(registerForm, null);
+		userRegisterForm = new UserRegisterForm();
+		result = createEditModelAndView(userRegisterForm, null);
 		return result;
 
 	}
 
 	// Edition --------------------------------------
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@Valid UserRegisterForm registerForm,
+	public ModelAndView save(@Valid UserRegisterForm userRegisterForm,
 			BindingResult binding, RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			String msg = !registerForm.getPassword().equals(
-					registerForm.getConfirmPassword()) ? "actor.password.notequal"
+			String msg = !userRegisterForm.getPassword().equals(
+					userRegisterForm.getConfirmPassword()) ? "actor.password.notequal"
 					: "actor.commit.not.valid";
-			result = createEditModelAndView(registerForm, msg);
+			result = createEditModelAndView(userRegisterForm, msg);
 		} else {
 			try {
 				Administrator administrator = administratorService
-						.reconstruct(registerForm);
+						.reconstruct(userRegisterForm);
 				administratorService.save(administrator);
 				redirectAttrs.addFlashAttribute("message", "actor.commit.ok");
 				result = new ModelAndView("redirect:/welcome/index.do");
@@ -65,7 +65,7 @@ public class AdministratorAdministratorController extends AbstractController {
 				System.out.println(binding.getFieldError().getCode());
 				System.out.println(binding.getAllErrors());
 
-				result = createEditModelAndView(registerForm,
+				result = createEditModelAndView(userRegisterForm,
 						"actor.commit.error");
 			}
 		}
@@ -73,14 +73,14 @@ public class AdministratorAdministratorController extends AbstractController {
 	}
 
 	// Ancillary methods -----------------------------
-	private ModelAndView createEditModelAndView(UserRegisterForm registerForm,
+	private ModelAndView createEditModelAndView(UserRegisterForm userRegisterForm,
 			String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");
-		result.addObject("registerForm", registerForm);
+		result.addObject("userRegisterForm", userRegisterForm);
 		result.addObject("message", message);
-		result.addObject("actor", "registerForm");
+		result.addObject("actor", "userRegisterForm");
 		result.addObject("actionURI", "administrator/administrator/save.do");
 		return result;
 	}

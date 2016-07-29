@@ -50,11 +50,14 @@ public class ActorService {
 	public Actor findByUserAccount(UserAccount userAccount) {
 		Assert.notNull(userAccount);
 		Actor result;
-		Actor manag = managerService.findByUserAccount(userAccount);
-		Actor admin = administratorService.findByUserAccount(userAccount);
 		Actor user = userService.findByUserAccount(userAccount);
-		if (user == null || manag == null) {
+		Actor admin = administratorService.findByUserAccount(userAccount);
+		Actor manager = managerService.findByUserAccount(userAccount);
+		if (user == null) {
 			result = admin;
+			if (admin == null) {
+				result = manager;
+			}
 		} else {
 			result = user;
 		}

@@ -27,6 +27,9 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select d.trip from DailyPlan d where d.id = ?1")
 	public Trip tripByDailyplan(int dailyplanId);
 	
+	
+	@Query("select u.trips from User u where u.id=?1")
+	Collection<Trip> findAllTripsByUserId(int userId);
 
 	
 	
@@ -39,6 +42,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	
 	@Query("select a from Trip a where a.user.userAccount.id = ?1")
 	Trip findByUserAccountID(int UserAccountID);
+	
+
+	@Query("select u.trips from User u where u.id=?1")
+	Collection<Trip> findAllTripsCreatedByUserId(int userId);
 	
 	
 

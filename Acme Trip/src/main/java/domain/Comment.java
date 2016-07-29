@@ -18,6 +18,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes={
+	@Index(name="COMMENTABLE_INDEX", columnList=("commentable_id")),
+	@Index(name="ACTOR_INDEX", columnList=("actor_id")),
+	@Index(name="ISAPPROPIATE_INDEX", columnList=("isAppropiate"))})
 public class Comment extends DomainEntity {
 	
 	//Constructors -----------------------------

@@ -49,7 +49,7 @@ public class UserController extends AbstractController {
 			User user = userService.findByUserAccount(ua);
 			result.addObject("user", user);
 		}
-
+		result = new ModelAndView("actor/list");
 		result.addObject("users", users);
 		result.addObject("actor", "users");
 		result.addObject("requestURI", "users/list.do");

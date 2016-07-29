@@ -42,11 +42,12 @@
 				</display:column>
 				
 				<display:column>
-	  <spring:message code="activity.comment" var="comment" />
+	  <spring:message code="activity.comment" var="comments" />
       <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
         <spring:message code="activity.comment" />
       </a>
     </display:column>
+    
     <security:authorize access="hasRole('USER')">
       <display:column>
       <a href="activity/manager/edit.do?activityId=<jstl:out value="${row.id}"/> "><spring:message code="activity.edit"/></a>

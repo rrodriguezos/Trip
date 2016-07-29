@@ -54,7 +54,7 @@ public class AdministratorService {
 			Administrator result = new Administrator();
 
 			Authority auth = new Authority();
-			auth.setAuthority("ADMINISTRATOR");
+			auth.setAuthority("ADMIN");
 			Collection<Authority> lia = new ArrayList<Authority>();
 			lia.add(auth);
 			UserAccount ua = new UserAccount();

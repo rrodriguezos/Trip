@@ -31,7 +31,8 @@
 	</jstl:forEach>
 	</display:column>
 	
-	<display:column>
+	<<display:column>
+	  <spring:message code="trip.comment" var="comments" />
       <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
         <spring:message code="trip.comment" />
       </a>
@@ -40,7 +41,8 @@
    <spring:message	code="trip.dailyplans"  var="dailyplans"/>
 	<display:column title="${dailyplans}" sortable="true">
       <a href="dailyplan/listByTrip.do?tripId=<jstl:out value="${row.id}"/> "><spring:message code="trip.dailyplans"/></a>
-  	</display:column>	
+  	</display:column> 	
+  	
   	
 	
 

@@ -13,8 +13,8 @@ import domain.Comment;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	
 
-	//comments of a given commentable (trip or activity)
-		@Query("select c from Comment c where c.commentable.id = ?1")
+	// appropiate comments of a given commentable (activity or trip)
+		@Query("select c from Comment c where c.commentable.id = ?1 and c.isAppropiate = true")
 		Collection<Comment> findCommentsByCommentableId(int commentableId);
 
 }

@@ -1,7 +1,7 @@
 package forms;
 
 
-import javax.validation.constraints.NotNull;
+
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -15,7 +15,6 @@ public class CommentForm {
 	
 	//Attributes -------------------------------
 	private String text;
-	private Boolean isAppropiate;
 	private String title;
 	
 	
@@ -27,13 +26,6 @@ public class CommentForm {
 		this.text = text;
 	}
 	
-	@NotNull
-	public Boolean getIsAppropiate() {
-		return isAppropiate;
-	}
-	public void setIsAppropiate(Boolean isAppropiate) {
-		this.isAppropiate = isAppropiate;
-	}
 	
 	public String getTitle() {
 		return title;

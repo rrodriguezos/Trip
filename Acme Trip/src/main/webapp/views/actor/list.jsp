@@ -8,10 +8,11 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
 
 
 <display:table name="${actor}" id="row" class="displaytag" requestURI="${requestURI}" pagesize="5" keepStatus="true" >
+
 	
 	<spring:message	code="actor.name"  var="name"/>
 	<display:column property="name" title="${name}" sortable="true" />

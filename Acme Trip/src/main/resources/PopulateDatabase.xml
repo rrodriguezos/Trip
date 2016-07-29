@@ -119,8 +119,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 	<!-- Managers -->
 
 	<bean id="manager" class="domain.Manager">
@@ -156,12 +156,12 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	<!-- CreditCards -->
 
@@ -220,13 +220,13 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	<!-- Campaigns -->
 
 	<bean id="campaign1" class="domain.Campaign">
@@ -237,11 +237,11 @@
 		<property name="creditCard" ref="creditcard1" />
 		<property name="banners">
 			<list>
-			<ref bean="banner1" />
+				<ref bean="banner1" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="campaign2" class="domain.Campaign">
 		<property name="startMoment" value="20/01/2016 12:00" />
 		<property name="endMoment" value="23/02/2016 12:00" />
@@ -250,11 +250,11 @@
 		<property name="creditCard" ref="creditcard2" />
 		<property name="banners">
 			<list>
-			<ref bean="banner2" />
+				<ref bean="banner2" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="campaign3" class="domain.Campaign">
 		<property name="startMoment" value="20/11/2015 09:00" />
 		<property name="endMoment" value="28/11/2015 09:00" />
@@ -263,11 +263,11 @@
 		<property name="creditCard" ref="creditcard3" />
 		<property name="banners">
 			<list>
-			<ref bean="banner3" />
+				<ref bean="banner3" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="campaign4" class="domain.Campaign">
 		<property name="startMoment" value="20/06/2016 12:09" />
 		<property name="endMoment" value="23/08/2016 12:09" />
@@ -276,23 +276,23 @@
 		<property name="creditCard" ref="creditcard4" />
 		<property name="banners">
 			<list>
-			<ref bean="banner4" />
+				<ref bean="banner4" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Taxes -->
 
 	<bean id="tax1" class="domain.Tax">
 		<property name="taxType" value="21.00" />
 		<property name="banners">
 			<list>
-			<ref bean="banner1" />
+				<ref bean="banner1" />
 			</list>
 		</property>
 		<property name="chargeRecords">
 			<list>
-			<ref bean="chargerecord1" />
+				<ref bean="chargerecord1" />
 			</list>
 		</property>
 	</bean>
@@ -301,12 +301,12 @@
 		<property name="taxType" value="10.00" />
 		<property name="banners">
 			<list>
-			<ref bean="banner2" />
+				<ref bean="banner2" />
 			</list>
 		</property>
 		<property name="chargeRecords">
 			<list>
-			<ref bean="chargerecord2" />
+				<ref bean="chargerecord2" />
 			</list>
 		</property>
 	</bean>
@@ -315,12 +315,12 @@
 		<property name="taxType" value="7.00" />
 		<property name="banners">
 			<list>
-			<ref bean="banner3" />
+				<ref bean="banner3" />
 			</list>
 		</property>
 		<property name="chargeRecords">
 			<list>
-			<ref bean="chargerecord3" />
+				<ref bean="chargerecord3" />
 			</list>
 		</property>
 	</bean>
@@ -329,87 +329,91 @@
 		<property name="taxType" value="3.00" />
 		<property name="banners">
 			<list>
-			<ref bean="banner4" />
+				<ref bean="banner4" />
 			</list>
 		</property>
 		<property name="chargeRecords">
 			<list>
-			<ref bean="chargerecord4" />
+				<ref bean="chargerecord4" />
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 	<!-- Banners -->
 
 	<bean id="banner1" class="domain.Banner">
-		<property name="photo" value="http://www.eurosiniestro.es/wp-content/uploads/2015/07/mutua-madrilena-seguros-pamplona.jpg" />
+		<property name="photo"
+			value="http://www.eurosiniestro.es/wp-content/uploads/2015/07/mutua-madrilena-seguros-pamplona.jpg" />
 		<property name="maxTimesDisplayed" value="10" />
 		<property name="priceByDisplayed" value="4.00" />
 		<property name="campaign" ref="campaign1" />
 		<property name="keyWords">
 			<list>
-			<value>Seguros</value>
+				<value>Seguros</value>
 			</list>
 		</property>
 		<property name="taxes">
 			<list>
-			<ref bean="tax1" />
+				<ref bean="tax1" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="banner2" class="domain.Banner">
-		<property name="photo" value="http://www.unipoliza.com/images/imagenes%20contenido/compa%C3%B1ias/allianz_logo.jpg" />
+		<property name="photo"
+			value="http://www.unipoliza.com/images/imagenes%20contenido/compa%C3%B1ias/allianz_logo.jpg" />
 		<property name="maxTimesDisplayed" value="10" />
 		<property name="priceByDisplayed" value="10.00" />
 		<property name="campaign" ref="campaign2" />
 		<property name="keyWords">
 			<list>
-			<value>Seguros</value>
+				<value>Seguros</value>
 			</list>
 		</property>
 		<property name="taxes">
 			<list>
-			<ref bean="tax2" />
+				<ref bean="tax2" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="banner3" class="domain.Banner">
-		<property name="photo" value="http://www.dondecomprarbarato.com/wp-content/uploads/decathlon.jpg" />
+		<property name="photo"
+			value="http://www.dondecomprarbarato.com/wp-content/uploads/decathlon.jpg" />
 		<property name="maxTimesDisplayed" value="5" />
 		<property name="priceByDisplayed" value="20.00" />
 		<property name="campaign" ref="campaign3" />
 		<property name="keyWords">
 			<list>
-			<value>Deportes</value>
+				<value>Deportes</value>
 			</list>
 		</property>
 		<property name="taxes">
 			<list>
-			<ref bean="tax3" />
+				<ref bean="tax3" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="banner4" class="domain.Banner">
-		<property name="photo" value="http://static03.ofertia.com/comercios/sprinter/profile-73586610.v12.png" />
+		<property name="photo"
+			value="http://static03.ofertia.com/comercios/sprinter/profile-73586610.v12.png" />
 		<property name="maxTimesDisplayed" value="25" />
 		<property name="priceByDisplayed" value="12.00" />
 		<property name="campaign" ref="campaign4" />
 		<property name="keyWords">
 			<list>
-			<value>Deportes</value>
+				<value>Deportes</value>
 			</list>
 		</property>
 		<property name="taxes">
 			<list>
-			<ref bean="tax4" />
+				<ref bean="tax4" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- ChargeRecords -->
 
 	<bean id="chargerecord1" class="domain.ChargeRecord">
@@ -419,11 +423,11 @@
 		<property name="banner" ref="banner1" />
 		<property name="taxes">
 			<list>
-			<ref bean="tax1" />
+				<ref bean="tax1" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="chargerecord2" class="domain.ChargeRecord">
 		<property name="createMoment" value="10/01/2015 12:00" />
 		<property name="amountMoney" value="130.00" />
@@ -431,11 +435,11 @@
 		<property name="banner" ref="banner2" />
 		<property name="taxes">
 			<list>
-			<ref bean="tax2" />
+				<ref bean="tax2" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="chargerecord3" class="domain.ChargeRecord">
 		<property name="createMoment" value="20/05/2014 09:00" />
 		<property name="amountMoney" value="100.00" />
@@ -443,11 +447,11 @@
 		<property name="banner" ref="banner3" />
 		<property name="taxes">
 			<list>
-			<ref bean="tax2" />
+				<ref bean="tax2" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="chargerecord4" class="domain.ChargeRecord">
 		<property name="createMoment" value="20/06/2014 12:09" />
 		<property name="amountMoney" value="180.00" />
@@ -455,13 +459,13 @@
 		<property name="creditCard" ref="creditcard4" />
 		<property name="taxes">
 			<list>
-			<ref bean="tax4" />
+				<ref bean="tax4" />
 			</list>
 		</property>
 	</bean>
 
 
-	
+
 
 
 	<!-- ActivityTypes -->
@@ -598,7 +602,7 @@
 		</property>
 	</bean>
 
-	
+
 
 	<!-- Users -->
 
@@ -1129,9 +1133,12 @@
 		</property>
 		<property name="photos">
 			<list>
-			<value>https://content.edmc.edu/assets/modules/ContentWebParts/AI/Locations/New-York-City/startpage-masthead-slide.jpg</value>
-			<value>https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2625/SITours/new-york-city-hop-on-hop-off-tour-in-new-york-city-292892.jpg</value>
-			<value>http://cdn.ek.aero/es/spanish/images/New-York-1_tcm466-2256848.jpg</value>
+				<value>https://content.edmc.edu/assets/modules/ContentWebParts/AI/Locations/New-York-City/startpage-masthead-slide.jpg
+				</value>
+				<value>https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2625/SITours/new-york-city-hop-on-hop-off-tour-in-new-york-city-292892.jpg
+				</value>
+				<value>http://cdn.ek.aero/es/spanish/images/New-York-1_tcm466-2256848.jpg
+				</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1139,6 +1146,7 @@
 				<ref bean="comment1" />
 			</list>
 		</property>
+
 	</bean>
 
 	<bean id="trip2" class="domain.Trip">
@@ -1155,7 +1163,8 @@
 		</property>
 		<property name="photos">
 			<list>
-			<value>http://i1.mendozapost.com/files/image/78/78129/573af901ab40d.jpg</value>
+				<value>http://i1.mendozapost.com/files/image/78/78129/573af901ab40d.jpg
+				</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1178,7 +1187,8 @@
 		</property>
 		<property name="photos">
 			<list>
-			<value>http://www.deanshu.com/wp-content/uploads/2015/03/harvard7_revised.jpg</value>
+				<value>http://www.deanshu.com/wp-content/uploads/2015/03/harvard7_revised.jpg
+				</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1201,7 +1211,8 @@
 		</property>
 		<property name="photos">
 			<list>
-			<value>http://image.posta.com.mx/sites/default/files/photo-epel-stanford-campus.jpg</value>
+				<value>http://image.posta.com.mx/sites/default/files/photo-epel-stanford-campus.jpg
+				</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1224,8 +1235,10 @@
 		</property>
 		<property name="photos">
 			<list>
-			<value>http://dominio.fm/wp-content/uploads/2016/05/132164119557.jpg</value>
-			<value>http://www.nuevayork.com/wp-content/uploads/2014/10/Excursion-de-un-dia-a-Washington-DC-Monumento.jpg</value>
+				<value>http://dominio.fm/wp-content/uploads/2016/05/132164119557.jpg
+				</value>
+				<value>http://www.nuevayork.com/wp-content/uploads/2014/10/Excursion-de-un-dia-a-Washington-DC-Monumento.jpg
+				</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1646,89 +1659,6 @@
 
 
 
-	<!-- Comments (trips) -->
-
-	<bean id="comment1" class="domain.Comment">
-		<property name="moment" value="01/01/2016 12:09" />
-		<property name="text" value="Trip Comment 1" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip1" />
-		<property name="actor" ref="user1" />
-	</bean>
-
-	<bean id="comment2" class="domain.Comment">
-		<property name="moment" value="11/01/2014 17:44" />
-		<property name="text" value="Trip Comment 2" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip2" />
-		<property name="actor" ref="user1" />
-	</bean>
-
-	<bean id="comment3" class="domain.Comment">
-		<property name="moment" value="09/01/2015 12:00" />
-		<property name="text" value="Trip Comment 3" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip3" />
-		<property name="actor" ref="user2" />
-	</bean>
-
-	<bean id="comment4" class="domain.Comment">
-		<property name="moment" value="09/08/2015 11:09" />
-		<property name="text" value="Trip Comment 4" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip4" />
-		<property name="actor" ref="user2" />
-	</bean>
-
-	<bean id="comment5" class="domain.Comment">
-		<property name="moment" value="07/07/2015 09:12" />
-		<property name="text" value="Trip Comment 5" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip5" />
-		<property name="actor" ref="user3" />
-	</bean>
-
-	<bean id="comment6" class="domain.Comment">
-		<property name="moment" value="02/07/2015 09:00" />
-		<property name="text" value="Best Trip Comment 6" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip6" />
-		<property name="actor" ref="user4" />
-	</bean>
-
-	<bean id="comment7" class="domain.Comment">
-		<property name="moment" value="02/07/2015 09:15" />
-		<property name="text" value="Worst Trip in the world" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="trip7" />
-		<property name="actor" ref="user4" />
-	</bean>
-
-	<!-- Comments (Activities) -->
-
-	<bean id="comment8" class="domain.Comment">
-		<property name="moment" value="01/07/2015 09:00" />
-		<property name="text" value="Activity Comment 8" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="activity8" />
-		<property name="actor" ref="user4" />
-	</bean>
-
-	<bean id="comment9" class="domain.Comment">
-		<property name="moment" value="05/07/2015 10:00" />
-		<property name="text" value="Activity Comment 9" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="activity8" />
-		<property name="actor" ref="admin" />
-	</bean>
-
-	<bean id="comment10" class="domain.Comment">
-		<property name="moment" value="02/02/2016 10:34" />
-		<property name="text" value="Activity Comment 3" />
-		<property name="isAppropiate" value="true" />
-		<property name="commentable" ref="activity8" />
-		<property name="actor" ref="manager" />
-	</bean>
 
 
 
@@ -2294,6 +2224,101 @@
 		<property name="folder" ref="folder24" />
 		<property name="sender" ref="user2" />
 		<property name="recipient" ref="user3" />
+	</bean>
+
+
+	<!-- Comments (trips) -->
+
+	<bean id="comment1" class="domain.Comment">
+		<property name="moment" value="01/01/2016 12:09" />
+		<property name="text" value="Trip Comment 1" />
+		<property name="title" value="title Comment 1" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip1" />
+		<property name="actor" ref="user1" />
+	</bean>
+
+	<bean id="comment2" class="domain.Comment">
+		<property name="moment" value="11/01/2014 17:44" />
+		<property name="title" value="title Comment 2" />
+		<property name="text" value="Trip Comment 2" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip2" />
+		<property name="actor" ref="user1" />
+	</bean>
+
+	<bean id="comment3" class="domain.Comment">
+		<property name="moment" value="09/01/2015 12:00" />
+		<property name="title" value="title Comment 3" />
+		<property name="text" value="Trip Comment 3" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip3" />
+		<property name="actor" ref="user2" />
+	</bean>
+
+	<bean id="comment4" class="domain.Comment">
+		<property name="moment" value="09/08/2015 11:09" />
+		<property name="title" value="title Comment 4" />
+		<property name="text" value="Trip Comment 4" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip4" />
+		<property name="actor" ref="user2" />
+	</bean>
+
+	<bean id="comment5" class="domain.Comment">
+		<property name="moment" value="07/07/2015 09:12" />
+		<property name="title" value="title Comment 5" />
+		<property name="text" value="Trip Comment 5" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip5" />
+		<property name="actor" ref="user3" />
+	</bean>
+
+	<bean id="comment6" class="domain.Comment">
+		<property name="moment" value="02/07/2015 09:00" />
+		<property name="title" value="title Comment 6" />
+		<property name="text" value="Best Trip Comment 6" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip6" />
+		<property name="actor" ref="user4" />
+	</bean>
+
+	<bean id="comment7" class="domain.Comment">
+		<property name="moment" value="02/07/2015 09:15" />
+		<property name="title" value="title Comment 7" />
+		<property name="text" value="Worst Trip in the world" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="trip7" />
+		<property name="actor" ref="user4" />
+	</bean>
+
+	<!-- Comments (Activities) -->
+
+	<bean id="comment8" class="domain.Comment">
+		<property name="moment" value="01/07/2015 09:00" />
+		<property name="title" value="title Comment 8" />
+		<property name="text" value="Activity Comment 8" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="activity8" />
+		<property name="actor" ref="user4" />
+	</bean>
+
+	<bean id="comment9" class="domain.Comment">
+		<property name="moment" value="05/07/2015 10:00" />
+		<property name="title" value="title Comment 9" />
+		<property name="text" value="Activity Comment 9" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="activity8" />
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="comment10" class="domain.Comment">
+		<property name="moment" value="02/02/2016 10:34" />
+		<property name="title" value="title Comment 10" />
+		<property name="text" value="Activity Comment 3" />
+		<property name="isAppropiate" value="true" />
+		<property name="commentable" ref="activity8" />
+		<property name="actor" ref="manager" />
 	</bean>
 
 

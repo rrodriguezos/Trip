@@ -43,28 +43,79 @@
 		</jstl:forEach>
 	</display:column>
 
-	<spring:message code="trip.comment" var="comment" />
 	<display:column>
-		<a href="comment/list.do?id=<jstl:out value="${row.id}"/>"> <spring:message
-				code="trip.comment" />
-		</a>
+	  <spring:message code="trip.comment" var="comments" />
+      <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
+        <spring:message code="trip.comment" />
+      </a>
+    </display:column>
+
+	<display:column>
+		<jstl:set var="contains" value="false" />
+
+		<jstl:if test="${userTrips.size() > 0 }">
+			<jstl:forEach var="item" items="${userTrips}">
+				<jstl:if test="${item.id eq row.id}">
+					<jstl:set var="contains" value="true" />
+				</jstl:if>
+			</jstl:forEach>
+		</jstl:if>
+
+
+
+		<!-- JOIN BUTTON -->
+		<jstl:if test="${contains == false}">
+			<spring:message code="trip.join" var="join" />
+			<a href="trip/user/joinTrip.do?tripId=${row.id }">
+				<button class="btn btn-md btn-default col-xs-12">
+					<jstl:out value="${join }"></jstl:out>
+				</button>
+			</a>
+		</jstl:if>
+
+		<!-- JOINED MESSAGE -->
+		<jstl:if test="${contains == true}">
+			<span class="col-xs-12 bg-success spm-event-joined text-center">
+				<spring:message code="trip.joined" var="joined" /> <jstl:out
+					value="${joined }"></jstl:out>
+			</span>
+		</jstl:if>
+
+
+
 	</display:column>
 
 
-		<security:authorize access="hasRole('USER')">
-			<display:column>
-
-				<a href="trip/user/edit.do?tripId=${row.id}"> <spring:message
-						code="trip.edit" />
-				</a>
-
+	<jstl:if test="${showdisjoin == true}">
+		<jstl:if test="${row.users.contains(principal)}">
+			<display:column title="${disjoin }">
+				<div class="col-xs-6 col-sm-4 col-md-3 spm-events-button">
+					<!-- DISJOIN BUTTON -->
+					<spring:message code="event.disjoin" var="disjoin" />
+					<a href="event/user/disjoinEvent.do?eventId=${row.id }">
+						<button class="btn btn-md btn-warning col-xs-12">
+							<jstl:out value="${disjoin }"></jstl:out>
+						</button>
+					</a>
+				</div>
 			</display:column>
-		</security:authorize>
+		</jstl:if>
+	</jstl:if>
+
+	<security:authorize access="hasRole('USER')">
+		<display:column>
+
+			<a href="trip/user/edit.do?tripId=${row.id}"> <spring:message
+					code="trip.edit" />
+			</a>
+
+		</display:column>
+	</security:authorize>
 
 	<security:authorize access="hasRole('USER')">
 
-			<a href="trip/user/create.do"> <spring:message code="trip.create" />
-			</a>
+		<a href="trip/user/create.do"> <spring:message code="trip.create" />
+		</a>
 
 	</security:authorize>
 
