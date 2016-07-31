@@ -1,10 +1,11 @@
 package controllers.User;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.ActivityService;
+import services.DailyPlanService;
 import services.SlotService;
-import services.TripService;
-import services.UserService;
 import controllers.AbstractController;
+import domain.Activity;
+import domain.DailyPlan;
 import domain.Slot;
 
 @Controller
@@ -25,12 +28,12 @@ public class SlotUserController extends AbstractController {
 	// Services ---------------------
 	@Autowired
 	private SlotService slotService;
+	
+	@Autowired
+	private ActivityService activityService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private TripService tripService;
+	private DailyPlanService dailyplanService;
 
 	// Constructor ------------------
 	public SlotUserController() {
@@ -43,107 +46,99 @@ public class SlotUserController extends AbstractController {
 	public ModelAndView create(@RequestParam int dailyplanId) {
 		ModelAndView result;
 		Slot slot;
-		Assert.notNull(dailyplanId);
-		slot = slotService.create(dailyplanId);
-		result = createEditModelAndView(slot, null);
+		DailyPlan dailyPlan;
+
+		slot = slotService.create();
+		dailyPlan = dailyplanService.findOne(dailyplanId);
+		slot.setDailyplan(dailyPlan);
+
+		result = createEditModelAndView(slot);
+
 		return result;
 	}
 
 	// Save
 	// -----------------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Slot slot, BindingResult binding,
 			RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-
-		if (binding.hasErrors()) {
-			System.out.print(binding.hasErrors());
-			System.out.print(binding.toString());
-			result = createEditModelAndView(slot, "daily.commit.error");
-		} else {
-			try {
-				slotService.save(slot);
-				result = new ModelAndView("redirect:/trip/user/list.do");
-				result.addObject("userId", userService.findByPrincipal().getId());
-				result.addObject("user", userService.findByPrincipal());
-			} catch (Throwable oops) {
-				result = createEditModelAndView(slot, "trip.commit.error");
-
-			}
+		int checkOverlap = 0;
+		boolean startEndDates1 = false, startEndDates2 = false;
+		if (slot.getStartTime() != null && slot.getEndTime() != null) {
+			checkOverlap = slotService.checkOverlapping(slot);
+			startEndDates1 = slot.getDailyplan().getWeekDay()
+					.equals(slot.getStartTime())
+					|| slot.getDailyplan().getWeekDay()
+							.equals(slot.getEndTime());
+			startEndDates2 = slot.getStartTime().after(slot.getEndTime());
 		}
 
-		return result;
-	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveYotro")
-	public ModelAndView saveYotro(@Valid Slot slot, BindingResult binding,
-			RedirectAttributes redirectAttrs) {
-		ModelAndView result;
-
-		if (binding.hasErrors()) {
-			System.out.print(binding.hasErrors());
-			System.out.print(binding.toString());
-			result = createEditModelAndView(slot, "daily.commit.error");
-		} else {
-			try {
-				slotService.save(slot);
-				result = new ModelAndView("redirect:/slot/user/create.do?dailyplanId="+slot.getDailyplan().getId());
-				result.addObject("dailyplanId", slot.getDailyplan().getId());
-			} catch (Throwable oops) {
-				result = createEditModelAndView(slot, "trip.commit.error");
-
+		if (binding.hasErrors() || startEndDates1 || startEndDates2
+				|| checkOverlap != 0) {
+			result = createEditModelAndView(slot);
+			if (startEndDates1) {
+				result.addObject("message", "slot.overlap.error");
+			} else if (checkOverlap != 0) {
+				result.addObject("message", "slot.overlap.error2");
+			} else if (startEndDates2) {
+				result.addObject("message", "slot.overlap.error3");
 			}
-		}
-
-		return result;
-	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveYDaily")
-	public ModelAndView saveYDaily(@Valid Slot slot, BindingResult binding,
-			RedirectAttributes redirectAttrs) {
-		ModelAndView result;
-
-		if (binding.hasErrors()) {
-			System.out.print(binding.hasErrors());
-			System.out.print(binding.toString());
-			result = createEditModelAndView(slot, "daily.commit.error");
 		} else {
 			try {
 				slotService.save(slot);
-				result = new ModelAndView("redirect:/dailyplan/user/create.do?tripId="+slot.getDailyplan().getTrip().getId());
-				result.addObject("dailyplanId", slot.getDailyplan().getId());
+				result = new ModelAndView("redirect:/slot/list.do?dailyPlanId="
+						+ slot.getDailyplan().getId());
+				redirectAttrs.addFlashAttribute("message", "slot.commit.ok");
+
 			} catch (Throwable oops) {
-				result = createEditModelAndView(slot, "trip.commit.error");
+				result = createEditModelAndView(slot);
+				result.addObject("message", "slot.commit.error");
 			}
 		}
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Slot slot,
-			String message) {
+	// Delete-----------------------------------------------------------------------------
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int slotId) {
 		ModelAndView result;
 
-		result = new ModelAndView("slot/user/edit");
+		Slot slot = slotService.findOne(slotId);
+
+		slotService.delete(slot);
+
+		result = new ModelAndView("redirect:/trip/user/mytrips.do");
+		result.addObject("requestUri", "/trip/user/mytrips.do");
+
+		return result;
+	}
+
+	// Ancillary methods
+	// --------------------------------------------------------
+
+	protected ModelAndView createEditModelAndView(Slot slot) {
+		ModelAndView result;
+
+		result = createEditModelAndView(slot, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(Slot slot, String message) {
+		ModelAndView result;
+		Collection<Activity> activities;
+
+		activities = activityService.findAll();
+
+		result = new ModelAndView("slot/create");
+
+		result.addObject("activities", activities);
 		result.addObject("slot", slot);
 		result.addObject("message", message);
 
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "cancel")
-	public ModelAndView cancel(Slot slot, BindingResult binding,
-			RedirectAttributes redirectAttrs) {
-		ModelAndView result;
-
-		try {
-			tripService.delete(slot.getDailyplan().getTrip());
-			result = new ModelAndView("redirect:/trip/user/list.do");
-			result.addObject("user", userService.findByPrincipal());
-			result.addObject("userId", userService.findByPrincipal().getId());
-		} catch (Throwable oops) {
-			result = createEditModelAndView(slot, "slot.delete.error");
-		}
 		return result;
 	}
 

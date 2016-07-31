@@ -10,20 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ManagerRepository;
-import repositories.UserRepository;
 import security.Authority;
 import security.LoginService;
-import utilities.DPMessage;
-import utilities.DPUtils;
 import security.UserAccount;
+import domain.Activity;
 import domain.Administrator;
 import domain.Campaign;
 import domain.Comment;
 import domain.CreditCard;
 import domain.Folder;
 import domain.Manager;
-import domain.User;
-import forms.RegisterForm;
 import forms.UserRegisterForm;
 
 @Service
@@ -61,6 +57,11 @@ public class ManagerService {
 		auth.setAuthority("MANAGER");
 		Collection<Authority> lia = new ArrayList<Authority>();
 		lia.add(auth);
+		result.setActivities(new ArrayList<Activity>());
+		result.setComments(new ArrayList<Comment>());
+		result.setFolders(new ArrayList<Folder>());
+		result.setCampaigns(new ArrayList<Campaign>());
+		result.setCreditCards(new ArrayList<CreditCard>());
 		UserAccount ua = new UserAccount();
 		ua.setAuthorities(lia);
 		result.setUserAccount(ua);
@@ -131,9 +132,40 @@ public class ManagerService {
 		result.setUserAccount(ua);
 		return result;
 	}
+	
+
+	public int minimumNumberOfCampaignsPerManager(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		Integer res = managerRepository.minimumNumberOfCampaignsPerManager();
+		return res==null?0:res;
+	}
+	
+
+	public int maximumNumberOfCampaignsPerManager(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		Integer res = managerRepository.maximumNumberOfCampaignsPerManager();
+		return res==null?0:res;
+	}
+
+	public double averageNumberOfCampaignsPerManager(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		Double res = managerRepository.averageNumberOfCampaignsPerManager();
+		return res==null?0.0:res;
+	}
 
 	public void checkPrincipal() {
 		Assert.isTrue(findByPrincipal() != null);
+	}
+	
+	public Collection<Manager> managersMoreCampaigns(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		return  managerRepository.managersMoreCampaigns();
+	
+		
 	}
 
 }

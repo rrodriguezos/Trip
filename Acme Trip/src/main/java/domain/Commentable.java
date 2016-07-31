@@ -25,11 +25,10 @@ public abstract class Commentable extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "commentable")
+	@OneToMany(mappedBy="commentable")
 	public Collection<Comment> getComments() {
 		return comments;
 	}
-
 	public void setComments(Collection<Comment> comments) {
 		this.comments = comments;
 	}

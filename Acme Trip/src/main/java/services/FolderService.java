@@ -51,7 +51,7 @@ public class FolderService {
 	public void save(Folder folder) {
 		Assert.notNull(folder);
 		Actor actor = actorService.findByPrincipal();
-		Assert.notNull(actor);	
+		Assert.notNull(actor);
 		folderRepository.saveAndFlush(folder);
 	}
 
@@ -60,8 +60,8 @@ public class FolderService {
 		Actor actor = actorService.findByPrincipal();
 		Assert.isTrue(folderRepository.exists(folder.getId()));
 		Assert.isTrue(!folder.getSystemFolder());
-		Assert.isTrue(folder.getActor().getId()==actor.getId());
-		for (Message m: folder.getMessages()) {
+		Assert.isTrue(folder.getActor().getId() == actor.getId());
+		for (Message m : folder.getMessages()) {
 			messageService.delete(m);
 		}
 		folderRepository.delete(folder);
@@ -69,6 +69,13 @@ public class FolderService {
 	}
 
 	// Other Business Methods ---------------------------
+	public void checkPrincipal(Folder folder) {
+		Assert.notNull(folder);
+
+		Actor actor = actorService.findByPrincipal();
+
+		Assert.isTrue(actor.getId() == folder.getActor().getId());
+	}
 
 	public Collection<Folder> findFoldersOfActor(int actorId) {
 		return folderRepository.foldersOfActor(actorId);

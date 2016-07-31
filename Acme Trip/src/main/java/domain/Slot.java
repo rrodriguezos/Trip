@@ -25,46 +25,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = { @Index(columnList = "startTime"),
+		@Index(columnList = "endTime"), @Index(columnList = "title"),
+		@Index(columnList = "description") })
 public class Slot extends DomainEntity {
-	
+
 	public Slot() {
 		super();
 	}
-	
-	// ------------ Attributes ------------ 
+
+	// ------------ Attributes ------------
 	private String description;
 	private String title;
 	private Collection<String> photos;
-	private String startTime;
-	private String endTime;
-	
-	
-	@NotBlank
-	@Pattern(regexp="^([0|1]\\d|2[0-3]):[0-5]\\d$")
-	public String getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-	
-	@NotBlank
-	@Pattern(regexp="^([0|1]\\d|2[0-3]):[0-5]\\d$")
-	public String getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-	
-	@NotBlank
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	private Date startTime;
+	private Date endTime;
 
 	@NotBlank
 	public String getTitle() {
@@ -75,7 +50,37 @@ public class Slot extends DomainEntity {
 		this.title = title;
 	}
 
-	
+	@NotBlank
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
 	@ElementCollection
 	public Collection<String> getPhotos() {
 		return photos;
@@ -84,13 +89,14 @@ public class Slot extends DomainEntity {
 	public void setPhotos(Collection<String> photos) {
 		this.photos = photos;
 	}
-	// ------------ Relationships ------------ 
-	
+
+	// ------------ Relationships ------------
+
 	private DailyPlan dailyplan;
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public DailyPlan getDailyplan() {
 		return dailyplan;
 	}
@@ -98,12 +104,12 @@ public class Slot extends DomainEntity {
 	public void setDailyplan(DailyPlan dailyplan) {
 		this.dailyplan = dailyplan;
 	}
-	
+
 	private Activity activity;
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Activity getActivity() {
 		return activity;
 	}

@@ -14,10 +14,10 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 //	@Query("select c from Campaign c where c.manager.id = ?1")
 //	Collection<Campaign> findCampaignsByManager(int managerId);
 //
-//	@Query("select avg(c.endMoment-c.startMoment) from Campaign c")
-//	Double averageNumberDaysCampaignsLast();
-//
-//	@Query("select stddev(c.endMoment-c.startMoment) from Campaign c")
-//	Double standardDeviationOfNumberDaysCampaignsLast();
+	@Query("select avg(c.endMoment-c.startMoment) from Campaign c")
+	Double averageNumberDaysCampaignsLast();
+
+	@Query("select stddev(c.endMoment-c.startMoment) from Campaign c")
+	Double standardDeviationOfNumberDaysCampaignsLast();
 
 }

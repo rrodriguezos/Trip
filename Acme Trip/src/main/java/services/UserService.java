@@ -13,6 +13,8 @@ import org.springframework.util.Assert;
 import domain.Activity;
 import domain.Administrator;
 import domain.Comment;
+import domain.Folder;
+import domain.Manager;
 import domain.Trip;
 import domain.User;
 import forms.ActorForm;
@@ -56,8 +58,22 @@ public class UserService {
 	}
 
 	public User create() {
-		User result;
-		result = new User();
+
+		User result = new User();
+
+		Authority auth = new Authority();
+		auth.setAuthority("USER");
+		Collection<Authority> lia = new ArrayList<Authority>();
+		lia.add(auth);
+		result.setActivities(new ArrayList<Activity>());
+		result.setTrips(new ArrayList<Trip>());
+		result.setTripSubscribes(new ArrayList<Trip>());
+		result.setComments(new ArrayList<Comment>());
+		result.setFolders(new ArrayList<Folder>());
+		UserAccount ua = new UserAccount();
+		ua.setAuthorities(lia);
+		result.setUserAccount(ua);
+		
 		return result;
 	}
 
@@ -153,6 +169,13 @@ public class UserService {
 		Md5PasswordEncoder password = new Md5PasswordEncoder();
 		String encodedPassword = password.encodePassword(confirmPassword, null);
 		return !u.getUserAccount().getPassword().equals(encodedPassword);
+	}
+	
+	public Collection<User> usersSusTrip(int tripId){
+		
+		return userRepository.usersSusTrip(tripId);
+		
+
 	}
 
 

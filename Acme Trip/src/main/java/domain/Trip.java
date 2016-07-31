@@ -6,26 +6,27 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-
-import javax.persistence.ManyToOne;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.hibernate.validator.constraints.NotBlank;
-
-
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = { @Index(columnList="startDate"),  @Index(columnList="endDate"), @Index(columnList="title"), @Index(columnList="description")})
 public class Trip extends Commentable {
 
 	
@@ -37,7 +38,7 @@ public class Trip extends Commentable {
 	private String title;
 	private Collection<String> photos;
 	
-	@Past
+
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -48,7 +49,7 @@ public class Trip extends Commentable {
 		this.endDate = endDate;
 	}
 	
-	@Past
+
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -107,7 +108,7 @@ public class Trip extends Commentable {
 		
 		@Valid
 		@NotNull
-		@OneToMany(mappedBy = "trip")
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="trip")
 		public Collection<DailyPlan> getDailyplans() {
 			return dailyplans;
 		}

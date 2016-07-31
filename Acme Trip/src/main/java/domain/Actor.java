@@ -99,7 +99,7 @@ public abstract class Actor extends DomainEntity {
 		
 		@Valid
 		@NotNull
-		@OneToMany(mappedBy = "actor")
+		@OneToMany(mappedBy="actor")
 		public Collection<Comment> getComments() {
 			return comments;
 		}

@@ -6,6 +6,8 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -90,6 +92,7 @@ public class Comment extends DomainEntity {
 			@NotNull
 			@Valid
 			@ManyToOne(optional=false)
+			@NotFound(action=NotFoundAction.IGNORE)
 			public Commentable getCommentable() {
 				return commentable;
 			}

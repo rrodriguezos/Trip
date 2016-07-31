@@ -16,9 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes={
-		@Index(columnList=("name")),
-		@Index(columnList=("actor_id"))})
+@Table(indexes = { @Index(columnList="systemFolder"), @Index(columnList="name") })
 public class Folder extends DomainEntity {
 	
 	//Constructors -----------------------------

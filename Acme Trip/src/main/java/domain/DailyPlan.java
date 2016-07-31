@@ -1,23 +1,30 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = { @Index(columnList="title"), @Index(columnList="description")})
 public class DailyPlan extends DomainEntity {
 
 	public DailyPlan() {
@@ -26,22 +33,19 @@ public class DailyPlan extends DomainEntity {
 
 	// ------------ Attributes ------------
 
-	public enum WeekDay {
-		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
-	}
 
-	private WeekDay weekDay;
+	private Date weekDay;
 	private String description;
 	private String title;
 	private Collection<String> photos;
 
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	public WeekDay getWeekDay() {
+	public Date getWeekDay() {
 		return weekDay;
 	}
-
-	public void setWeekDay(WeekDay weekDay) {
+	public void setWeekDay(Date weekDay) {
 		this.weekDay = weekDay;
 	}
 
@@ -79,6 +83,7 @@ public class DailyPlan extends DomainEntity {
 
 	
 	@Valid
+	@NotNull
 	@ManyToOne(optional = true)
 	public Trip getTrip() {
 		return trip;
@@ -92,7 +97,7 @@ public class DailyPlan extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "dailyplan")
+	@OneToMany(cascade={CascadeType.REMOVE,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH},mappedBy="dailyplan")
 	public Collection<Slot> getSlots() {
 		return slots;
 	}

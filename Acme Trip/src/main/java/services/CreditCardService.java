@@ -1,26 +1,20 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.ChargeRecord;
-import domain.Comment;
-import domain.CreditCard;
-import domain.DailyPlan;
-import domain.Manager;
-import domain.Trip;
-
 import repositories.CreditCardRepository;
 import security.Authority;
 import utilities.DPMessage;
 import utilities.DPUtils;
+import domain.ChargeRecord;
+import domain.CreditCard;
+import domain.Manager;
 
 @Service
 @Transactional

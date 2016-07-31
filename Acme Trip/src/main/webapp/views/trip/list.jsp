@@ -42,6 +42,18 @@
 			<img height="150px" src="<jstl:out value="${photo}" />">
 		</jstl:forEach>
 	</display:column>
+	
+	<spring:message code="trip.display" var="display" />
+	<display:column title="${display}">
+			<input type="button" value="<spring:message code="trip.display" />" 
+					onclick="javascript: window.location.assign('trip/display.do?tripId=${row.id}')" />
+	</display:column>
+	
+	<spring:message code="trip.dailyplans" var="dailyplansHeader" />
+	<display:column title="${dailyplansHeader}">
+			<input type="button" value="<spring:message code="trip.dailyplans" />" 
+					onclick="javascript: window.location.assign('dailyplan/list.do?tripId=${row.id}')" />
+	</display:column>
 
 	<display:column>
 	  <spring:message code="trip.comment" var="comments" />
@@ -61,7 +73,7 @@
 			</jstl:forEach>
 		</jstl:if>
 
-
+<security:authorize access="hasRole('USER')">
 
 		<!-- JOIN BUTTON -->
 		<jstl:if test="${contains == false}">
@@ -80,10 +92,11 @@
 					value="${joined }"></jstl:out>
 			</span>
 		</jstl:if>
-
+</security:authorize>
 
 
 	</display:column>
+<security:authorize access="hasRole('USER')">
 
 
 	<jstl:if test="${showdisjoin == true}">
@@ -101,6 +114,7 @@
 			</display:column>
 		</jstl:if>
 	</jstl:if>
+	</security:authorize>
 
 	<security:authorize access="hasRole('USER')">
 		<display:column>

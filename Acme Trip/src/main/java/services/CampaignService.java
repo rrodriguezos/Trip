@@ -92,13 +92,13 @@ public class CampaignService {
 //		}
 //		
 //		
-//		public Double standardDeviationOfNumberDaysCampaignsLast() {
-//			return campaignRepository.standardDeviationOfNumberDaysCampaignsLast();
-//		}
-//		
-//		public Double averageNumberDaysCampaignsLast(){
-//			return campaignRepository.averageNumberDaysCampaignsLast();
-//		}
+		public Double standardDeviationOfNumberDaysCampaignsLast() {
+			return campaignRepository.standardDeviationOfNumberDaysCampaignsLast();
+		}
+		
+		public Double averageNumberDaysCampaignsLast(){
+			return campaignRepository.averageNumberDaysCampaignsLast();
+		}
 		
 
 	

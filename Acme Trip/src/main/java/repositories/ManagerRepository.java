@@ -30,6 +30,6 @@ public interface ManagerRepository  extends JpaRepository<Manager, Integer>{
 		Double averageNumberOfCampaignsPerManager();
 		
 		@Query("select m from Manager m where m.campaigns.size = (select max(ms.campaigns.size) from Manager ms)")
-		Collection<Manager> customerMoreCampaigns();
+		Collection<Manager> managersMoreCampaigns();
 
 }

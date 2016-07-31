@@ -1,4 +1,5 @@
 package controllers;
+
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -6,32 +7,27 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.CommentService;
+import controllers.AbstractController;
+import domain.Activity;
 import domain.Comment;
-import forms.CommentForm;
+import domain.Trip;
 
 @Controller
 @RequestMapping("/comment")
 @SessionAttributes("commentableId")
 public class CommentController extends AbstractController {
-	
-	//Services -------------------------
+
+	// Supporting services--------------------------------------------
 	@Autowired
 	private CommentService commentService;
 	
-	//Constructor ----------------------
-	public CommentController() {
-		super();
-	}
 	
 	//Listing comments by commentable ----------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -44,63 +40,71 @@ public class CommentController extends AbstractController {
 		result.addObject("id", id);
 		return result;		
 	}
-	
-	
-	//Creation ---------------------------------
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int commentableId) {
+
+	// Edit
+	// -------------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int commentableId) {
 		ModelAndView result;
-		
-		CommentForm commentForm = new CommentForm();
-		result = createEditModelAndView(commentForm, null, commentableId);
-		result.addObject("commentableId", commentableId);
-		return result;		
-	}
-	
-	//Edition ----------------------------------
-		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-		public ModelAndView save(@Valid CommentForm commentForm, BindingResult binding,
-				@ModelAttribute("commentableId") int commentableId, SessionStatus status, RedirectAttributes redirectAttrs) {
-			
-			ModelAndView result;
-			
-			if (binding.hasErrors()) {
-				result = createEditModelAndView(commentForm, "comment.commit.error", commentableId);
-			} else{
-				try {
-					System.out.print(binding.getFieldError());
-					System.out.print(binding.getGlobalError());
-					Comment comment = commentService.reconstruct(commentForm, commentableId);
-					commentService.save(comment);	
-					System.out.print(binding.getFieldError());
-					System.out.print(binding.getGlobalError());
-					redirectAttrs.addFlashAttribute("message", "comment.commit.ok");		
-					result = new ModelAndView("redirect:list.do?id="+commentableId);
-					status.setComplete();
-				} catch (Throwable oops) {
-					System.out.print(binding.getFieldError());
-					System.out.print(binding.getGlobalError());
-					result = createEditModelAndView(commentForm, "comment.commit.error", commentableId);				
-				}
-			}
-			return result;
-		}
+		Comment comment;
 
+		comment = commentService.create(commentableId);
 
-
-	//Ancillary methods -------------
-	
-	protected ModelAndView createEditModelAndView(CommentForm commentForm, String message, int id) {
-		ModelAndView result;
-				
 		result = new ModelAndView("comment/edit");
-		result.addObject("commentForm", commentForm);
-		result.addObject("message", message);
-		result.addObject("actionURI", "comment/edit.do");
-		result.addObject("cancelURL", "comment/list.do?id="+id);
-		
+		result.addObject("actionUri", "comment/edit.do");
+		result.addObject("comment", comment);
+
 		return result;
 	}
-	
 
+	// Save
+	// -------------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(@Valid Comment comment, BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = createEditModelAndView(comment);
+		} else {
+			try {
+				commentService.save(comment);
+				if (comment.getCommentable() instanceof Trip) {
+					result = new ModelAndView(
+							"redirect:/trip/display.do?tripId="
+									+ comment.getCommentable().getId());
+				} else if (comment.getCommentable() instanceof Activity) {
+					result = new ModelAndView(
+							"redirect:/activity/display.do?activityId="
+									+ comment.getCommentable().getId());
+				} else {
+					result = new ModelAndView("redirect:/welcome/index.do");
+				}
+			} catch (Throwable oops) {
+				result = createEditModelAndView(comment, "comment.commit.error");
+			}
+		}
+		return result;
+	}
+
+	// Ancillary methods
+	// --------------------------------------------------------------------------
+	protected ModelAndView createEditModelAndView(Comment comment) {
+		ModelAndView result;
+
+		result = createEditModelAndView(comment, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(Comment comment,
+			String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("comment/edit");
+		result.addObject("comment", comment);
+		result.addObject("actionUri", "comment/edit.do");
+		result.addObject("message", message);
+
+		return result;
+	}
 }

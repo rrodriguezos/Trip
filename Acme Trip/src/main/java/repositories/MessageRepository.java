@@ -16,5 +16,8 @@ public interface MessageRepository extends JpaRepository<Message, Integer>{
 	
 	@Query("select count(*)/(select count(*)*1.0 from Actor a) from Message m")
 	Double averageNumberMessagesPerActor();
+	
+		@Query("select m from Message m where m.folder.actor.id=?1 and m.star is true")
+		Collection<Message> findStarsByActor(int actorId);
 
 }

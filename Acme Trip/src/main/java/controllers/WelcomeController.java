@@ -32,8 +32,8 @@ import services.UserService;
 @Controller
 @RequestMapping("/welcome")
 public class WelcomeController extends AbstractController {
-
-	// Services ----------------------------------------------------------------
+	
+	//Services ----------------------------------------------------------------
 	@Autowired
 	private AdministratorService administratorService;
 	@Autowired
@@ -42,45 +42,41 @@ public class WelcomeController extends AbstractController {
 	private ManagerService managerService;
 
 	// Constructors -----------------------------------------------------------
-
+	
 	public WelcomeController() {
 		super();
 	}
-
-	// Index ------------------------------------------------------------------
+		
+	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(
-			@RequestParam(required = false, defaultValue = "") String name) {
+	public ModelAndView index(@RequestParam(required=false, defaultValue="") String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
+		
 
 		Actor actor = null;
 		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context == null ? null : context
-				.getAuthentication();
-		Object principal = authentication == null ? null : authentication
-				.getPrincipal();
-		UserAccount ua = principal instanceof UserAccount ? (UserAccount) principal
-				: null;
-
-		if (ua != null) {
+		Authentication authentication = context==null?null:context.getAuthentication();
+		Object principal = authentication==null?null:authentication.getPrincipal();
+		UserAccount ua = principal instanceof UserAccount?(UserAccount) principal:null;
+		
+		if(ua!=null){
 			actor = administratorService.findByUserAccount(ua);
-			if (actor == null) {
+			if(actor==null){
 				actor = userService.findByUserAccount(ua);
-				if (actor == null) {
+				if(actor==null){
 					actor = managerService.findByUserAccount(ua);
 				}
-			}
+			}				
 		}
-		name = actor == null ? name : actor.getName() + " "
-				+ actor.getSurname();
-		name = name.equals("") ? name : ", " + name;
-
+		name = actor==null?name:actor.getName()+" "+actor.getSurname();	
+		name = name.equals("")?name:", "+name;
+		
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
-
+				
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);

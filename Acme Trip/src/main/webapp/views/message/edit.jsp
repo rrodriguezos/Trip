@@ -12,7 +12,19 @@
 
 	<acme:select code="recipient.name" path="recipient" items="${actors}" itemLabel="name" id="actors" />
 	<acme:textbox code="message.subject" path="subject"/>
-	<acme:textbox code="message.messagePriority" path="messagePriority"/>
+	<tr>
+			<td><select NAME="messagePriority">
+					<OPTION VALUE="LOW">
+						<spring:message code="common.bajo" />
+					</OPTION>
+					<OPTION VALUE="NEUTRAL">
+						<spring:message code="common.neutral" />
+					</OPTION>
+					<OPTION VALUE="HIGH">
+						<spring:message code="common.alto" />
+					</OPTION>				
+			</select></td>
+		</tr>
 	<acme:textarea code="message.body" path="body"/>
 
 	<acme:submit name="save" code="message.save"/>

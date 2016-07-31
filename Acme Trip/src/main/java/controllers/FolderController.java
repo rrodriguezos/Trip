@@ -76,40 +76,30 @@ public class FolderController extends AbstractController {
 	
 	//Edit -------------------------------------------------------------------------
 		@RequestMapping(value="/edit", method = RequestMethod.GET)
-		public ModelAndView edit(@RequestParam(defaultValue="0") int folderId) {
-			ModelAndView result;
-			FolderForm folderForm = new FolderForm();
-			result = createEditModelAndView(folderForm, null);
+		public ModelAndView edit(@RequestParam(defaultValue="0") Integer folderId) {
+			Folder folder = folderId != 0 ? folderService.findOne(folderId) : new Folder();
+			Assert.notNull(folder);
+			folder.setActor(actorService.findByPrincipal());
 			
-			if(folderId!=0){
-				Folder folder = folderService.findOne(folderId);
-				Actor actor = actorService.findByPrincipal();
-				Assert.isTrue(actor.equals(folder.getActor()));
-				result.addObject("folderName", folder.getName());
-			}
-			
-			result.addObject("folderId", folderId);		
-			return result;
+			return createEditModelAndView(folder);
 		}
 
 		//Save -------------------------------------------------------------------------
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-		public ModelAndView save(@Valid FolderForm folderForm, BindingResult binding,
-				@ModelAttribute("folderId") int folderId, SessionStatus status, RedirectAttributes redirectAttrs) {
-			ModelAndView result;				
+		public ModelAndView save(@Valid Folder folder, BindingResult binding) {
+			ModelAndView result;		
+			Assert.isTrue(!folder.getSystemFolder());
+			
 			if (binding.hasErrors()) {
-				result = createEditModelAndView(folderForm, "folder.commit.not.valid");
+				result = createEditModelAndView(folder);
 			} else {
-				try {			
-					Folder folder = folderService.reconstruct(folderForm, folderId);
-					folderService.save(folder);	
-					redirectAttrs.addFlashAttribute("message", "folder.commit.ok");		
+				try {				
+					folderService.save(folder);
 					result = new ModelAndView("redirect:list.do");
-					status.setComplete();	
 				} catch(ObjectOptimisticLockingFailureException exc) {
-					result = createEditModelAndView(folderForm, "folder.concurrencyError");
+					result = createEditModelAndView(folder, "common.concurrencyError");
 				} catch (Throwable oops) {				
-					result = createEditModelAndView(folderForm, "folder.commit.error");				
+					result = createEditModelAndView(folder, "common.error");				
 				}
 			}
 
@@ -138,10 +128,17 @@ public class FolderController extends AbstractController {
 	
 		// Ancillary methods -------------------------------------------------
 	
-		private ModelAndView createEditModelAndView(FolderForm folderForm, String message) {
-			ModelAndView result = new ModelAndView("folder/edit");
-			result.addObject("folderForm", folderForm);
-			result.addObject("message", message);		
+		private ModelAndView createEditModelAndView(Folder folder) {
+			return createEditModelAndView(folder, null);
+		}	
+		
+		private ModelAndView createEditModelAndView(Folder folder, String message) {
+			ModelAndView result;
+					
+			result = new ModelAndView("folder/edit");
+			result.addObject("folder", folder);
+			result.addObject("message", message);
+			
 			return result;
 		}
 

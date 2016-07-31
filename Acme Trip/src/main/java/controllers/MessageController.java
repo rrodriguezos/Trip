@@ -122,33 +122,60 @@ public class MessageController extends AbstractController {
 
 		return result;
 	}
+	// Starred message ----------------------------------
+//		@RequestMapping(value = "/starredBack", method = RequestMethod.GET)
+//		public ModelAndView starredBack(@RequestParam int messageId,
+//				RedirectAttributes redirectAttrs) {
+//			ModelAndView result;
+//			Message message = messageService.findOne(messageId);
+//
+//			if (message.getFolder().equals("Starred folder")
+//					&& message.getFolder().getSystemFolder()) {
+//				result = new ModelAndView("redirect:list.do?folderId="
+//						+ message.getFolder().getId());
+//				redirectAttrs.addFlashAttribute("message",
+//						"message.already.starred");
+//			} else {
+//				try {
+//					messageService.flagAsBackStarredSave(message);
+//					redirectAttrs.addFlashAttribute("message", "message.commit.ok");
+//					result = new ModelAndView("redirect:list.do?folderId="
+//							+ message.getFolder().getId());
+//				} catch (Throwable oops) {
+//					result = new ModelAndView("redirect:/folder/list.do");
+//					redirectAttrs.addFlashAttribute("message",
+//							"message.commit.error");
+//				}
+//			}
+//
+//			return result;
+//		}
 
-	// Edit -----------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid MessageForm messageForm,
-			BindingResult binding, RedirectAttributes redirectAttrs) {
+	public ModelAndView save(@Valid MessageForm messageForm, BindingResult binding) {
 		ModelAndView result;
 
-		if (messageForm.getRecipient() == 0) {
-			result = createEditModelAndView(messageForm,
-					"message.select.recipient");
-		} else if (binding.hasErrors()) {
+		if (binding.hasErrors()) {
+			System.out.print(binding.getFieldError());
+			System.out.print(binding.getGlobalError());
 			result = createEditModelAndView(messageForm, null);
 		} else {
-			try {
+			try 
+			{	
+				System.out.print(binding.getFieldError());
+				System.out.print(binding.getGlobalError());
 				Message message = messageService.reconstruct(messageForm);
 				messageService.save(message);
-				redirectAttrs.addFlashAttribute("message", "message.commit.ok");
 				result = new ModelAndView("redirect:/folder/list.do");
-			} catch (ObjectOptimisticLockingFailureException exc) {
-				result = createEditModelAndView(messageForm,
-						"message.concurrencyError");
-			} catch (Throwable oops) {
-				result = createEditModelAndView(messageForm,
-						"message.commit.error");
+			} catch(ObjectOptimisticLockingFailureException exc) {
+				result = createEditModelAndView(messageForm, "common.concurrencyError");
+			} catch (Throwable oops) {	
+				System.out.print(binding.getFieldError());
+				System.out.print(binding.getGlobalError());
+				System.out.println(oops.getMessage());
+				result = createEditModelAndView(messageForm, "common.error");				
 			}
 		}
-
 		return result;
 	}
 

@@ -26,6 +26,7 @@ public class MessageForm {
 		private String subject;
 		private String body;
 		private int recipient;
+		private boolean star;
 		
 			
 
@@ -61,6 +62,13 @@ public class MessageForm {
 
 		public void setMessagePriority(MessagePriority messagePriority) {
 			this.messagePriority = messagePriority;
+		}
+		public boolean getStar() {
+			return star;
+		}
+		
+		public void setStar(boolean star) {
+			this.star = star;
 		}
 
 }

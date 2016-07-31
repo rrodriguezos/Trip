@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ public class ActivityType extends DomainEntity {
 	private String name;
 
 	@NotBlank
+	@Column(unique=true)
 	public String getName() {
 		return name;
 	}

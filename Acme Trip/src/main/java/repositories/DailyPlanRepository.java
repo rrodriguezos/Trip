@@ -1,5 +1,6 @@
 package repositories;
 
+import java.util.Date;
 import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,5 +28,8 @@ public interface DailyPlanRepository extends JpaRepository<DailyPlan, Integer> {
 	
 	@Query("select a from DailyPlan a where a.trip.user.userAccount.id = ?1")
 	DailyPlan findByUserAccountID(int UserAccountID);
+	
+	@Query("select count(t) from Trip t where t.id = ?1 and ?2 between t.startDate and t.endDate")
+	Integer findDPlanBetweenTripDate(int tripId, Date date);
 
 }
