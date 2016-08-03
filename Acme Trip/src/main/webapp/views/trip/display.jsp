@@ -1,6 +1,6 @@
 <%--
  *
- * Copyright (C) 2013 Universidad de Sevilla
+ * Copyright (C) 2016 Universidad de Sevilla
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -23,21 +23,21 @@
 <!-- Display trip -->
 
 <b><spring:message code="trip.title" />: </b>
-<form:input path="title" readonly="true" />
-
+<form:input path="trip.title" readonly="true" />
+<br>
 <b><spring:message code="trip.description" />: </b>
-<form:input path="description" readonly="true" />
-
+<form:input path="trip.description" readonly="true" />
+<br>
 <b><spring:message code="trip.startDate" />: </b>
-<form:input path="startDate" readonly="true" />
-
+<form:input path="trip.startDate" readonly="true" />
+<br>
 <b><spring:message code="trip.endDate" />: </b>
-<form:input path="endDate" readonly="true" />
-
+<form:input path="trip.endDate" readonly="true" />
+<br>
 
 <b><spring:message code="trip.photos" />: </b>
 <br>
-<jstl:forEach var="photo" items="${trip.getPhotos() }">
+<jstl:forEach var="photo" items="${trip.photos }">
 	<img width="200px" height="200x" src="${photo}"
 		alt="${ trip.title } photo" />
 </jstl:forEach>
@@ -76,45 +76,6 @@
 	</jstl:if>
 </security:authorize>
 <br>
-<h2>
-	<spring:message code="trip.comments" />
-</h2>
 
-<display:table name="comments" id="row" pagesize="5"
-	requestURI="${requestUri}" class="displaytag">
+<acme:cancel code="trip.back" url="trip/list.do" />
 
-	<spring:message code="comment.title" var="title" />
-	<display:column title="${title}">
-		<jstl:choose>
-			<jstl:when test="${row.getAppropriated()==true }">
-				<jstl:out value="${row.getTitle() }" />
-			</jstl:when>
-			<jstl:otherwise>
-				<spring:message code="comment.inAppropriate" />
-			</jstl:otherwise>
-		</jstl:choose>
-	</display:column>
-
-	<spring:message code="comment.actor" var="actor" />
-	<display:column title="${actor}">
-		<jstl:out value="${row.getActor().getName()}" />
-		<jstl:out value="${row.getActor().getSurname() }" />
-	</display:column>
-
-	<spring:message code="comment.display" var="display" />
-	<display:column title="${display}">
-		<input type="button" value="<spring:message code="comment.display" />"
-			onclick="javascript: window.location.assign('comment/display.do?commentId=${row.id}')" />
-	</display:column>
-
-</display:table>
-<br>
-<security:authorize access="isAuthenticated()">
-	<input type="button" value="<spring:message code="comment.create" />"
-		onclick="javascript: window.location.assign('comment/actor/edit.do?commentableId=${trip.id}')" />
-</security:authorize>
-
-
-<input type="button" name="cancel"
-	value="<spring:message code="trip.cancel"/>"
-	onclick="javascript: window.history.back()" />

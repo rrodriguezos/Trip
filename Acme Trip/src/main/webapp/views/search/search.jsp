@@ -9,44 +9,52 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 
 <div>
 
-	<form:form action="search/buscar.do"
-		modelAttribute="searchForm">
+	<form:form action="search/buscar.do" modelAttribute="searchForm">
 		<acme:textbox code="search.introduce" path="text" />
 
-		<acme:submit name="search" code="search.search" />
+		<input type="submit" name="search"
+			value="<spring:message code="search.search" />" />
 	</form:form>
-	<jstl:if test="${keyword!=null}">
+	<jstl:if test="${trips!=null}">
 		<h2>
 			<spring:message code="search.explanation" />
 			<jstl:out value="'${searchForm.text}'"></jstl:out>
 			<spring:message code="search.explanation.dos" />
 		</h2>
-		<display:table name="keyword" id="paco"
-			requestURI="search/buscar.do" pagesize="5"
-			class="displayTag">
+		<display:table name="trips" id="paco" requestURI="${requestURI}"
+			pagesize="5" class="displaytag" keepStatus="true">
 			
-	<spring:message	code="search.title"  var="title"/>
-	<display:column property="title" title="${title}" sortable="true" />
-	
-	<spring:message	code="search.description"  var="description"/>
-	<display:column property="description" title="${title}" sortable="true" />
-	
-	<spring:message	code="search.startDate"  var="startDate"/>
-	<display:column property="startDate" title="${startDate}" sortable="true"  format="{0, date, dd/MM/yyyy HH:mm}" />
-	
-	<spring:message	code="search.endDate"  var="endDate"/>
-	<display:column property="endDate" title="${endDate}" sortable="true"  format="{0, date, dd/MM/yyyy HH:mm}" />
-	
-  	
-  	<spring:message	code="search.photos"  var="photos"/>	
-	<display:column title="${photos}" sortable="true" >
-	<jstl:forEach var="photo" items="${paco.photos}">		
-		<img height="100px" src="<jstl:out value="${photo}" />">
-	</jstl:forEach>
-	</display:column>
+			<%-- <display:table name="trips" id="paco" requestURI="${requestURI}"
+			pagesize="5" class="displaytag" keepStatus="true">--%>
+
+			<spring:message code="search.title" var="title" />
+			<display:column property="title" title="${title}" sortable="true" />
+
+			<spring:message code="search.description" var="description" />
+			<display:column property="description" title="${title}"
+				sortable="true" />
+
+			<spring:message code="search.startDate" var="startDate" />
+			<display:column property="startDate" title="${startDate}"
+				sortable="true" format="{0, date, dd/MM/yyyy HH:mm}" />
+
+			<spring:message code="search.endDate" var="endDate" />
+			<display:column property="endDate" title="${endDate}" sortable="true"
+				format="{0, date, dd/MM/yyyy HH:mm}" />
+
+
+			<spring:message code="search.photos" var="photos" />
+			<display:column title="${photos}" sortable="true">
+				<jstl:forEach var="photo" items="${paco.photos}">
+					<img height="150px" src="<jstl:out value="${photo}" />">
+				</jstl:forEach>
+			</display:column>
 		</display:table>
 	</jstl:if>
 

@@ -15,23 +15,22 @@
   <spring:message code="comment.moment" var="momentHeader" />
   <display:column property="moment" title="${momentHeader}" sortable="true" format="{0, date, dd/MM/yyyy HH:mm}" />
   
-  <spring:message code="comment.text" var="textHeader" />
+  <spring:message code="comment.title" var="titleHeader" />
   <display:column property="text" title="${textHeader}" sortable="true" />
   
-   <spring:message code="comment.title" var="titleHeader" />
-  <display:column property="title" title="${titleHeader}" sortable="true" />
-  
+    <spring:message code="comment.text" var="textHeader" />
+  <display:column property="text" title="${textHeader}" sortable="true" />
   
   <spring:message code="comment.actor" var="actorHeader" />
   <display:column property="actor.userAccount.username" title="${actorHeader}" sortable="true" />
-  
   <security:authorize access="hasRole('ADMIN')">
-		<display:column>
-				<a href='comment/administrator/mark.do?commentId=<jstl:out value="${row.id}"/>&id=<jstl:out value="${id}"/>'>
-					<spring:message	code="comment.inappropriate" />
-				</a>
-		</display:column>
-	</security:authorize>
+  <spring:message code="comment.markStatus" var="markStatus" />
+	<display:column title="${markStatus}">
+			<input type="button" value="<spring:message code="comment.mark" />" 
+					onclick="javascript: window.location.assign('comment/administrator/mark.do?commentId=<jstl:out value="${row.id}"/>&id=<jstl:out value="${id}"/>')" />
+	</display:column>
+	</security:authorize>  
+
 
 </display:table>
 </div>

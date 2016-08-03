@@ -140,6 +140,30 @@ public class FolderService {
 		return folderRepository.foldersStarredFolderOfActor(actorId);
 	}
 
+	public Collection<Folder> findFoldersAndMoveByPrincipal() {
+		Collection<Folder> result;
+		Actor principal;
+
+		principal = actorService.findByPrincipal();
+		result = folderRepository.findFoldersAndMoveByPrincipal(principal
+				.getUserAccount().getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Folder findFolderByString(String nameFolder) {
+		Assert.notNull(nameFolder);
+
+		Actor actor;
+		Folder folder;
+
+		actor = actorService.findByPrincipal();
+		folder = folderRepository.findFolderByString(nameFolder, actor.getId());
+		Assert.notNull(folder);
+		return folder;
+	}
+
 	public Folder reconstruct(FolderForm folderForm, int folderId) {
 		Folder result;
 		if (folderId == 0) {

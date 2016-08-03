@@ -9,24 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-
+import repositories.UserRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import utilities.DPMessage;
+import utilities.DPUtils;
 import domain.Activity;
 import domain.Administrator;
 import domain.Comment;
 import domain.Folder;
-import domain.Manager;
 import domain.Trip;
 import domain.User;
 import forms.ActorForm;
-import forms.UserForm;
 import forms.UserRegisterForm;
-
-import repositories.UserRepository;
-import security.Authority;
-import utilities.DPMessage;
-import utilities.DPUtils;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional

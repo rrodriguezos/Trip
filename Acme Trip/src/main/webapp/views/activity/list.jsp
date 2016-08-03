@@ -13,57 +13,33 @@
 
 
 <!-- Listing activity -->
-<div>		
 
 
-		
-		<display:table name="activities" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true">
-				<!-- Attributes -->
-				<spring:message code="activity.title" var="title" />
-				<display:column property="title" title="${title}" sortable="true" />
+<display:table name="activities" id="row" class="displaytag"
+	requestURI="${requestURI}" pagesize="5" keepStatus="true">
 
-				<spring:message code="activity.description" var="description" />
-				<display:column property="description" title="${title}"
-					sortable="true" />
+	<spring:message code="activity.title" var="title" />
+	<display:column property="title" title="${title}" />
+
+	<spring:message code="activity.description" var="description" />
+	<display:column property="description" title="${description}" />
+
+	<spring:message code="activity.display" var="display" />
+	<display:column title="${display}">
+		<input type="button"
+			value="<spring:message code="activity.display" />"
+			onclick="javascript: window.location.assign('activity/display.do?activityId=${row.id}')" />
+	</display:column>
+
+</display:table>
+
+<security:authorize access="hasRole('USER')">
+	<input type="button" name="create"
+		value="<spring:message code="activity.create" />"
+		onclick="javascript: window.location.assign('activity/user/create.do')" />
+</security:authorize>
 
 
-				<spring:message code="activity.photos" var="photos" />
-				<display:column title="${photos}" sortable="true">
-					<jstl:forEach var="photo" items="${row.photos}">
-						<img height="150px" src="<jstl:out value="${photo}" />">
-					</jstl:forEach>
-				</display:column>
 
-				<spring:message code="activity.activityType" var="activityType" />
-				<display:column title="${activityType}" sortable="true">
-					<a
-						href="activitytype/listByActivity.do?activityId=<jstl:out value="${row.id}"/> "><spring:message
-							code="activity.activityType" /></a>
-				</display:column>
-				
-				<display:column>
-	  <spring:message code="activity.comment" var="comments" />
-      <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
-        <spring:message code="activity.comment" />
-      </a>
-    </display:column>
-    
-    <security:authorize access="hasRole('USER')">
-      <display:column>
-      <a href="activity/manager/edit.do?activityId=<jstl:out value="${row.id}"/> "><spring:message code="activity.edit"/></a>
-  		</display:column>
-  		
-  		</security:authorize>
-    
-    <security:authorize access="hasRole('MANAGER')">
 
-  <display:column>
-    <jstl:if test="${row.isAppropiate == true}">
-      <a href="activity/manager/mark.do?activityId=<jstl:out value="${row.id}"/> "><spring:message code="activity.markInnapropiate"/></a>
-     </jstl:if>
-  </display:column>
-  </security:authorize>
-				</display:table>
-
-</div>
 

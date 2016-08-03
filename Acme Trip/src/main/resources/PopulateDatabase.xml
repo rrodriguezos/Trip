@@ -1853,7 +1853,7 @@
 	</bean>
 
 	<bean id="folder15" class="domain.Folder">
-		<property name="name" value="Starrred folder" />
+		<property name="name" value="Starred folder" />
 		<property name="systemFolder" value="true" />
 		<property name="actor" ref="user1" />
 		<property name="messages">

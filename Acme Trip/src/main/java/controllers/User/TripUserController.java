@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.CommentService;
 import services.TripService;
 import services.UserService;
 import controllers.AbstractController;
+import domain.Comment;
 import domain.Trip;
 import domain.User;
 
@@ -30,6 +32,9 @@ public class TripUserController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	// Constructor --------------------------
 	public TripUserController() {
@@ -83,7 +88,7 @@ public class TripUserController extends AbstractController {
 		ModelAndView result;
 		Trip trip;
 		trip = tripService.create();
-		result = createEditModelAndView(trip, null);
+		result = createEditModelAndView(trip);
 		result.addObject("user", userService.findByPrincipal());
 		return result;
 	}
@@ -91,18 +96,15 @@ public class TripUserController extends AbstractController {
 	// Edition
 	// -----------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam Integer tripId) {
-		Trip trip = tripService.findOne(tripId);
-		Assert.notNull(trip);
-		User user = userService.findByPrincipal();
-		if (user.equals(tripService.findOne(tripId).getUser())) {
-			trip = tripService.findOne(tripId);
-		} else {
-			throw new IllegalArgumentException("NotPrincipal");
-		}
-		return createEditModelAndView(trip, null);
-
-	}
+	public ModelAndView edit(@RequestParam int tripId){
+		ModelAndView result;
+		Trip trip;
+		trip = tripService.findOne(tripId);
+		
+		result = createEditModelAndView(trip);
+		result.addObject("trip", trip);
+		return result;
+				}
 
 	// Save
 	// -----------------------------------------------------------------------
@@ -111,6 +113,10 @@ public class TripUserController extends AbstractController {
 			RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		int checkOverlap = 0;
+		User user;
+		user = userService.findByPrincipal();
+		Assert.isTrue(user == trip.getUser());
+		
 		boolean checkStartEndDates = false;
 		if (trip.getStartDate() != null && trip.getEndDate() != null) {
 			if (trip.getId() == 0) {
@@ -120,7 +126,7 @@ public class TripUserController extends AbstractController {
 		}
 
 		if (binding.hasErrors() || checkOverlap != 0 || checkStartEndDates) {
-			result = createEditModelAndView(trip,null);
+			result = createEditModelAndView(trip);
 			if (checkOverlap != 0 || checkStartEndDates) {
 				result.addObject("message2", "trip.overlap.error");
 			}
@@ -130,56 +136,71 @@ public class TripUserController extends AbstractController {
 				result = new ModelAndView("redirect:/trip/list.do");
 				result.addObject("requestUri", "/trip/list.do");
 				redirectAttrs.addFlashAttribute("message", "trip.commit.ok");
-
-			} catch (Throwable oops) {
-				result = createEditModelAndView(trip, "trip.commit.error");
-			}
-		}
-
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveEdit")
-	public ModelAndView saveEdit(@Valid Trip trip, BindingResult binding,
-			RedirectAttributes redirectAttrs) {
-		ModelAndView result;
-
-		if (binding.hasErrors()) {
-			System.out.print(binding.hasErrors());
-			System.out.print(binding.toString());
-			result = createEditModelAndView(trip, "trip.commit.error");
-		} else {
-			try {
-				tripService.save(trip);
-				redirectAttrs.addFlashAttribute("message", "trip.commit.ok");
-				result = new ModelAndView("redirect:/trip/user/list.do");
-				result.addObject("userId", userService.findByPrincipal()
-						.getId());
+				result.addObject("userId", userService.findByPrincipal().getId());
 				result.addObject("user", userService.findByPrincipal());
+
 			} catch (Throwable oops) {
 				result = createEditModelAndView(trip, "trip.commit.error");
-
 			}
 		}
 
 		return result;
 	}
+
+//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveEdit")
+//	public ModelAndView saveEdit(@Valid Trip trip, BindingResult binding,
+//			RedirectAttributes redirectAttrs) {
+//		ModelAndView result;
+//
+//		if (binding.hasErrors()) {
+//			System.out.print(binding.hasErrors());
+//			System.out.print(binding.toString());
+//			result = createEditModelAndView(trip, "trip.commit.error");
+//		} else {
+//			try {
+//				tripService.save(trip);
+//				redirectAttrs.addFlashAttribute("message", "trip.commit.ok");
+//				result = new ModelAndView("redirect:/trip/user/list.do");
+//				result.addObject("userId", userService.findByPrincipal()
+//						.getId());
+//				result.addObject("user", userService.findByPrincipal());
+//			} catch (Throwable oops) {
+//				result = createEditModelAndView(trip, "trip.commit.error");
+//
+//			}
+//		}
+//
+//		return result;
+//	}
 
 	// Delete
 	// -----------------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(Trip trip, BindingResult binding,
-			RedirectAttributes redirectAttrs) {
+	
+	@RequestMapping(value="/edit",method = RequestMethod.POST, params="delete")
+	public ModelAndView delete(@Valid Trip trip, BindingResult binding){
 		ModelAndView result;
-
-		try {
-			tripService.delete(trip);
-			redirectAttrs.addFlashAttribute("message", "trip.commit.ok");
-			result = new ModelAndView("redirect:/trip/user/list.do");
-		} catch (Throwable oops) {
-			result = createEditModelAndView(trip, "trip.delete.error");
+		User user;
+		user = userService.findByPrincipal();
+		Assert.isTrue(user == trip.getUser());
+		
+		if(binding.hasErrors()){
+			System.out.print(binding.getFieldError());
+			System.out.print(binding.getAllErrors());
+			result = createEditModelAndView(trip,binding.toString());
+		}else{
+			try{
+				System.out.print(binding.getFieldError());
+				System.out.print(binding.getAllErrors());
+				tripService.delete(trip);
+				result = new ModelAndView("redirect:/trip/list.do");
+				result.addObject("requestUri", "/trip/list.do");
+				result.addObject("userId", userService.findByPrincipal().getId());
+				result.addObject("user", userService.findByPrincipal());
+			}catch(Throwable oops){
+				result = createEditModelAndView(trip,"trip.commit.error");
+			}
 		}
-		return result;
+		return result;	
 	}
 	
 	@RequestMapping(value = "/copyPaste", method = RequestMethod.GET)
@@ -190,7 +211,7 @@ public class TripUserController extends AbstractController {
 
 		tripService.copyPasteTrip(trip);
 		
-		result = new ModelAndView("redirect:/trip/user/mytrips.do");
+		result = new ModelAndView("redirect:/trip/user/list.do");
 		result.addObject("requestUri", "/trip/user/mytrips.do");
 
 		return result;
@@ -246,16 +267,73 @@ public class TripUserController extends AbstractController {
 		return result;
 
 	}
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int tripId) {
+		ModelAndView result;
+		Trip trip;
+		Collection<Comment> comments;
+		User user;
+
+
+		trip = tripService.findOne(tripId);
+		Boolean isMyTrip = false;
+		Boolean joinedTrip = false;
+		Boolean principal = false;
+		
+		try{
+			user = userService.findByPrincipal();
+			if(user!=null){
+				principal = true;
+			}
+			if(user.equals(trip.getUser())){
+				isMyTrip = true;
+			}
+			if(tripService.findAllTripsSuscrito(user.getId())
+					.contains(trip)){
+				joinedTrip = true;
+			}
+		}catch(Throwable oops){
+			isMyTrip = false;
+			joinedTrip = false;
+			principal = false;
+		}
+
+		comments = commentService.findCommentsByCommentableId(tripId);
+
+		trip = tripService.findOne(tripId);
+		comments = commentService.findCommentsByCommentableId(tripId);
+
+		result = new ModelAndView("trip/display");
+		result.addObject("trip", trip);
+
+		result.addObject("isMyTrip", isMyTrip);
+		result.addObject("joinedTrip", joinedTrip);
+		result.addObject("principal", principal);
+		
+
+		result.addObject("comments", comments);
+
+		return result;
+
+	}
 
 	// Ancillary methods -------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(Trip trip, String message) {
+	protected ModelAndView createEditModelAndView(Trip trip) {
 		ModelAndView result;
 
+		result = createEditModelAndView(trip, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(Trip trip, String message) {
+		ModelAndView result;
+		
 		result = new ModelAndView("trip/user/edit");
 		result.addObject("trip", trip);
-		result.addObject("message", message);
-
+		result.addObject("message2", message);
+		
 		return result;
 	}
 

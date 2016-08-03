@@ -36,78 +36,96 @@ public class DailyPlanUserController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam int tripId) {
 		ModelAndView result;
-		DailyPlan dailyplan = dailyplanService.create();
-		dailyplan.setTrip(tripService.findOne(tripId));
-		
+		DailyPlan dailyplan;
+		Trip trip = tripService.findOne(tripId);
+
+		dailyplan = dailyplanService.create(tripId);
+		trip = tripService.findOne(tripId);
+		dailyplan.setTrip(trip);
+
 		result = createEditModelAndView(dailyplan);
+		result.addObject("tripId", dailyplan.getTrip().getId());
+		result.addObject("trip", dailyplan.getTrip());
 
 		return result;
 	}
 
-	// Save ----------------------------------------------------------------------------------------------
+	// Save
+	// ----------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid DailyPlan dailyPlan, BindingResult binding, RedirectAttributes redirectAttrs) {
+	public ModelAndView save(@Valid DailyPlan dailyplan, BindingResult binding,
+			RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Boolean checkOverlap;
+
 		
-		checkOverlap = dailyplanService.checkOverlap(dailyPlan);
-		
+		Trip trip = tripService.tripByDailyplan(dailyplan.getId());
+		dailyplan.setTrip(trip);
+		checkOverlap = dailyplanService.checkOverlap(dailyplan);
+
 		if (binding.hasErrors() || !checkOverlap) {
-			result = createEditModelAndView(dailyPlan);
-			if(!checkOverlap){
-				result.addObject("message2","dailyPlan.overlapping.error");
+			result = createEditModelAndView(dailyplan);
+			if (!checkOverlap) {
+				result.addObject("message2", "dailyPlan.overlapping.error");
 			}
 		} else {
 			try {
-				dailyplanService.save(dailyPlan);
-				result = new ModelAndView("redirect:/dailyPlan/list.do?tripId="+dailyPlan.getTrip().getId());
-				redirectAttrs.addFlashAttribute("message2", "dailyPlan.commit.ok");
+				dailyplanService.save(dailyplan);
+				result = new ModelAndView("redirect:/dailyplan/list.do?tripId="
+						+ dailyplan.getTrip().getId());
+				redirectAttrs.addFlashAttribute("message2",
+						"dailyplan.commit.ok");
 
 			} catch (Throwable oops) {
-				result = createEditModelAndView(dailyPlan);
+				result = createEditModelAndView(dailyplan);
 
-				result.addObject("message2", "dailyPlan.commit.error");
+				result.addObject("message2", "dailyplan.commit.error");
 			}
 		}
 
 		return result;
 	}
-	
-	// Delete -------------------------------------------------------------------------------------
+
+	// Delete
+	// -------------------------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView save(@RequestParam int dailyPlanId) {
+	public ModelAndView save(@RequestParam int dailyplanId) {
 		ModelAndView result;
-		
-		DailyPlan dailyPlan = dailyplanService.findOne(dailyPlanId);
 
-		dailyplanService.delete(dailyPlan);
-		
-		result = new ModelAndView("redirect:/trip/user/mytrips.do");
-		result.addObject("requestUri", "/trip/user/mytrips.do");
+		DailyPlan dailyplan = dailyplanService.findOne(dailyplanId);
+
+		dailyplanService.delete(dailyplan);
+
+		result = new ModelAndView("redirect:/trip/list.do");
+		result.addObject("requestUri", "/trip/list.do");
 
 		return result;
 	}
 
-	// Ancillary methods ------------------------------
-	protected ModelAndView createEditModelAndView(DailyPlan dailyplan) {
-		ModelAndView result;
-		result = createEditModelAndView(dailyplan, null);
-		return result;
-	}
+	// Ancillary methods
+	// ---------------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(DailyPlan dailyplan,
 			String message) {
 		ModelAndView result;
-		Trip trip = tripService.findOne(dailyplan.getTrip().getId());
+		Trip trip = tripService.tripByDailyplan(dailyplan.getId());
 
-		result = new ModelAndView("dailyPlan/create");
+		result = new ModelAndView("dailyplan/create");
+
 		result.addObject("dailyplan", dailyplan);
-		result.addObject("trip", trip);
-		result.addObject("message", message);
 		result.addObject("message2", message);
+		result.addObject("trip", trip);
 
 		return result;
+	}
 
+	protected ModelAndView createEditModelAndView(DailyPlan dailyplan) {
+		ModelAndView result;
+		Trip trip = tripService.tripByDailyplan(dailyplan.getId());
+		result = createEditModelAndView(dailyplan, null);
+		result.addObject("trip", trip);
+
+		return result;
 	}
 
 	// // Services ---------------------

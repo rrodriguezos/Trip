@@ -86,9 +86,10 @@ public class DailyPlanService {
 		return dailyplan;
 	}
 
-	public DailyPlan create() {
+	public DailyPlan create(int tripId) {
 		DailyPlan result = new DailyPlan();
-
+		Trip trip = tripService.findOne(tripId);
+		result.setTrip(trip);
 		result.setSlots(new ArrayList<Slot>());
 		result.setPhotos(new ArrayList<String>());
 		return result;

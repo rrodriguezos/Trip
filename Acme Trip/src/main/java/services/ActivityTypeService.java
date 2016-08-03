@@ -57,9 +57,6 @@ public class ActivityTypeService {
 		Assert.notNull(activityType);
 		Manager manager = managerService.findByPrincipal();
 		Assert.notNull(manager);
-		for (Activity a : activityType.getActivities()) {
-			activityService.delete(a);
-		}
 		activityTypeRepository.delete(activityType);
 	}
 

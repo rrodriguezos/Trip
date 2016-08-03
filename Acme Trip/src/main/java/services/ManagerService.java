@@ -115,6 +115,7 @@ public class ManagerService {
 		result.setComments(new ArrayList<Comment>());
 		result.setCampaigns(new ArrayList<Campaign>());
 		result.setCreditCards(new ArrayList<CreditCard>());
+		result.setActivities(new ArrayList<Activity>());
 		folderService.generateSystemFolders(result);
 		result.setEmailAddress(registerForm.getEmailAddress());
 		result.setName(registerForm.getName());

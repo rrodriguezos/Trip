@@ -29,14 +29,8 @@
 	<jstl:forEach var="photo" items="${row.photos}">		
 		<img height="150px" src="<jstl:out value="${photo}" />">
 	</jstl:forEach>
-	</display:column>
+	</display:column>	
 	
-	<<display:column>
-	  <spring:message code="trip.comment" var="comments" />
-      <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
-        <spring:message code="trip.comment" />
-      </a>
-    </display:column>
     
    <spring:message	code="trip.dailyplans"  var="dailyplans"/>
 	<display:column title="${dailyplans}" sortable="true">

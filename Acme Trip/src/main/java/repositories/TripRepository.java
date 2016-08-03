@@ -29,6 +29,9 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select d.trip from DailyPlan d where d.id = ?1")
 	public Trip tripByDailyplan(int dailyplanId);
 	
+	@Query("select DISTINCT t from Trip t join t.dailyplans r join r.slots s where s.activity.id = ?1")
+	Collection<Trip> findTripsByActivity(int activityId);
+	
 	
 	@Query("select u.trips from User u where u.id=?1")
 	Collection<Trip> findAllTripsByUserId(int userId);

@@ -1,41 +1,65 @@
+<%--
+ * action-1.jsp
+ *
+ * Copyright (C) 2013 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<!-- Listing dailyPlans -->
 
+<display:table name="dailyplans" id="row" pagesize="5"
+	requestURI="dailyolan/list.do" class="displaytag">
+	<form:hidden path="tripId" />
 
-<display:table name="dailyplans" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true">
+	<spring:message code="dailyplan.title" var="titleHeader" />
+	<display:column property="title" title="${titleHeader}" />
 
+	<spring:message code="dailyplan.weekDay" var="weekDayHeader" />
+	<display:column property="weekDay" title="${weekDayHeader}"
+		format="{0,date,dd/MM/yyyy}" sortable="true" />
 
-<!-- Attributes -->
-  <spring:message	code="dailyplan.title"  var="title"/>
-	<display:column property="title" title="${title}" sortable="true" />
-	
-	<spring:message	code="dailyplan.description"  var="description"/>
-	<display:column property="description" title="${title}" sortable="true" />
-	
-	<spring:message	code="dailyplan.weekDay"  var="weekDay"/>
-	<display:column property="weekDay" title="${weekDay}" sortable="true" />
-  
-  <spring:message	code="dailyplan.photos"  var="photos"/>	
-	<display:column title="${photos}" sortable="true" >
-	<jstl:forEach var="photo" items="${row.photos}">		
-		<img height="150px" src="<jstl:out value="${photo}" />">
-	</jstl:forEach>
+	<spring:message code="dailyplan.description" var="descriptionHeader" />
+	<display:column property="description" title="${descriptionHeader}" />
+
+	<security:authorize access="hasRole('USER')">
+		<jstl:if test="${mytrip == true}">
+			<spring:message code="dailyplan.delete" var="delete" />
+			<display:column title="${delete}">
+				<input type="button" name="delete"
+					value="<spring:message code="dailyplan.delete" />"
+					onclick="javascript: window.location.assign('dailyplan/user/delete.do?dailyplanId=${row.id}')" />
+			</display:column>
+		</jstl:if>
+	</security:authorize>
+
+	<spring:message code="dailyplan.slots" var="slotsHeader" />
+	<display:column title="${slotsHeader}">
+		<input type="button" value="<spring:message code="dailyPpan.slots" />"
+			onclick="javascript: window.location.assign('slot/list.do?dailyplanId=${row.id}')" />
 	</display:column>
-	
-	<spring:message	code="dailyplan.slots"  var="slots"/>
-	<display:column title="${slots}" sortable="true">
-      <a href="slot/listByDailyplan.do?dailyplanId=<jstl:out value="${row.id}"/> "><spring:message code="dailyplan.slots"/></a>
-  	</display:column>	
-	
+
 </display:table>
+
+<security:authorize access="hasRole('USER')">
+	<jstl:if test="${mytrip == true}">
+
+
+		<input type="button" name="create"
+			value="<spring:message code="dailyplan.create" />"
+			onclick="javascript: window.location.assign('dailyplan/user/create.do?tripId=${tripId}')" />
+	</jstl:if>
+</security:authorize>

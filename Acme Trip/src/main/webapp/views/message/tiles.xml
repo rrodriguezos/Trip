@@ -21,9 +21,20 @@
 		<put-attribute name="body" value="/views/message/list.jsp" />
 	</definition>
 	
-	<definition name="message/send" extends="master.page">	
-		<put-attribute name="title" value="Profile: Send message" />
-		<put-attribute name="body" value="/views/message/edit.jsp" />
-	</definition>
+	<definition name="message/display" extends="master.page">
+  <put-attribute name="title" value="Details of message" /> 
+  <put-attribute name="body" value="/views/message/display.jsp" /> 
+  </definition>
+	
+	<definition name="message/create" extends="master.page">
+  <put-attribute name="title" value="Send a message" /> 
+  <put-attribute name="body" value="/views/message/create.jsp" /> 
+  </definition>
+
+	
+	<definition name="message/move" extends="master.page">
+  <put-attribute name="title" value="Move the message" /> 
+  <put-attribute name="body" value="/views/message/move.jsp" /> 
+  </definition>
 	
 </tiles-definitions>

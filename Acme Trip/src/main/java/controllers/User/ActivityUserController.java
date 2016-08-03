@@ -14,10 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActivityService;
 import services.ActivityTypeService;
+import services.UserService;
 
 import controllers.AbstractController;
 import domain.Activity;
 import domain.ActivityType;
+import domain.User;
 
 @Controller
 @RequestMapping("/activity/user")
@@ -34,6 +36,9 @@ public class ActivityUserController extends AbstractController {
 
 	@Autowired
 	private ActivityTypeService activitytypeService;
+	
+	@Autowired
+	private UserService userService;
 
 	// Create-------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -44,10 +49,12 @@ public class ActivityUserController extends AbstractController {
 
 		activity = activityService.create();
 		activitytypes = activitytypeService.findAll();
+		User userPrincipal = userService.findByPrincipal();
 
 		result = new ModelAndView("activity/create");
 		result.addObject("activity", activity);
 		result.addObject("activitytypes", activitytypes);
+		result.addObject("userPrincipal", userPrincipal);
 
 		return result;
 	}
@@ -57,7 +64,11 @@ public class ActivityUserController extends AbstractController {
 	public ModelAndView edit(@RequestParam int activityId) {
 		ModelAndView result;
 		Activity activity;
+
+		
+		User userPrincipal = userService.findByPrincipal();
 		Collection<ActivityType> activitytypes;
+		
 
 		activity = activityService.findOne(activityId);
 		activitytypes = activitytypeService.findAll();
@@ -65,6 +76,7 @@ public class ActivityUserController extends AbstractController {
 		result = new ModelAndView("activity/edit");
 		result.addObject("activity", activity);
 		result.addObject("activitytypes", activitytypes);
+		result.addObject("userPrincipal", userPrincipal);
 
 		return result;
 	}

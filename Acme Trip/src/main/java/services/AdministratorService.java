@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -14,8 +15,11 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Activity;
 import domain.Administrator;
+import domain.Campaign;
 import domain.Comment;
+import domain.CreditCard;
 import domain.Folder;
+import domain.Manager;
 import forms.UserRegisterForm;
 
 @Service
@@ -65,11 +69,25 @@ public class AdministratorService {
 	}
 
 	public void save(Administrator administrator) {
-		checkPrincipal();
+//		Assert.notNull(administrator);
+//		Assert.isTrue(administrator.getName() != ""
+//				&& administrator.getSurname() != ""
+//				&& administrator.getEmailAddress() != "");
+//		administratorRepository.saveAndFlush(administrator);
+		
+		
 		Assert.notNull(administrator);
-		Assert.isTrue(administrator.getName() != ""
-				&& administrator.getSurname() != ""
-				&& administrator.getEmailAddress() != "");
+		if(administrator.getId()==0){//Saving as admin
+			//Encoding Password
+			Md5PasswordEncoder password = new Md5PasswordEncoder();
+			String encodedPassword = password.encodePassword(administrator.getUserAccount().getPassword(), null);
+			administrator.getUserAccount().setPassword(encodedPassword);
+			
+		} else {//Only principal can modify its profile
+			Administrator principal = findByPrincipal();
+			Assert.notNull(principal);
+			Assert.isTrue(administrator.getId()==principal.getId());
+		}
 		administratorRepository.saveAndFlush(administrator);
 	}
 

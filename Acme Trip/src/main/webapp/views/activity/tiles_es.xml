@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- 
- * tiles_es.xml
- *
- * Copyright (C) 2013 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * tiles_es.xml * * Copyright (C) 2013 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-      
- <tiles-definitions>
- <definition name="activity/list" extends="master.page">
-  <put-attribute name="title" value="Ver Actividad" /> 
-  <put-attribute name="body" value="/views/activity/list.jsp" /> 
-  </definition>
-  
-  <definition name="activity/listAll" extends="master.page">
-  <put-attribute name="title" value="Ver Actividades" /> 
-  <put-attribute name="body" value="/views/activity/listAll.jsp" /> 
-  </definition>
-  
- <definition name="activity/edit" extends="master.page">
-  <put-attribute name="title" value="Usuario registrado: Editar Actividad" /> 
-  <put-attribute name="body" value="/views/activity/edit.jsp" /> 
-  </definition>
-  </tiles-definitions>
+
+<tiles-definitions>
+
+	<definition name="activity/create" extends="master.page">
+		<put-attribute name="title" value="Crear una nueva Actividad" />
+		<put-attribute name="body" value="/views/activity/edit.jsp" />
+	</definition>
+
+	<definition name="activity/list" extends="master.page">
+		<put-attribute name="title" value="Ver Actividad" />
+		<put-attribute name="body" value="/views/activity/list.jsp" />
+	</definition>
+
+	<definition name="activity/listAll" extends="master.page">
+		<put-attribute name="title" value="Ver Actividades" />
+		<put-attribute name="body" value="/views/activity/listAll.jsp" />
+	</definition>
+
+	<definition name="activity/display" extends="master.page">
+		<put-attribute name="title" value="Detalles de la Actividad" />
+		<put-attribute name="body" value="/views/activity/display.jsp" />
+	</definition>
+
+
+	<definition name="activity/edit" extends="master.page">
+		<put-attribute name="title"
+			value="Usuario registrado: Editar Actividad" />
+		<put-attribute name="body" value="/views/activity/edit.jsp" />
+	</definition>
+</tiles-definitions>

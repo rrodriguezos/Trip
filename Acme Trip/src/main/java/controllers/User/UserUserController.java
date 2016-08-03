@@ -37,7 +37,7 @@ public class UserUserController  extends AbstractController {
 			
 			result = new ModelAndView("actor/list");
 			result.addObject("user", user);	
-			result.addObject("actor", "user");	
+			result.addObject("actor", user);	
 			result.addObject("requestURI", "user/user/list.do");	
 
 			return result;		}		

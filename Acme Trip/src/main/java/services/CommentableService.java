@@ -3,6 +3,7 @@ package services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import domain.Commentable;
 
@@ -23,8 +24,13 @@ public class CommentableService {
 		super();
 	}
 
-	public Commentable findOne(int commentableId) {
-		return commentableRepository.findOne(commentableId);
+	public Commentable findOne(int commentableId){
+		Commentable result;
+		Assert.notNull(commentableId);
+		
+		result = commentableRepository.findOne(commentableId);
+		
+		return result;
 	}
 
 }

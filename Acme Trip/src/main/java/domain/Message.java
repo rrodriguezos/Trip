@@ -23,8 +23,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes={@Index(columnList=("messagePriority"))})
-public class Message extends DomainEntity {
+@Table(indexes = { @Index(columnList="star"), @Index(columnList="messagePriority")})
+public class Message extends DomainEntity implements Cloneable {
 	
 	//Constructors -----------------------------
 			public Message() {

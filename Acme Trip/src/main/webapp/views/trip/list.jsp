@@ -53,68 +53,8 @@
 	<display:column title="${dailyplansHeader}">
 			<input type="button" value="<spring:message code="trip.dailyplans" />" 
 					onclick="javascript: window.location.assign('dailyplan/list.do?tripId=${row.id}')" />
-	</display:column>
+	</display:column>	
 
-	<display:column>
-	  <spring:message code="trip.comment" var="comments" />
-      <a href="comment/list.do?id=<jstl:out value="${row.id}"/>">
-        <spring:message code="trip.comment" />
-      </a>
-    </display:column>
-
-	<display:column>
-		<jstl:set var="contains" value="false" />
-
-		<jstl:if test="${userTrips.size() > 0 }">
-			<jstl:forEach var="item" items="${userTrips}">
-				<jstl:if test="${item.id eq row.id}">
-					<jstl:set var="contains" value="true" />
-				</jstl:if>
-			</jstl:forEach>
-		</jstl:if>
-
-<security:authorize access="hasRole('USER')">
-
-		<!-- JOIN BUTTON -->
-		<jstl:if test="${contains == false}">
-			<spring:message code="trip.join" var="join" />
-			<a href="trip/user/joinTrip.do?tripId=${row.id }">
-				<button class="btn btn-md btn-default col-xs-12">
-					<jstl:out value="${join }"></jstl:out>
-				</button>
-			</a>
-		</jstl:if>
-
-		<!-- JOINED MESSAGE -->
-		<jstl:if test="${contains == true}">
-			<span class="col-xs-12 bg-success spm-event-joined text-center">
-				<spring:message code="trip.joined" var="joined" /> <jstl:out
-					value="${joined }"></jstl:out>
-			</span>
-		</jstl:if>
-</security:authorize>
-
-
-	</display:column>
-<security:authorize access="hasRole('USER')">
-
-
-	<jstl:if test="${showdisjoin == true}">
-		<jstl:if test="${row.users.contains(principal)}">
-			<display:column title="${disjoin }">
-				<div class="col-xs-6 col-sm-4 col-md-3 spm-events-button">
-					<!-- DISJOIN BUTTON -->
-					<spring:message code="event.disjoin" var="disjoin" />
-					<a href="event/user/disjoinEvent.do?eventId=${row.id }">
-						<button class="btn btn-md btn-warning col-xs-12">
-							<jstl:out value="${disjoin }"></jstl:out>
-						</button>
-					</a>
-				</div>
-			</display:column>
-		</jstl:if>
-	</jstl:if>
-	</security:authorize>
 
 	<security:authorize access="hasRole('USER')">
 		<display:column>
@@ -125,6 +65,13 @@
 
 		</display:column>
 	</security:authorize>
+	
+	<spring:message code="trip.comment" var="comments" />
+	<display:column title="${comments}">
+			<input type="button" value="<spring:message code="trip.comment" />" 
+					onclick="javascript: window.location.assign('comment/list.do?id=<jstl:out value="${row.id}"/>')" />
+	</display:column>	
+	
 
 	<security:authorize access="hasRole('USER')">
 

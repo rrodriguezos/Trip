@@ -25,5 +25,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 	
 	@Query("select a from Activity a where a.isAppropiate is true")
 	Collection<Activity> findIsAppropriated();
+	
+	@Query("select a from Activity a where a.isAppropiate is true")
+	public Collection<Activity> findAreAppropriate();
 
 }

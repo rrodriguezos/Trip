@@ -2,22 +2,20 @@ package services;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import domain.Message.MessagePriority;
 
+import repositories.MessageRepository;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
+import domain.Message.MessagePriority;
 import domain.Trip;
 import domain.User;
 import forms.MessageForm;
-
-import repositories.MessageRepository;
 
 @Service
 @Transactional
@@ -42,12 +40,18 @@ public class MessageService {
 
 	// Simple CRUD Methods -----------------------------
 	public Message create() {
-		Message result = new Message();
-		result.setMoment(new Date(System.currentTimeMillis() - 1000));
-		Actor actor = actorService.findByPrincipal();
-		result.setSender(actor);
-		result.setFolder(folderService.findOutFolderOfActor(actor.getId()));
-
+		Message result;
+		Actor sender;
+		Folder folder;
+		
+		sender = actorService.findByPrincipal();
+		folder=folderService.findOutFolderOfActor(sender.getId());
+		
+		result = new Message();
+		result.setSender(sender);
+		result.setMoment(new Date(System.currentTimeMillis()-1000));
+		result.setFolder(folder);
+		
 		return result;
 	}
 
@@ -145,32 +149,28 @@ public class MessageService {
 		return messageRepository.messagesOfAFolder(folderId);
 	}
 
-	public void flagAsSpamSave(Message message) {
-		Assert.notNull(message);
-		Actor actor = actorService.findByPrincipal();
-		Assert.notNull(actor);
-		Assert.isTrue(actor.equals(message.getFolder().getActor()));
-
-		message.getFolder().getMessages().remove(message);
-		Folder folder = folderService.findSpamFolferOfActor(actor.getId());
-		folder.getMessages().add(message);
-		message.setFolder(folder);
-		messageRepository.saveAndFlush(message);
-	}
+//	public void flagAsSpamSave(Message message) {
+//		Assert.notNull(message);
+//		Actor actor = actorService.findByPrincipal();
+//		Assert.notNull(actor);
+//		Assert.isTrue(actor.equals(message.getFolder().getActor()));
+//
+//		message.getFolder().getMessages().remove(message);
+//		Folder folder = folderService.findSpamFolferOfActor(actor.getId());
+//		folder.getMessages().add(message);
+//		message.setFolder(folder);
+//		messageRepository.saveAndFlush(message);
+//	}
 
 	public void flagAsStarredSave(Message message) {
-		Assert.notNull(message);
-		Actor actor = actorService.findByPrincipal();
-		Assert.notNull(actor);
-		Assert.isTrue(actor.equals(message.getFolder().getActor()));
-
-		message.getFolder().getMessages().remove(message);
-		Folder folder = folderService
-				.foldersStarredFolderOfActor(actor.getId());
-		folder.getMessages().add(message);
-		message.setStar(true);
-		message.setFolder(folder);
-		messageRepository.saveAndFlush(message);
+		
+		Assert.notNull(message.getId());		
+		
+		if(!message.getFolder().getName().equals("Starred folder")){
+			message.setStar(!message.getStar());
+			
+			save(message);
+		}
 	}
 
 	public Collection<Message> findStarsByActor() {
@@ -181,23 +181,8 @@ public class MessageService {
 
 		return result;
 	}
+	
 
-	// public void flagAsBackStarredSave(Message message) {
-	// Assert.notNull(message);
-	// Actor actor = actorService.findByPrincipal();
-	// Assert.notNull(actor);
-	// Assert.isTrue(actor.equals(message.getFolder().getActor()));
-	//
-	// message.getFolder().getMessages().remove(message);
-	//
-	//
-	// message.setFolder(folder);
-	//
-	// messageRepository.saveAndFlush(message);
-	//
-	//
-	//
-	// }
 	public Message reconstruct(MessageForm messageForm) {
 		Assert.notNull(messageForm);
 		Actor actor = actorService.findByPrincipal();

@@ -69,9 +69,7 @@ public class ActivityService {
 	}
 
 	public void delete(Activity activity) {
-		Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
-
-		activity.getSlots().removeAll(activity.getSlots());
+		activity.getSlots().clear();
 		for (Comment tc : activity.getComments()) {
 			commentService.delete(tc);
 		}
@@ -110,10 +108,24 @@ public class ActivityService {
 	}
 
 	public void flagActivityAsInappropriate(int activityId) {
+
 		Manager manager = managerService.findByPrincipal();
 		Assert.notNull(manager);
 		Activity activity = findOne(activityId);
-		Assert.isTrue(activity.getIsAppropiate());
-		activity.setIsAppropiate(false);
+		
+		if(activity.getIsAppropiate()== true){
+			activity.setIsAppropiate(false);
+		}else{
+			activity.setIsAppropiate(true);
+		}		
+
+	}
+
+	public Collection<Activity> findAreAppropriate() {
+		Collection<Activity> result;
+
+		result = activityRepository.findAreAppropriate();
+
+		return result;
 	}
 }

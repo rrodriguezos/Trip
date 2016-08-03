@@ -15,7 +15,6 @@
 		<jstl:when test="${trip.id==0}">
 			<p>
 				<spring:message code="trip.creating" />
-			</p>
 		</jstl:when>
 		<jstl:otherwise>
 			<p>
@@ -27,10 +26,9 @@
 	<form:form modelAttribute="trip" action="trip/user/edit.do">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		<form:hidden path="users" />
-		<form:hidden path="dailyPlans" />
-		<form:hidden path="comments" />
 		<form:hidden path="user" />
+		<form:hidden path="dailyplans" />
+		<form:hidden path="comments" />
 		<form:hidden path="users" />
 
 		<table class="formTable">
@@ -55,7 +53,7 @@
 					</jstl:if> <jstl:if test="${trip.id != 0}">
 						<input type="submit" name="save"
 							value="<spring:message code="trip.save" />"
-							onclick="return confirm('<spring:message code="trip.confirm.delete.dailyPlans" />')" />
+							onclick="return confirm('<spring:message code="trip.confirm.delete.dailyplans" />')" />
 						<input type="submit" name="delete"
 							value="<spring:message code="trip.delete"/>"
 							onclick="return confirm('<spring:message code="trip.confirm.delete" />')" />

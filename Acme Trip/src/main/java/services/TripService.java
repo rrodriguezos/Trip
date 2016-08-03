@@ -84,46 +84,52 @@ public class TripService {
 	}
 
 	public Trip save(Trip trip) {
-		Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
-		if (trip.getId() != 0) {
-			String subject;
-			String body;
-
-			subject = "Editing of trip " + trip.getTitle();
-			body = "I edited my trip " + trip.getTitle();
-
-			messageService.broadcastAlertTripMessage(trip, subject, body);
-		}
+		if(trip.getUser().getId()!= userService.findByPrincipal().getId()|| trip.getId() != 0 ){
+			
+			return tripRepository.save(trip);
+			
+		}else{	
 		Collection<DailyPlan> dailyplans = tripRepository
 				.getDailyplansWrongsDates(trip.getId(), trip.getStartDate(),
 						trip.getEndDate());
-
-		for (DailyPlan dp : dailyplans) {
-			trip.getDailyplans().remove(dp);
-			dailyPlanService.delete(dp);
+		for(DailyPlan d: dailyplans){
+			trip.getDailyplans().remove(d);
+			dailyPlanService.delete(d);
 		}
 
 		return tripRepository.save(trip);
 	}
+	}
 
 	public void delete(Trip trip) {
 		Assert.isTrue(DPUtils.hasRole(Authority.USER), DPMessage.NO_PERMISSIONS);
-		String s;
-		String b;
+		String sEspañol;
+		String bEspañol;
 
-		s = "Deleting of trip " + trip.getTitle();
-		b = "I have deleted my trip " + trip.getTitle();
+		sEspañol = "Elimiación del viaje  " + trip.getTitle();
+		bEspañol = "He elimiado mi viaje " + trip.getTitle();
 
-		messageService.broadcastAlertTripMessage(trip, s, b);
-		for (DailyPlan dp : trip.getDailyplans()) {
-			dailyPlanService.delete(dp);
+		messageService.broadcastAlertTripMessage(trip, sEspañol,bEspañol);
+		
+		String sEnglish;
+		String bEnglish;
+
+		sEnglish = "Deleting of trip " + trip.getTitle();
+		bEnglish = "I have deleted my trip " + trip.getTitle();
+
+		messageService.broadcastAlertTripMessage(trip, sEnglish,bEnglish);
+		
+		for (Comment tripComment: trip.getComments()) {
+			commentService.delete(tripComment);
 		}
-		for (Comment tc : trip.getComments()) {
-			commentService.delete(tc);
+		for (DailyPlan a: trip.getDailyplans()) {
+			dailyPlanService.delete(a);
 		}
+	
 
 		trip.getDailyplans().removeAll(trip.getDailyplans());
 		trip.getUsers().removeAll(trip.getUsers());
+		trip.getComments().removeAll(trip.getComments());
 		tripRepository.delete(trip);
 	}
 
@@ -141,21 +147,31 @@ public class TripService {
 		return tripRepository.findByUserAccountID(LoginService.getPrincipal()
 				.getId());
 	}
-	
-	public void copyPasteTrip(Trip originTrip){
+
+	public void copyPasteTrip(Trip originTrip) {
 		Trip result;
-		
+
 		result = create();
 		result.setTitle("Copy of " + originTrip.getTitle());
 		result.setDescription(originTrip.getDescription());
 		result.setStartDate(originTrip.getStartDate());
 		result.setEndDate(originTrip.getEndDate());
 		result.setPhotos(originTrip.getPhotos());
-		
+
 		save(result);
 	}
 
 	// Other business methods -----------------------
+
+	private void checkPrincipal(User u) {
+		User user;
+
+		user = userService.findByPrincipal();
+		Assert.isTrue(user != null);
+
+		Assert.isTrue(user.equals(u));
+	}
+
 	public Double standardDeviationOfTripsByUsers() {
 		return tripRepository.standardDeviationOfTripsByUser();
 	}
@@ -171,13 +187,8 @@ public class TripService {
 		return result;
 	}
 
-	public Collection<Trip> findAllTripsByUserId() {
+	public Collection<Trip> findAllTripsByUserId(int userId) {
 		Collection<Trip> all;
-		User user;
-		int userId;
-
-		user = userService.findByPrincipal();
-		userId = user.getId();
 		all = tripRepository.findAllTripsByUserId(userId);
 
 		return all;
@@ -195,6 +206,14 @@ public class TripService {
 		return tripRepository.tripByDailyplan(dailyPlanId);
 
 	}
+	public Collection<Trip> findTripsByActivity(int activityId) {
+		Collection<Trip> result;
+
+		result = tripRepository.findTripsByActivity(activityId);
+
+		return result;
+	}
+
 
 	public Collection<Trip> tripsByActivityType(int activityTypeId) {
 		Collection<Trip> trips = null;
@@ -246,6 +265,24 @@ public class TripService {
 	}
 
 	public void joinTrip(Trip trip) {
+		
+		if(trip.getUser().getId()!= userService.findByPrincipal().getId()|| trip.getId() != 0 ){
+			String subjectEspañol;
+			String bodyEspañol;
+
+			subjectEspañol = "Nuevo usuario unido al viaje" + trip.getTitle();
+			bodyEspañol =  "User: " + userService.findByPrincipal().getName()+" acaba de unirse al viaje " + trip.getTitle();
+
+			messageService.broadcastAlertTripMessage(trip, subjectEspañol, bodyEspañol);
+			
+			String subjectEnglish;
+			String bodyEnglish;
+
+			subjectEnglish = "New user join to trip " + trip.getTitle();
+			bodyEnglish =  "User: " + userService.findByPrincipal().getName()+" just join the trip " + trip.getTitle();
+
+			messageService.broadcastAlertTripMessage(trip, subjectEnglish, bodyEnglish);
+		}
 
 		User user;
 
@@ -260,6 +297,24 @@ public class TripService {
 	}
 
 	public void DisjoinTrip(Trip trip) {
+		
+		if(trip.getUser().getId()!= userService.findByPrincipal().getId()|| trip.getId() != 0 ){
+			String subjectEspañol;
+			String bodyEspañol;
+
+			subjectEspañol = "Un usuario se borró del viaje " + trip.getTitle();
+			bodyEspañol =  "Usuario: " + userService.findByPrincipal().getName()+" acaba de borrarse del viaje " + trip.getTitle();
+
+			messageService.broadcastAlertTripMessage(trip, subjectEspañol, bodyEspañol);
+			
+			String subjectEnglish;
+			String bodyEnglish;
+
+			subjectEnglish = "A user disjoin from the trip " + trip.getTitle();
+			bodyEnglish =  "User: " + userService.findByPrincipal().getName()+" just disjoin from the trip " + trip.getTitle();
+
+			messageService.broadcastAlertTripMessage(trip, subjectEnglish, bodyEnglish);
+		}
 
 		User user;
 
@@ -287,9 +342,8 @@ public class TripService {
 
 		return all;
 
-		
 	}
-	
+
 	public Collection<Trip> findAllTripsSuscrito(int userId) {
 		Collection<Trip> result;
 

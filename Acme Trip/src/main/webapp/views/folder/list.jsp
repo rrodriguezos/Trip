@@ -55,7 +55,7 @@
 <br/>
 
 
-<a href="message/send.do"><spring:message code="message.send"/></a>
+<a href="message/create.do"><spring:message code="message.send"/></a>
 &nbsp;
 &nbsp;
 <a href="folder/edit.do"><spring:message code="folder.create"/></a>

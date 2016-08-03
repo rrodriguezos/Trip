@@ -14,7 +14,8 @@
 
 
 <display:table name="dailyplan" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag" keepStatus="true">
-
+	<form:hidden path="tripId" />
+	<form:hidden path="trip" />
 
 <!-- Attributes -->
   <spring:message	code="dailyplan.title"  var="title"/>

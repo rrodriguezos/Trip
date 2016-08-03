@@ -7,15 +7,14 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
 <!-- Listing messages -->
-<h1>
-	<jstl:out value="${messages[0].folder.name }"></jstl:out>
-</h1>
+<h1> <jstl:out value="${folder.name}"/> </h1>
 
-<display:table name="messages" id="row" class="displaytag"
-	requestURI="message/list.do" pagesize="5" keepStatus="true">
+<display:table name="messages" id="row" pagesize="5" requestURI="${requestUri}" class="displaytag">
 
 	<spring:message code="message.subject" var="subject" />
 	<display:column property="subject" title="${subject}" sortable="true" />
@@ -38,39 +37,67 @@
 	<display:column property="messagePriority" title="${messagePriority}"
 		sortable="true" />
 
-	<spring:message code="message.manage" var="management" />
-	<display:column title="${management}">
-		<a href='message/delete.do?messageId=<jstl:out value="${row.id}"/>'>
-			<spring:message code="message.delete" />
-		</a>
+	<spring:message code="message.display" var="display" />
+	<display:column title="${display}">
+			<input type="button" value="<spring:message code="message.display" />" 
+					onclick="javascript: window.location.assign('message/display.do?messageId=${row.id}')" />
+	</display:column>
+	
+	<jstl:if test="${ !folder.name.equals('Spam folder') && !folder.name.equals('Trash folder') }">
+	
+	<jstl:if test="${ folder.name.equals('Starred folder') && folder.systemFolder }">
+	
+	<spring:message code="message.star" var="star" />
+	<display:column title="${star}">
+			<input type="button" value="<spring:message code="message.disstarredHeader" />" 
+					onclick="javascript: window.location.assign('message/starred.do?messageId=${row.id}')" />
+	</display:column>
+	</jstl:if>
+	
+	</jstl:if>
+	
+	<jstl:if test="${ !folder.name.equals('Starred folder') }">
+	<jstl:if test="${ !folder.name.equals('Spam folder') && !folder.name.equals('Trash folder')}">
+	<spring:message code="message.flag" var="flag" />
+	<display:column title="${spam}">
+			<input type="button" value="<spring:message code="message.flagHeader" />" 
+					onclick="javascript: window.location.assign('message/flag.do?messageId=${row.id}')" />
+	</display:column>
+	
+	<spring:message code="message.star" var="star" />
+	<display:column title="${star}">
+			<input type="button" value="<spring:message code="message.starredHeader" />" 
+					onclick="javascript: window.location.assign('message/starred.do?messageId=${row.id}')" />
+	</display:column>
+	</jstl:if>
+	
+	<spring:message code="message.move" var="move" />
+	<display:column title="${move}">
+			<input type="button" value="<spring:message code="message.move" />" 
+					onclick="javascript: window.location.assign('message/move.do?messageId=${row.id}')" />
+	</display:column>
+	
+	</jstl:if>
+	
+	<spring:message code="message.delete" var="delete" />
+	<display:column title="${delete}">
+		<a href="message/delete.do?messageId=${row.id}">
+		<jstl:choose>
+			<jstl:when test="${row.folder.name == \"Trash folder\"}">
+				<input type="button" value="<spring:message code="message.delete" />" 
+				onclick="return confirm('<spring:message code="message.confirm.delete.final" />')" />
+			</jstl:when>
+			<jstl:otherwise>
+				<input type="button" value="<spring:message code="message.delete" />" 
+				onclick="return confirm('<spring:message code="message.confirm.delete" />')" />
+			</jstl:otherwise>	
+		</jstl:choose>
+		
+		</a>	
 	</display:column>
 
-	<jstl:if test="${flagged==false}">
-		<spring:message code="message.flagHeader" var="flagHeader" />
-		<display:column title="${flagHeader}">
-			<a href='message/flag.do?messageId=<jstl:out value="${row.id}"/>'>
-				<spring:message code="message.flag" />
-			</a>
-		</display:column>
-	</jstl:if>
-
-	<jstl:if test="${starred==false}">
-		<spring:message code="message.starredHeader" var="starredHeader" />
-		<display:column title="${starredHeader}">
-			<a href='message/starred.do?messageId=<jstl:out value="${row.id}"/>'>
-				<spring:message code="message.flag" />
-			</a>
-		</display:column>
-	</jstl:if>
-	<jstl:if test="${starred==true}">
-		<spring:message code="message.disstarredHeader" var="disstarredHeader" />
-		<display:column title="${disstarredHeader}">
-			<a
-				href='message/starredBack.do?messageId=<jstl:out value="${row.id}"/>'>
-				<spring:message code="message.flag" />
-			</a>
-		</display:column>
-	</jstl:if>
+	
+	
 
 
 </display:table>

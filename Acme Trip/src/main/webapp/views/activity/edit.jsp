@@ -1,41 +1,57 @@
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="acme"	tagdir="/WEB-INF/tags"%>
-<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<jstl:choose>
+	<jstl:when test="${activity.id==0}">
+		<p>
+			<spring:message code="activity.creating" />
+	</jstl:when>
+	<jstl:otherwise>
+		<p>
+			<spring:message code="activity.updating" />
+		</p>
+	</jstl:otherwise>
+</jstl:choose>
 
-<form:form modelAttribute="${modelAttribute}" action="${actionURI}">
-	
-	<security:authorize access="hasRole('MANAGER')">
-	
-	  <form:hidden path="id" />
-	  <form:hidden path="version" />
-	  <form:hidden path="photos" />
-	  <form:hidden path="description" />
-	  <form:hidden path="title" />
 
-	  
-	  <acme:select items="${activities}" itemLabel="title" code="activitiy.activities" path="activities"/>
-	  
-	  <acme:submit name="save" code="activity.save"/>
-	  <acme:cancel url="activity/manager/list.do" code="activity.markInnapropiate"/>
-		
-	</security:authorize>
-	
-	<security:authorize access="hasRole('USER')">
-	
-	  <tr><td><acme:textbox code="activity.title" path="title"/><tr><td>
-	  <tr><td><acme:textbox code="activity.description" path="description"/><tr><td>
-	  <tr><td><acme:textbox code="activity.photos" path="photos"/><tr><td>
-	  
 
-			
-	  <acme:submit name="save" code="activity.save"/>
-	  <acme:cancel url="activity/list.do" code="activity.cancel"/>
+<security:authorize access="hasRole('USER')">
+	<form:form modelAttribute="activity" action="activity/user/edit.do">
+		<form:hidden path="id" />
+		<form:hidden path="version" />
+		<form:hidden path="isAppropiate" />
+		<form:hidden path="user" />
+		<form:hidden path="slots" />
+		<form:hidden path="comments" />
+		<form:hidden path="manager" />
 
-	</security:authorize>
-</form:form>
+		<tr>
+			<td><acme:textbox code="activity.title" path="title" />
+		<tr>
+			<td><br>
+		<tr>
+			<td><acme:textbox code="activity.description" path="description" />
+		<tr>
+			<td><br>
+		<tr>
+			<td><acme:textarea code="activity.photos" path="photos" />
+		<tr>
+			<td><br> <spring:message code="activity.activitytype" />
+		<tr>
+			<td><form:select path="activityType">
+					<form:options items="${activitytypes}" itemLabel="name"
+						itemValue="id" />
+				</form:select> <form:errors cssClass="error" path="activityType" /> <br> <input
+				type="submit" name="save"
+				value="<spring:message code="activity.save" />" /> <acme:cancel
+					url="activity/list.do" code="activity.cancel" />
+	</form:form>
+</security:authorize>

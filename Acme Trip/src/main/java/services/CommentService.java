@@ -43,7 +43,7 @@ public class CommentService {
 	}
 
 	public Comment findOne(int commentId) {
-		Assert.isTrue(commentId != 0);
+		Assert.notNull(commentId);
 		Comment result = commentRepository.findOne(commentId);
 		Assert.notNull(result);
 		return result;
@@ -56,9 +56,6 @@ public class CommentService {
 
 	public void delete(Comment comment) {
 		Assert.notNull(comment);
-		Administrator admin = administratorService.findByPrincipal();
-		Assert.notNull(admin);
-		comment.setIsAppropiate(true);
 		commentRepository.delete(comment);
 	}
 
@@ -73,7 +70,7 @@ public class CommentService {
 		result = new Comment();
 		result.setIsAppropiate(true);
 		result.setCommentable(commentable);
-		result.setMoment(new Date(System.currentTimeMillis() - 100));
+		result.setMoment(new Date(System.currentTimeMillis() - 1000));
 		result.setActor(principal);
 
 		return result;

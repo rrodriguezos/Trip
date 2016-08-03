@@ -118,6 +118,23 @@ public class AnonymousController extends AbstractController {
 		return result;
 	}
 	
+	// Search tips ---------------------------------------------------------------		
+	@RequestMapping(value = "/buscar", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam(defaultValue="") String keyword) {
+		ModelAndView result;
+		
+		if("".equals(keyword)) {
+			result = new ModelAndView("redirect:list.do");
+		} else {
+			result = new ModelAndView("anonymous/tripsCatalogue");
+			result.addObject("keyword", keyword);
+			result.addObject("trips", tripService.searchByKeyword(keyword));
+			result.addObject("requestURI", "anonymous/search.do");
+		}
+		
+		return result;
+	}
+	
 	
 	
 	
