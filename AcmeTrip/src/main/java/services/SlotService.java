@@ -73,7 +73,7 @@ public class SlotService {
 			subject = "Modificación de un slot de la excursión " + slot.getDailyPlan().getTrip().getTitle();
 			body = "He modificado un slot de mi excursión " + slot.getDailyPlan().getTrip().getTitle();
 		}
-		messageService.automaticMessage(slot.getDailyPlan().getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subject, body);
 		
 		slotRepository.save(slot);
 	}
@@ -87,7 +87,7 @@ public class SlotService {
 		subject = "Eliminación de un slot de la excursión " + slot.getDailyPlan().getTrip().getTitle();
 		body = "He eliminado un slot en mi excursión " + slot.getDailyPlan().getTrip().getTitle();
 
-		messageService.automaticMessage(slot.getDailyPlan().getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subject, body);
 		
 		slotRepository.delete(slot);
 	}

@@ -39,4 +39,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer>{
 	// Dashboard C4
 	@Query("select avg(t.dailyPlans.size), stddev(t.dailyPlans.size) from Trip t")
 	Double[] getAverageNumberDailyPlansPerTrip();
+
+	@Query("select u.tripSubscribes from User u where u.id=?1")
+	Collection<Trip> findAllTripsSubscrito(int userId);
+
+	@Query("select u.trips from User u where u.id=?1")
+	Collection<Trip> findAllTripsCreatedByUserId(int userId);
 } 

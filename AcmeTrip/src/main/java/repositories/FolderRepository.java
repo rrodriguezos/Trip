@@ -30,4 +30,7 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	
 	@Query("select f from Folder f where f.actor.id = ?1 and f.name = 'Starredfolder'")
 	Folder findStarredFolderByActor(int actorId);
+
+	@Query("select f from Folder f where (f.name= 'In folder' and f.actor.id = ?1)")
+	Folder foldersInFolderOfActor(int actorId);
 }

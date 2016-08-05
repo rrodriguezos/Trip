@@ -112,38 +112,8 @@ public class TripUserController extends AbstractController{
 
 			return result;
 		}
+	
 		
-//		@RequestMapping(value = "/subscriptions")
-//		public ModelAndView subscriptions() {
-//
-//			ModelAndView result;
-//			Collection<Trip> trips;
-//			User user;
-//
-//			user = userService.findByPrincipal();
-//			trips = tripService.tripsSubscriptionsByUser(user.getId());
-//			
-//
-//			result = new ModelAndView("trip/user/subscriptions");
-//			result.addObject("trips", trips);
-//			result.addObject("requestUri", "/trip/user/subscriptions.do");
-//
-//			return result;
-//		}
-		
-		// Actions ---------------------------------------
-//		@RequestMapping(value = "/delete", method = RequestMethod.GET)
-//		public ModelAndView save(@RequestParam int tripId) {
-//			ModelAndView result;
-//			
-//			Trip trip = tripService.findOne(tripId);
-//
-//			tripService.delete(trip);
-//			
-//			result = new ModelAndView("redirect:/trip/myList.do");
-//
-//			return result;
-//		}
 		
 		@RequestMapping(value="/edit",method = RequestMethod.POST, params="delete")
 		public ModelAndView delete(@Valid Trip trip, BindingResult binding){
@@ -164,13 +134,13 @@ public class TripUserController extends AbstractController{
 		}
 		
 		
-		@RequestMapping(value = "/copy", method = RequestMethod.GET)
+		@RequestMapping(value = "/copyPaste", method = RequestMethod.GET)
 		public ModelAndView copy(@RequestParam int tripId) {
 			ModelAndView result;
 			
 			Trip trip = tripService.findOne(tripId);
 
-			tripService.copyTrip(trip);
+			tripService.copyPasteTrip(trip);
 			
 			result = new ModelAndView("redirect:/trip/user/mylist.do");
 			result.addObject("requestUri", "/trip/user/mylist.do");
@@ -178,30 +148,53 @@ public class TripUserController extends AbstractController{
 			return result;
 		}
 		
-//		@RequestMapping(value = "/subscribe", method = RequestMethod.GET)
-//		public ModelAndView subscribe(@RequestParam int tripId) {
-//			ModelAndView result;
-//
-//			subscriptionService.subscribe(tripId);
-//			
-//			result = new ModelAndView("redirect:/trip/user/subscriptions.do");
-//			result.addObject("requestUri", "/trip/user/subscriptions.do");
-//
-//			return result;
-//		}
-//		
-//		@RequestMapping(value = "/unsubscribe", method = RequestMethod.GET)
-//		public ModelAndView unsubscribe(@RequestParam int tripId) {
-//			ModelAndView result;
-//
-//			subscriptionService.unsubscribe(tripId);
-//			
-//			result = new ModelAndView("redirect:/trip/user/subscriptions.do");
-//			result.addObject("requestUri", "/trip/user/subscriptions.do");
-//
-//			return result;
-//		}
-//		
+		// Join a
+		// Trip------------------------------------------------------------------
+		@RequestMapping(value = "/joinTrip", method = RequestMethod.GET)
+		public ModelAndView joinTrip(@RequestParam int tripId) {
+
+			ModelAndView result;
+			Trip trip;
+			Collection<Trip> trips;
+			
+
+			trip = tripService.findOne(tripId);
+			tripService.joinTrip(trip);
+			trips = tripService.findAllTripsJoinUser();
+
+			result = new ModelAndView("trip/list");
+
+			result.addObject("trips", trips);
+			result.addObject("requestURI", "trip/user/list.do");
+
+			return result;
+
+		}
+
+		// DisJoin a
+		// Event------------------------------------------------------------------
+		@RequestMapping(value = "/disjoinTrip", method = RequestMethod.GET)
+		public ModelAndView DisjoinEvent(@RequestParam int tripId) {
+
+			ModelAndView result;
+			Trip trip;
+			Collection<Trip> trips;
+			User principal;
+
+			trip = tripService.findOne(tripId);
+			tripService.DisjoinTrip(trip);
+			trips = tripService.findAllTripsJoinUser();
+			principal = userService.findByPrincipal();
+
+			result = new ModelAndView("trip/list");
+
+			result.addObject("trips", trips);
+			result.addObject("principal", principal);
+			result.addObject("requestUri", "trip/list.do");
+
+			return result;
+
+		}
 		// Ancillary methods
 				// --------------------------------------------------------
 

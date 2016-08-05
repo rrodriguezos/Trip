@@ -30,25 +30,25 @@
 </jstl:forEach>
 <br>
 
-<jstl:if test="${princi == true}">
+<jstl:if test="${logeado == true}">
 	<jstl:if test="${mytrip == false}">
 	
 		<input type="button" value="<spring:message code="trip.copy" />" 
-			onclick="javascript: window.location.assign('trip/user/copy.do?tripId=${trip.id}')" />
+			onclick="javascript: window.location.assign('trip/user/copyPaste.do?tripId=${trip.id}')" />
 		
 	</jstl:if>
 	
 	<jstl:if test="${mytrip == false}">
-		<jstl:if test="${subscribed == false}">
+		<jstl:if test="${joined == false}">
 			<input type="button" value="<spring:message code="trip.join" />" 
-				onclick="javascript: window.location.assign('trip/user/subscribe.do?tripId=${trip.id}')" />
+				onclick="javascript: window.location.assign('trip/user/joinTrip.do?tripId=${trip.id}')" />
 		</jstl:if>	
 	</jstl:if>
 	
 	<jstl:if test="${mytrip == false}">
-		<jstl:if test="${subscribed == true}">
+		<jstl:if test="${joined == true}">
 			<input type="button" value="<spring:message code="trip.disjoin" />" 
-				onclick="javascript: window.location.assign('trip/user/unsubscribe.do?tripId=${trip.id}')" />
+				onclick="javascript: window.location.assign('trip/user/disjoinTrip.do?tripId=${trip.id}')" />
 	
 		</jstl:if>	
 	</jstl:if>

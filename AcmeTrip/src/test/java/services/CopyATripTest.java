@@ -66,7 +66,7 @@ public class CopyATripTest  extends AbstractTest{
 			
 			trip = tripService.findOne(tripId);
 			
-			tripService.copyTrip(trip);
+			tripService.copyPasteTrip(trip);
 			
 			unauthenticate();
 

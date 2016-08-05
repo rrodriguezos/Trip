@@ -67,55 +67,55 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
-//	@RequestMapping(value = "/display", method = RequestMethod.GET)
-//	public ModelAndView display(@RequestParam int tripId) {
-//		ModelAndView result;
-//		Trip trip;
-//		Collection<Comment> comments;
-//		User user;
-//		Boolean mytrip;
-//		Boolean subscribed;
-//		Boolean princi;
-//
-//		trip = tripService.findOne(tripId);
-//		mytrip = false;
-//		subscribed = false;
-//		princi = false;
-//		
-//		try{
-//			user = userService.findByPrincipal();
-//			if(user!=null){
-//				princi = true;
-//			}
-//			if(user.equals(trip.getUser())){
-//				mytrip = true;
-//			}
-//			if(tripService.tripsSubscriptionsByUser(user.getId())
-//					.contains(trip)){
-//				subscribed = true;
-//			}
-//		}catch(Throwable oops){
-//			mytrip = false;
-//			subscribed = false;
-//			princi = false;
-//		}
-//
-//		comments = commentService.findCommentsByCommentableId(tripId);
-//
-//		trip = tripService.findOne(tripId);
-//		comments = commentService.findCommentsByCommentableId(tripId);
-//
-//		result = new ModelAndView("trip/display");
-//		result.addObject("trip", trip);
-//
-//		result.addObject("mytrip", mytrip);
-//		result.addObject("subscribed", subscribed);
-//		result.addObject("princi", princi);
-//		
-//
-//		result.addObject("comments", comments);
-//
-//		return result;
-//
-//	}
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam int tripId) {
+		ModelAndView result;
+		Trip trip;
+		Collection<Comment> comments;
+		User user;
+		Boolean mytrip;
+		Boolean joined;
+		Boolean logeado;
+
+		trip = tripService.findOne(tripId);
+		mytrip = false;
+		joined = false;
+		logeado = false;
+		
+		try{
+			user = userService.findByPrincipal();
+			if(user!=null){
+				logeado = true;
+			}
+			if(user.equals(trip.getUser())){
+				mytrip = true;
+			}
+			if(tripService.findAllTripsSuscrito(user.getId())
+					.contains(trip)){
+				joined = true;
+			}
+		}catch(Throwable oops){
+			mytrip = false;
+			joined = false;
+			logeado = false;
+		}
+
+		comments = commentService.findCommentsByCommentableId(tripId);
+
+		trip = tripService.findOne(tripId);
+		comments = commentService.findCommentsByCommentableId(tripId);
+
+		result = new ModelAndView("trip/display");
+		result.addObject("trip", trip);
+
+		result.addObject("mytrip", mytrip);
+		result.addObject("joined", joined);
+		result.addObject("logeado", logeado);
+		
+
+		result.addObject("comments", comments);
+
+		return result;
+
+	}
 }

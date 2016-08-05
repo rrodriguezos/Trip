@@ -83,7 +83,7 @@ public class DailyPlanService {
 			subject = "Modificación de un plan diario de la excursión " + dailyPlan.getTrip().getTitle();
 			body = "He modificado un plan diario de mi excursión " + dailyPlan.getTrip().getTitle();
 		}
-		messageService.automaticMessage(dailyPlan.getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subject, body);
 		
 		dailyPlanRepository.save(dailyPlan);
 	}
@@ -97,7 +97,7 @@ public class DailyPlanService {
 		subject = "Eliminación de un plan diario de la excursión " + dailyPlan.getTrip().getTitle();
 		body = "He eliminado un plan diario en mi excursión " + dailyPlan.getTrip().getTitle();
 
-		messageService.automaticMessage(dailyPlan.getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subject, body);
 		
 		dailyPlanRepository.delete(dailyPlan);
 	}

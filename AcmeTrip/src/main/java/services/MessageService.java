@@ -105,27 +105,25 @@ public class MessageService {
 	
 	//Other Business Methods -----------------------------------------------------------
 	
-	public void automaticMessage(Trip trip, String subject, String body){
+	public void broadcastAlertTripMessage(Trip trip, String subject, String body) {
 		Collection<User> users;
 		Message message;
-		
+
 		users = userService.usersSusTrip(trip.getId());
 		message = create();
-		
+
 		message.setSubject(subject);
 		message.setBody(body);
 		message.setSender(trip.getUser());
-		message.setMessagePriority(MessagePriority.NEUTRAL);
-		
-		for(User user: users){
+		message.setMessagePriority(MessagePriority.HIGH);
+
+		for (User user : users) {
 			message.setRecipient(user);
-			message.setFolder(folderService.findFolder("Infolder", user.getId()));
-			
+			message.setFolder(folderService.findInFolderOfActor(user.getId()));
+
 			save(message);
 		}
-		
-		
-		
+
 	}
 	
 	public Message findOneDisplay(int messageId){
@@ -223,4 +221,6 @@ public class MessageService {
 		Assert.isTrue(actor.getId()==folder.getActor().getId());
 		
 	}
+
+	
 }

@@ -253,4 +253,9 @@ public class FolderService {
 		
 		return result;
 	}
+	public Folder findInFolderOfActor(int actorId) {
+		Folder folder = folderRepository.foldersInFolderOfActor(actorId);
+		Assert.notNull(folder);
+		return folder;
+	}
 }
