@@ -65,7 +65,7 @@ public class Activity extends Commentable {
 	
 	//Relationships ---------------------------------------------------
 	private User user;
-	private Type type;
+	private ActivityType type;
 	private Collection<Slot> slots;
 	private Manager manager;
 	
@@ -82,10 +82,10 @@ public class Activity extends Commentable {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-	public Type getType() {
+	public ActivityType getActivityType() {
 		return type;
 	}
-	public void setType(Type type) {
+	public void setActivityType(ActivityType type) {
 		this.type = type;
 	}
 	

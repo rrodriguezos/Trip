@@ -2,8 +2,8 @@ package repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import domain.Type;
+import domain.ActivityType;
 
-public interface TypeRepository extends JpaRepository<Type, Integer>{
+public interface TypeRepository extends JpaRepository<ActivityType, Integer>{
 
 }

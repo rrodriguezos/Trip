@@ -9,18 +9,18 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import repositories.TypeRepository;
-import domain.Type;
+import domain.ActivityType;
 
 @Component
 @Transactional
-public class StringToTypeConverter implements Converter<String,Type>{
+public class StringToTypeConverter implements Converter<String,ActivityType>{
 	
 	@Autowired
 	TypeRepository typeRepository;
 
 	@Override
-	public Type convert(String text) {
-		Type result;
+	public ActivityType convert(String text) {
+		ActivityType result;
 		int id;
 		
 		try{

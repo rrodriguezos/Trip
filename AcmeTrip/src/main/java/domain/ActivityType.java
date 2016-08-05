@@ -14,10 +14,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Type extends DomainEntity {
+public class ActivityType extends DomainEntity {
 
 	//Constructor ----------------------------------------------
-	public Type(){
+	public ActivityType(){
 		super();
 	}
 	
@@ -38,7 +38,7 @@ public class Type extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="type")
+	@OneToMany(mappedBy="activityType")
 	public Collection<Activity> getActivities() {
 		return activities;
 	}

@@ -17,7 +17,7 @@ import services.TypeService;
 
 import controllers.AbstractController;
 import domain.Activity;
-import domain.Type;
+import domain.ActivityType;
 
 @Controller
 @RequestMapping("/activity/user")
@@ -40,7 +40,7 @@ public class ActivityUserController extends AbstractController {
 	public ModelAndView create(){
 		ModelAndView result;
 		Activity activity;
-		Collection<Type> types;
+		Collection<ActivityType> types;
 		
 		activity = activityService.create();
 		types = typeService.findAll();
@@ -57,7 +57,7 @@ public class ActivityUserController extends AbstractController {
 	public ModelAndView edit(@RequestParam int activityId){
 		ModelAndView result;
 		Activity activity;
-		Collection<Type> types;
+		Collection<ActivityType> types;
 		
 		activity = activityService.findOne(activityId);
 		types = typeService.findAll();
@@ -72,7 +72,7 @@ public class ActivityUserController extends AbstractController {
 	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
 	public ModelAndView edit(@Valid Activity activity, BindingResult binding){
 		ModelAndView result;
-		Collection<Type> types;
+		Collection<ActivityType> types;
 		
 		if(binding.hasErrors()){
 			types = typeService.findAll();

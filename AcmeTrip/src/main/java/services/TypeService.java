@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 
 import domain.Activity;
 import domain.Actor;
-import domain.Type;
+import domain.ActivityType;
 
 import repositories.TypeRepository;
 import security.Authority;
@@ -33,21 +33,21 @@ public class TypeService {
 	private ActorService actorService;
 	
 	//CRUDs Methods ---------------------------------------------------------------
-	public Type create(){
+	public ActivityType create(){
 		checkPrincipalAdministratorOrManager();
-		Type result;
+		ActivityType result;
 		Collection<Activity> activities;
 		
 		activities = new ArrayList<Activity>();
 		
-		result = new Type();
+		result = new ActivityType();
 		result.setActivities(activities);
 		
 		return result;
 	}
 	
-	public Type findOne(int typeId){
-		Type result;
+	public ActivityType findOne(int typeId){
+		ActivityType result;
 		
 		result = typeRepository.findOne(typeId);
 		Assert.notNull(result);
@@ -55,26 +55,26 @@ public class TypeService {
 		return result;
 	}
 	
-	public Type save(Type type){
+	public ActivityType save(ActivityType type){
 		checkPrincipalAdministratorOrManager();
 		Assert.notNull(type);
 		
 		//CONCURRENCY CHECK 
 		if(type.getId()!=0){
-			Type typeCheck = typeRepository.findOne(type.getId());
+			ActivityType typeCheck = typeRepository.findOne(type.getId());
 			Assert.isTrue(type.getVersion() == typeCheck.getVersion());
 		}
 		
-		Type result;
+		ActivityType result;
 
 		result = typeRepository.save(type);
 		
 		return result;
 	}
 	
-	public Collection<Type> findAll() {
+	public Collection<ActivityType> findAll() {
 		
-		Collection<Type> result;
+		Collection<ActivityType> result;
 
 		result = typeRepository.findAll();
 

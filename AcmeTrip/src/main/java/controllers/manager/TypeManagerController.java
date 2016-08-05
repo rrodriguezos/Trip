@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.TypeService;
 
 import controllers.AbstractController;
-import domain.Type;
+import domain.ActivityType;
 
 @Controller
 @RequestMapping("/type/manager")
@@ -34,7 +34,7 @@ public class TypeManagerController extends AbstractController {
 	@RequestMapping(value="/create", method=RequestMethod.GET)
 	public ModelAndView create(){
 		ModelAndView result;
-		Type type;
+		ActivityType type;
 		
 		type = typeService.create();
 		result = new ModelAndView("type/create");
@@ -48,7 +48,7 @@ public class TypeManagerController extends AbstractController {
 	@RequestMapping(value="/edit",method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int typeId){
 		ModelAndView result;
-		Type type;
+		ActivityType type;
 		
 		type = typeService.findOne(typeId);
 
@@ -60,7 +60,7 @@ public class TypeManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
-	public ModelAndView edit(@Valid Type type, BindingResult binding){
+	public ModelAndView edit(@Valid ActivityType type, BindingResult binding){
 		ModelAndView result;
 		
 		if(binding.hasErrors()){
@@ -85,7 +85,7 @@ public class TypeManagerController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Type> types;
+		Collection<ActivityType> types;
 		
 		types = typeService.findAll();
 		
