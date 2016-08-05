@@ -18,6 +18,7 @@ import com.mchange.v1.util.UnexpectedException;
 
 import domain.Actor;
 import domain.Message;
+import domain.Message.MessagePriority;
 
 import utilities.AbstractTest;
 
@@ -86,7 +87,7 @@ public class CreateMessageTest extends AbstractTest {
 			message.setSubject(subject);
 			message.setRecipient(recipient);
 			message.setSender(sender);
-			message.setPriority(1);
+			message.setMessagePriority(MessagePriority.NEUTRAL);
 			
 			message = messageService.saveToSend(message);
 			messageService.save(message);

@@ -11,10 +11,10 @@ import domain.Message;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer>{
 	//Messages by folder
-	@Query("select m from Message m where m.folder.id=?1 and m.favorite is false order by m.priority desc")
+	@Query("select m from Message m where m.folder.id=?1 and m.star is false")
 	Collection<Message> findMessagesByFolderId(int folderId);
 	
 	//Messages by actor
-	@Query("select m from Message m where m.folder.actor.id=?1 and m.favorite is true order by m.priority desc")
+	@Query("select m from Message m where m.folder.actor.id=?1 and m.star is true")
 	Collection<Message> findMessagesFavoritesByActor(int actorId);
 }

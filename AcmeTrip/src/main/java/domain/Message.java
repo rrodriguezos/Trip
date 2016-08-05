@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,14 +17,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = { @Index(columnList="favorite"), @Index(columnList="priority")})
+@Table(indexes = { @Index(columnList="star"), @Index(columnList="MessagePriority")})
 public class Message extends DomainEntity implements Cloneable{
 
 	// Constructors -----------------------------------------------------------
@@ -33,9 +34,13 @@ public class Message extends DomainEntity implements Cloneable{
 	// Attributes -------------------------------------------------------------
 	private String subject;
 	private String body;
-	private Date moment;
-	private Integer priority;
-	private boolean favorite;
+	private Date moment;	
+	private boolean star;
+	public enum MessagePriority
+	{
+		LOW,NEUTRAL,HIGH;
+	}
+	private MessagePriority messagePriority;
 	
 	@SafeHtml(whitelistType=WhiteListType.NONE)
 	@NotBlank
@@ -67,20 +72,21 @@ public class Message extends DomainEntity implements Cloneable{
 	}
 	
 	@NotNull
-	@Range(min=0, max=2)
-	public Integer getPriority() {
-		return priority;
+	@Enumerated(EnumType.STRING)
+	public MessagePriority getMessagePriority() {
+		return messagePriority;
 	}
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
-	
-	public boolean getFavorite() {
-		return favorite;
+
+	public void setMessagePriority(MessagePriority messagePriority) {
+		this.messagePriority = messagePriority;
 	}
 	
-	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
+	public boolean getStar() {
+		return star;
+	}
+	
+	public void setStar(boolean star) {
+		this.star = star;
 	}
 
 	// Relationships ------------------------------------------------------------

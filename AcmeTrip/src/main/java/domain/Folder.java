@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = { @Index(columnList="system"), @Index(columnList="name") })
+@Table(indexes = { @Index(columnList="systemFolder"), @Index(columnList="name") })
 public class Folder extends DomainEntity {
 	
 	//Constructor ------------------------------------------------------------
@@ -29,7 +29,7 @@ public class Folder extends DomainEntity {
 	
 	//Attributes --------------------------------------------------------------
 	private String name;
-	private boolean system;
+	private boolean systemFolder;
 	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -40,12 +40,12 @@ public class Folder extends DomainEntity {
 		this.name = name;
 	}
 	
-	public boolean getSystem() {
-		return system;
+	public boolean getSystemFolder() {
+		return systemFolder;
 	}
 	
-	public void setSystem(boolean system) {
-		this.system = system;
+	public void setSystemFolder(boolean systemFolder) {
+		this.systemFolder = systemFolder;
 	}
 	
 	//Relationships -----------------------------------------------------------

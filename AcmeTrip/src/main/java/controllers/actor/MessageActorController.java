@@ -48,7 +48,7 @@ public class MessageActorController extends AbstractController {
 		Folder folder;
 
 		folder = folderService.findOne(folderId);
-		if(folder.getSystem() && folder.getName().equals("Starredfolder")){
+		if(folder.getSystemFolder() && folder.getName().equals("Starredfolder")){
 			messages = messageService.findMessagesFavoritesByActor();
 		}else{
 			messages = messageService.findMessagesByFolder(folderId);

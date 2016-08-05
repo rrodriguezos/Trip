@@ -16,16 +16,16 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	@Query("select f from Folder f where f.actor.userAccount.id=?1")
 	Collection<Folder> findFoldersByUserAccount(int userAccountId);
 	
-	@Query("select f from Folder f where f.name = ?1 and f.actor.id = ?2 and f.system is true")
+	@Query("select f from Folder f where f.name = ?1 and f.actor.id = ?2 and f.systemFolder is true")
 	Folder findFolder(String nameFolder, int actorId);
 	
-	@Query("select f from Folder f where f.name = ?1 and f.actor.id = ?2 and f.system = true")
+	@Query("select f from Folder f where f.name = ?1 and f.actor.id = ?2 and f.systemFolder = true")
 	Folder findSystemFolder(String nameFolder, int actorId);
 	
-	@Query("select f from Folder f where f.system = false and f.actor.userAccount.id = ?1")
+	@Query("select f from Folder f where f.systemFolder = false and f.actor.userAccount.id = ?1")
 	Collection<Folder> findFoldersToMoveByUserAccount(int userAccountId);
 	
-	@Query("select m from Folder f join f.messages m where f.id = ?1 and m.favorite is true")
+	@Query("select m from Folder f join f.messages m where f.id = ?1 and m.star is true")
 	Collection<Message> messagesFavoritesByFolder(int folderId);
 	
 	@Query("select f from Folder f where f.actor.id = ?1 and f.name = 'Starredfolder'")

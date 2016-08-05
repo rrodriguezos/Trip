@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Trip;
 import domain.User;
-import forms.UserForm;
+import forms.UserRegisterForm;
 
 import services.TripService;
 import services.UserService;
@@ -51,9 +51,9 @@ public class UserController extends AbstractController {
 		@RequestMapping(value = "/register", method = RequestMethod.GET)
 		public ModelAndView create() {
 			ModelAndView result;
-			UserForm userForm;
+			UserRegisterForm userForm;
 			
-			userForm = new UserForm();
+			userForm = new UserRegisterForm();
 			
 			result = new ModelAndView("user/register");
 			result.addObject("userForm", userForm);
@@ -64,13 +64,13 @@ public class UserController extends AbstractController {
 		// Edition ----------------------------------------------------------------
 		
 		@RequestMapping(value = "/register", method = RequestMethod.POST, params="save")
-		public ModelAndView register(@Valid UserForm userForm, BindingResult binding){
+		public ModelAndView register(@Valid UserRegisterForm userForm, BindingResult binding){
 			ModelAndView result;
 			User user;
 			Boolean verificarPass;
 			
 			//Verificate match the passwords
-			verificarPass = userForm.getPassword().equals(userForm.getPasswordRepeat());
+			verificarPass = userForm.getPassword().equals(userForm.getConfirmPassword());
 			
 			if(binding.hasErrors() || !verificarPass || !userForm.getAccept()){
 				result = createEditModelAndView(userForm);
@@ -103,7 +103,7 @@ public class UserController extends AbstractController {
 		@RequestMapping(value = "/edit", method = RequestMethod.GET)
 		public ModelAndView edit() {
 			ModelAndView result;
-			UserForm userForm;
+			UserRegisterForm userForm;
 
 			userForm = userService.copyUser();
 			Assert.notNull(userForm);
@@ -116,12 +116,12 @@ public class UserController extends AbstractController {
 		}
 		
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-		public ModelAndView save(@Valid UserForm userForm, BindingResult binding) {
+		public ModelAndView save(@Valid UserRegisterForm userForm, BindingResult binding) {
 			ModelAndView result;
 			Boolean verificarPass;
 			Boolean passActual;
 			//Verificate match the passwords
-			verificarPass = userForm.getPassword().equals(userForm.getPasswordRepeat());
+			verificarPass = userForm.getPassword().equals(userForm.getConfirmPassword());
 			//Comprobamos que se ha introducido bien la contraseña actual
 			passActual = userService.passActual(userForm);
 			
@@ -183,7 +183,7 @@ public class UserController extends AbstractController {
 		
 		// Ancillary methods --------------------------------------------------------
 		
-		protected ModelAndView createEditModelAndView(UserForm userForm){
+		protected ModelAndView createEditModelAndView(UserRegisterForm userForm){
 			ModelAndView result;
 			
 			result = createEditModelAndView(userForm, null);
@@ -191,7 +191,7 @@ public class UserController extends AbstractController {
 			return result;
 		}
 		
-		protected ModelAndView createEditModelAndView(UserForm userForm, String message){
+		protected ModelAndView createEditModelAndView(UserRegisterForm userForm, String message){
 			ModelAndView result;
 			
 			result = new ModelAndView("user/register");

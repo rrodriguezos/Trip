@@ -627,7 +627,7 @@
 	<bean class="domain.Folder" id="folder1">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="administrator" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 				<ref bean="message1" />
@@ -638,7 +638,7 @@
 	<bean class="domain.Folder" id="folder2">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="administrator" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -648,7 +648,7 @@
 	<bean class="domain.Folder" id="folder3">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="administrator" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -658,7 +658,7 @@
 	<bean class="domain.Folder" id="folder4">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="administrator" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -668,7 +668,7 @@
 	<bean class="domain.Folder" id="folder5">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="administrator" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -678,7 +678,7 @@
 	<bean class="domain.Folder" id="folder6">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="user1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 				<ref bean="message3" />
@@ -689,7 +689,7 @@
 	<bean class="domain.Folder" id="folder7">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="user1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 				<ref bean="message2" />
@@ -701,7 +701,7 @@
 	<bean class="domain.Folder" id="folder8">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="user1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -711,7 +711,7 @@
 	<bean class="domain.Folder" id="folder9">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="user1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -721,7 +721,7 @@
 	<bean class="domain.Folder" id="folder10">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="user1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -731,7 +731,7 @@
 	<bean class="domain.Folder" id="folder11">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="user2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -741,7 +741,7 @@
 	<bean class="domain.Folder" id="folder12">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="user2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -751,7 +751,7 @@
 	<bean class="domain.Folder" id="folder13">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="user2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -761,7 +761,7 @@
 	<bean class="domain.Folder" id="folder14">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="user2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -771,7 +771,7 @@
 	<bean class="domain.Folder" id="folder15">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="user2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -781,7 +781,7 @@
 	<bean class="domain.Folder" id="folder16">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="user3" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 				<ref bean="message5" />
@@ -792,7 +792,7 @@
 	<bean class="domain.Folder" id="folder17">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="user3" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -802,7 +802,7 @@
 	<bean class="domain.Folder" id="folder18">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="user3" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -812,7 +812,7 @@
 	<bean class="domain.Folder" id="folder19">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="user3" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -822,7 +822,7 @@
 	<bean class="domain.Folder" id="folder20">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="user3" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -832,7 +832,7 @@
 	<bean class="domain.Folder" id="folder21">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="user4" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -842,7 +842,7 @@
 	<bean class="domain.Folder" id="folder22">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="user4" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -852,7 +852,7 @@
 	<bean class="domain.Folder" id="folder23">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="user4" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -862,7 +862,7 @@
 	<bean class="domain.Folder" id="folder24">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="user4" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -872,7 +872,7 @@
 	<bean class="domain.Folder" id="folder25">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="user4" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -882,7 +882,7 @@
 	<bean class="domain.Folder" id="folder26">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="manager1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -892,7 +892,7 @@
 	<bean class="domain.Folder" id="folder27">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="manager1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -902,7 +902,7 @@
 	<bean class="domain.Folder" id="folder28">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="manager1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -912,7 +912,7 @@
 	<bean class="domain.Folder" id="folder29">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="manager1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -922,7 +922,7 @@
 	<bean class="domain.Folder" id="folder30">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="manager1" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -932,7 +932,7 @@
 	<bean class="domain.Folder" id="folder31">
 		<property name="name" value="Infolder" />
 		<property name="actor" ref="manager2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -942,7 +942,7 @@
 	<bean class="domain.Folder" id="folder32">
 		<property name="name" value="Outfolder" />
 		<property name="actor" ref="manager2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 				<ref bean="message4" />
@@ -953,7 +953,7 @@
 	<bean class="domain.Folder" id="folder33">
 		<property name="name" value="Trashfolder" />
 		<property name="actor" ref="manager2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -963,7 +963,7 @@
 	<bean class="domain.Folder" id="folder34">
 		<property name="name" value="Starredfolder" />
 		<property name="actor" ref="manager2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -973,7 +973,7 @@
 	<bean class="domain.Folder" id="folder35">
 		<property name="name" value="Spamfolder" />
 		<property name="actor" ref="manager2" />
-		<property name="system" value="true" />
+		<property name="systemFolder" value="true" />
 		<property name="messages">
 			<list>
 			</list>
@@ -986,8 +986,9 @@
 		<property name="subject" value="subject1" />
 		<property name="body" value="body1" />
 		<property name="moment" value="04/02/2016" />
-		<property name="priority" value="2" />
+		<property name="messagePriority" value="LOW" />
 		<property name="sender" ref="user1" />
+		<property name="star" value="false" />
 		<property name="recipient" ref="administrator" />
 		<property name="folder" ref="folder1" />
 	</bean>
@@ -996,7 +997,8 @@
 		<property name="subject" value="subject1" />
 		<property name="body" value="body1" />
 		<property name="moment" value="04/02/2016" />
-		<property name="priority" value="1" />
+		<property name="star" value="false" />
+		<property name="messagePriority" value="NEUTRAL" />
 		<property name="sender" ref="user1" />
 		<property name="recipient" ref="administrator" />
 		<property name="folder" ref="folder7" />
@@ -1006,7 +1008,8 @@
 		<property name="subject" value="subject2" />
 		<property name="body" value="body2" />
 		<property name="moment" value="05/02/2016" />
-		<property name="priority" value="2" />
+		<property name="star" value="false" />
+		<property name="messagePriority" value="LOW" />
 		<property name="sender" ref="manager2" />
 		<property name="recipient" ref="user1" />
 		<property name="folder" ref="folder6" />
@@ -1016,7 +1019,8 @@
 		<property name="subject" value="subject2" />
 		<property name="body" value="body2" />
 		<property name="moment" value="05/02/2016" />
-		<property name="priority" value="2" />
+		<property name="star" value="false" />
+		<property name="messagePriority" value="LOW" />
 		<property name="sender" ref="manager2" />
 		<property name="recipient" ref="user1" />
 		<property name="folder" ref="folder32" />
@@ -1025,8 +1029,9 @@
 	<bean id="message5" class="domain.Message">
 		<property name="subject" value="subject3" />
 		<property name="body" value="body3" />
+		<property name="star" value="false" />
 		<property name="moment" value="06/02/2016" />
-		<property name="priority" value="1" />
+		<property name="messagePriority" value="NEUTRAL" />
 		<property name="sender" ref="user1" />
 		<property name="recipient" ref="user3" />
 		<property name="folder" ref="folder16" />
@@ -1036,7 +1041,8 @@
 		<property name="subject" value="subject3" />
 		<property name="body" value="body3" />
 		<property name="moment" value="06/02/2016" />
-		<property name="priority" value="2" />
+		<property name="star" value="false" />
+		<property name="messagePriority" value="HIGH" />
 		<property name="sender" ref="user1" />
 		<property name="recipient" ref="user3" />
 		<property name="folder" ref="folder7" />

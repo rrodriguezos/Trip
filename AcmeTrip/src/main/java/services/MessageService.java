@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
+import domain.Message.MessagePriority;
 import domain.Trip;
 import domain.User;
 
@@ -114,7 +115,7 @@ public class MessageService {
 		message.setSubject(subject);
 		message.setBody(body);
 		message.setSender(trip.getUser());
-		message.setPriority(1);
+		message.setMessagePriority(MessagePriority.NEUTRAL);
 		
 		for(User user: users){
 			message.setRecipient(user);
@@ -142,7 +143,7 @@ public class MessageService {
 		message = messageRepository.findOne(messageId);
 		checkPrincipalActor(message);
 		String folderName = message.getFolder().getName();
-		if(folderName.equals("Trashfolder") && message.getFolder().getSystem()){
+		if(folderName.equals("Trashfolder") && message.getFolder().getSystemFolder()){
 			delete(message);
 		}else{
 			Folder folder = folderService.findSystemFolder("Trashfolder");
@@ -195,7 +196,7 @@ public class MessageService {
 		message = findOne(messageId);
 		
 		if(!message.getFolder().getName().equals("Starredfolder")){
-			message.setFavorite(!message.getFavorite());
+			message.setStar(!message.getStar());
 			
 			save(message);
 		}

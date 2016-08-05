@@ -77,7 +77,7 @@ public class FolderService {
 	
 	public void delete(Folder folder){
 		Assert.notNull(folder);
-		Assert.isTrue(!folder.getSystem());
+		Assert.isTrue(!folder.getSystemFolder());
 		checkPrincipalActor(folder);
 		
 		Collection<Message> messages;
@@ -114,7 +114,7 @@ public class FolderService {
 		checkPrincipalActor(result);
 		
 		Assert.notNull(result);
-		Assert.isTrue(!result.getSystem());
+		Assert.isTrue(!result.getSystemFolder());
 		
 		return result;
 	}
@@ -148,27 +148,27 @@ public class FolderService {
 		// Se les asigna el actor y la propiedad system a true
 		infolder.setActor(actor);
 		infolder.setName("Infolder");
-		infolder.setSystem(true);
+		infolder.setSystemFolder(true);
 		infolder.setMessages(messages1);
 		
 		outfolder.setActor(actor);
 		outfolder.setName("Outfolder");
-		outfolder.setSystem(true);
+		outfolder.setSystemFolder(true);
 		outfolder.setMessages(messages2);
 		
 		trashfolder.setActor(actor);
 		trashfolder.setName("Trashfolder");
-		trashfolder.setSystem(true);
+		trashfolder.setSystemFolder(true);
 		trashfolder.setMessages(messages3);
 		
 		starredfolder.setActor(actor);
 		starredfolder.setName("Starredfolder");
-		starredfolder.setSystem(true);
+		starredfolder.setSystemFolder(true);
 		starredfolder.setMessages(messages4);
 		
 		spamfolder.setActor(actor);
 		spamfolder.setName("Spamfolder");
-		spamfolder.setSystem(true);
+		spamfolder.setSystemFolder(true);
 		spamfolder.setMessages(messages5);
 		
 		// Por último se hacen persistentes los objetos en la bd

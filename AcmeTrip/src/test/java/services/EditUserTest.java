@@ -20,7 +20,7 @@ import utilities.AbstractTest;
 import com.mchange.v1.util.UnexpectedException;
 
 import domain.User;
-import forms.UserForm;
+import forms.UserRegisterForm;
 
 @RunWith(Parameterized.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
@@ -81,16 +81,16 @@ public class EditUserTest extends AbstractTest {
 		try {
 			authenticate(username);
 			
-			UserForm userForm = userService.copyUser();
+			UserRegisterForm userForm = userService.copyUser();
 			
 			userForm.setName(name);
 			userForm.setPhone(phone);
 			userForm.setSurname("Euclídeo");
 			userForm.setPassword(password);
 			userForm.setUsername(username);
-			userForm.setEmail(email);
-			userForm.setPasswordActual(password);
-			userForm.setPasswordRepeat(password);
+			userForm.setEmailAddress(email);
+			userForm.setPasswordPast(password);
+			userForm.setConfirmPassword(password);
 
 			
 			

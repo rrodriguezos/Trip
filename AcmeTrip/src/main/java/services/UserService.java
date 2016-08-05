@@ -19,7 +19,7 @@ import domain.Comment;
 import domain.Folder;
 import domain.Trip;
 import domain.User;
-import forms.UserForm;
+import forms.UserRegisterForm;
 
 @Service
 @Transactional
@@ -141,12 +141,12 @@ public class UserService {
 	}
 
 	// Reconstruir un User, para el registro en la sistema
-	public User reconstruct(UserForm userForm) {
+	public User reconstruct(UserRegisterForm userForm) {
 		User res;
 
 		res = create();
 		// Comprobamos que las contraseñas sean iguales
-		Assert.isTrue(userForm.getPassword().equals(userForm.getPasswordRepeat()));
+		Assert.isTrue(userForm.getPassword().equals(userForm.getConfirmPassword()));
 
 		// Comprobamos que el usuario acepta las condiciones y términos del
 		// servicio
@@ -156,7 +156,7 @@ public class UserService {
 		res.setName(userForm.getName());
 		res.setPhone(userForm.getPhone());
 		res.setSurname(userForm.getSurname());
-		res.setEmailAddress(userForm.getEmail());
+		res.setEmailAddress(userForm.getEmailAddress());
 
 		res.getUserAccount().setUsername(userForm.getUsername());
 		res.getUserAccount().setPassword(userForm.getPassword());
@@ -164,22 +164,22 @@ public class UserService {
 		return res;
 	}
 	
-	public UserForm copyUser() {
-		UserForm result;
+	public UserRegisterForm copyUser() {
+		UserRegisterForm result;
 		User user;
 
-		result = new UserForm();
+		result = new UserRegisterForm();
 		user = findByPrincipal();
 
 		result.setName(user.getName());
 		result.setSurname(user.getSurname());
 		result.setId(user.getId());
-		result.setEmail(user.getEmailAddress());
+		result.setEmailAddress(user.getEmailAddress());
 		result.setPhone(user.getPhone());
 		result.setUsername(user.getUserAccount().getUsername());
 		result.setPassword(user.getUserAccount().getPassword());
-		result.setPasswordRepeat(user.getUserAccount().getPassword());
-		result.setPasswordActual(user.getUserAccount().getPassword());
+		result.setConfirmPassword(user.getUserAccount().getPassword());
+		result.setPasswordPast(user.getUserAccount().getPassword());
 		result.setAccept(true);
 
 		return result;
@@ -229,7 +229,7 @@ public class UserService {
 		return result;
 	}
 	
-	public Boolean passActual(UserForm userForm){
+	public Boolean passActual(UserRegisterForm userForm){
 		User user;
 		String passActual;
 		Boolean result;
@@ -241,7 +241,7 @@ public class UserService {
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 
-		passActual = encoder.encodePassword(userForm.getPasswordActual(), null);
+		passActual = encoder.encodePassword(userForm.getPasswordPast(), null);
 
 		result = user.getUserAccount().getPassword().equals(passActual);
 		
@@ -249,7 +249,7 @@ public class UserService {
 	}
 	
 	// reconstruir un user al modificar su perfil
-	public void reconstructPerfil(UserForm userForm) {
+	public void reconstructPerfil(UserRegisterForm userForm) {
 		User result;
 
 		result = findByPrincipal();
@@ -257,14 +257,14 @@ public class UserService {
 		// comprobamos que las contraseñas son iguales
 
 		Assert.isTrue(
-				userForm.getPassword().equals(userForm.getPasswordRepeat()));
+				userForm.getPassword().equals(userForm.getConfirmPassword()));
 
 		// Insertamos todos los datos en el user.
 
 		result.setName(userForm.getName());
 		result.setSurname(userForm.getSurname());
 		result.setPhone(userForm.getPhone());
-		result.setEmailAddress(userForm.getEmail());
+		result.setEmailAddress(userForm.getEmailAddress());
 
 
 		// HASHEAR LA CONTRASEÑA
