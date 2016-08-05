@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActivityService;
-import services.TypeService;
+import services.ActivityTypeService;
 
 import controllers.AbstractController;
 import domain.Activity;
@@ -33,7 +33,7 @@ public class ActivityUserController extends AbstractController {
 	private ActivityService activityService;
 	
 	@Autowired
-	private TypeService typeService;
+	private ActivityTypeService typeService;
 	
 	//Create-------------------------------------------
 	@RequestMapping(value="/create", method=RequestMethod.GET)

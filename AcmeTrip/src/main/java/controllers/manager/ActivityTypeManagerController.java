@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.TypeService;
+import services.ActivityTypeService;
 
 import controllers.AbstractController;
 import domain.ActivityType;
@@ -28,7 +28,7 @@ public class ActivityTypeManagerController extends AbstractController {
 	
 	//Services -----------------------------------------------------------
 	@Autowired
-	private TypeService typeService;
+	private ActivityTypeService typeService;
 	
 	//Create-------------------------------------------
 	@RequestMapping(value="/create", method=RequestMethod.GET)

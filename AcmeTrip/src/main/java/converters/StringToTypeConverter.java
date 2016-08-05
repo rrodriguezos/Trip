@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import repositories.TypeRepository;
+import repositories.ActivityTypeRepository;
 import domain.ActivityType;
 
 @Component
@@ -16,7 +16,7 @@ import domain.ActivityType;
 public class StringToTypeConverter implements Converter<String,ActivityType>{
 	
 	@Autowired
-	TypeRepository typeRepository;
+	ActivityTypeRepository typeRepository;
 
 	@Override
 	public ActivityType convert(String text) {

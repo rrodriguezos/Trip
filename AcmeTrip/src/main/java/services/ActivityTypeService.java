@@ -12,21 +12,21 @@ import domain.Activity;
 import domain.Actor;
 import domain.ActivityType;
 
-import repositories.TypeRepository;
+import repositories.ActivityTypeRepository;
 import security.Authority;
 
 @Transactional
 @Service
-public class TypeService {
+public class ActivityTypeService {
 	
 	//Constructor ---------------------------------------------------------------
-	public TypeService(){
+	public ActivityTypeService(){
 		super();
 	}
 
 	//Managed Repository-----------------------------------------------------------
 	@Autowired
-	private TypeRepository typeRepository;
+	private ActivityTypeRepository typeRepository;
 	
 	//Suported Services------------------------------------------------------------
 	@Autowired
@@ -34,7 +34,7 @@ public class TypeService {
 	
 	//CRUDs Methods ---------------------------------------------------------------
 	public ActivityType create(){
-		checkPrincipalAdministratorOrManager();
+		checkPrincipalManager();
 		ActivityType result;
 		Collection<Activity> activities;
 		
@@ -56,10 +56,9 @@ public class TypeService {
 	}
 	
 	public ActivityType save(ActivityType type){
-		checkPrincipalAdministratorOrManager();
+		checkPrincipalManager();
 		Assert.notNull(type);
 		
-		//CONCURRENCY CHECK 
 		if(type.getId()!=0){
 			ActivityType typeCheck = typeRepository.findOne(type.getId());
 			Assert.isTrue(type.getVersion() == typeCheck.getVersion());
@@ -82,19 +81,16 @@ public class TypeService {
 	}
 	
 	//Other bussiness methods -----------------------------------------------------
-	private void checkPrincipalAdministratorOrManager(){
+	private void checkPrincipalManager(){
 		Actor actor;
-		Authority authority, authority2;
+		Authority authority;
 	
 		actor = actorService.findByPrincipal();
 		Assert.isTrue(actor != null);
 		
 		authority = new Authority();
-		authority.setAuthority("ADMINISTRATOR");
+		authority.setAuthority("MANAGER");
 		
-		authority2 = new Authority();
-		authority2.setAuthority("MANAGER");
-		
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority) || actor.getUserAccount().getAuthorities().contains(authority2));
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority));
 	}
 }

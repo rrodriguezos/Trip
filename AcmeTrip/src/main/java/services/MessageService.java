@@ -134,6 +134,18 @@ public class MessageService {
 		
 		return result;
 	}
+	public void move(int messageId, int folderId){
+		Folder folder;
+		Message message;
+		
+		folder = folderService.findOne(folderId);
+		folderService.checkPrincipalActor(folder);
+		message = findOne(messageId);
+		
+		message.setFolder(folder);
+		
+		save(message);
+	}
 	
 	public void delete(int messageId){
 		Assert.isTrue(messageId!=0);
@@ -148,6 +160,14 @@ public class MessageService {
 			message.setFolder(folder);
 			save(message);
 		}
+	}
+	public Collection<Message> findMessagesFavoritesByActor(){
+		Collection<Message> result;
+		
+		result = messageRepository.findMessagesFavoritesByActor(actorService.findByPrincipal().getId());
+		Assert.notNull(result);
+		
+		return result;		
 	}
 	
 	public Collection<Message> findMessagesByFolder(int folderId){
@@ -165,27 +185,9 @@ public class MessageService {
 		return result;		
 	}
 	
-	public Collection<Message> findMessagesFavoritesByActor(){
-		Collection<Message> result;
-		
-		result = messageRepository.findMessagesFavoritesByActor(actorService.findByPrincipal().getId());
-		Assert.notNull(result);
-		
-		return result;		
-	}
 	
-	public void move(int messageId, int folderId){
-		Folder folder;
-		Message message;
-		
-		folder = folderService.findOne(folderId);
-		folderService.checkPrincipalActor(folder);
-		message = findOne(messageId);
-		
-		message.setFolder(folder);
-		
-		save(message);
-	}
+	
+	
 	
 	public void changeFavorite(int messageId){
 		Assert.notNull(messageId);

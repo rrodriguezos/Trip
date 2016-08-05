@@ -121,9 +121,8 @@ public class FolderService {
 	
 	// Other methods -------------------------------------
 	
-	// Este metodo crea los cinco folders de un actor, se le debe pasar el id del actor
 	public void foldersByDefect(Actor actor){
-		Folder infolder, outfolder, trashfolder, spamfolder, starredfolder;
+		Folder inFolder, outFolder, trashFolder, spamFolder, starredFolder;
 		Collection<Message> messages1, messages2, messages3, messages4, messages5;
 		
 		Assert.notNull(actor);
@@ -134,49 +133,58 @@ public class FolderService {
 		messages4 = new ArrayList<Message>();
 		messages5 = new ArrayList<Message>();
 		
-		infolder = new Folder();
-		Assert.notNull(infolder);
-		outfolder = new Folder();
-		Assert.notNull(outfolder);
-		trashfolder = new Folder();
-		Assert.notNull(trashfolder);
-		spamfolder = new Folder();
-		Assert.notNull(spamfolder);
-		starredfolder = new Folder();
-		Assert.notNull(starredfolder);
+		inFolder = new Folder();
+		Assert.notNull(inFolder);
+		outFolder = new Folder();
+		Assert.notNull(outFolder);
+		trashFolder = new Folder();
+		Assert.notNull(trashFolder);
+		spamFolder = new Folder();
+		Assert.notNull(spamFolder);
+		starredFolder = new Folder();
+		Assert.notNull(starredFolder);
 		
-		// Se les asigna el actor y la propiedad system a true
-		infolder.setActor(actor);
-		infolder.setName("Infolder");
-		infolder.setSystemFolder(true);
-		infolder.setMessages(messages1);
+		inFolder.setActor(actor);
+		inFolder.setName("Infolder");
+		inFolder.setSystemFolder(true);
+		inFolder.setMessages(messages1);
 		
-		outfolder.setActor(actor);
-		outfolder.setName("Outfolder");
-		outfolder.setSystemFolder(true);
-		outfolder.setMessages(messages2);
+		outFolder.setActor(actor);
+		outFolder.setName("Outfolder");
+		outFolder.setSystemFolder(true);
+		outFolder.setMessages(messages2);
 		
-		trashfolder.setActor(actor);
-		trashfolder.setName("Trashfolder");
-		trashfolder.setSystemFolder(true);
-		trashfolder.setMessages(messages3);
+		trashFolder.setActor(actor);
+		trashFolder.setName("Trashfolder");
+		trashFolder.setSystemFolder(true);
+		trashFolder.setMessages(messages3);
 		
-		starredfolder.setActor(actor);
-		starredfolder.setName("Starredfolder");
-		starredfolder.setSystemFolder(true);
-		starredfolder.setMessages(messages4);
+		starredFolder.setActor(actor);
+		starredFolder.setName("Starredfolder");
+		starredFolder.setSystemFolder(true);
+		starredFolder.setMessages(messages4);
 		
-		spamfolder.setActor(actor);
-		spamfolder.setName("Spamfolder");
-		spamfolder.setSystemFolder(true);
-		spamfolder.setMessages(messages5);
+		spamFolder.setActor(actor);
+		spamFolder.setName("Spamfolder");
+		spamFolder.setSystemFolder(true);
+		spamFolder.setMessages(messages5);
 		
-		// Por último se hacen persistentes los objetos en la bd
-		save(infolder);
-		save(outfolder);
-		save(trashfolder);
-		save(spamfolder);
-		save(starredfolder);
+		save(inFolder);
+		save(outFolder);
+		save(trashFolder);
+		save(spamFolder);
+		save(starredFolder);
+	}
+	public Folder findFolder(String nameFolder){
+		Assert.notNull(nameFolder);
+		
+		Actor actor;
+		Folder folder;
+		
+		actor = actorService.findByPrincipal();
+		folder = folderRepository.findFolder(nameFolder, actor.getId());
+		Assert.notNull(folder);
+		return folder;
 	}
 	
 	public Collection<Folder> findFoldersByPrincipal(){
@@ -193,17 +201,7 @@ public class FolderService {
 		return result;
 	}
 	
-	public Folder findFolder(String nameFolder){
-		Assert.notNull(nameFolder);
-		
-		Actor actor;
-		Folder folder;
-		
-		actor = actorService.findByPrincipal();
-		folder = folderRepository.findFolder(nameFolder, actor.getId());
-		Assert.notNull(folder);
-		return folder;
-	}
+	
 	
 	public Folder findSystemFolder(String nameFolder){
 		Assert.notNull(nameFolder);
@@ -213,6 +211,11 @@ public class FolderService {
 		
 		actor = actorService.findByPrincipal();
 		folder = folderRepository.findSystemFolder(nameFolder, actor.getId());
+		Assert.notNull(folder);
+		return folder;
+	}
+	public Folder findInFolderOfActor(int actorId) {
+		Folder folder = folderRepository.foldersInFolderOfActor(actorId);
 		Assert.notNull(folder);
 		return folder;
 	}
@@ -253,9 +256,5 @@ public class FolderService {
 		
 		return result;
 	}
-	public Folder findInFolderOfActor(int actorId) {
-		Folder folder = folderRepository.foldersInFolderOfActor(actorId);
-		Assert.notNull(folder);
-		return folder;
-	}
+	
 }
