@@ -1,23 +1,3 @@
-<%--
-
- * register.jsp
-
- *
-
- * Copyright (C) 2014 Universidad de Sevilla
-
- * 
-
- * The use of this project is hereby constrained to the conditions of the 
-
- * TDG Licence, a copy of which you may download from 
-
- * http://www.tdg-seville.info/License.html
-
- --%>
-
-
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -31,20 +11,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<form:form action="${ requestUri }" modelAttribute="type">
+	<form:form action="${ requestUri }" modelAttribute="activitytype">
 	
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="activities" />
 
-		<acme:textbox code="type.name" path="name" />
+		<acme:textbox code="activitytype.name" path="name" />
 
-		<acme:submit name="save" code="type.save" />
+		<acme:submit name="save" code="activitytype.save" />
 		<security:authorize access="hasRole('MANAGER')">
-			<acme:cancel url="type/manager/list.do" code="type.cancel" />
+			<acme:cancel url="activitytype/manager/list.do" code="activitytype.cancel" />
 		</security:authorize>
 		<security:authorize access="hasRole('ADMINISTRATOR')">
-			<acme:cancel url="type/administrator/list.do" code="type.cancel" />
+			<acme:cancel url="activitytype/administrator/list.do" code="activitytype.cancel" />
 		</security:authorize>
 
 	</form:form>

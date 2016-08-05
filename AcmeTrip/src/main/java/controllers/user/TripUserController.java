@@ -84,8 +84,8 @@ public class TripUserController extends AbstractController{
 			} else {
 				try {
 					tripService.save(trip);
-					result = new ModelAndView("redirect:/trip/list.do");
-					result.addObject("requestUri", "/trip/list.do");
+					result = new ModelAndView("redirect:/trip/mylist.do");
+					result.addObject("requestUri", "/trip/mylist.do");
 					redir.addFlashAttribute("message", "trip.commit.ok");
 
 				} catch (Throwable oops) {

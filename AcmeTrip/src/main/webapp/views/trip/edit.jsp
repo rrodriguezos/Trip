@@ -27,14 +27,14 @@
 		<form:hidden path="user" />
 		<form:hidden path="dailyPlans" />
 		<form:hidden path="comments" />
-		<form:hidden path="subscriptions" />
+		<form:hidden path="users" />
 
 
 		<acme:textbox code="trip.title" path="title" />
 
-		<acme:date code="trip.startTrip" path="startDate" readonly="false" />
+		<acme:date code="trip.startDate" path="startDate" readonly="false" />
 
-		<acme:date code="trip.endTrip" path="endDate" readonly="false" />
+		<acme:date code="trip.endDate" path="endDate" readonly="false" />
 
 		<acme:textbox code="trip.description" path="description" />
 

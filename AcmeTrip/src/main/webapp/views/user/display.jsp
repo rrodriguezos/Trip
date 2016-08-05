@@ -19,7 +19,7 @@
 
 <acme:jstlOut code="user.name" value="${user.name }"/>
 <acme:jstlOut code="user.surname" value="${user.surname }"/>
-<acme:jstlOut code="user.email" value="${user.email }"/>
+<acme:jstlOut code="user.emailAddress" value="${user.emailAddress }"/>
 <acme:jstlOut code="user.phone" value="${user.phone }"/>
 
 <h2><spring:message code="user.trips"/></h2>

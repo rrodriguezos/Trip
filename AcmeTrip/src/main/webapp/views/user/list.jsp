@@ -30,6 +30,12 @@
 	<spring:message code="user.surname" var="surname" />
 	<display:column title="${surname}" property="surname" />
 	
+	<spring:message code="user.phone" var="phone" />
+	<display:column title="${phone}" property="phone" />
+	
+	<spring:message code="user.emailAddress" var="emailAddress" />
+	<display:column title="${emailAddress}" property="emailAddress" />
+	
 	<spring:message code="user.display" var="display" />
 	<display:column title="${display}">
 			<input type="button" value="<spring:message code="user.display" />" 

@@ -51,12 +51,12 @@ public class UserController extends AbstractController {
 		@RequestMapping(value = "/register", method = RequestMethod.GET)
 		public ModelAndView create() {
 			ModelAndView result;
-			UserRegisterForm userForm;
+			UserRegisterForm userRegisterForm;
 			
-			userForm = new UserRegisterForm();
+			userRegisterForm = new UserRegisterForm();
 			
 			result = new ModelAndView("user/register");
-			result.addObject("userForm", userForm);
+			result.addObject("userRegisterForm", userRegisterForm);
 			return result;
 		}
 		
@@ -64,30 +64,30 @@ public class UserController extends AbstractController {
 		// Edition ----------------------------------------------------------------
 		
 		@RequestMapping(value = "/register", method = RequestMethod.POST, params="save")
-		public ModelAndView register(@Valid UserRegisterForm userForm, BindingResult binding){
+		public ModelAndView register(@Valid UserRegisterForm userRegisterForm, BindingResult binding){
 			ModelAndView result;
 			User user;
 			Boolean verificarPass;
 			
 			//Verificate match the passwords
-			verificarPass = userForm.getPassword().equals(userForm.getConfirmPassword());
+			verificarPass = userRegisterForm.getPassword().equals(userRegisterForm.getConfirmPassword());
 			
-			if(binding.hasErrors() || !verificarPass || !userForm.getAccept()){
-				result = createEditModelAndView(userForm);
+			if(binding.hasErrors() || !verificarPass || !userRegisterForm.getAccept()){
+				result = createEditModelAndView(userRegisterForm);
 				if (!verificarPass) {
 					result.addObject("message2", "register.commit.password");
 				}
-				if(!userForm.getAccept()){
+				if(!userRegisterForm.getAccept()){
 					 result.addObject("message2", "register.commit.condition");
 				}
 			}else{
 				try{
-					user = userService.reconstruct(userForm);
+					user = userService.reconstruct(userRegisterForm);
 					userService.save(user);
 					result = new ModelAndView("redirect:/");
 				}catch(Throwable oops){
 					result = new ModelAndView("user/register");
-					result.addObject("userForm", userForm);
+					result.addObject("userRegisterForm", userRegisterForm);
 		
 					if (oops instanceof DataIntegrityViolationException) {
 						result.addObject("message2","register.commit.duplicatedUsername");
@@ -103,44 +103,44 @@ public class UserController extends AbstractController {
 		@RequestMapping(value = "/edit", method = RequestMethod.GET)
 		public ModelAndView edit() {
 			ModelAndView result;
-			UserRegisterForm userForm;
+			UserRegisterForm userRegisterForm;
 
-			userForm = userService.copyUser();
-			Assert.notNull(userForm);
+			userRegisterForm = userService.copyUser();
+			Assert.notNull(userRegisterForm);
 			result = new ModelAndView("user/edit");
 
 			// De la vista edit.jsp modelAttribute="userForm
-			result.addObject("userForm", userForm);
+			result.addObject("userRegisterForm", userRegisterForm);
 
 			return result;
 		}
 		
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-		public ModelAndView save(@Valid UserRegisterForm userForm, BindingResult binding) {
+		public ModelAndView save(@Valid UserRegisterForm userRegisterForm, BindingResult binding) {
 			ModelAndView result;
 			Boolean verificarPass;
 			Boolean passActual;
 			//Verificate match the passwords
-			verificarPass = userForm.getPassword().equals(userForm.getConfirmPassword());
+			verificarPass = userRegisterForm.getPassword().equals(userRegisterForm.getConfirmPassword());
 			//Comprobamos que se ha introducido bien la contraseña actual
-			passActual = userService.passActual(userForm);
+			passActual = userService.passActual(userRegisterForm);
 			
 			if (binding.hasErrors() || !verificarPass || !passActual) {
 				result = new ModelAndView("user/edit");
-				result.addObject("userForm", userForm);
+				result.addObject("userRegisterForm", userRegisterForm);
 				if (!verificarPass) {
 					result.addObject("message2", "register.commit.password");
 				}
 				if (!passActual) {
-					result.addObject("message2", "register.commit.passwordActual");
+					result.addObject("message2", "register.commit.passwordPast");
 				}
 			} else {
 				try {
-					userService.reconstructPerfil(userForm);
+					userService.reconstructPerfil(userRegisterForm);
 					result = new ModelAndView("redirect:/");
 				} catch (Throwable oops) {
 					result = new ModelAndView("user/edit");
-					result.addObject("userForm", userForm);
+					result.addObject("userRegisterForm", userRegisterForm);
 					result.addObject("message2", "register.commit.error");
 				}
 			}

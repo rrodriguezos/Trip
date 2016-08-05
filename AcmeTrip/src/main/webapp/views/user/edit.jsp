@@ -13,7 +13,7 @@
 
 <security:authorize access="hasRole('USER')">
 
-	<form:form action="user/edit.do" modelAttribute="userForm"
+	<form:form action="user/edit.do" modelAttribute="userRegisterForm"
 		cssClass="form-horizontal">
 
 		<form:hidden path="id" />
@@ -31,22 +31,22 @@
 			</tr>
 
 			<tr>
-				<td><acme:textbox code="user.email" path="email" /></td>
+				<td><acme:textbox code="user.emailAddress" path="emailAddress" /></td>
 			</tr>
 			<tr>
 				<td><acme:textbox code="user.username" path="username"
 						readonly="true" /></td>
 			</tr>
 			<tr>
-				<td><acme:password code="user.passwordActual"
-						path="passwordActual" /></td>
+				<td><acme:password code="user.passwordPast"
+						path="passwordPast" /></td>
 			</tr>
 			<tr>
 				<td><acme:password code="user.password" path="password" /></td>
 			</tr>
 			<tr>
-				<td><acme:password code="user.passwordRepeat"
-						path="passwordRepeat" /></td>
+				<td><acme:password code="user.confirmPassword"
+						path="confirmPassword" /></td>
 			</tr>
 			
 			<tr>

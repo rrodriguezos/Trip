@@ -4,7 +4,7 @@
 
  *
 
- * Copyright (C) 2014 Universidad de Sevilla
+ * Copyright (C) 2016 Universidad de Sevilla
 
  * 
 
@@ -33,19 +33,19 @@
 
 <security:authorize access="isAnonymous()">
 
-	<form:form action="user/register.do" modelAttribute="userForm">
+	<form:form action="user/register.do" modelAttribute="userRegisterForm">
 
 
 		<acme:textbox code="user.username" path="username" />
 
 		<acme:password code="user.password" path="password" />
-		<acme:password code="user.passwordRepeat" path="passwordRepeat" />
+		<acme:password code="user.confirmPassword" path="confirmPassword" />
 
 		<acme:textbox code="user.name" path="name" />
 
 		<acme:textbox code="user.surname" path="surname" />
 
-		<acme:textbox code="user.email" path="email" />
+		<acme:textbox code="user.emailAddress" path="emailAddress" />
 
 		<acme:textbox code="user.phone" path="phone" />
 

@@ -30,12 +30,12 @@
 	<spring:message code="trip.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
 	
-	<spring:message code="trip.startTrip" var="startTripHeader" />
-	<display:column property="startDate" title="${startTripHeader}"
+	<spring:message code="trip.startDate" var="startDateHeader" />
+	<display:column property="startDate" title="${startDateHeader}"
 		format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" />
 	
-	<spring:message code="trip.endTrip" var="endTripHeader" />
-	<display:column property="endDate" title="${endTripHeader}"
+	<spring:message code="trip.endDate" var="endDateHeader" />
+	<display:column property="endDate" title="${endDateHeader}"
 		format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" />
 		
 	<spring:message code="trip.description" var="descriptionHeader" />

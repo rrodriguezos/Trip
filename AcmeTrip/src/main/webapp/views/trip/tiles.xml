@@ -16,23 +16,19 @@
        
 <tiles-definitions>
 	<definition name="trip/list" extends="master.page">	
-		<put-attribute name="title" value="Trips" />
+		<put-attribute name="title" value="Catalogue of trips" />
 		<put-attribute name="body" value="/views/trip/list.jsp" />
 	</definition>
 	<definition name="trip/user/mylist" extends="master.page">
 		<put-attribute name="title" value="My Trips" />
 		<put-attribute name="body" value="/views/trip/list.jsp" />
 	</definition>
-	<definition name="trip/user/subscriptions" extends="master.page">
-		<put-attribute name="title" value="My subscriptions" />
-		<put-attribute name="body" value="/views/trip/list.jsp" />
-	</definition>
 	<definition name="trip/user/edit" extends="master.page">	
-		<put-attribute name="title" value="Create a Trip" />
+		<put-attribute name="title" value="Create a new Trip" />
 		<put-attribute name="body" value="/views/trip/edit.jsp" />
 	</definition>
 	<definition name="trip/display" extends="master.page">	
-		<put-attribute name="title" value="Display Trip" />
+		<put-attribute name="title" value="Details of the Trip" />
 		<put-attribute name="body" value="/views/trip/display.jsp" />
 	</definition>
 	

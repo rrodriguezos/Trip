@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles_es.xml
+ * tiles.xml
  *
  * Copyright (C) 2013 Universidad de Sevilla
  * 
@@ -13,20 +13,20 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-      
+       
 <tiles-definitions>
-	<definition name="type/list" extends="master.page">	
-		<put-attribute name="title" value="Tipos de actividad" />
+	<definition name="activitytype/list" extends="master.page">	
+		<put-attribute name="title" value="Activity types" />
 		<put-attribute name="body" value="/views/type/list.jsp" />
 	</definition>
 	
-	<definition name="type/create" extends="master.page">	
-		<put-attribute name="title" value="Nuevo tipo de actividad" />
+	<definition name="activitytype/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit type of activity" />
 		<put-attribute name="body" value="/views/type/edit.jsp" />
 	</definition>
 	
-	<definition name="type/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar tipo de actividad" />
+	<definition name="activitytype/create" extends="master.page">	
+		<put-attribute name="title" value="Create a new type of activity" />
 		<put-attribute name="body" value="/views/type/edit.jsp" />
 	</definition>
 	

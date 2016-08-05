@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- * tiles_es.xml * * Copyright (C) 2013 Universidad de Sevilla * * The 
-	use of this project is hereby constrained to the conditions of the * TDG 
-	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
 
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
@@ -10,22 +16,27 @@
 
 <tiles-definitions>
 	<definition name="user/list" extends="master.page">
-		<put-attribute name="title" value="Usuarios" />
+		<put-attribute name="title" value="Usuarios del sistema" />
+		<put-attribute name="body" value="/views/user/list.jsp" />
+	</definition>
+	
+	<definition name="user/user/list" extends="master.page">
+		<put-attribute name="title" value="Mi Perfil" />
 		<put-attribute name="body" value="/views/user/list.jsp" />
 	</definition>
 
 	<definition name="user/display" extends="master.page">
-		<put-attribute name="title" value="Datos de usuario" />
+		<put-attribute name="title" value="Detalles del usuario" />
 		<put-attribute name="body" value="/views/user/display.jsp" />
 	</definition>
 
 	<definition name="user/register" extends="master.page">
-		<put-attribute name="title" value="Registro de usuario" />
+		<put-attribute name="title" value="Registrar usuario" />
 		<put-attribute name="body" value="/views/user/register.jsp" />
 	</definition>
 
 	<definition name="user/edit" extends="master.page">
-		<put-attribute name="title" value="Editar perfil" />
+		<put-attribute name="title" value="Editar perfil de usuario" />
 		<put-attribute name="body" value="/views/user/edit.jsp" />
 	</definition>
 

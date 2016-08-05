@@ -19,8 +19,8 @@
 
 <acme:jstlOut code="trip.title" value="${trip.title }"/>
 <acme:jstlOut code="trip.description" value="${trip.description }"/>
-<acme:jstlOut code="trip.startTrip" value="${trip.startDate }"/>
-<acme:jstlOut code="trip.endTrip" value="${trip.endDate }"/>
+<acme:jstlOut code="trip.startDate" value="${trip.startDate }"/>
+<acme:jstlOut code="trip.endDate" value="${trip.endDate }"/>
 
 
 <b><spring:message code="trip.photos" />: </b>
@@ -40,14 +40,14 @@
 	
 	<jstl:if test="${mytrip == false}">
 		<jstl:if test="${subscribed == false}">
-			<input type="button" value="<spring:message code="trip.subscribe" />" 
+			<input type="button" value="<spring:message code="trip.join" />" 
 				onclick="javascript: window.location.assign('trip/user/subscribe.do?tripId=${trip.id}')" />
 		</jstl:if>	
 	</jstl:if>
 	
 	<jstl:if test="${mytrip == false}">
 		<jstl:if test="${subscribed == true}">
-			<input type="button" value="<spring:message code="trip.unsubscribe" />" 
+			<input type="button" value="<spring:message code="trip.disjoin" />" 
 				onclick="javascript: window.location.assign('trip/user/unsubscribe.do?tripId=${trip.id}')" />
 	
 		</jstl:if>	

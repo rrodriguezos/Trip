@@ -19,11 +19,11 @@ import controllers.AbstractController;
 import domain.ActivityType;
 
 @Controller
-@RequestMapping("/type/administrator")
-public class TypeAdministratorController extends AbstractController {
+@RequestMapping("/activitytype/administrator")
+public class ActivitytypeAdministratorController extends AbstractController {
 	
 	//Constructor --------------------------------------------------------
-	public TypeAdministratorController() {
+	public ActivitytypeAdministratorController() {
 		super();
 	}
 	
@@ -31,52 +31,52 @@ public class TypeAdministratorController extends AbstractController {
 	@Autowired
 	private TypeService typeService;
 	
-	//Create-------------------------------------------
+	//Create--------------------------------------------------------------------
 	@RequestMapping(value="/create", method=RequestMethod.GET)
 	public ModelAndView create(){
 		ModelAndView result;
-		ActivityType type;
+		ActivityType activitytype;
 		
-		type = typeService.create();
+		activitytype = typeService.create();
 		
-		result = new ModelAndView("type/create");
-		result.addObject("type", type);
-		result.addObject("requestUri", "type/administrator/edit.do");
+		result = new ModelAndView("activitytype/create");
+		result.addObject("activitytype", activitytype);
+		result.addObject("requestUri", "activitytype/administrator/edit.do");
 		
 		return result;
 	}
 	
-	//Editing ------------------------------------------------
+	//Edit--------------------------------------------------------------------
 	@RequestMapping(value="/edit",method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int typeId){
 		ModelAndView result;
-		ActivityType type;
+		ActivityType activitytype;
 		
-		type = typeService.findOne(typeId);
+		activitytype = typeService.findOne(typeId);
 
-		result = new ModelAndView("type/edit");
-		result.addObject("type", type);
-		result.addObject("requestUri", "type/administrator/edit.do");
+		result = new ModelAndView("activitytype/edit");
+		result.addObject("activitytype", activitytype);
+		result.addObject("requestUri", "activitytype/administrator/edit.do");
 
 		return result;
 	}
-
+	// Save---------------------------------------------------------------------------
 	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
-	public ModelAndView edit(@Valid ActivityType type, BindingResult binding){
+	public ModelAndView edit(@Valid ActivityType activitytype, BindingResult binding){
 		ModelAndView result;
 		
 		if(binding.hasErrors()){
-			result = new ModelAndView("type/edit");
-			result.addObject("type", type);
-			result.addObject("requestUri", "type/administrator/edit.do");
+			result = new ModelAndView("activitytype/edit");
+			result.addObject("activitytype", activitytype);
+			result.addObject("requestUri", "activitytype/administrator/edit.do");
 		}else{
 			try{
-				typeService.save(type);
-				result = new ModelAndView("redirect:/type/administrator/list.do");
+				typeService.save(activitytype);
+				result = new ModelAndView("redirect:/activitytype/administrator/list.do");
 			}catch(Throwable oops){
-				result = new ModelAndView("type/create");
-				result.addObject("type", type);
-				result.addObject("requestUri", "type/administrator/edit.do");
+				result = new ModelAndView("activitytype/create");
+				result.addObject("activitytype", activitytype);
+				result.addObject("requestUri", "activitytype/administrator/edit.do");
 				
 				if (oops instanceof DataIntegrityViolationException) {
 					result.addObject("message2","type.commit.duplicatedName");
@@ -92,13 +92,13 @@ public class TypeAdministratorController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<ActivityType> types;
+		Collection<ActivityType> activitytypes;
 		
-		types = typeService.findAll();
+		activitytypes = typeService.findAll();
 		
-		result = new ModelAndView("type/list");
-		result.addObject("requestUri","/type/administrator/list.do");
-		result.addObject("types", types);
+		result = new ModelAndView("activitytype/list");
+		result.addObject("requestUri","/activitytype/administrator/list.do");
+		result.addObject("activitytypes", activitytypes);
 		
 		return result;
 	}

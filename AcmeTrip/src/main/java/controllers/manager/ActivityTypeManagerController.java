@@ -18,11 +18,11 @@ import controllers.AbstractController;
 import domain.ActivityType;
 
 @Controller
-@RequestMapping("/type/manager")
-public class TypeManagerController extends AbstractController {
+@RequestMapping("/activitytype/manager")
+public class ActivityTypeManagerController extends AbstractController {
 	
 	//Constructor --------------------------------------------------------
-	public TypeManagerController() {
+	public ActivityTypeManagerController() {
 		super();
 	}
 	
@@ -34,48 +34,48 @@ public class TypeManagerController extends AbstractController {
 	@RequestMapping(value="/create", method=RequestMethod.GET)
 	public ModelAndView create(){
 		ModelAndView result;
-		ActivityType type;
+		ActivityType activitytype;
 		
-		type = typeService.create();
-		result = new ModelAndView("type/create");
-		result.addObject("type", type);
-		result.addObject("requestUri", "type/manager/edit.do");
+		activitytype = typeService.create();
+		result = new ModelAndView("activitytype/create");
+		result.addObject("activitytype", activitytype);
+		result.addObject("requestUri", "activitytype/manager/edit.do");
 		
 		return result;
 	}
 	
 	//Editing ------------------------------------------------
 	@RequestMapping(value="/edit",method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int typeId){
+	public ModelAndView edit(@RequestParam int activitytypeId){
 		ModelAndView result;
-		ActivityType type;
+		ActivityType activitytype;
 		
-		type = typeService.findOne(typeId);
+		activitytype = typeService.findOne(activitytypeId);
 
-		result = new ModelAndView("type/edit");
-		result.addObject("type", type);
-		result.addObject("requestUri", "type/manager/edit.do");
+		result = new ModelAndView("activitytype/edit");
+		result.addObject("activitytype", activitytype);
+		result.addObject("requestUri", "activitytype/manager/edit.do");
 
 		return result;
 	}
 
 	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
-	public ModelAndView edit(@Valid ActivityType type, BindingResult binding){
+	public ModelAndView edit(@Valid ActivityType activitytype, BindingResult binding){
 		ModelAndView result;
 		
 		if(binding.hasErrors()){
-			result = new ModelAndView("type/edit");
-			result.addObject("type", type);
-			result.addObject("requestUri", "type/manager/edit.do");
+			result = new ModelAndView("activitytype/edit");
+			result.addObject("activitytype", activitytype);
+			result.addObject("requestUri", "activitytype/manager/edit.do");
 		}else{
 			try{
-				typeService.save(type);
-				result = new ModelAndView("redirect:/type/manager/list.do");
+				typeService.save(activitytype);
+				result = new ModelAndView("redirect:/activitytype/manager/list.do");
 			}catch(Throwable oops){
 				result = new ModelAndView("type/edit");
-				result.addObject("type", type);
-				result.addObject("requestUri", "type/manager/edit.do");
-				result.addObject("message2","type.commit.error");
+				result.addObject("activitytype", activitytype);
+				result.addObject("requestUri", "activitytype/manager/edit.do");
+				result.addObject("message2","activitytype.commit.error");
 			}
 		}
 		return result;
@@ -85,13 +85,13 @@ public class TypeManagerController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<ActivityType> types;
+		Collection<ActivityType> activitytypes;
 		
-		types = typeService.findAll();
+		activitytypes = typeService.findAll();
 		
-		result = new ModelAndView("type/list");
-		result.addObject("requestUri","/type/manager/list.do");
-		result.addObject("types", types);
+		result = new ModelAndView("activitytype/list");
+		result.addObject("requestUri","/activitytype/manager/list.do");
+		result.addObject("activitytypes", activitytypes);
 		
 		return result;
 	}

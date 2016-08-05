@@ -33,17 +33,22 @@
 					code="master.page.public.usersList" /></a>
 		<li><a href="activity/list.do"><spring:message
 					code="master.page.public.activitytypeList" /></a> 
+					
 					<security:authorize
 				access="isAnonymous()">
 				<li><a class="fNiv" href="user/register.do"> <spring:message
 							code="master.page.register" /></a></li>
 				<li><a class="fNiv" href="security/login.do"> <spring:message
 							code="master.page.login" /></a></li>
-			</security:authorize> <security:authorize access="hasRole('ADMIN')">
+			</security:authorize>
+			
+			 <security:authorize access="hasRole('ADMIN')">
 				<li><a class="fNiv" href="dashboard/administrator/list.do">
 						<spring:message code="master.page.administrator.dashboard" />
 				</a></li>
-			</security:authorize> <security:authorize access="isAuthenticated()">
+			</security:authorize>
+			
+			 <security:authorize access="isAuthenticated()">
 				<li><a class="fNiv"> <spring:message
 							code="master.page.profile" /> (<security:authentication
 							property="principal.username" />)
@@ -52,7 +57,7 @@
 						<li class="arrow"></li>
 
 						<security:authorize access="hasRole('USER')">
-							<li><a href="user/user/list.do"><spring:message
+							<li><a href="user/edit.do"><spring:message
 										code="master.page.user.profile" /></a></li>
 							<li><a href="trip/user/mylist.do"><spring:message
 										code="master.page.user.trips" /></a></li>
