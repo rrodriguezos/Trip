@@ -38,7 +38,7 @@ public class ManagerService {
 
 	@Autowired
 	private FolderService folderService;
-	
+
 	@Autowired
 	private AdministratorService administratorService;
 
@@ -51,7 +51,7 @@ public class ManagerService {
 
 	public Manager create() {
 		checkPrincipalAdministrator();
-		
+
 		UserAccount useraccount;
 		Manager result;
 		Collection<Folder> folders;
@@ -59,7 +59,6 @@ public class ManagerService {
 		Collection<Activity> activities;
 		Collection<Campaign> campaigns;
 		Collection<CreditCard> creditCards;
-		
 
 		Authority aut = new Authority();
 
@@ -70,28 +69,28 @@ public class ManagerService {
 
 		useraccount.addAuthority(aut);
 		result.setUserAccount(useraccount);
-		
+
 		activities = new LinkedList<Activity>();
 		result.setActivities(activities);
-		
+
 		campaigns = new LinkedList<Campaign>();
 		result.setCampaigns(campaigns);
-		
+
 		creditCards = new LinkedList<CreditCard>();
 		result.setCreditCards(creditCards);
-		
+
 		comments = new LinkedList<Comment>();
 		result.setComments(comments);
-		
+
 		folders = new LinkedList<Folder>();
 		result.setFolders(folders);
-		
+
 		return result;
 	}
 
 	public Collection<Manager> findAll() {
 		checkPrincipalAdministrator();
-		
+
 		Collection<Manager> result;
 
 		result = managerRepository.findAll();
@@ -111,8 +110,6 @@ public class ManagerService {
 
 		Boolean create;
 		create = false;
-
-		// Comprobamos si se está creando el user
 		if (manager.getId() == 0) {
 			Md5PasswordEncoder encoder;
 
@@ -120,24 +117,20 @@ public class ManagerService {
 			encoder = new Md5PasswordEncoder();
 
 			manager.getUserAccount().setPassword(
-					encoder.encodePassword(manager.getUserAccount().getPassword(),
-							null));
-
+					encoder.encodePassword(manager.getUserAccount()
+							.getPassword(), null));
 		}
-		
-
 		manager = managerRepository.save(manager);
 		Assert.notNull(manager);
 		if (create) {
 			folderService.foldersByDefect(manager);
 
 		}
-	
 	}
 
-	// other methods ------------------------------
+	// other methods
+	// -------------------------------------------------------------------------
 
-	// User logging in the system
 	public Manager findByPrincipal() {
 		UserAccount userAccount;
 		Manager result;
@@ -153,17 +146,12 @@ public class ManagerService {
 
 	}
 
-	// Reconstruir un Manager, para el registro en la sistema
 	public Manager reconstruct(ManagerForm managerForm) {
 		Manager res;
-
 		res = create();
+		Assert.isTrue(managerForm.getPassword().equals(
+				managerForm.getConfirmPassword()));
 
-		// Comprobamos que las contraseñas sean iguales
-		Assert.isTrue(
-				managerForm.getPassword().equals(managerForm.getConfirmPassword()));
-
-		// Insertamos todos los datos en el user
 		res.setName(managerForm.getName());
 		res.setPhone(managerForm.getPhone());
 		res.setSurname(managerForm.getSurname());
@@ -174,17 +162,18 @@ public class ManagerService {
 
 		return res;
 	}
-	
-	private void checkPrincipalAdministrator(){
+
+	private void checkPrincipalAdministrator() {
 		Administrator administrator;
 		Authority authority;
-	
+
 		administrator = administratorService.findByPrincipal();
 		Assert.isTrue(administrator != null);
 		authority = new Authority();
 		authority.setAuthority("ADMINISTRATOR");
-		
-		Assert.isTrue(administrator.getUserAccount().getAuthorities().contains(authority));
+
+		Assert.isTrue(administrator.getUserAccount().getAuthorities()
+				.contains(authority));
 	}
 
 	public Manager findByUserAccount(UserAccount userAccount) {
@@ -193,35 +182,33 @@ public class ManagerService {
 		result = managerRepository.findByUserAccountId(userAccount.getId());
 		return result;
 	}
-	
-	public Collection<Manager> managersMoreCampaigns(){
+
+	public Collection<Manager> managersMoreCampaigns() {
 		Administrator administrator = administratorService.findByPrincipal();
-		Assert.notNull(administrator);	
-		return  managerRepository.managersMoreCampaigns();
-	
-		
+		Assert.notNull(administrator);
+		return managerRepository.managersMoreCampaigns();
+
 	}
-	
-	public int minimumNumberOfCampaignsPerManager(){
+
+	public int minimumNumberOfCampaignsPerManager() {
 		Administrator administrator = administratorService.findByPrincipal();
-		Assert.notNull(administrator);	
+		Assert.notNull(administrator);
 		Integer res = managerRepository.minimumNumberOfCampaignsPerManager();
-		return res==null?0:res;
+		return res == null ? 0 : res;
 	}
-	
 
-	public int maximumNumberOfCampaignsPerManager(){
+	public int maximumNumberOfCampaignsPerManager() {
 		Administrator administrator = administratorService.findByPrincipal();
-		Assert.notNull(administrator);	
+		Assert.notNull(administrator);
 		Integer res = managerRepository.maximumNumberOfCampaignsPerManager();
-		return res==null?0:res;
+		return res == null ? 0 : res;
 	}
 
-	public double averageNumberOfCampaignsPerManager(){
+	public double averageNumberOfCampaignsPerManager() {
 		Administrator administrator = administratorService.findByPrincipal();
-		Assert.notNull(administrator);	
+		Assert.notNull(administrator);
 		Double res = managerRepository.averageNumberOfCampaignsPerManager();
-		return res==null?0.0:res;
+		return res == null ? 0.0 : res;
 	}
 
 }

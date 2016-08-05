@@ -37,7 +37,7 @@ public class UserService {
 
 	@Autowired
 	private FolderService folderService;
-	
+
 	@Autowired
 	private AdministratorService administratorService;
 
@@ -98,11 +98,8 @@ public class UserService {
 	}
 
 	public void save(User user) {
-
 		Boolean create;
 		create = false;
-
-		// Comprobamos si se está creando el user
 		if (user.getId() == 0) {
 			Md5PasswordEncoder encoder;
 
@@ -112,21 +109,17 @@ public class UserService {
 			user.getUserAccount().setPassword(
 					encoder.encodePassword(user.getUserAccount().getPassword(),
 							null));
-
 		}
-
 		user = userRepository.save(user);
 		Assert.notNull(user);
 		if (create) {
 			folderService.foldersByDefect(user);
-
 		}
-
 	}
 
-	// other methods ------------------------------
+	// other methods
+	// ----------------------------------------------------------------------
 
-	// User logging in the system
 	public User findByPrincipal() {
 		UserAccount userAccount;
 		User result;
@@ -142,25 +135,16 @@ public class UserService {
 
 	}
 
-	// Reconstruir un User, para el registro en la sistema
 	public User reconstruct(UserRegisterForm userForm) {
 		User res;
-
 		res = create();
-		// Comprobamos que las contraseñas sean iguales
 		Assert.isTrue(userForm.getPassword().equals(
 				userForm.getConfirmPassword()));
-
-		// Comprobamos que el usuario acepta las condiciones y términos del
-		// servicio
 		Assert.isTrue(userForm.getAccept());
-
-		// Insertamos todos los datos en el user
 		res.setName(userForm.getName());
 		res.setPhone(userForm.getPhone());
 		res.setSurname(userForm.getSurname());
 		res.setEmailAddress(userForm.getEmailAddress());
-
 		res.getUserAccount().setUsername(userForm.getUsername());
 		res.getUserAccount().setPassword(userForm.getPassword());
 
@@ -187,7 +171,7 @@ public class UserService {
 
 		return result;
 	}
-	
+
 	public int totalNumberofUsersRegistered() {
 		Administrator administrator = administratorService.findByPrincipal();
 		Assert.notNull(administrator);
@@ -202,12 +186,6 @@ public class UserService {
 				.usersWhoRegisteredAtLeast80Maximum();
 		return result;
 	}
-
-
-
-
-
-	
 
 	public Boolean passActual(UserRegisterForm userForm) {
 		User user;

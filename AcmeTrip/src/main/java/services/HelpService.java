@@ -14,8 +14,6 @@ import org.springframework.util.Assert;
 @Transactional
 public class HelpService {
 
-	// Método que dado un tipo Date y un string con la hora y minutos, los junta
-	// y lo devuelve en el formato yyyy/MM/dd HH:mm
 	public String completeDate(Date date, String starting) {
 		String result;
 		DateFormat format;
@@ -27,7 +25,6 @@ public class HelpService {
 		return result;
 	}
 
-	// Dado un String devuelve una fecha formateada
 	public Date formatStringToDate(String date) {
 		Date result = null;
 		DateFormat format;
@@ -42,7 +39,6 @@ public class HelpService {
 		return result;
 	}
 
-	// Dado un String devuelve una fecha formateada
 	public Date formatStringToDateWithoutHour(String date) {
 		Date result = null;
 		DateFormat format;
@@ -57,8 +53,6 @@ public class HelpService {
 		return result;
 	}
 
-	// Dado un Double de horas, devuelve un Integer con los minutos
-	// correspondientes
 	public Integer hoursToMinutes(Double hours) {
 		Integer result;
 

@@ -73,9 +73,7 @@ public class CommentService {
 	
 	public Comment save(Comment comment){
 		Assert.notNull(comment);
-		Comment result;
-		
-		//CONCURRENCY CHECK 
+		Comment result; 
 		if(comment.getId()!=0){
 			Comment commentCheck = commentRepository.findOne(comment.getId());
 			Assert.isTrue(comment.getVersion() == commentCheck.getVersion());

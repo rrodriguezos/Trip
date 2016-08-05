@@ -31,7 +31,7 @@ public class AdministratorService {
 	// Supporting Services -------------------------
 	@Autowired
 	private FolderService folderService;
-	
+
 	@Autowired
 	private UserAccountService userAccountService;
 
@@ -43,7 +43,7 @@ public class AdministratorService {
 	// Simple CRUD methods -----------------------------
 	public Administrator create() {
 		checkPrincipalAdministrator();
-		
+
 		UserAccount useraccount;
 		Administrator result;
 		Collection<Folder> folders;
@@ -58,19 +58,19 @@ public class AdministratorService {
 
 		useraccount.addAuthority(aut);
 		result.setUserAccount(useraccount);
-		
+
 		comments = new LinkedList<Comment>();
 		result.setComments(comments);
-		
+
 		folders = new LinkedList<Folder>();
 		result.setFolders(folders);
-		
+
 		return result;
 	}
 
 	public Collection<Administrator> findAll() {
 		checkPrincipalAdministrator();
-		
+
 		Collection<Administrator> result;
 
 		result = administratorRepository.findAll();
@@ -88,11 +88,8 @@ public class AdministratorService {
 
 	public void save(Administrator administrator) {
 		checkPrincipalAdministrator();
-		
 		Boolean create;
 		create = false;
-
-		// Comprobamos si se está creando el user
 		if (administrator.getId() == 0) {
 			Md5PasswordEncoder encoder;
 
@@ -100,11 +97,9 @@ public class AdministratorService {
 			encoder = new Md5PasswordEncoder();
 
 			administrator.getUserAccount().setPassword(
-					encoder.encodePassword(administrator.getUserAccount().getPassword(),
-							null));
-
+					encoder.encodePassword(administrator.getUserAccount()
+							.getPassword(), null));
 		}
-		
 
 		administrator = administratorRepository.save(administrator);
 		Assert.notNull(administrator);
@@ -112,21 +107,18 @@ public class AdministratorService {
 			folderService.foldersByDefect(administrator);
 
 		}
-	
+
 	}
-	
-	//Other bussiness methods -----------------------------------------------------
-	// Reconstruir un User, para el registro en la sistema
+
+	// Other bussiness methods-----------------------------------------------------
+
+
 	public Administrator reconstruct(AdministratorForm administratorForm) {
 		Administrator res;
-
 		res = create();
+		Assert.isTrue(administratorForm.getPassword().equals(
+				administratorForm.getConfirmPassword()));
 
-		// Comprobamos que las contraseñas sean iguales
-		Assert.isTrue(
-				administratorForm.getPassword().equals(administratorForm.getConfirmPassword()));
-
-		// Insertamos todos los datos en el user
 		res.setName(administratorForm.getName());
 		res.setPhone(administratorForm.getPhone());
 		res.setSurname(administratorForm.getSurname());
@@ -137,11 +129,11 @@ public class AdministratorService {
 
 		return res;
 	}
-		
-	public Administrator findByPrincipal(){
+
+	public Administrator findByPrincipal() {
 		Administrator result;
 		UserAccount userAccount;
-		
+
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		result = findByUserAccount(userAccount);
@@ -149,27 +141,29 @@ public class AdministratorService {
 
 		return result;
 	}
-	
+
 	public Administrator findByUserAccount(UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
 		Administrator result;
 
-		result = administratorRepository.findByUserAccountId(userAccount.getId());		
+		result = administratorRepository.findByUserAccountId(userAccount
+				.getId());
 
 		return result;
 	}
-	
-	private void checkPrincipalAdministrator(){
+
+	private void checkPrincipalAdministrator() {
 		Administrator administrator;
 		Authority authority;
-	
+
 		administrator = findByPrincipal();
 		Assert.isTrue(administrator != null);
 		authority = new Authority();
 		authority.setAuthority("ADMINISTRATOR");
-		
-		Assert.isTrue(administrator.getUserAccount().getAuthorities().contains(authority));
+
+		Assert.isTrue(administrator.getUserAccount().getAuthorities()
+				.contains(authority));
 	}
 
 }
