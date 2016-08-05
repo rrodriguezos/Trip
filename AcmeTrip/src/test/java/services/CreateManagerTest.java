@@ -90,12 +90,12 @@ public class CreateManagerTest extends AbstractTest{
 			managerForm = new ManagerForm();
 			
 			managerForm.setPassword(password);
-			managerForm.setPasswordRepeat(passwordRepeat);
+			managerForm.setConfirmPassword(passwordRepeat);
 			managerForm.setUsername(username);
 			managerForm.setName(name);
 			managerForm.setSurname(surname);
 			managerForm.setPhone(phone);
-			managerForm.setEmail(email);
+			managerForm.setEmailAddress(email);
 			
 			
 			managerService.reconstruct(managerForm);

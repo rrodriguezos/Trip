@@ -23,6 +23,11 @@
 		<put-attribute name="title" value="My Trips" />
 		<put-attribute name="body" value="/views/trip/list.jsp" />
 	</definition>
+	
+	<definition name="trip/user/subscribed" extends="master.page">
+  <put-attribute name="title" value="Trips to which I am joined" /> 
+  <put-attribute name="body" value="/views/trip/list.jsp" /> 
+  </definition>
 	<definition name="trip/user/edit" extends="master.page">	
 		<put-attribute name="title" value="Create a new Trip" />
 		<put-attribute name="body" value="/views/trip/edit.jsp" />

@@ -30,11 +30,13 @@
 	<br>
 	
 	<input type="submit" name="save" value="<spring:message code="folder.save" />" />
-	
-	<jstl:if test="${!folder.system && folder.id != 0}">
-		<input type="submit" name="delete" value="<spring:message code="folder.delete"/>" onclick="return confirm('<spring:message code="folder.confirm.delete" />')"/>
+
+	<jstl:if test="${!folder.systemFolder && folder.id != 0}">
+		<input type="submit" name="delete"
+			value="<spring:message code="folder.delete"/>"
+			onclick="return confirm('<spring:message code="folder.confirm.delete" />')" />
 	</jstl:if>
-	
+
 	<input type="button" name="cancel" value="<spring:message code="folder.cancel" />" onclick="javascript: window.history.back()" />
 	
 </form:form>

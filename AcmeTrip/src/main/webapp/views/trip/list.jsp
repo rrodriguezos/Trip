@@ -17,14 +17,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jstl:if test="${requestUri=='/trip/list.do'}">
-	<form:form action="trip/search.do" modelAttribute= "String">
-		<input type="text" name="search"/>
-		<input type="submit" name="searchTrip"
-			value="<spring:message code="trip.search" />" />
-	</form:form>
-</jstl:if>
-
 <display:table name="trips" id="row" pagesize="5" requestURI="${requestUri}" class="displaytag">
 	
 	<spring:message code="trip.title" var="titleHeader" />
@@ -55,9 +47,3 @@
 	
 
 </display:table>
-<jstl:if test="${!(requestUri=='/trip/user/subscriptions.do')}">
-<security:authorize access="hasRole('USER')">
-	<input type="button" name="create" value="<spring:message code="trip.create" />"
-	 onclick="javascript: window.location.assign('trip/user/create.do')" />
-</security:authorize>
-</jstl:if>

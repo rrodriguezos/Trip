@@ -29,7 +29,7 @@
 	
 	<spring:message code="folder.edit" var="edit" />
 	<display:column title="${edit}">
-		<jstl:if test="${!row.system}">
+		<jstl:if test="${!row.systemFolder}">
 			<input type="button" value="<spring:message code="folder.edit" />" 
 					onclick="javascript: window.location.assign('folder/actor/edit.do?folderId=${row.id}')" />
 		</jstl:if>				

@@ -32,9 +32,9 @@
 	<spring:message code="message.sender" var="sender" />
 	<display:column title="${sender}" property="sender.name" />
 	
-	<spring:message code="message.priority" var="priority" />
-	<display:column title="${priority}">
-		<spring:message code="message.${ row.priority }"/>
+	<spring:message code="message.messagePriority" var="messagePriority" />
+	<display:column title="${messagePriority}">
+		<spring:message code="message.${ row.messagePriority }"/>
 	</display:column>
 	
 	<spring:message code="message.display" var="display" />
@@ -45,11 +45,11 @@
 	
 	<jstl:if test="${ !folder.name.equals('Spamfolder') && !folder.name.equals('Trashfolder') }">
 	
-	<jstl:if test="${ folder.name.equals('Starredfolder') && folder.system }">
+	<jstl:if test="${ folder.name.equals('Starredfolder') && folder.systemFolder }">
 	
-	<spring:message code="message.favorite" var="favorite" />
-	<display:column title="${favorite}">
-			<input type="button" value="<spring:message code="message.favoriteTrue" />" 
+	<spring:message code="message.star" var="star" />
+	<display:column title="${star}">
+			<input type="button" value="<spring:message code="message.starTrue" />" 
 					onclick="javascript: window.location.assign('message/actor/favorite.do?messageId=${row.id}')" />
 	</display:column>
 	</jstl:if>
@@ -64,9 +64,9 @@
 					onclick="javascript: window.location.assign('message/actor/tospam.do?messageId=${row.id}')" />
 	</display:column>
 	
-	<spring:message code="message.favorite" var="favorite" />
-	<display:column title="${favorite}">
-			<input type="button" value="<spring:message code="message.favoriteFalse" />" 
+	<spring:message code="message.star" var="star" />
+	<display:column title="${star}">
+			<input type="button" value="<spring:message code="message.starFalse" />" 
 					onclick="javascript: window.location.assign('message/actor/favorite.do?messageId=${row.id}')" />
 	</display:column>
 	</jstl:if>

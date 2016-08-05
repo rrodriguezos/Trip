@@ -47,7 +47,7 @@
 		
 		<security:intercept-url pattern="/trip/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/trip/list.do" access="permitAll" /> 
-		<security:intercept-url pattern="/trip/search.do" access="permitAll" />
+		<security:intercept-url pattern="/search/buscar.do" access="permitAll" />
 		<security:intercept-url pattern="/dailyPlan/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/dailyPlan/display.do" access="permitAll" />
 			
@@ -71,7 +71,7 @@
 		<security:intercept-url pattern="/activitytype/administrator/edit.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/activitytype/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 
 		
-		<security:intercept-url pattern="/dashboard/administrator/dashboard-1.do" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/dashboard/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 
 		
 		<security:intercept-url pattern="/comment/administrator/appropriated.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/activity/administrator/appropriated.do" access="hasRole('ADMINISTRATOR')" /> 
@@ -88,7 +88,7 @@
 		<security:intercept-url pattern="/trip/user/copy.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/joinTrip.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/disjoinTrip.do" access="hasRole('USER')" />
-		<security:intercept-url pattern="/trip/user/subscriptions.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/trip/user/subscribed.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/activity/user/create.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/activity/user/edit.do" access="hasRole('USER')" />

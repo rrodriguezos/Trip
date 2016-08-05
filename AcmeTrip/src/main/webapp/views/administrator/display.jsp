@@ -19,7 +19,7 @@
 
 <acme:jstlOut code="administrator.name" value="${administrator.name }"/>
 <acme:jstlOut code="administrator.surname" value="${administrator.surname }"/>
-<acme:jstlOut code="administrator.email" value="${administrator.email }"/>
+<acme:jstlOut code="administrator.emailAddress" value="${administrator.emailAddress }"/>
 <acme:jstlOut code="administrator.phone" value="${administrator.phone }"/>
 
 <input type="button" name="cancel" value="<spring:message code="administrator.cancel"/>" onclick="javascript: window.location.assign('administrator/administrator/list.do')" />

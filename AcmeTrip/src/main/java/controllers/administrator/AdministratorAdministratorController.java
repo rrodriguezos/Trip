@@ -64,7 +64,7 @@ public class AdministratorAdministratorController extends AbstractController {
 		Boolean verificarPass;
 		
 		//Verificate match the passwords
-		verificarPass = administratorForm.getPassword().equals(administratorForm.getPasswordRepeat());
+		verificarPass = administratorForm.getPassword().equals(administratorForm.getConfirmPassword());
 		
 		if(binding.hasErrors() || !verificarPass){
 			result = createEditModelAndView(administratorForm);

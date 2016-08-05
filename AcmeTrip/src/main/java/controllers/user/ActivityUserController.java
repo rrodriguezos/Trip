@@ -40,14 +40,14 @@ public class ActivityUserController extends AbstractController {
 	public ModelAndView create(){
 		ModelAndView result;
 		Activity activity;
-		Collection<ActivityType> types;
+		Collection<ActivityType> activitytypes;
 		
 		activity = activityService.create();
-		types = typeService.findAll();
+		activitytypes = typeService.findAll();
 		
 		result = new ModelAndView("activity/create");
 		result.addObject("activity", activity);
-		result.addObject("types", types);
+		result.addObject("activitytypes", activitytypes);
 		
 		return result;
 	}
@@ -57,14 +57,14 @@ public class ActivityUserController extends AbstractController {
 	public ModelAndView edit(@RequestParam int activityId){
 		ModelAndView result;
 		Activity activity;
-		Collection<ActivityType> types;
+		Collection<ActivityType> activitytypes;
 		
 		activity = activityService.findOne(activityId);
-		types = typeService.findAll();
+		activitytypes = typeService.findAll();
 
 		result = new ModelAndView("activity/edit");
 		result.addObject("activity", activity);
-		result.addObject("types", types);
+		result.addObject("activitytypes", activitytypes);
 
 		return result;
 	}
@@ -72,24 +72,24 @@ public class ActivityUserController extends AbstractController {
 	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
 	public ModelAndView edit(@Valid Activity activity, BindingResult binding){
 		ModelAndView result;
-		Collection<ActivityType> types;
-		
+		Collection<ActivityType> activitytypes;
+		activitytypes = typeService.findAll();
 		if(binding.hasErrors()){
-			types = typeService.findAll();
+			activitytypes = typeService.findAll();
 			
 			result = new ModelAndView("activity/edit");
 			result.addObject("activity", activity);
-			result.addObject("types", types);
+			result.addObject("activitytypes", activitytypes);
 		}else{
 			try{
 				activityService.save(activity);
 				result = new ModelAndView("redirect:/activity/list.do");
 			}catch(Throwable oops){
-				types = typeService.findAll();
+				activitytypes = typeService.findAll();
 				
 				result = new ModelAndView("activity/edit");
 				result.addObject("activity", activity);
-				result.addObject("types", types);
+				result.addObject("activitytypes", activitytypes);
 				result.addObject("message2","activity.commit.error");
 			}
 		}

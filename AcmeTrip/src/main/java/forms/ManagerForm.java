@@ -12,12 +12,12 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 public class ManagerForm {
 
 	private String password;
-	private String passwordRepeat;
+	private String confirmPassword;
 	private String username;
 	private String name;
 	private String surname;
 	private String phone;
-	private String email;
+	private String emailAddress;
 
 	// Constructors...................
 
@@ -41,12 +41,12 @@ public class ManagerForm {
 	@SafeHtml(whitelistType=WhiteListType.NONE)
 	@NotBlank
 	@Size(min = 5, max = 32)
-	public String getPasswordRepeat() {
-		return passwordRepeat;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setPasswordRepeat(String passwordRepeat) {
-		this.passwordRepeat = passwordRepeat;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 	
 
@@ -94,12 +94,12 @@ public class ManagerForm {
 	@SafeHtml(whitelistType=WhiteListType.NONE)
 	@NotBlank
 	@Email
-	public String getEmail() {
-		return email;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 }

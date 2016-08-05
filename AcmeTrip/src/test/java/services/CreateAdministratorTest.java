@@ -90,12 +90,12 @@ public class CreateAdministratorTest extends AbstractTest{
 			adminForm = new AdministratorForm();
 			
 			adminForm.setPassword(password);
-			adminForm.setPasswordRepeat(passwordRepeat);
+			adminForm.setConfirmPassword(passwordRepeat);
 			adminForm.setUsername(username);
 			adminForm.setName(name);
 			adminForm.setSurname(surname);
 			adminForm.setPhone(phone);
-			adminForm.setEmail(email);
+			adminForm.setEmailAddress(email);
 			
 			
 			adminService.reconstruct(adminForm);

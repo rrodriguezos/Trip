@@ -58,8 +58,6 @@ public class FolderService {
 	
 	public Folder save(Folder folder){			
 		Assert.notNull(folder);
-		
-		//CONCURRENCY CHECK 
 		if(folder.getId()!=0){
 			Folder folderCheck = folderRepository.findOne(folder.getId());
 			Assert.isTrue(folder.getVersion() == folderCheck.getVersion());

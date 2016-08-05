@@ -35,12 +35,13 @@
 		<acme:textbox code="activity.description" path="description" />
 
 		<acme:textarea code="activity.photos" path="photos" />
-		
-		<spring:message code="activity.type" />
-		<form:select path="type">
-			<form:options items="${types}" itemLabel="name" itemValue="id"/>	
+
+		<spring:message code="activity.activitytype" />
+		<form:select path="activityType">
+			<form:options items="${activitytypes}" itemLabel="name"
+				itemValue="id" />
 		</form:select>
-		<form:errors cssClass="error" path="type"/>
+		<form:errors cssClass="error" path="activityType" />
 		<br>
 
 		<input type="submit" name="save"

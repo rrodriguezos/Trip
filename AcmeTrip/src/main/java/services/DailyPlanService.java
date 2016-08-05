@@ -74,16 +74,26 @@ public class DailyPlanService {
 		Assert.notNull(dailyPlan);
 		checkPrincipal(dailyPlan.getTrip().getUser());
 		
-		String subject;
-		String body;
+		String subjectEspanol;
+		String bodyEspanol;
+		String subjectEnglish;
+		String bodyEnglish;
 		if(dailyPlan.getId()==0){
-			subject = "Creación de un plan diario en la excursión " + dailyPlan.getTrip().getTitle();
-			body = "He añadido un plan diario en mi excursión " + dailyPlan.getTrip().getTitle();
+			subjectEspanol = "Nuevo plan diario al viaje " + dailyPlan.getTrip().getTitle();
+			bodyEspanol = "Se añadió el plan diario"+dailyPlan.getTitle()+" en el viaje " + dailyPlan.getTrip().getTitle();
+			
+			subjectEnglish = "New Daily Plan " + dailyPlan.getTrip().getTitle();
+			bodyEnglish = "Added a new Daily Plan "+dailyPlan.getTitle()+" to the " + dailyPlan.getTrip().getTitle();
+			
 		} else {
-			subject = "Modificación de un plan diario de la excursión " + dailyPlan.getTrip().getTitle();
-			body = "He modificado un plan diario de mi excursión " + dailyPlan.getTrip().getTitle();
+			subjectEspanol = "Edición del un plan diario del viaje " + dailyPlan.getTrip().getTitle();
+			bodyEspanol = "Se ha modificado el plan diario"+dailyPlan.getTitle()+" del viaje " + dailyPlan.getTrip().getTitle();
+			
+			subjectEnglish = "Edition of the Daily Plan  " + dailyPlan.getTrip().getTitle();
+			bodyEnglish = "The daily plan has been modified "+dailyPlan.getTitle()+" of the  " + dailyPlan.getTrip().getTitle();
 		}
-		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subjectEnglish, bodyEnglish);
+		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subjectEspanol, bodyEspanol);
 		
 		dailyPlanRepository.save(dailyPlan);
 	}
@@ -91,13 +101,19 @@ public class DailyPlanService {
 	public void delete(DailyPlan dailyPlan){
 		checkPrincipal(dailyPlan.getTrip().getUser());
 		
-		String subject;
-		String body;
+		String subjectEspanol;
+		String bodyEspanol;
+		String subjectEnglish;
+		String bodyEnglish;
 
-		subject = "Eliminación de un plan diario de la excursión " + dailyPlan.getTrip().getTitle();
-		body = "He eliminado un plan diario en mi excursión " + dailyPlan.getTrip().getTitle();
-
-		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subject, body);
+		subjectEspanol = "Eliminación de un plan diario del viaje " + dailyPlan.getTrip().getTitle();
+		bodyEspanol = "Se ha eliminado el plan diario"+dailyPlan.getTitle()+" del viaje " + dailyPlan.getTrip().getTitle();
+		
+		subjectEnglish = "Elimination of a daily plan"+dailyPlan.getTitle()+" of the trip " + dailyPlan.getTrip().getTitle();
+		bodyEnglish = "It has eliminated a plan daily "+dailyPlan.getTitle()+" of the travel " + dailyPlan.getTrip().getTitle();
+		
+		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subjectEnglish, bodyEnglish);
+		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subjectEspanol, bodyEspanol);
 		
 		dailyPlanRepository.delete(dailyPlan);
 	}
@@ -134,5 +150,14 @@ public class DailyPlanService {
 		result = dailyPlan.getWeekDay() != null && (dailyPlanRepository.findDailyPlanDateBetweenTripDates(dailyPlan.getTrip().getId(), dailyPlan.getWeekDay()) == 1);
 		
 		return result;
+	}
+	
+	public Double standardDeviationOfDailyPlansByTrip() {
+		return dailyPlanRepository.standardDeviationOfDailyPlansByTrip();
+	}
+
+
+	public Double averageNumberOfDailyPlansByTrip() {
+		return dailyPlanRepository.averageNumberOfDailyPlansByTrip();
 	}
 } 

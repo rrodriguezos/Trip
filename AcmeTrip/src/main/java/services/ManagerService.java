@@ -15,7 +15,9 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Activity;
 import domain.Administrator;
+import domain.Campaign;
 import domain.Comment;
+import domain.CreditCard;
 import domain.Folder;
 import domain.Manager;
 import forms.ManagerForm;
@@ -55,6 +57,9 @@ public class ManagerService {
 		Collection<Folder> folders;
 		Collection<Comment> comments;
 		Collection<Activity> activities;
+		Collection<Campaign> campaigns;
+		Collection<CreditCard> creditCards;
+		
 
 		Authority aut = new Authority();
 
@@ -68,6 +73,12 @@ public class ManagerService {
 		
 		activities = new LinkedList<Activity>();
 		result.setActivities(activities);
+		
+		campaigns = new LinkedList<Campaign>();
+		result.setCampaigns(campaigns);
+		
+		creditCards = new LinkedList<CreditCard>();
+		result.setCreditCards(creditCards);
 		
 		comments = new LinkedList<Comment>();
 		result.setComments(comments);
@@ -150,13 +161,13 @@ public class ManagerService {
 
 		// Comprobamos que las contraseñas sean iguales
 		Assert.isTrue(
-				managerForm.getPassword().equals(managerForm.getPasswordRepeat()));
+				managerForm.getPassword().equals(managerForm.getConfirmPassword()));
 
 		// Insertamos todos los datos en el user
 		res.setName(managerForm.getName());
 		res.setPhone(managerForm.getPhone());
 		res.setSurname(managerForm.getSurname());
-		res.setEmailAddress(managerForm.getEmail());
+		res.setEmailAddress(managerForm.getEmailAddress());
 
 		res.getUserAccount().setUsername(managerForm.getUsername());
 		res.getUserAccount().setPassword(managerForm.getPassword());
@@ -181,6 +192,36 @@ public class ManagerService {
 		Manager result;
 		result = managerRepository.findByUserAccountId(userAccount.getId());
 		return result;
+	}
+	
+	public Collection<Manager> managersMoreCampaigns(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		return  managerRepository.managersMoreCampaigns();
+	
+		
+	}
+	
+	public int minimumNumberOfCampaignsPerManager(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		Integer res = managerRepository.minimumNumberOfCampaignsPerManager();
+		return res==null?0:res;
+	}
+	
+
+	public int maximumNumberOfCampaignsPerManager(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		Integer res = managerRepository.maximumNumberOfCampaignsPerManager();
+		return res==null?0:res;
+	}
+
+	public double averageNumberOfCampaignsPerManager(){
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);	
+		Double res = managerRepository.averageNumberOfCampaignsPerManager();
+		return res==null?0.0:res;
 	}
 
 }

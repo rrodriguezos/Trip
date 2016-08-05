@@ -39,13 +39,13 @@
 		<acme:textbox code="administrator.username" path="username" />
 
 		<acme:password code="administrator.password" path="password" />
-		<acme:password code="administrator.passwordRepeat" path="passwordRepeat" />
+		<acme:password code="administrator.confirmPassword" path="confirmPassword" />
 
 		<acme:textbox code="administrator.name" path="name" />
 
 		<acme:textbox code="administrator.surname" path="surname" />
 
-		<acme:textbox code="administrator.email" path="email" />
+		<acme:textbox code="administrator.emailAddress" path="emailAddress" />
 
 		<acme:textbox code="administrator.phone" path="phone" />
 

@@ -64,30 +64,46 @@ public class SlotService {
 		Assert.notNull(slot);
 		checkPrincipal(slot.getDailyPlan().getTrip().getUser());
 		
-		String subject;
-		String body;
+		String subjectEspanol;
+		String bodyEspanol;
+		
+		String subjectEnglish;
+		String bodyEnglish;
 		if(slot.getId()==0){
-			subject = "Creación de un slot en la excursión " + slot.getDailyPlan().getTrip().getTitle();
-			body = "He añadido un slot en mi excursión " + slot.getDailyPlan().getTrip().getTitle();
+			subjectEspanol = "Creación de la ranura  "+slot.getTitle()+" del viaje " + slot.getDailyPlan().getTrip().getTitle();
+			bodyEspanol = "Se ha añadido la ranura "+slot.getTitle()+" del viaje " + slot.getDailyPlan().getTrip().getTitle();
+			
+			subjectEnglish = "Creation of the slot  "+slot.getTitle()+" of the trip " + slot.getDailyPlan().getTrip().getTitle();
+			bodyEnglish = "Added slot  "+slot.getTitle()+" of the trip " + slot.getDailyPlan().getTrip().getTitle();
 		} else {
-			subject = "Modificación de un slot de la excursión " + slot.getDailyPlan().getTrip().getTitle();
-			body = "He modificado un slot de mi excursión " + slot.getDailyPlan().getTrip().getTitle();
+			subjectEspanol = "Modificación de la ranura "+slot.getTitle()+" del viaje " + slot.getDailyPlan().getTrip().getTitle();
+			bodyEspanol = "Se ha modificado la ranura "+slot.getTitle()+" del viaje" + slot.getDailyPlan().getTrip().getTitle();
+			
+			subjectEnglish = "Edition of the slot  "+slot.getTitle()+" of the trip " + slot.getDailyPlan().getTrip().getTitle();
+			bodyEnglish = "The slot "+slot.getTitle()+" has been modified  of the trip " + slot.getDailyPlan().getTrip().getTitle();
 		}
-		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subjectEnglish, bodyEnglish);
+		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subjectEspanol, bodyEspanol);
 		
 		slotRepository.save(slot);
 	}
 
 	public void delete(Slot slot){
 		checkPrincipal(slot.getDailyPlan().getTrip().getUser());
+		String subjectEspanol;
+		String bodyEspanol;
 		
-		String subject;
-		String body;
+		String subjectEnglish;
+		String bodyEnglish;
 
-		subject = "Eliminación de un slot de la excursión " + slot.getDailyPlan().getTrip().getTitle();
-		body = "He eliminado un slot en mi excursión " + slot.getDailyPlan().getTrip().getTitle();
+		subjectEspanol = "Eliminación de un slot de la excursión " + slot.getDailyPlan().getTrip().getTitle();
+		bodyEspanol = "He eliminado un slot en mi excursión " + slot.getDailyPlan().getTrip().getTitle();
+		
+		subjectEnglish = "Elimination the slot of the trip  " + slot.getDailyPlan().getTrip().getTitle();
+		bodyEnglish = "I have deleted the slot of the trip  " + slot.getDailyPlan().getTrip().getTitle();
 
-		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subject, body);
+		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subjectEspanol, bodyEspanol);
+		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subjectEnglish, bodyEnglish);
 		
 		slotRepository.delete(slot);
 	}

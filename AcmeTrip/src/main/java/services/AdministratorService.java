@@ -124,13 +124,13 @@ public class AdministratorService {
 
 		// Comprobamos que las contraseñas sean iguales
 		Assert.isTrue(
-				administratorForm.getPassword().equals(administratorForm.getPasswordRepeat()));
+				administratorForm.getPassword().equals(administratorForm.getConfirmPassword()));
 
 		// Insertamos todos los datos en el user
 		res.setName(administratorForm.getName());
 		res.setPhone(administratorForm.getPhone());
 		res.setSurname(administratorForm.getSurname());
-		res.setEmailAddress(administratorForm.getEmail());
+		res.setEmailAddress(administratorForm.getEmailAddress());
 
 		res.getUserAccount().setUsername(administratorForm.getUsername());
 		res.getUserAccount().setPassword(administratorForm.getPassword());

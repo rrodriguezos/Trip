@@ -99,10 +99,10 @@
 	<!-- Administrators -->
 
 	<bean class="domain.Administrator" id="administrator">
-		<property value="Jose" name="name" />
-		<property value="Marchena Romero" name="surname" />
-		<property value="jmarchena@mail.es" name="emailAddress" />
-		<property value="+34 954 758492" name="phone" />
+		<property value="Chris" name="name" />
+		<property value="Froome" name="surname" />
+		<property value="chrisf@mail.es" name="emailAddress" />
+		<property value="+34 954 758400" name="phone" />
 		<property name="userAccount" ref="userAccount1" />
 		<property name="folders">
 			<list>
@@ -122,11 +122,11 @@
 	<!-- Users -->
 
 	<bean class="domain.User" id="user1">
-		<property value="Manolo" name="name" />
-		<property value="Martos Rivera" name="surname" />
+		<property value="Joan" name="name" />
+		<property value="Purito" name="surname" />
 		<property value="manolo@mail.es" name="emailAddress" />
 		<property name="userAccount" ref="userAccount2" />
-		<property value="+34 634605824" name="phone" />
+		<property value="+34 684605824" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder6" />
@@ -155,11 +155,11 @@
 	</bean>
 
 	<bean class="domain.User" id="user2">
-		<property value="David" name="name" />
-		<property value="Sanchez Roldan" name="surname" />
-		<property value="dsroldan@gmail.com" name="emailAddress" />
+		<property value="Charles" name="name" />
+		<property value="Rodriguez" name="surname" />
+		<property value="charro@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount3" />
-		<property value="+34 734605587" name="phone" />
+		<property value="+34 736605587" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder11" />
@@ -189,11 +189,11 @@
 	</bean>
 
 	<bean class="domain.User" id="user3">
-		<property value="Rafa" name="name" />
-		<property value="Guerrero Cruz" name="surname" />
-		<property value="rafaguerre@gmail.com" name="emailAddress" />
+		<property value="Jhon" name="name" />
+		<property value="Domingo Domingo" name="surname" />
+		<property value="Doming@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount4" />
-		<property value="+34 932 855824" name="phone" />
+		<property value="+34 932 856824" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder16" />
@@ -220,11 +220,11 @@
 	</bean>
 
 	<bean class="domain.User" id="user4">
-		<property value="Javier" name="name" />
-		<property value="Soto Cordon" name="surname" />
-		<property value="jataso@gmail.com" name="emailAddress" />
+		<property value="Jude" name="name" />
+		<property value="Garcia" name="surname" />
+		<property value="eijude@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount5" />
-		<property value="+34 634658424" name="phone" />
+		<property value="+34 634650024" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder21" />
@@ -252,11 +252,11 @@
 	<!-- Managers -->
 
 	<bean class="domain.Manager" id="manager1">
-		<property value="Antonio" name="name" />
-		<property value="Flores Flores" name="surname" />
+		<property value="Ruth" name="name" />
+		<property value="Beitia" name="surname" />
 		<property value="antflores@hotmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount6" />
-		<property value="+34 634655784" name="phone" />
+		<property value="+34 634655774" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder26" />
@@ -289,11 +289,11 @@
 	</bean>
 
 	<bean class="domain.Manager" id="manager2">
-		<property value="Rufina" name="name" />
-		<property value="Dominguez Cruz" name="surname" />
-		<property value="rufi@gmail.com" name="emailAddress" />
+		<property value="Rafael" name="name" />
+		<property value="Nadal" name="surname" />
+		<property value="rafitaNadal@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount7" />
-		<property value="+34 645658853" name="phone" />
+		<property value="+34 678658853" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder31" />
@@ -1061,6 +1061,16 @@
 				<ref bean="dailyPlan2" />
 				<ref bean="dailyPlan3" />
 			</list>
+		</property>
+		<property name="photos">
+			<list>
+				<value>https://content.edmc.edu/assets/modules/ContentWebParts/AI/Locations/New-York-City/startpage-masthead-slide.jpg
+				</value>
+				<value>https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2625/SITours/new-york-city-hop-on-hop-off-tour-in-new-york-city-292892.jpg
+				</value>
+				<value>http://cdn.ek.aero/es/spanish/images/New-York-1_tcm466-2256848.jpg
+				</value>
+			</list>
 		</property>		
 		<property name="comments">
 			<list>
@@ -1082,6 +1092,12 @@
 				<ref bean="dailyPlan4" />
 				<ref bean="dailyPlan5" />
 				<ref bean="dailyPlan6" />
+			</list>
+		</property>
+		<property name="photos">
+			<list>
+				<value>http://i1.mendozapost.com/files/image/78/78129/573af901ab40d.jpg
+				</value>
 			</list>
 		</property>
 		<property name="comments">
@@ -1106,6 +1122,12 @@
 				<ref bean="slot2" />
 			</list>
 		</property>
+		<property name="photos">
+			<list>
+				<value>http://www.deanshu.com/wp-content/uploads/2015/03/harvard7_revised.jpg
+				</value>
+			</list>
+		</property>
 	</bean>
 
 	<bean class="domain.DailyPlan" id="dailyPlan2">
@@ -1118,6 +1140,12 @@
 				<ref bean="slot3" />
 			</list>
 		</property>
+		<property name="photos">
+			<list>
+				<value>http://image.posta.com.mx/sites/default/files/photo-epel-stanford-campus.jpg
+				</value>
+			</list>
+		</property>
 	</bean>
 
 	<bean class="domain.DailyPlan" id="dailyPlan3">
@@ -1127,6 +1155,14 @@
 		<property name="trip" ref="trip1" />
 		<property name="slots">
 			<list>
+			</list>
+		</property>
+		<property name="photos">
+			<list>
+				<value>http://dominio.fm/wp-content/uploads/2016/05/132164119557.jpg
+				</value>
+				<value>http://www.nuevayork.com/wp-content/uploads/2014/10/Excursion-de-un-dia-a-Washington-DC-Monumento.jpg
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -1208,18 +1244,14 @@
 	</bean>
 
 	<bean class="domain.Activity" id="activity2">
-		<property name="title" value="Escalada" />
-		<property name="description" value="Escalar montaña" />
+		<property name="title" value="Andar por el parque" />
+		<property name="description" value="Echar el día en el parque" />
 		<property name="appropriated" value="true" />
 		<property name="user" ref="user2" />
 		<property name="activityType" ref="activityType2" />
 		<property name="photos">
 			<list>
-				<value>http://viviresundeporte.com.mx/wp-content/uploads/2015/03/escalada.jpg
-				</value>
-				<value>http://deportes-aventura.es/wp-content/uploads/2013/05/escalada1.jpg
-				</value>
-				<value>http://www.aytojaen.es/portal/RecursosWeb/IMAGENES/1/0_2758_1.jpg
+				<value>http://sportadictos.com/files/2014/04/Caminar-en-grupo-700x499.jpg
 				</value>
 			</list>
 		</property>
@@ -1237,14 +1269,14 @@
 	</bean>
 
 	<bean class="domain.Activity" id="activity3">
-		<property name="title" value="Picnic" />
-		<property name="description" value="Comida en medio del campo" />
+		<property name="title" value="Cenita con la pareja" />
+		<property name="description" value="Cena en el campo" />
 		<property name="appropriated" value="true" />
 		<property name="user" ref="user3" />
 		<property name="activityType" ref="activityType2" />
 		<property name="photos">
 			<list>
-				<value>http://feelgrafix.com/data/picnic/picnic-4.jpg</value>
+				<value>http://estaticos.telva.com/albumes/2014/06/24/ideas_invitadas_para_una_preboda/1441247326_extras_albumes_0.jpg</value>
 			</list>
 		</property>
 		<property name="slots">

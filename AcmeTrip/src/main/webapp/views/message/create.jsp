@@ -23,7 +23,7 @@
 	<form:hidden path="sender"/>
 	<form:hidden path="folder"/>
 	<form:hidden path="moment"/>
-	<form:hidden path="favorite"/>
+	<form:hidden path="star"/>
 	
 	<acme:textbox code="message.subject" path="subject" />
 	
@@ -37,13 +37,19 @@
 	<form:errors cssClass="error" path="recipient"/>
 	<br>
 	
-	<spring:message code="message.priority" />
-	<form:select path="priority">
-		<form:option label="LOW" value="0" />
-		<form:option label="NEUTRAL" value="1" />
-		<form:option label="HIGH" value="2" />
-	</form:select>
-	<form:errors cssClass="error" path="recipient"/>
+	<tr>
+		<td><select NAME="messagePriority">
+				<OPTION VALUE="LOW">
+					<spring:message code="message.LOW" />
+				</OPTION>
+				<OPTION VALUE="NEUTRAL">
+					<spring:message code="message.NEUTRAL" />
+				</OPTION>
+				<OPTION VALUE="HIGH">
+					<spring:message code="message.HIGH" />
+				</OPTION>
+		</select></td>
+	</tr>
 	<br>
 	
 	<acme:submit name="save" code="message.save" />

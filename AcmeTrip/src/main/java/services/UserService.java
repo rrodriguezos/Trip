@@ -1,7 +1,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Activity;
+import domain.Administrator;
 import domain.Comment;
 import domain.Folder;
 import domain.Trip;
@@ -37,6 +37,9 @@ public class UserService {
 
 	@Autowired
 	private FolderService folderService;
+	
+	@Autowired
+	private AdministratorService administratorService;
 
 	// Constructors -------------------------------
 	public UserService() {
@@ -65,16 +68,16 @@ public class UserService {
 
 		trips = new LinkedList<Trip>();
 		result.setTrips(trips);
-		
+
 		activities = new LinkedList<Activity>();
 		result.setActivities(activities);
-		
+
 		comments = new LinkedList<Comment>();
 		result.setComments(comments);
-		
+
 		folders = new LinkedList<Folder>();
 		result.setFolders(folders);
-		
+
 		return result;
 	}
 
@@ -111,7 +114,6 @@ public class UserService {
 							null));
 
 		}
-		
 
 		user = userRepository.save(user);
 		Assert.notNull(user);
@@ -119,7 +121,7 @@ public class UserService {
 			folderService.foldersByDefect(user);
 
 		}
-	
+
 	}
 
 	// other methods ------------------------------
@@ -146,11 +148,12 @@ public class UserService {
 
 		res = create();
 		// Comprobamos que las contraseñas sean iguales
-		Assert.isTrue(userForm.getPassword().equals(userForm.getConfirmPassword()));
+		Assert.isTrue(userForm.getPassword().equals(
+				userForm.getConfirmPassword()));
 
 		// Comprobamos que el usuario acepta las condiciones y términos del
 		// servicio
-		 Assert.isTrue(userForm.getAccept());
+		Assert.isTrue(userForm.getAccept());
 
 		// Insertamos todos los datos en el user
 		res.setName(userForm.getName());
@@ -163,7 +166,7 @@ public class UserService {
 
 		return res;
 	}
-	
+
 	public UserRegisterForm copyUser() {
 		UserRegisterForm result;
 		User user;
@@ -185,58 +188,33 @@ public class UserService {
 		return result;
 	}
 	
-	// Dashboard C1
-	public Integer getNumberOfUsers(){
-		Integer result;
-		
-		result = userRepository.getNumberOfUsers();
-		
+	public int totalNumberofUsersRegistered() {
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);
+		int numberOfUsers = findAll().size();
+		return numberOfUsers;
+	}
+
+	public Collection<User> usersWhoRegisteredAtLeast80Maximum() {
+		Administrator administrator = administratorService.findByPrincipal();
+		Assert.notNull(administrator);
+		Collection<User> result = userRepository
+				.usersWhoRegisteredAtLeast80Maximum();
 		return result;
 	}
+
+
+
+
+
 	
-	// Dashboard C3
-	public Double[] getAverageNumberTripsPerUser(){
-		Double[] result;
-		
-		result = userRepository.getAverageNumberTripsPerUser();
-		
-		return result;
-	}
-	
-	// Dashboard C5
-	public Collection<Object[]> getUsersCreated80MaximunNumbersOfTrips(){
-		Collection<Object[]> result;
-		
-		result = userRepository.getUsersCreated80MaximunNumbersOfTrips();
-		
-		return result;
-	}
-	
-	// Dashboard C6
-	public Collection<User> getUsersInactiveInLastYear(){
-		Collection<User> result;
-		Date date1, date2;
-		
-		date1 = new Date();
-		date1.setYear(date1.getYear()-1);
-		Assert.notNull(date1);
-		
-		date2 = new Date();
-		Assert.notNull(date2);
-		
-		result = userRepository.getUsersInactiveInLastYear(date1, date2);
-		
-		return result;
-	}
-	
-	public Boolean passActual(UserRegisterForm userForm){
+
+	public Boolean passActual(UserRegisterForm userForm) {
 		User user;
 		String passActual;
 		Boolean result;
-		
+
 		user = findByPrincipal();
-		
-		// comprobamos que la contraseña actual es correcta
 
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
@@ -244,30 +222,22 @@ public class UserService {
 		passActual = encoder.encodePassword(userForm.getPasswordPast(), null);
 
 		result = user.getUserAccount().getPassword().equals(passActual);
-		
+
 		return result;
 	}
-	
-	// reconstruir un user al modificar su perfil
+
 	public void reconstructPerfil(UserRegisterForm userForm) {
 		User result;
 
 		result = findByPrincipal();
 
-		// comprobamos que las contraseñas son iguales
-
-		Assert.isTrue(
-				userForm.getPassword().equals(userForm.getConfirmPassword()));
-
-		// Insertamos todos los datos en el user.
+		Assert.isTrue(userForm.getPassword().equals(
+				userForm.getConfirmPassword()));
 
 		result.setName(userForm.getName());
 		result.setSurname(userForm.getSurname());
 		result.setPhone(userForm.getPhone());
 		result.setEmailAddress(userForm.getEmailAddress());
-
-
-		// HASHEAR LA CONTRASEÑA
 		if (userForm.getPassword() != "") {
 			Md5PasswordEncoder encoder1;
 			encoder1 = new Md5PasswordEncoder();
@@ -276,14 +246,11 @@ public class UserService {
 					encoder1.encodePassword(userForm.getPassword(), null));
 		}
 
-		// Mejorar la seguridad
-
 		Assert.isTrue(findByPrincipal().getId() == (userForm.getId()));
 
 		save(result);
 
 	}
-	
 
 	public User findByUserAccount(UserAccount userAccount) {
 		Assert.notNull(userAccount);
@@ -291,13 +258,11 @@ public class UserService {
 		result = userRepository.findByUserAccountId(userAccount.getId());
 		return result;
 	}
-	
+
 	public Collection<User> usersSusTrip(int tripId) {
 
 		return userRepository.usersSusTrip(tripId);
 
 	}
-
-
 
 }

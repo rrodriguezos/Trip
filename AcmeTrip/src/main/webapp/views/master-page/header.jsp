@@ -8,10 +8,12 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div>
 	<img src="images/logo.png" alt="Acme Trip Co., Inc." />
@@ -32,23 +34,18 @@
 		<li><a href="user/list.do"><spring:message
 					code="master.page.public.usersList" /></a>
 		<li><a href="activity/list.do"><spring:message
-					code="master.page.public.activitytypeList" /></a> 
-					
-					<security:authorize
+					code="master.page.public.activitytypeList" /></a> <security:authorize
 				access="isAnonymous()">
 				<li><a class="fNiv" href="user/register.do"> <spring:message
 							code="master.page.register" /></a></li>
 				<li><a class="fNiv" href="security/login.do"> <spring:message
 							code="master.page.login" /></a></li>
-			</security:authorize>
-			
-			 <security:authorize access="hasRole('ADMIN')">
+			</security:authorize> <security:authorize access="hasRole('ADMINISTRATOR')">
 				<li><a class="fNiv" href="dashboard/administrator/list.do">
 						<spring:message code="master.page.administrator.dashboard" />
 				</a></li>
-			</security:authorize>
-			
-			 <security:authorize access="isAuthenticated()">
+
+			</security:authorize> <security:authorize access="isAuthenticated()">
 				<li><a class="fNiv"> <spring:message
 							code="master.page.profile" /> (<security:authentication
 							property="principal.username" />)
@@ -63,8 +60,10 @@
 										code="master.page.user.trips" /></a></li>
 							<li><a href="trip/user/create.do"><spring:message
 										code="master.page.user.createTrips" /></a></li>
-										<li><a href="activity/user/create.do"><spring:message
+							<li><a href="activity/user/create.do"><spring:message
 										code="master.page.user.createActivities" /></a></li>
+							<li><a href="trip/user/subscribed.do"><spring:message
+										code="master.page.user.tripsSubscribed" /></a></li>
 						</security:authorize>
 
 						<security:authorize access="hasRole('MANAGER')">
@@ -75,14 +74,14 @@
 
 						</security:authorize>
 
-						<security:authorize access="hasRole('ADMIN')">
-							<li><a href="manager/administrator/register.do"><spring:message
+						<security:authorize access="hasRole('ADMINISTRATOR')">
+							<li><a href="manager/administrator/list.do"><spring:message
 										code="master.page.administrator.register.manager" /></a></li>
-							<li><a href="administrator/administrator/register.do"><spring:message
+							<li><a href="administrator/administrator/list.do"><spring:message
 										code="master.page.administrator.register.administrator" /></a></li>
 						</security:authorize>
 
-						<li><a href="folder/list.do"> <spring:message
+						<li><a href="folder/actor/list.do"> <spring:message
 									code="master.page.user.mail" /></a></li>
 
 					</ul></li>

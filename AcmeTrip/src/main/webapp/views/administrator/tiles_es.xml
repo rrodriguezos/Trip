@@ -15,7 +15,7 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
-	<definition name="administrator/dashboard-1" extends="master.page">	
+	<definition name="administrator/dashboard" extends="master.page">	
 		<put-attribute name="title" value="Dashboard" />
 		<put-attribute name="body" value="/views/administrator/dashboard-1.jsp" />
 	</definition>

@@ -23,8 +23,5 @@
 		<security:authorize access="hasRole('MANAGER')">
 			<acme:cancel url="activitytype/manager/list.do" code="activitytype.cancel" />
 		</security:authorize>
-		<security:authorize access="hasRole('ADMINISTRATOR')">
-			<acme:cancel url="activitytype/administrator/list.do" code="activitytype.cancel" />
-		</security:authorize>
 
 	</form:form>

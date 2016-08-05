@@ -59,7 +59,7 @@ public class TripController extends AbstractController {
 		ModelAndView result;
 		Collection<Trip> trips;
 
-		trips = tripService.findTripByString(search);
+		trips = tripService.findTripByKeyword(search);
 
 		result = new ModelAndView("trip/list");
 		result.addObject("trips", trips);

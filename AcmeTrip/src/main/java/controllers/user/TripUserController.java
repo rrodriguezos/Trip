@@ -195,6 +195,24 @@ public class TripUserController extends AbstractController{
 			return result;
 
 		}
+		
+		@RequestMapping(value = "/subscribed")
+		public ModelAndView subscriptions() {
+
+			ModelAndView result;
+			Collection<Trip> trips;
+			User user;
+
+			user = userService.findByPrincipal();
+			trips = tripService.tripsSubscribedByUser(user.getId());
+			
+
+			result = new ModelAndView("trip/list");
+			result.addObject("trips", trips);
+			result.addObject("requestUri", "/trip/user/subscribed.do");
+
+			return result;
+		}
 		// Ancillary methods
 				// --------------------------------------------------------
 

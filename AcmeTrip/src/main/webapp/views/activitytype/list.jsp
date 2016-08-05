@@ -16,11 +16,11 @@
 	<display:column title="${edit}">
 		<security:authorize access="hasRole('MANAGER')">
 			<input type="button" value="<spring:message code="activitytype.edit" />" 
-					onclick="javascript: window.location.assign('activitytype/manager/edit.do?typeId=${row.id}')" />			
+					onclick="javascript: window.location.assign('activitytype/manager/edit.do?activitytypeId=${row.id}')" />			
 		</security:authorize>
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<input type="button" value="<spring:message code="activitytype.edit" />" 
-					onclick="javascript: window.location.assign('activitytype/administrator/edit.do?typeId=${row.id}')" />			
+					onclick="javascript: window.location.assign('activitytype/administrator/edit.do?activitytypeId=${row.id}')" />			
 		</security:authorize>
 	</display:column>	
 	
@@ -30,8 +30,4 @@
 <security:authorize access="hasRole('MANAGER')">
 <input type="button" name="create" value="<spring:message code="activitytype.create" />"
 	 onclick="javascript: window.location.assign('activitytype/manager/create.do')" />
-</security:authorize>
-<security:authorize access="hasRole('ADMINISTRATOR')">
-<input type="button" name="create" value="<spring:message code="activitytype.create" />"
-	 onclick="javascript: window.location.assign('activitytype/administrator/create.do')" />
 </security:authorize>

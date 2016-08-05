@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.TripRepository;
+import domain.Administrator;
 import domain.Comment;
 import domain.DailyPlan;
 import domain.Trip;
@@ -31,6 +32,9 @@ public class TripService {
 
 	@Autowired
 	private DailyPlanService dailyPlanService;
+	
+	@Autowired
+	private AdministratorService administratorService;
 
 	// COnstructors -------------------------
 	public TripService() {
@@ -91,13 +95,20 @@ public class TripService {
 		Collection<DailyPlan> dailyPlans;
 
 		if (trip.getId() != 0) {
-			String subject;
-			String body;
+			String subjectEspanol;
+			String bodyEspanol;
+			
+			String subjectEnglish;
+			String bodyEnglish;
 
-			subject = "Modificación del viaje " + trip.getTitle();
-			body = "He hecho un cambio en mi viaje " + trip.getTitle();
+			subjectEspanol = "Modificación del viaje " + trip.getTitle();
+			bodyEspanol = "He hecho un cambio en mi viaje " + trip.getTitle();
+			
+			subjectEnglish = "Edition of the trip " + trip.getTitle();
+			bodyEnglish = "I have made a change in my trip " + trip.getTitle();
 
-			messageService.broadcastAlertTripMessage(trip, subject, body);
+			messageService.broadcastAlertTripMessage(trip, subjectEnglish, bodyEnglish);
+			messageService.broadcastAlertTripMessage(trip, subjectEspanol, bodyEspanol);
 		}
 		dailyPlans = tripRepository.getDailyPlansOutDates(trip.getId(),
 				trip.getStartDate(), trip.getEndDate());
@@ -113,13 +124,19 @@ public class TripService {
 	public void delete(Trip trip) {
 		Assert.notNull(trip);
 		checkPrincipal(trip.getUser());
-		String subject;
-		String body;
+		String subjectEspanol;
+		String bodyEspanol;
+		String subjectEnglish;
+		String bodyEnglish;
 
-		subject = "Eliminación de la excursión " + trip.getTitle();
-		body = "He eliminado mi excursión " + trip.getTitle();
-
-		messageService.broadcastAlertTripMessage(trip, subject, body);
+		subjectEspanol = "Eliminación del viaje " + trip.getTitle();
+		bodyEspanol = "He eliminado mi viaje " + trip.getTitle();
+		
+		subjectEnglish = "Elimination of the trip  " + trip.getTitle();
+		bodyEnglish = "I have deleted my trip  " + trip.getTitle();
+		
+		messageService.broadcastAlertTripMessage(trip, subjectEnglish, bodyEnglish);
+		messageService.broadcastAlertTripMessage(trip, subjectEspanol, bodyEspanol);
 
 		tripRepository.delete(trip);
 	}
@@ -149,10 +166,10 @@ public class TripService {
 
 	// Repository Methods--------------------
 
-	public Collection<Trip> findTripByString(String key) {
+	public Collection<Trip> findTripByKeyword(String key) {
 		Collection<Trip> result;
 
-		result = tripRepository.findTripByString(key);
+		result = tripRepository.findTripByKeyword(key);
 
 		return result;
 	}
@@ -192,24 +209,22 @@ public class TripService {
 
 		return result;
 	}
-
-	// Dashboard C2
-	public Integer getNumberTripsRegistered() {
-		Integer result;
-
-		result = tripRepository.getNumberTripsRegistered();
-
+	
+	public int totalNumberOfTripsRegistered() {
+		Administrator admin = administratorService.findByPrincipal();
+		Assert.notNull(admin);
+		int result = findAll().size();
 		return result;
 	}
 
-	// Dashboard C4
-	public Double[] getAverageNumberDailyPlansPerTrip() {
-		Double[] result;
-
-		result = tripRepository.getAverageNumberDailyPlansPerTrip();
-
-		return result;
+	public Double standardDeviationOfTripsByUsers() {
+		return tripRepository.standardDeviationOfTripsByUser();
 	}
+
+	public Double averageNumberOfTripsByUsers() {
+		return tripRepository.averageNumberOfTripsByUser();
+	}
+
 
 	public Collection<Trip> findAllTripsSuscrito(int userId) {
 		Collection<Trip> result;
@@ -330,5 +345,13 @@ public class TripService {
 		}
 
 		return myTrips;
+	}
+
+	public Collection<Trip> tripsSubscribedByUser(int userId){
+		Collection<Trip> result;
+
+		result = tripRepository.findAllTripsSubscrito(userId);
+
+		return result;
 	}
 }

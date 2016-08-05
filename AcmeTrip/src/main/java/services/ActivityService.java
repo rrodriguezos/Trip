@@ -117,18 +117,16 @@ public class ActivityService {
 	
 	private void checkPrincipalAdministratorOrManager(){
 		Actor actor;
-		Authority authority, authority2;
+		Authority authority;
 	
 		actor = actorService.findByPrincipal();
 		Assert.isTrue(actor != null);
+
 		
 		authority = new Authority();
-		authority.setAuthority("ADMINISTRATOR");
+		authority.setAuthority("MANAGER");
 		
-		authority2 = new Authority();
-		authority2.setAuthority("MANAGER");
-		
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority) || actor.getUserAccount().getAuthorities().contains(authority2));
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority));
 	}
 
 	

@@ -17,16 +17,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('ADMINISTRATOR')">
-	<jstl:if test="${activity.getAppropriated()==true }">
-		<input type="button" value="<spring:message code="activity.isInappropriated" />" 
-			onclick="javascript: window.location.assign('activity/administrator/appropriated.do?activityId=${activity.id}')" />			
-	</jstl:if>
-	<jstl:if test="${activity.getAppropriated()==false }">
-		<input type="button" value="<spring:message code="activity.isAppropriated" />" 
-			onclick="javascript: window.location.assign('activity/administrator/appropriated.do?activityId=${activity.id}')" />			
-	</jstl:if>
-</security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:if test="${activity.getAppropriated()==true }">

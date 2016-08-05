@@ -16,7 +16,7 @@
       
 <tiles-definitions>
 	<definition name="activity/create" extends="master.page">	
-		<put-attribute name="title" value="Crear Actividad" />
+		<put-attribute name="title" value="Crear nueva Actividad" />
 		<put-attribute name="body" value="/views/activity/edit.jsp" />
 	</definition>
 	
@@ -31,7 +31,7 @@
 	</definition>
 
 	<definition name="activity/display" extends="master.page">	
-		<put-attribute name="title" value="Datos de la Actividad" />
+		<put-attribute name="title" value="Detalles de la Actividad" />
 		<put-attribute name="body" value="/views/activity/display.jsp" />
 	</definition>
 	

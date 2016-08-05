@@ -28,7 +28,7 @@ public class ActivityTypeManagerController extends AbstractController {
 	
 	//Services -----------------------------------------------------------
 	@Autowired
-	private ActivityTypeService typeService;
+	private ActivityTypeService activitytypeService;
 	
 	//Create-------------------------------------------
 	@RequestMapping(value="/create", method=RequestMethod.GET)
@@ -36,7 +36,7 @@ public class ActivityTypeManagerController extends AbstractController {
 		ModelAndView result;
 		ActivityType activitytype;
 		
-		activitytype = typeService.create();
+		activitytype = activitytypeService.create();
 		result = new ModelAndView("activitytype/create");
 		result.addObject("activitytype", activitytype);
 		result.addObject("requestUri", "activitytype/manager/edit.do");
@@ -50,7 +50,7 @@ public class ActivityTypeManagerController extends AbstractController {
 		ModelAndView result;
 		ActivityType activitytype;
 		
-		activitytype = typeService.findOne(activitytypeId);
+		activitytype = activitytypeService.findOne(activitytypeId);
 
 		result = new ModelAndView("activitytype/edit");
 		result.addObject("activitytype", activitytype);
@@ -69,10 +69,10 @@ public class ActivityTypeManagerController extends AbstractController {
 			result.addObject("requestUri", "activitytype/manager/edit.do");
 		}else{
 			try{
-				typeService.save(activitytype);
+				activitytypeService.save(activitytype);
 				result = new ModelAndView("redirect:/activitytype/manager/list.do");
 			}catch(Throwable oops){
-				result = new ModelAndView("type/edit");
+				result = new ModelAndView("activitytype/edit");
 				result.addObject("activitytype", activitytype);
 				result.addObject("requestUri", "activitytype/manager/edit.do");
 				result.addObject("message2","activitytype.commit.error");
@@ -87,7 +87,7 @@ public class ActivityTypeManagerController extends AbstractController {
 		ModelAndView result;
 		Collection<ActivityType> activitytypes;
 		
-		activitytypes = typeService.findAll();
+		activitytypes = activitytypeService.findAll();
 		
 		result = new ModelAndView("activitytype/list");
 		result.addObject("requestUri","/activitytype/manager/list.do");

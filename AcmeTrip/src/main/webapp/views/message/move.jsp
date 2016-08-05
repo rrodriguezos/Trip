@@ -23,7 +23,7 @@
 	<form:hidden path="moment"/>
 	<form:hidden path="subject"/>
 	<form:hidden path="body"/>
-	<form:hidden path="priority"/>
+	<form:hidden path="messagePriority"/>
 	<form:hidden path="recipient"/>
 	
 	<jstl:if test="${ folders.size()!=0 }">
