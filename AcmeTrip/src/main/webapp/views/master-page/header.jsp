@@ -67,8 +67,6 @@
 						</security:authorize>
 
 						<security:authorize access="hasRole('MANAGER')">
-							<li><a href="activity/manager/list.do"><spring:message
-										code="master.page.manager.activities" /></a></li>
 							<li><a href="activitytype/manager/list.do"><spring:message
 										code="master.page.manager.activitytpes" /></a></li>
 							<li><a href="campaign/manager/list.do"><spring:message

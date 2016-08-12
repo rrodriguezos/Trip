@@ -61,40 +61,8 @@ public class ChargeRecordService {
 		}
 		
 		
-		//Other business methods ------------------
+
 		
-		
-//		public Collection<ChargeRecord> findChargeRecordsByCreditCard(int creditCardId) {
-//			CreditCard ccard = creditCardService.findOne(creditCardId);
-//			Collection<ChargeRecord> result = chargeRecordRepository.findChargeRecordsByCreditCard(ccard.getId());
-//			Assert.notNull(result);
-//			return result;
-//		}
-		
-		
-		
-		
-//		public Barter reconstruct(BarterForm barterForm) {
-//			Barter barter = new Barter();
-//			User user = userService.findByPrincipal();
-//			barter.setRegistrationMoment(new Date(System.currentTimeMillis()-1000));
-//			barter.setTitle(barterForm.getTitle());
-//			barter.setCancelled(false);
-//			barter.setUser(user);
-//			barter.setRelatedBarters(new ArrayList<Barter>());
-//			barter.setMatches(new ArrayList<Match>());
-//			Item offeredItem = new Item();
-//			Item requestedItem = new Item();
-//			offeredItem.setDescription(barterForm.getOfferedItemDescription());
-//			offeredItem.setName(barterForm.getOfferedItemName());
-//			offeredItem.setPictures(barterForm.getOfferedItemPictures());
-//			requestedItem.setDescription(barterForm.getRequestedItemDescription());
-//			requestedItem.setName(barterForm.getRequestedItemName());
-//			requestedItem.setPictures(barterForm.getRequestedItemPictures());
-//			barter.setOfferedItem(offeredItem);
-//			barter.setRequestedItem(requestedItem);
-//			return barter;
-//		}
 		
 
 }

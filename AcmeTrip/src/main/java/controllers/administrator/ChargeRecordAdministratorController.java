@@ -39,7 +39,7 @@ public class ChargeRecordAdministratorController extends AbstractController {
 		ModelAndView result;
 		Collection<ChargeRecord> charges = chargeService.findAll();
 		Boolean fallo = true;
-		Date today = new Date(System.currentTimeMillis());
+		Date today = new Date(System.currentTimeMillis()-1000);
 		for (ChargeRecord c : charges) {
 			if (c.getCreateMoment().getDay() == today.getDay() && c.getCreateMoment().getMonth() == today.getMonth()
 					&& c.getCreateMoment().getYear() == today.getYear()) {

@@ -39,6 +39,7 @@ public class ChargeRecordsManagerController extends AbstractController {
 
 		result = new ModelAndView();
 		result.addObject("chargerecords", chargerecords);
+		result.addObject("requestUri", "chargerecord/manager/list.do");
 
 		return result;
 	}
