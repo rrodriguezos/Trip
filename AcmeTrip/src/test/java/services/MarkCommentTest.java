@@ -43,15 +43,9 @@ public class MarkCommentTest extends AbstractTest{
 		this.authenticate = authenticate;
 	}
 	
-	/**
-	 * 
-	 * @throws En este test se prueban 3 posibles acciones de marcar un Comment. Para ello se utilizan las propiedades
-	 * commentId y authenticate. Se llama para ello a la función copyTrip del Servicio. En el primer caso probamos marcar 
-	 * un objeto que no es un comment, no llevandose a cabo, en el segundo intentamos marcar un Comment 
-	 * sin que el actor este logueado, en la tercera ocasión se hace correctamente
-	 * 
-	 *Capturamos las excepciones NullPointerException, IllegalArgumentException.
-	 */
+	//1ºFlag un commentario que no es comentario
+	//2ºflag un comentario que no es un comentario
+	//3º Flag existosamente
 	
 	@Test
 	public void testMarkcomment() {

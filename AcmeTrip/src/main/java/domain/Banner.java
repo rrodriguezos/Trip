@@ -60,6 +60,24 @@ public class Banner extends DomainEntity {
 	public void setKeyWords(Collection<String> keyWords) {
 		this.keyWords = keyWords;
 	}
+	
+	@Min(0)
+	public int getDisplay() {
+		return display;
+	}
+
+	public void setDisplay(int display) {
+		this.display = display;
+	}
+
+	@Min(0)
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	// Relationships ----------------------------------------------------------
 
@@ -100,22 +118,6 @@ public class Banner extends DomainEntity {
 		this.chargeRecords = chargeRecord;
 	}
 
-	@Min(0)
-	public int getDisplay() {
-		return display;
-	}
-
-	public void setDisplay(int display) {
-		this.display = display;
-	}
-
-	@Min(0)
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
+	
 
 }

@@ -29,7 +29,6 @@ public class Campaign extends DomainEntity {
 	
 	private Date endMoment;
 	private Date startMoment;
-	//private Boolean isActive;
 	
 	
 	@NotNull
@@ -53,13 +52,6 @@ public class Campaign extends DomainEntity {
 		this.startMoment = startMoment;
 	}
 	
-//	@NotNull
-//	public Boolean getIsActive() {
-//		return isActive;
-//	}
-//	public void setIsActive(Boolean isActive) {
-//		this.isActive = isActive;
-//	}
 	
 	// Relationships ----------------------------------------------------------
 	

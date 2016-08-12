@@ -21,7 +21,9 @@ public class Tax extends DomainEntity {
 	}
 
 	// ------------ Attributes ------------
-
+	private Double taxType;
+	
+	
 	@NotNull
 	public Double getTaxType() {
 		return taxType;
@@ -31,7 +33,7 @@ public class Tax extends DomainEntity {
 		this.taxType = taxType;
 	}
 
-	private Double taxType;
+	
 
 	// ------------ Relationships ------------
 

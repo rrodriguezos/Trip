@@ -44,15 +44,10 @@ public class MarkActivityTest extends AbstractTest{
 		this.authenticate = authenticate;
 	}
 	
-	/**
-	 * 
-	 * @throws En este test se prueban 3 posibles acciones de marcar un Activity. Para ello se utilizan las propiedades
-	 * activityId y authenticate. Se llama para ello a la función copyTrip del Servicio. En el primer caso probamos marcar 
-	 * un objeto que no es un activity, no llevandose a cabo, en el segundo intentamos marcar un Activity 
-	 * sin que el actor este logueado, en la tercera ocasión se hace correctamente
-	 * 
-	 *Capturamos las excepciones NullPointerException, IllegalArgumentException.
-	 */
+	//1º Flag un objeto que no es una actividad
+	//2ºFlag actividad por actor no logeado
+	//3ºFlag exitosamente
+
 	
 	@Test
 	public void testMarkactivity() {
