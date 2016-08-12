@@ -1,4 +1,5 @@
 package services;
+
 import java.util.Date;
 
 import javax.validation.ConstraintViolationException;
@@ -21,129 +22,125 @@ import domain.Trip;
 		"classpath:spring/config/packages.xml" })
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class DailyPlanServiceTest  extends AbstractTest  {
-	
+public class DailyPlanServiceTest extends AbstractTest {
+
 	@Autowired
 	private DailyPlanService dailyPlanService;
 	@Autowired
 	private TripService tripService;
-	@Autowired
-	private HelpService helpService;
-	
+
+
 	// ----------------------------------------------------
-		// POSITIVE TEST CASES CREATE
-		// ----------------------------------------------------
-		// creado exitosamente
-		@Test
-		public void testCreateDailyPlan1() {
-			
-			authenticate("user1");
-			DailyPlan dplan =dailyPlanService.create();
-			Trip trip = tripService.findOne(76);
-			dplan.setTrip(trip);
-			dplan.setTitle("titulo 1");
-			Date weekDay = new Date(04/04/2016);
-			dplan.setWeekDay(weekDay);
-			dplan.setDescription("Descripcion 1");
-			
-			Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
+	// POSITIVE TEST CASES CREATE
+	// ----------------------------------------------------
+	// creado exitosamente
+	@Test
+	public void testCreateDailyPlan1() {
 
-			dailyPlanService.save(dplan);
+		authenticate("user1");
+		DailyPlan dplan = dailyPlanService.create();
+		Trip trip = tripService.findOne(76);
+		dplan.setTrip(trip);
+		dplan.setTitle("titulo 1");
+		Date weekDay = new Date(04 / 04 / 2016);
+		dplan.setWeekDay(weekDay);
+		dplan.setDescription("Descripcion 1");
 
-			unauthenticate();
-		}
+		Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
 
-		// ----------------------------------------------------
-		// NEGATIVE TEST CASES CREATE
-		// ----------------------------------------------------
-		// dailyPlan campos en blanco
-		@Test(expected = ConstraintViolationException.class)
-		public void testCreateDailyPlan2() {
-			authenticate("user1");
-			DailyPlan dplan =dailyPlanService.create();
-			Trip trip = tripService.findOne(76);
-			dplan.setTrip(trip);
-			dplan.setTitle("");
-			Date weekDay = new Date(04/04/2016);
-			dplan.setWeekDay(weekDay);
-			dplan.setDescription("Descripcion 1");
-			
-			Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
+		dailyPlanService.save(dplan);
 
-			dailyPlanService.save(dplan);
+		unauthenticate();
+	}
 
-			unauthenticate();
-		}
+	// ----------------------------------------------------
+	// NEGATIVE TEST CASES CREATE
+	// ----------------------------------------------------
+	// dailyPlan campos en blanco
+	@Test(expected = ConstraintViolationException.class)
+	public void testCreateDailyPlan2() {
+		authenticate("user1");
+		DailyPlan dplan = dailyPlanService.create();
+		Trip trip = tripService.findOne(76);
+		dplan.setTrip(trip);
+		dplan.setTitle("");
+		Date weekDay = new Date(04 / 04 / 2016);
+		dplan.setWeekDay(weekDay);
+		dplan.setDescription("Descripcion 1");
 
-		// crear un dailyplan con actores no autorizados
-		@Test(expected = IllegalArgumentException.class)
-		public void testCreateDailyPlan3() {
-			authenticate("manager1");
-			DailyPlan dplan =dailyPlanService.create();
-			Trip trip = tripService.findOne(76);
-			dplan.setTrip(trip);
-			dplan.setTitle("Titulo 1");
-			Date weekDay = new Date(04/04/2016);
-			dplan.setWeekDay(weekDay);
-			dplan.setDescription("Descripcion 1");
-			
-			Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
+		Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
 
-			dailyPlanService.save(dplan);
+		dailyPlanService.save(dplan);
 
-			unauthenticate();
-		}
-		
-		// ----------------------------------------------------
-		// POSITIVE TEST CASES DELETE
-		// ----------------------------------------------------
-		// Eliminado correctamente
+		unauthenticate();
+	}
 
-		@Test
-		public void deletDailyPlan1() {
-			authenticate("user1");
-			DailyPlan dailyPlan;
+	// crear un dailyplan con actores no autorizados
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateDailyPlan3() {
+		authenticate("manager1");
+		DailyPlan dplan = dailyPlanService.create();
+		Trip trip = tripService.findOne(76);
+		dplan.setTrip(trip);
+		dplan.setTitle("Titulo 1");
+		Date weekDay = new Date(04 / 04 / 2016);
+		dplan.setWeekDay(weekDay);
+		dplan.setDescription("Descripcion 1");
 
-			dailyPlan = dailyPlanService.findOne(77);
+		Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
 
-			dailyPlanService.delete(dailyPlan);
+		dailyPlanService.save(dplan);
 
-			unauthenticate();
+		unauthenticate();
+	}
 
-		}
+	// ----------------------------------------------------
+	// POSITIVE TEST CASES DELETE
+	// ----------------------------------------------------
+	// Eliminado correctamente
 
-		// ----------------------------------------------------
-		// NEGATIVE TEST CASES DELETE
-		// ----------------------------------------------------
-		// Lo intenta un admin eliminar
+	@Test
+	public void deletDailyPlan1() {
+		authenticate("user1");
+		DailyPlan dailyPlan;
 
-		@Test(expected = IllegalArgumentException.class)
-		public void deletDailyPlan2() {
-			authenticate("admin");
-			DailyPlan dailyPlan;
+		dailyPlan = dailyPlanService.findOne(77);
 
-			dailyPlan = dailyPlanService.findOne(77);
+		dailyPlanService.delete(dailyPlan);
 
-			dailyPlanService.delete(dailyPlan);
+		unauthenticate();
 
-			unauthenticate();
-		}
+	}
 
-		// Eliminamos un trip que no es tripId
+	// ----------------------------------------------------
+	// NEGATIVE TEST CASES DELETE
+	// ----------------------------------------------------
+	// Lo intenta un admin eliminar
 
-		@Test(expected = IllegalArgumentException.class)
-		public void deletDailyPlan3() {
-			authenticate("user1");
-			DailyPlan dailyPlan;
+	@Test(expected = IllegalArgumentException.class)
+	public void deletDailyPlan2() {
+		authenticate("admin");
+		DailyPlan dailyPlan;
 
-			dailyPlan = dailyPlanService.findOne(887954);
+		dailyPlan = dailyPlanService.findOne(77);
 
-			dailyPlanService.delete(dailyPlan);
+		dailyPlanService.delete(dailyPlan);
 
-			unauthenticate();
-		}
+		unauthenticate();
+	}
 
-		
+	// Eliminamos un trip que no es tripId
 
+	@Test(expected = IllegalArgumentException.class)
+	public void deletDailyPlan3() {
+		authenticate("user1");
+		DailyPlan dailyPlan;
+
+		dailyPlan = dailyPlanService.findOne(887954);
+
+		dailyPlanService.delete(dailyPlan);
+
+		unauthenticate();
+	}
 
 }

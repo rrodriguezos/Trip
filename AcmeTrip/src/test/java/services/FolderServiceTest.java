@@ -24,9 +24,6 @@ public class FolderServiceTest extends AbstractTest {
 	@Autowired
 	private FolderService folderService;
 
-	@Autowired
-	private HelpService helpService;
-
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------

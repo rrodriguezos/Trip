@@ -1,6 +1,8 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
@@ -11,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Trip;
@@ -197,8 +200,8 @@ public class TripServiceTest extends AbstractTest {
 
 		unauthenticate();
 	}
-	
-	//editar con actores no autorizados
+
+	// editar con actores no autorizados
 	@Test(expected = IllegalArgumentException.class)
 	public void editTrip3() {
 
@@ -220,5 +223,109 @@ public class TripServiceTest extends AbstractTest {
 
 		unauthenticate();
 	}
+
+	// ----------------------------------------------------
+	// POSITIVE TEST CASES COPY
+	// ----------------------------------------------------
+	// copiado exitosamente
+	@Test
+	public void testCopyTrip1() {
+		authenticate("user1");
+		Trip trip;
+
+		trip = tripService.findOne(80);
+
+		tripService.copyPasteTrip(trip);
+
+		unauthenticate();
+	}
+
+	// ----------------------------------------------------
+	// NEGATIVE TEST CASES COPY
+	// ----------------------------------------------------
+	// copia erronea
+	@Test(expected = NullPointerException.class)
+	public void testCopyTrip2() {
+		authenticate("user1");
+		Trip trip;
+
+		trip = tripService.findOne(1542);
+
+		tripService.copyPasteTrip(trip);
+
+		unauthenticate();
+	}
+
+	// lo hace un actor logueado como administrador, siendo erroneo tambien
+	@Test(expected = IllegalArgumentException.class)
+	public void testCopyTrip3() {
+		authenticate("admin");
+		Trip trip;
+
+		trip = tripService.findOne(80);
+
+		tripService.copyPasteTrip(trip);
+
+		unauthenticate();
+	}
+
+	// ----------------------------------------------------
+	// POSITIVE TEST CASES SUBSCRIPTION
+	// ----------------------------------------------------
+	// suscrito exitosamente
+	@Test
+	public void testSubscriptionTrip1() {
+		authenticate("user1");
+		Trip trip;
+
+		trip = tripService.findOne(80);
+		tripService.joinTrip(trip);
+
+		unauthenticate();
+	}
+
+	// ----------------------------------------------------
+	// NEGATIVE TEST CASES SUBSCRIPTION
+	// ----------------------------------------------------
+	// suscrito erroneamente a un trip que no es trip
+	@Test(expected = NullPointerException.class)
+	public void testSubscriptionTrip2() {
+		authenticate("user1");
+		Trip trip;
+
+		trip = tripService.findOne(7846);
+		tripService.joinTrip(trip);
+
+		unauthenticate();
+	}
+
+	// lo hace un actor logueado como administrador, siendo erroneo tambien
+	@Test(expected = IllegalArgumentException.class)
+	public void testSubscriptionTrip3() {
+		authenticate("admin");
+		Trip trip;
+
+		trip = tripService.findOne(80);
+		tripService.joinTrip(trip);
+
+		unauthenticate();
+	}
 	
+	//4. A user who is not authenticated must be able to:
+			//1. Navigate through the trips
+		@Test
+		public void testFindTrips(){
+			Collection <Trip> trips = tripService.findAll();
+			Assert.isTrue(trips.size()==2);		
+		}
+		
+
+		//8. A user who is not authenticated must be able to:	
+		//Searching trips 
+		@Test
+		public void testSearchTrip(){
+			List <Trip> trips = (List<Trip>) tripService.findTripByKeyword("Title");
+			Assert.isTrue(trips.size()==2);
+		}
+
 }

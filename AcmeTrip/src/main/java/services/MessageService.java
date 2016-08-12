@@ -53,7 +53,7 @@ public class MessageService {
 
 		result = new Message();
 		result.setSender(sender);
-		result.setMoment(new Date(System.currentTimeMillis()));
+		result.setMoment(new Date(System.currentTimeMillis()-1000));
 		result.setFolder(folder);
 
 		return result;

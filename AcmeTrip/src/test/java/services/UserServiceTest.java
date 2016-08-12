@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.ConstraintViolationException;
@@ -11,9 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Trip;
+import domain.User;
 import forms.AdministratorForm;
 import forms.UserRegisterForm;
 
@@ -159,5 +162,13 @@ public class UserServiceTest extends AbstractTest {
 
 		unauthenticate();
 
+	}
+
+	// 4. A user who is not authenticated must be able to:
+	// 1. List and see the profile of the users who have registered to the system
+	@Test
+	public void testFindUsers() {
+		Collection<User> users = userService.findAll();
+		Assert.isTrue(users.size() == 4);
 	}
 }
