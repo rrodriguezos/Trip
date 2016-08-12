@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.TripRepository;
 import domain.Administrator;
 import domain.Comment;
 import domain.DailyPlan;
+import domain.Slot;
 import domain.Trip;
 import domain.User;
+import repositories.SlotRepository;
+import repositories.TripRepository;
 
 @Service
 @Transactional
@@ -22,6 +24,9 @@ public class TripService {
 	// Managed repository -------------------
 	@Autowired
 	private TripRepository tripRepository;
+	
+	@Autowired
+	private SlotRepository slotRepository;
 
 	// Supporting Services ------------------
 	@Autowired
@@ -168,9 +173,32 @@ public class TripService {
 
 	public Collection<Trip> findTripByKeyword(String key) {
 		Collection<Trip> result;
-
 		result = tripRepository.findTripByKeyword(key);
-
+		Collection<Trip> result1;
+		result1 = tripRepository.findTripByDailyKeyword(key);
+		Collection<Trip> result2;
+		result2 = tripRepository.findTripBySlotKeyword(key);
+		Collection<Slot> result3Slot;
+		result3Slot = slotRepository.findTripByActivityKeyword(key);
+		Collection<Trip> result3 = new ArrayList<>();
+		for (Slot sl: result3Slot){
+			result3.add(sl.getDailyPlan().getTrip());			
+		}
+		for(Trip t: result1){
+			if(!result.contains(t)){
+				result.add(t);
+			}
+		}
+		for(Trip l: result2){
+			if(!result.contains(l)){
+				result.add(l);
+			}
+		}
+		for(Trip j: result3){
+			if(!result.contains(j)){
+				result.add(j);
+			}
+		}
 		return result;
 	}
 

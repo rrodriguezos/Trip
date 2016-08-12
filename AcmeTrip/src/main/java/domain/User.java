@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -18,43 +19,53 @@ public class User extends Actor {
 	public User() {
 		super();
 	}
-	//Attributes ----------------------------------------------------------
+	// Attributes ----------------------------------------------------------
 
-	
-		//Relationships --------------------------------------------------------
-		private Collection<Trip> trips;
-		private Collection<Activity> activities;
+	// Relationships --------------------------------------------------------
+	private Collection<Trip> trips;
+	private Collection<Activity> activities;
+	private java.util.Date lastLogin;
 
-		@Valid
-		@NotNull
-		@OneToMany(mappedBy="user")
-		public Collection<Trip> getTrips() {
-			return trips;
-		}
-		public void setTrips(Collection<Trip> trips) {
-			this.trips = trips;
-		}
-		
-		@Valid
-		@NotNull
-		@OneToMany(mappedBy="user")
-		public Collection<Activity> getActivities() {
-			return activities;
-		}
-		public void setActivities(Collection<Activity> activities) {
-			this.activities = activities;
-		}
-		
-		private Collection<Trip> tripSubscribes;
+	public Date getLastLogin() {
+		return lastLogin;
+	}
 
-		@Valid
-		@ManyToMany(mappedBy = "users")
-		public Collection<Trip> getTripSubscribes() {
-			return tripSubscribes;
-		}
+	public void setLastLogin(Date li) {
+		this.lastLogin = li;
+	}
 
-		public void setTripSubscribes(Collection<Trip> tripSubscribes) {
-			this.tripSubscribes = tripSubscribes;
-		}
-		
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "user")
+	public Collection<Trip> getTrips() {
+		return trips;
+	}
+
+	public void setTrips(Collection<Trip> trips) {
+		this.trips = trips;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "user")
+	public Collection<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Collection<Activity> activities) {
+		this.activities = activities;
+	}
+
+	private Collection<Trip> tripSubscribes;
+
+	@Valid
+	@ManyToMany(mappedBy = "users")
+	public Collection<Trip> getTripSubscribes() {
+		return tripSubscribes;
+	}
+
+	public void setTripSubscribes(Collection<Trip> tripSubscribes) {
+		this.tripSubscribes = tripSubscribes;
+	}
+
 }

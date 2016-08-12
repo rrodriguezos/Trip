@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -29,6 +30,7 @@ public abstract class Actor extends DomainEntity {
 	private String surname;
 	private String phone;
 	private String emailAddress;
+	
 
 	// Constructors...................
 
@@ -47,8 +49,7 @@ public abstract class Actor extends DomainEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
+	
 	@NotBlank
 	public String getSurname() {
 		return surname;

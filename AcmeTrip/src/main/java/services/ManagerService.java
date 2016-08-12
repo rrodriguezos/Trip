@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.CampaignRepository;
 import repositories.ManagerRepository;
 import security.Authority;
 import security.LoginService;
@@ -16,6 +17,7 @@ import security.UserAccount;
 import domain.Activity;
 import domain.Administrator;
 import domain.Campaign;
+import domain.ChargeRecord;
 import domain.Comment;
 import domain.CreditCard;
 import domain.Folder;
@@ -41,6 +43,12 @@ public class ManagerService {
 
 	@Autowired
 	private AdministratorService administratorService;
+	
+	@Autowired
+	private CreditCardService creditCardService;
+	
+	@Autowired
+	private CampaignRepository campaignRepository;
 
 	// Constructors -------------------------------
 	public ManagerService() {
@@ -209,6 +217,20 @@ public class ManagerService {
 		Assert.notNull(administrator);
 		Double res = managerRepository.averageNumberOfCampaignsPerManager();
 		return res == null ? 0.0 : res;
+	}
+
+	public void anadeTarjeta(CreditCard creditCard, Campaign campaign) {
+		Manager principal = this.findByPrincipal();
+		creditCard.setChargeRecords(new LinkedList<ChargeRecord>());
+		Collection<CreditCard> tarjetas = principal.getCreditCards();
+		tarjetas.add(creditCard);
+		principal.setCreditCards(tarjetas);
+		managerRepository.saveAndFlush(principal);
+		creditCard.setManager(this.findByPrincipal());
+		creditCard.setCampaign(campaign);
+		CreditCard tarjeta = creditCardService.saveCreate(creditCard);
+		campaign.setCreditCard(tarjeta);
+		campaignRepository.save(campaign);
 	}
 
 }

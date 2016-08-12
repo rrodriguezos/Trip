@@ -17,6 +17,14 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<jstl:if test="${tieneBanner==true }" >
+	<fieldset>
+	<legend><spring:message code="banner.publi"/></legend>
+	<img width="500px" height="100x" src="${banner.getPhoto()}"/>
+	</fieldset>
+	<br>
+</jstl:if>
+
 <acme:jstlOut code="trip.title" value="${trip.title }"/>
 <acme:jstlOut code="trip.description" value="${trip.description }"/>
 <acme:jstlOut code="trip.startDate" value="${trip.startDate }"/>

@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.UserRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Activity;
 import domain.Administrator;
 import domain.Comment;
@@ -20,6 +17,10 @@ import domain.Folder;
 import domain.Trip;
 import domain.User;
 import forms.UserRegisterForm;
+import repositories.UserRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -241,6 +242,20 @@ public class UserService {
 
 		return userRepository.usersSusTrip(tripId);
 
+	}
+
+	@SuppressWarnings("deprecation")
+	public Collection<User> inactivesOneYear() {
+		Date unAno = new Date(System.currentTimeMillis());
+		unAno.setYear(unAno.getYear()-1);
+		return userRepository.usersWhoInactiveMoreThanYear(unAno);
+	}
+
+	public void updateLogin(String username) {
+		Assert.notNull(username);
+		User usuario = userRepository.findByUserName(username);
+		usuario.setLastLogin(new Date(System.currentTimeMillis()));
+		userRepository.saveAndFlush(usuario);
 	}
 
 }

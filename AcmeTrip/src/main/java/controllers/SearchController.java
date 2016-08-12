@@ -44,10 +44,27 @@ public class SearchController extends AbstractController  {
 		Collection<Trip> trips = new HashSet<Trip>();
 		trips = tripService.findTripByKeyword(text);
 
-		result = new ModelAndView("search/buscar");
+		result = new ModelAndView("search/buscando");
 		result.addObject("trips", trips);
 		result.addObject("searchForm", searchForm);
-		result.addObject("requestUri", "search/buscar.do");
+		result.addObject("requestUri", "search/buscando.do");
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/buscando", method = RequestMethod.GET)
+	public ModelAndView lista(@Valid SearchForm searchForm) {
+		ModelAndView result;
+
+		Assert.notNull(searchForm);
+		String text = searchForm.getText();
+		Collection<Trip> trips = new HashSet<Trip>();
+		trips = tripService.findTripByKeyword(text);
+
+		result = new ModelAndView("search/buscando");
+		result.addObject("trips", trips);
+		result.addObject("searchForm", searchForm);
+		result.addObject("requestUri", "search/buscando.do");
 
 		return result;
 	}

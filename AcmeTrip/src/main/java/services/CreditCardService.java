@@ -36,6 +36,7 @@ public class CreditCardService {
 	public CreditCard create() {
 		CreditCard result = new CreditCard();
 		result.setChargeRecords(new ArrayList<ChargeRecord>());
+		result.setManager(managerService.findByPrincipal());
 		return result;
 	}
 	
@@ -52,8 +53,7 @@ public class CreditCardService {
 		Assert.notNull(creditCard);
 		Manager manager = managerService.findByPrincipal();
 		Assert.isTrue(manager.getId() == creditCard.getManager().getId());
-		creditCardRepository.save(creditCard);
-		creditCardRepository.flush();
+		creditCardRepository.saveAndFlush(creditCard);
 	}
 
 	public Collection<CreditCard> findAll() {
@@ -88,6 +88,14 @@ public class CreditCardService {
 				.getId());
 		Assert.notNull(result);
 		return result;
+	}
+
+	public CreditCard saveCreate(CreditCard creditCard) {
+		return creditCardRepository.saveAndFlush(creditCard);
+	}
+
+	public void deleteC(int creditCardId) {
+		creditCardRepository.delete(creditCardId);
 	}
 
 

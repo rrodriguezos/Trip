@@ -127,6 +127,7 @@
 		<property value="manolo@mail.es" name="emailAddress" />
 		<property name="userAccount" ref="userAccount2" />
 		<property value="+34 684605824" name="phone" />
+		<property value="08/08/2014" name="lastLogin" />
 		<property name="folders">
 			<list>
 				<ref bean="folder6" />
@@ -159,6 +160,7 @@
 		<property value="Rodriguez" name="surname" />
 		<property value="charro@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount3" />
+		<property value="08/08/2014" name="lastLogin" />
 		<property value="+34 736605587" name="phone" />
 		<property name="folders">
 			<list>
@@ -193,6 +195,7 @@
 		<property value="Domingo Domingo" name="surname" />
 		<property value="Doming@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount4" />
+		<property value="08/08/2014" name="lastLogin" />
 		<property value="+34 932 856824" name="phone" />
 		<property name="folders">
 			<list>
@@ -224,6 +227,7 @@
 		<property value="Garcia" name="surname" />
 		<property value="eijude@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount5" />
+		<property value="08/08/2014" name="lastLogin" />
 		<property value="+34 634650024" name="phone" />
 		<property name="folders">
 			<list>
@@ -320,8 +324,66 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- CreditCards -->
+
+
+
+
+
+
+
+
+
+	<!-- Campaigns -->
+
+	<bean id="campaign1" class="domain.Campaign">
+		<property name="startMoment" value="20/01/2015 12:09" />
+		<property name="endMoment" value="23/02/2017 12:09" />
+		<property name="manager" ref="manager1" />
+		<property name="creditCard" ref="creditcard1" />
+		<property name="banners">
+			<list>
+				<ref bean="banner1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="campaign2" class="domain.Campaign">
+		<property name="startMoment" value="20/01/2016 12:00" />
+		<property name="endMoment" value="23/02/2016 12:00" />
+		<property name="manager" ref="manager1" />
+		<property name="creditCard" ref="creditcard2" />
+		<property name="banners">
+			<list>
+				<ref bean="banner2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="campaign3" class="domain.Campaign">
+		<property name="startMoment" value="20/11/2015 09:00" />
+		<property name="endMoment" value="28/11/2015 09:00" />
+		<property name="manager" ref="manager1" />
+		<property name="creditCard" ref="creditcard3" />
+		<property name="banners">
+			<list>
+				<ref bean="banner3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="campaign4" class="domain.Campaign">
+		<property name="startMoment" value="20/06/2016 12:09" />
+		<property name="endMoment" value="23/08/2016 12:09" />
+		<property name="manager" ref="manager1" />
+		<property name="creditCard" ref="creditcard4" />
+		<property name="banners">
+			<list>
+				<ref bean="banner4" />
+			</list>
+		</property>
+	</bean>
 
 	<bean id="creditcard1" class="domain.CreditCard">
 		<property name="holderName" value="Juan Manuel Lee" />
@@ -331,6 +393,7 @@
 		<property name="expirationYear" value="2018" />
 		<property name="cvvCode" value="102" />
 		<property name="manager" ref="manager1" />
+		<property name="campaign" ref="campaign1" />
 		<property name="chargeRecords">
 			<list>
 			</list>
@@ -345,6 +408,7 @@
 		<property name="expirationYear" value="2019" />
 		<property name="cvvCode" value="151" />
 		<property name="manager" ref="manager1" />
+		<property name="campaign" ref="campaign2" />
 		<property name="chargeRecords">
 			<list>
 			</list>
@@ -359,6 +423,7 @@
 		<property name="expirationYear" value="2020" />
 		<property name="cvvCode" value="159" />
 		<property name="manager" ref="manager1" />
+		<property name="campaign" ref="campaign3" />
 		<property name="chargeRecords">
 			<list>
 			</list>
@@ -373,68 +438,9 @@
 		<property name="expirationYear" value="2019" />
 		<property name="cvvCode" value="122" />
 		<property name="manager" ref="manager1" />
+		<property name="campaign" ref="campaign4" />
 		<property name="chargeRecords">
 			<list>
-			</list>
-		</property>
-	</bean>
-
-
-
-
-
-
-
-	<!-- Campaigns -->
-
-	<bean id="campaign1" class="domain.Campaign">
-		<property name="startMoment" value="20/01/2014 12:09" />
-		<property name="endMoment" value="23/02/2014 12:09" />
-		<property name="isActive" value="false" />
-		<property name="manager" ref="manager1" />
-		<property name="creditCard" ref="creditcard1" />
-		<property name="banners">
-			<list>
-				<ref bean="banner1" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="campaign2" class="domain.Campaign">
-		<property name="startMoment" value="20/01/2016 12:00" />
-		<property name="endMoment" value="23/02/2016 12:00" />
-		<property name="isActive" value="false" />
-		<property name="manager" ref="manager1" />
-		<property name="creditCard" ref="creditcard2" />
-		<property name="banners">
-			<list>
-				<ref bean="banner2" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="campaign3" class="domain.Campaign">
-		<property name="startMoment" value="20/11/2015 09:00" />
-		<property name="endMoment" value="28/11/2015 09:00" />
-		<property name="isActive" value="false" />
-		<property name="manager" ref="manager1" />
-		<property name="creditCard" ref="creditcard3" />
-		<property name="banners">
-			<list>
-				<ref bean="banner3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="campaign4" class="domain.Campaign">
-		<property name="startMoment" value="20/06/2016 12:09" />
-		<property name="endMoment" value="23/08/2016 12:09" />
-		<property name="isActive" value="true" />
-		<property name="manager" ref="manager1" />
-		<property name="creditCard" ref="creditcard4" />
-		<property name="banners">
-			<list>
-				<ref bean="banner4" />
 			</list>
 		</property>
 	</bean>
@@ -448,11 +454,6 @@
 				<ref bean="banner1" />
 			</list>
 		</property>
-		<property name="chargeRecords">
-			<list>
-				<ref bean="chargerecord1" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="tax2" class="domain.Tax">
@@ -460,11 +461,6 @@
 		<property name="banners">
 			<list>
 				<ref bean="banner2" />
-			</list>
-		</property>
-		<property name="chargeRecords">
-			<list>
-				<ref bean="chargerecord2" />
 			</list>
 		</property>
 	</bean>
@@ -476,11 +472,6 @@
 				<ref bean="banner3" />
 			</list>
 		</property>
-		<property name="chargeRecords">
-			<list>
-				<ref bean="chargerecord3" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="tax4" class="domain.Tax">
@@ -488,11 +479,6 @@
 		<property name="banners">
 			<list>
 				<ref bean="banner4" />
-			</list>
-		</property>
-		<property name="chargeRecords">
-			<list>
-				<ref bean="chargerecord4" />
 			</list>
 		</property>
 	</bean>
@@ -504,16 +490,18 @@
 		<property name="photo"
 			value="http://www.eurosiniestro.es/wp-content/uploads/2015/07/mutua-madrilena-seguros-pamplona.jpg" />
 		<property name="maxTimesDisplayed" value="10" />
-		<property name="priceByDisplayed" value="4.00" />
+		<property name="display" value="5" />
+		<property name="price" value="1.0" />
 		<property name="campaign" ref="campaign1" />
 		<property name="keyWords">
 			<list>
-				<value>Seguros</value>
+				<value>title</value>
 			</list>
 		</property>
-		<property name="taxes">
+		<property name="tax" ref="tax1" />
+		<property name="chargeRecords">
 			<list>
-				<ref bean="tax1" />
+				<ref bean="chargerecord1" />
 			</list>
 		</property>
 	</bean>
@@ -522,16 +510,18 @@
 		<property name="photo"
 			value="http://www.unipoliza.com/images/imagenes%20contenido/compa%C3%B1ias/allianz_logo.jpg" />
 		<property name="maxTimesDisplayed" value="10" />
-		<property name="priceByDisplayed" value="10.00" />
+		<property name="display" value="5" />
 		<property name="campaign" ref="campaign2" />
+		<property name="price" value="1.0" />
 		<property name="keyWords">
 			<list>
-				<value>Seguros</value>
+				<value>description</value>
 			</list>
 		</property>
-		<property name="taxes">
+		<property name="tax" ref="tax2" />
+		<property name="chargeRecords">
 			<list>
-				<ref bean="tax2" />
+				<ref bean="chargerecord2" />
 			</list>
 		</property>
 	</bean>
@@ -540,16 +530,18 @@
 		<property name="photo"
 			value="http://www.dondecomprarbarato.com/wp-content/uploads/decathlon.jpg" />
 		<property name="maxTimesDisplayed" value="5" />
-		<property name="priceByDisplayed" value="20.00" />
+		<property name="display" value="2" />
 		<property name="campaign" ref="campaign3" />
+		<property name="price" value="1.0" />
 		<property name="keyWords">
 			<list>
-				<value>Deportes</value>
+				<value>title</value>
 			</list>
 		</property>
-		<property name="taxes">
+		<property name="tax" ref="tax3" />
+		<property name="chargeRecords">
 			<list>
-				<ref bean="tax3" />
+				<ref bean="chargerecord3" />
 			</list>
 		</property>
 	</bean>
@@ -558,32 +550,28 @@
 		<property name="photo"
 			value="http://static03.ofertia.com/comercios/sprinter/profile-73586610.v12.png" />
 		<property name="maxTimesDisplayed" value="25" />
-		<property name="priceByDisplayed" value="12.00" />
+		<property name="display" value="10" />
 		<property name="campaign" ref="campaign4" />
+		<property name="price" value="1.0" />
 		<property name="keyWords">
 			<list>
-				<value>Deportes</value>
+				<value>description</value>
 			</list>
 		</property>
-		<property name="taxes">
+		<property name="chargeRecords">
 			<list>
-				<ref bean="tax4" />
+				<ref bean="chargerecord4" />
 			</list>
 		</property>
+		<property name="tax" ref="tax4" />
 	</bean>
 
 	<!-- ChargeRecords -->
-
 	<bean id="chargerecord1" class="domain.ChargeRecord">
 		<property name="createMoment" value="20/01/2014 12:09" />
 		<property name="amountMoney" value="120.00" />
 		<property name="creditCard" ref="creditcard1" />
 		<property name="banner" ref="banner1" />
-		<property name="taxes">
-			<list>
-				<ref bean="tax1" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="chargerecord2" class="domain.ChargeRecord">
@@ -591,35 +579,20 @@
 		<property name="amountMoney" value="130.00" />
 		<property name="creditCard" ref="creditcard2" />
 		<property name="banner" ref="banner2" />
-		<property name="taxes">
-			<list>
-				<ref bean="tax2" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="chargerecord3" class="domain.ChargeRecord">
 		<property name="createMoment" value="20/05/2014 09:00" />
 		<property name="amountMoney" value="100.00" />
-		<property name="creditCard" ref="creditcard2" />
+		<property name="creditCard" ref="creditcard3" />
 		<property name="banner" ref="banner3" />
-		<property name="taxes">
-			<list>
-				<ref bean="tax2" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="chargerecord4" class="domain.ChargeRecord">
 		<property name="createMoment" value="20/06/2014 12:09" />
 		<property name="amountMoney" value="180.00" />
-		<property name="banner" ref="banner4" />
 		<property name="creditCard" ref="creditcard4" />
-		<property name="taxes">
-			<list>
-				<ref bean="tax4" />
-			</list>
-		</property>
+		<property name="banner" ref="banner4" />
 	</bean>
 
 	<!-- Folders -->
@@ -1071,7 +1044,7 @@
 				<value>http://cdn.ek.aero/es/spanish/images/New-York-1_tcm466-2256848.jpg
 				</value>
 			</list>
-		</property>		
+		</property>
 		<property name="comments">
 			<list>
 				<ref bean="comment1" />
@@ -1276,7 +1249,8 @@
 		<property name="activityType" ref="activityType2" />
 		<property name="photos">
 			<list>
-				<value>http://estaticos.telva.com/albumes/2014/06/24/ideas_invitadas_para_una_preboda/1441247326_extras_albumes_0.jpg</value>
+				<value>http://estaticos.telva.com/albumes/2014/06/24/ideas_invitadas_para_una_preboda/1441247326_extras_albumes_0.jpg
+				</value>
 			</list>
 		</property>
 		<property name="slots">

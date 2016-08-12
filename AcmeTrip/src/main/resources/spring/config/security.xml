@@ -48,6 +48,7 @@
 		<security:intercept-url pattern="/trip/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/trip/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/search/buscar.do" access="permitAll" />
+		<security:intercept-url pattern="/search/buscando.do" access="permitAll" />
 		<security:intercept-url pattern="/dailyPlan/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/dailyPlan/display.do" access="permitAll" />
 			
@@ -62,7 +63,9 @@
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/administrator/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/administrator/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
-		
+		<security:intercept-url pattern="/tax/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/banner/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/chargerecord/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/manager/administrator/create.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/manager/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/manager/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
@@ -81,6 +84,10 @@
 		<security:intercept-url pattern="/activitytype/manager/list.do" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/activity/manager/appropriated.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/campaign/manager/**" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/creditcard/manager/**" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/chargerecord/manager/**" access="hasRole('MANAGER')" />
+		
 		
 		<security:intercept-url pattern="/trip/user/mylist.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/trip/user/edit.do" access="hasRole('USER')" />

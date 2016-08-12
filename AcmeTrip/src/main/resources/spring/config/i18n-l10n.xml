@@ -30,6 +30,9 @@
 		<value>/views/dailyPlan/messages</value>
 		<value>/views/slot/messages</value>
 		<value>/views/comment/messages</value>
+		<value>/views/campaign/messages</value>
+		<value>/views/creditcard/messages</value>
+		<value>/views/chargerecords/messages</value>
 	</util:list>
 
 </beans>

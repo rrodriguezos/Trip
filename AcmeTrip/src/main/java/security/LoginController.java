@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
+import services.UserService;
 
 @Controller
 @RequestMapping("/security")
@@ -31,6 +32,7 @@ public class LoginController extends AbstractController {
 	
 	@Autowired
 	LoginService service;
+	
 	
 	// Constructors -----------------------------------------------------------
 	
@@ -53,6 +55,7 @@ public class LoginController extends AbstractController {
 		result = new ModelAndView("security/login");
 		result.addObject("credentials", credentials);
 		result.addObject("showError", showError);
+		
 
 		return result;
 	}

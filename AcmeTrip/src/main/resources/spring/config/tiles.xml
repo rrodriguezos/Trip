@@ -31,6 +31,9 @@
 		<value>/views/dailyPlan/tiles.xml</value>
 		<value>/views/slot/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
+		<value>/views/campaign/tiles.xml</value>
+		<value>/views/creditcard/tiles.xml</value>
+		<value>/views/chargerecords/tiles.xml</value>
 	</util:list>
 
 </beans>

@@ -7,7 +7,8 @@ import domain.Tax;
 
 @Repository
 public interface TaxRepository  extends JpaRepository<Tax, Integer>{
-	
+
+
 	
 	
 //	@Query("select c.taxes from ChargeRecord c where c.id = ?1")

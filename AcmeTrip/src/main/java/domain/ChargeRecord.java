@@ -1,12 +1,10 @@
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -19,21 +17,19 @@ import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 @Access(AccessType.PROPERTY)
-public class ChargeRecord extends DomainEntity  {
+public class ChargeRecord extends DomainEntity {
 
 	public ChargeRecord() {
 		super();
 	}
-	
-	// ------------ Attributes ------------ 
-	
+
+	// ------------ Attributes ------------
+
 	private Date createMoment;
 	private double amountMoney;
-	
-	
+
 	@Past
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -41,38 +37,28 @@ public class ChargeRecord extends DomainEntity  {
 	public Date getCreateMoment() {
 		return createMoment;
 	}
+
 	public void setCreateMoment(Date createMoment) {
 		this.createMoment = createMoment;
 	}
-	
-	@Min(0)
-	@Digits(integer=6,fraction=2)
-	public double getAmountMoney() {
 
-//		if (banner.getCampaign().getIsActive()== false) {
-//			amountMoney=0;
-//		}else{
-//			double taxPlus = banner.getPriceByDisplayed() * (banner.getTax().getTaxType()/100);
-//			double onesPlusTax = taxPlus + banner.getPriceByDisplayed();
-//			
-//			
-//		}
+	@Min(0)
+	@Digits(integer = 6, fraction = 2)
+	public double getAmountMoney() {
 		return amountMoney;
 	}
+
 	public void setAmountMoney(double amountMoney) {
 		this.amountMoney = amountMoney;
 	}
-	
-	
-	
-	
+
 	// Relationships ----------------------------------------------------------
-	
+
 	private CreditCard creditCard;
-	
+
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
@@ -80,33 +66,17 @@ public class ChargeRecord extends DomainEntity  {
 	public void setCreditCard(CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
-	
-	
-	private Collection<Tax> taxes;
 
-	@Valid
-	@ManyToMany
-	public Collection<Tax> getTaxes() {
-		return taxes;
-	}
-
-	public void setTaxes(Collection<Tax> taxes) {
-		this.taxes = taxes;
-	}
-	
 	private Banner banner;
-	
+
 	@Valid
-	@NotNull
-	@OneToOne(optional = false, mappedBy = "chargeRecord")
+	@ManyToOne
 	public Banner getBanner() {
 		return banner;
 	}
+
 	public void setBanner(Banner banner) {
 		this.banner = banner;
 	}
-	
-	
-	
-	
+
 }

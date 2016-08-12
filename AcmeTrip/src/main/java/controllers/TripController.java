@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
 
 import javax.validation.Valid;
 
@@ -11,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Banner;
 import domain.Comment;
 import domain.Trip;
 import domain.User;
-
+import services.BannerService;
 import services.CommentService;
 import services.TripService;
 import services.UserService;
@@ -32,6 +35,9 @@ public class TripController extends AbstractController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private BannerService bannerService;
 
 	// Constructors -----------------------------------------------------------
 	public TripController() {
@@ -76,25 +82,23 @@ public class TripController extends AbstractController {
 		Boolean mytrip;
 		Boolean joined;
 		Boolean logeado;
-
 		trip = tripService.findOne(tripId);
 		mytrip = false;
 		joined = false;
 		logeado = false;
-		
-		try{
+
+		try {
 			user = userService.findByPrincipal();
-			if(user!=null){
+			if (user != null) {
 				logeado = true;
 			}
-			if(user.equals(trip.getUser())){
+			if (user.equals(trip.getUser())) {
 				mytrip = true;
 			}
-			if(tripService.findAllTripsSuscrito(user.getId())
-					.contains(trip)){
+			if (tripService.findAllTripsSuscrito(user.getId()).contains(trip)) {
 				joined = true;
 			}
-		}catch(Throwable oops){
+		} catch (Throwable oops) {
 			mytrip = false;
 			joined = false;
 			logeado = false;
@@ -111,10 +115,54 @@ public class TripController extends AbstractController {
 		result.addObject("mytrip", mytrip);
 		result.addObject("joined", joined);
 		result.addObject("logeado", logeado);
-		
 
 		result.addObject("comments", comments);
 
+		// Empieza el banner
+		Collection<Banner> todosBanners = bannerService.findAll();
+		Collection<Banner> bannersActivos = new LinkedList<Banner>();
+		for (Banner b : todosBanners) {
+			if (b.getCampaign().getStartMoment().before(new Date(System.currentTimeMillis()))
+					|| b.getCampaign().getEndMoment().after(new Date(System.currentTimeMillis()))) {
+				bannersActivos.add(b);
+			}
+		}
+		Boolean tieneBanner = false;
+		Collection<Banner> bannersParaUsar = new LinkedList<Banner>();
+		for (Banner c : bannersActivos) {
+			if (c.getDisplay() < c.getMaxTimesDisplayed()) {
+				for (String palabra : c.getKeyWords()) {
+					Collection<Trip> tripis = tripService.findTripByKeyword(palabra);
+					if (!tripis.isEmpty()) {
+						tieneBanner = true;
+						if (!bannersParaUsar.contains(c))
+							bannersParaUsar.add(c);
+					}
+				}
+			}
+		}
+		if (tieneBanner) {
+			Integer a = bannersParaUsar.size();
+			double random = Math.random();
+			long ra = Math.round(a * random);
+			Banner banner = new Banner();
+			int contado = 1;
+			for (Banner ban : bannersParaUsar) {
+				if (contado == ra) {
+					banner = ban;
+				}
+				contado++;
+			}
+			if (banner.getId() == 0) {
+				banner = bannersParaUsar.iterator().next();
+			}
+			if (banner.getId() != 0) {
+				bannerService.aumentaVisita(banner);
+				result.addObject("tieneBanner", tieneBanner);
+				result.addObject("banner", banner);
+			}
+		}
+		// Acaba el banner
 		return result;
 
 	}

@@ -13,15 +13,14 @@ import domain.Trip;
 @Repository 
 public interface TripRepository extends JpaRepository<Trip, Integer>{ 
 
-	@Query("select DISTINCT t from Trip t join t.dailyPlans r join " +
-			"r.slots s where (t.title like concat('%', concat(?1,'%')) " +
-			"or t.description like concat('%', concat(?1,'%')) or r.title " +
-			"like concat('%', concat(?1,'%')) or r.description like concat" +
-			"('%', concat(?1,'%')) or s.title like concat('%', concat(?1,'%'))" +
-			"or s.description like concat('%', concat(?1,'%'))or s.activity.title " +
-			"like concat('%', concat(?1,'%'))or s.activity.description like concat" +
-			"('%', concat(?1,'%')))")
+	@Query("select t from Trip t where t.title like CONCAT(?1, '%') or t.description like CONCAT(?1, '%')")
 	Collection<Trip> findTripByKeyword(String key);
+	
+	@Query("select d.trip from DailyPlan d where d.title like CONCAT(?1, '%') or d.description like CONCAT(?1, '%')")
+	Collection<Trip> findTripByDailyKeyword(String key);
+	
+	@Query("select s.dailyPlan.trip from Slot s where s.title like CONCAT(?1, '%') or s.description like CONCAT(?1, '%')")
+	Collection<Trip> findTripBySlotKeyword(String key);
 	
 	@Query("select t from Trip t where t.user.id = ?1")
 	Collection<Trip> findTripByUser(int userId);

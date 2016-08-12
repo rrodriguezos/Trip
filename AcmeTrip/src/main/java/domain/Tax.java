@@ -4,8 +4,11 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -32,24 +35,12 @@ public class Tax extends DomainEntity {
 
 	// ------------ Relationships ------------
 
-	private Collection<ChargeRecord> chargeRecords;
-
-	@Valid
-	@NotNull
-	@ManyToMany(mappedBy = "taxes")
-	public Collection<ChargeRecord> getChargeRecords() {
-		return chargeRecords;
-	}
-
-	public void setChargeRecords(Collection<ChargeRecord> chargeRecords) {
-		this.chargeRecords = chargeRecords;
-	}
+	
 
 	private Collection<Banner> banners;
 
 	@Valid
-	@NotNull
-	@ManyToMany(mappedBy = "taxes")
+	@OneToMany(mappedBy="tax", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Collection<Banner> getBanners() {
 		return banners;
 	}

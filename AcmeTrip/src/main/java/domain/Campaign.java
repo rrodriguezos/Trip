@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,7 +29,7 @@ public class Campaign extends DomainEntity {
 	
 	private Date endMoment;
 	private Date startMoment;
-	private Boolean isActive;
+	//private Boolean isActive;
 	
 	
 	@NotNull
@@ -52,13 +53,13 @@ public class Campaign extends DomainEntity {
 		this.startMoment = startMoment;
 	}
 	
-	@NotNull
-	public Boolean getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
+//	@NotNull
+//	public Boolean getIsActive() {
+//		return isActive;
+//	}
+//	public void setIsActive(Boolean isActive) {
+//		this.isActive = isActive;
+//	}
 	
 	// Relationships ----------------------------------------------------------
 	
@@ -81,7 +82,7 @@ public class Campaign extends DomainEntity {
 	
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "campaign")
+	@OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
 	public Collection<Banner> getBanners() {
 		return banners;
 	}
@@ -91,9 +92,8 @@ public class Campaign extends DomainEntity {
 	}
 	
 	
-	@NotNull
 	@Valid
-	@OneToOne(optional=true)
+	@OneToOne(optional=true, cascade = CascadeType.ALL, mappedBy="campaign")
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}

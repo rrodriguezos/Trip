@@ -7,11 +7,10 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -29,8 +28,9 @@ public class Banner extends DomainEntity {
 
 	private String photo;
 	private int maxTimesDisplayed;
-	private Double priceByDisplayed;
 	private Collection<String> keyWords;
+	private int display;
+	private double price;
 
 	@URL
 	@NotNull
@@ -49,14 +49,6 @@ public class Banner extends DomainEntity {
 
 	public void setMaxTimesDisplayed(int maxTimesDisplayed) {
 		this.maxTimesDisplayed = maxTimesDisplayed;
-	}
-
-	public Double getPriceByDisplayed() {
-		return priceByDisplayed;
-	}
-
-	public void setPriceByDisplayed(Double priceByDisplayed) {
-		this.priceByDisplayed = priceByDisplayed;
 	}
 
 	@NotNull
@@ -84,28 +76,46 @@ public class Banner extends DomainEntity {
 		this.campaign = campaign;
 	}
 
-	private Collection<Tax> taxes;
+	private Tax tax;
 
 	@Valid
-	@ManyToMany
-	public Collection<Tax> getTaxes() {
-		return taxes;
+	@ManyToOne(optional = true, targetEntity = Tax.class, cascade = CascadeType.ALL)
+	public Tax getTax() {
+		return tax;
 	}
 
-	public void setTaxes(Collection<Tax> taxes) {
-		this.taxes = taxes;
+	public void setTax(Tax tax) {
+		this.tax = tax;
 	}
 
-	private ChargeRecord chargeRecord;
+	private Collection<ChargeRecord> chargeRecords;
 
 	@Valid
-	@OneToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	public ChargeRecord getChargeRecord() {
-		return chargeRecord;
+	@OneToMany(mappedBy = "banner", cascade = CascadeType.ALL)
+	public Collection<ChargeRecord> getChargeRecords() {
+		return chargeRecords;
 	}
 
-	public void setChargeRecord(ChargeRecord chargeRecord) {
-		this.chargeRecord = chargeRecord;
+	public void setChargeRecords(Collection<ChargeRecord> chargeRecord) {
+		this.chargeRecords = chargeRecord;
+	}
+
+	@Min(0)
+	public int getDisplay() {
+		return display;
+	}
+
+	public void setDisplay(int display) {
+		this.display = display;
+	}
+
+	@Min(0)
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 }

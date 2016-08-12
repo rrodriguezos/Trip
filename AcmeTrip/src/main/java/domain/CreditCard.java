@@ -7,6 +7,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -83,7 +84,6 @@ public class CreditCard extends DomainEntity {
 		
 		private Manager manager;
 		
-		@NotNull
 		@Valid
 		@ManyToOne(optional=false)
 		public Manager getManager() {
@@ -97,7 +97,6 @@ public class CreditCard extends DomainEntity {
 		private Collection<ChargeRecord> chargeRecords;
 		
 		@Valid
-		@NotNull
 		@OneToMany(mappedBy = "creditCard")
 		public Collection<ChargeRecord> getChargeRecords() {
 			return chargeRecords;
@@ -107,6 +106,17 @@ public class CreditCard extends DomainEntity {
 			this.chargeRecords = chargeRecords;
 		}
 		
+
+		private Campaign campaign;
+		
+		@Valid
+		@OneToOne(optional=true)
+		public Campaign getCampaign() {
+			return campaign;
+		}
+		public void setCampaign(Campaign campaign) {
+			this.campaign = campaign;
+		}
 		
 
 

@@ -34,5 +34,33 @@
 		<put-attribute name="title" value="Registro de administrador" />
 		<put-attribute name="body" value="/views/administrator/create.jsp" />
 	</definition>
+	<definition name="tax/administrator/list" extends="master.page">	
+		<put-attribute name="title" value="Tasas" />
+		<put-attribute name="body" value="/views/administrator/taxList.jsp" />
+	</definition>
+	<definition name="tax/administrator/create" extends="master.page">	
+		<put-attribute name="title" value="Crear tasa" />
+		<put-attribute name="body" value="/views/administrator/taxCreate.jsp" />
+	</definition>
+	<definition name="tax/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar tasa" />
+		<put-attribute name="body" value="/views/administrator/taxEdit.jsp" />
+	</definition>
+	<definition name="banner/administrator/list" extends="master.page">	
+		<put-attribute name="title" value="Banners" />
+		<put-attribute name="body" value="/views/administrator/bannerList.jsp" />
+	</definition>
+	<definition name="banner/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar precios banner" />
+		<put-attribute name="body" value="/views/administrator/bannerEdit.jsp" />
+	</definition>
+	<definition name="banner/administrator/selectTax" extends="master.page">	
+		<put-attribute name="title" value="Seleccionar Tasa" />
+		<put-attribute name="body" value="/views/administrator/selectTax.jsp" />
+	</definition>
+	<definition name="chargerecord/administrator/generate" extends="master.page">	
+		<put-attribute name="title" value="Generando cargos" />
+		<put-attribute name="body" value="/views/administrator/generate.jsp" />
+	</definition>
 	
 </tiles-definitions>

@@ -14,10 +14,8 @@
 
 
 <div>
-
-	<form:form action="search/buscar.do"  modelAttribute="searchForm" keepStatus="true"> 
+	<form:form action="search/buscar.do"  modelAttribute="searchForm" keepStatus="false"> 
 		<acme:textbox code="search.introduce" path="text" />
-
 		<input type="submit" name="search"
 			value="<spring:message code="search.search" />" />
 	</form:form>
@@ -28,14 +26,14 @@
 			<spring:message code="search.explanation.dos" />
 		</h2>
 		<display:table name="trips" id="paco" requestURI="${requestUri}"
-			pagesize="5" class="displaytag" keepStatus="true">
+			pagesize="5" class="displaytag" keepStatus="false">
 			
 
 			<spring:message code="search.title" var="title" />
 			<display:column property="title" title="${title}" sortable="true" />
 
 			<spring:message code="search.description" var="description" />
-			<display:column property="description" title="${title}"
+			<display:column property="description" title="${description}"
 				sortable="true" />
 
 			<spring:message code="search.startDate" var="startDate" />

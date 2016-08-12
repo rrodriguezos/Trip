@@ -71,7 +71,16 @@
 										code="master.page.manager.activities" /></a></li>
 							<li><a href="activitytype/manager/list.do"><spring:message
 										code="master.page.manager.activitytpes" /></a></li>
-
+							<li><a href="campaign/manager/list.do"><spring:message
+										code="master.page.manager.listCamp" /></a></li>
+							<li><a href="campaign/manager/create.do"><spring:message
+										code="master.page.manager.createCamp" /></a></li>
+							<li><a href="creditcard/manager/list.do"><spring:message
+										code="master.page.manager.listCCard" /></a></li>
+							<li><a href="creditcard/manager/create.do"><spring:message
+										code="master.page.manager.createCCard" /></a></li>
+							<li><a href="chargerecord/manager/list.do"><spring:message
+										code="master.page.manager.charge" /></a></li>
 						</security:authorize>
 
 						<security:authorize access="hasRole('ADMINISTRATOR')">
@@ -79,8 +88,15 @@
 										code="master.page.administrator.register.manager" /></a></li>
 							<li><a href="administrator/administrator/list.do"><spring:message
 										code="master.page.administrator.register.administrator" /></a></li>
+							<li><a href="tax/administrator/list.do"><spring:message
+										code="master.page.manager.tax" /></a></li>
+							<li><a href="tax/administrator/create.do"><spring:message
+										code="master.page.manager.createTax" /></a></li>
+							<li><a href="banner/administrator/list.do"><spring:message
+										code="master.page.manager.listBanner" /></a></li>
+							<li><a href="chargerecord/administrator/generate.do"><spring:message
+										code="master.page.manager.generate" /></a></li>			
 						</security:authorize>
-
 						<li><a href="folder/actor/list.do"> <spring:message
 									code="master.page.user.mail" /></a></li>
 

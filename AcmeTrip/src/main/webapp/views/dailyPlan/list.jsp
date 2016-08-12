@@ -19,6 +19,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<jstl:if test="${tieneBanner==true }" >
+	<fieldset>
+	<legend><spring:message code="banner.publi"/></legend>
+	<img width="500px" height="100x" src="${banner.getPhoto()}"/>
+	</fieldset>
+	<br>
+</jstl:if>
 
 
 <display:table name="dailyPlans" id="row" pagesize="5"

@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActivityService;
-
 import controllers.AbstractController;
+import services.ActivityService;
 
 @Controller
 @RequestMapping("/activity/manager")

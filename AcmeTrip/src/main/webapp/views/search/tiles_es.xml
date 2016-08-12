@@ -14,5 +14,9 @@
 		<put-attribute name="title" value="Buscar Viajes" />
 		<put-attribute name="body" value="/views/search/search.jsp" />
 	</definition>
+	<definition name="search/buscando" extends="master.page">
+		<put-attribute name="title" value="Buscar Viajes" />
+		<put-attribute name="body" value="/views/search/search.jsp" />
+	</definition>
 
 </tiles-definitions>

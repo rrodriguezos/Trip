@@ -25,6 +25,9 @@ public class ChargeRecordService {
 		private AdministratorService administratorService;
 		
 		@Autowired
+		private ManagerService managerService;
+		
+		@Autowired
 		private CreditCardService creditCardService;
 
 		
@@ -41,12 +44,9 @@ public class ChargeRecordService {
 			return result;
 		}
 
-		public void save(ChargeRecord chargeRecord) {
+		public ChargeRecord save(ChargeRecord chargeRecord) {
 			Assert.notNull(chargeRecord);	
-			Administrator admin = administratorService.findByPrincipal();
-//			Assert.isTrue(admin.getId()==chargeRecord.getUser().getId());
-			chargeRecordRepository.save(chargeRecord);
-			chargeRecordRepository.flush();
+			return chargeRecordRepository.saveAndFlush(chargeRecord);
 		}
 
 		
@@ -54,6 +54,10 @@ public class ChargeRecordService {
 			Collection<ChargeRecord> result = chargeRecordRepository.findAll();
 			Assert.notNull(result);
 			return result;
+		}
+
+		public Collection<ChargeRecord> findAllFromManagerPrincipal() {
+			return chargeRecordRepository.findFromManagerPrincipal(managerService.findByPrincipal().getId());
 		}
 		
 		

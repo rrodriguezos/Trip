@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActivityTypeService;
-
 import controllers.AbstractController;
 import domain.ActivityType;
+import services.ActivityTypeService;
 
 @Controller
 @RequestMapping("/activitytype/manager")
