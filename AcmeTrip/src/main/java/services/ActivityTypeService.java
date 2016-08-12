@@ -66,7 +66,7 @@ public class ActivityTypeService {
 		
 		ActivityType result;
 
-		result = typeRepository.save(type);
+		result = typeRepository.saveAndFlush(type);
 		
 		return result;
 	}

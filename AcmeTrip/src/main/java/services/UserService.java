@@ -111,7 +111,7 @@ public class UserService {
 					encoder.encodePassword(user.getUserAccount().getPassword(),
 							null));
 		}
-		user = userRepository.save(user);
+		user = userRepository.saveAndFlush(user);
 		Assert.notNull(user);
 		if (create) {
 			folderService.foldersByDefect(user);

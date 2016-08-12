@@ -1,4 +1,6 @@
 package services;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.validation.ConstraintViolationException;
 
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import utilities.AbstractTest;
 import domain.Activity;
+import domain.ActivityType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
@@ -22,6 +25,9 @@ public class ActivityServiceTest extends AbstractTest {
 
 	@Autowired
 	private ActivityService activityService;
+
+	@Autowired
+	private ActivityTypeService activityTypeService;
 
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
@@ -41,7 +47,7 @@ public class ActivityServiceTest extends AbstractTest {
 	// NEGATIVE TEST CASES CREATE
 	// ----------------------------------------------------
 	// Flag una actividad que no es actividad
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void testFlagActivity2() {
 		authenticate("manager1");
 
@@ -70,6 +76,10 @@ public class ActivityServiceTest extends AbstractTest {
 		Activity activity = activityService.create();
 		activity.setTitle("titulo 1");
 		activity.setDescription("Description 1");
+		Collection<String> photos = new ArrayList<String>();
+		activity.setPhotos(photos);
+		ActivityType aType = activityTypeService.findOne(84);
+		activity.setActivityType(aType);
 
 		activityService.save(activity);
 		unauthenticate();
@@ -78,24 +88,28 @@ public class ActivityServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// NEGATIVE TEST CASES CREATE
 	// ----------------------------------------------------
-	// trip campos en blanco
-	@Test(expected = ConstraintViolationException.class)
-	public void testCreateActivity2() {
-		authenticate("user1");
-		Activity activity = activityService.create();
-		activity.setTitle("");
-		activity.setDescription("Description 1");
+	// activity campos en blanco
+		@Test(expected = ConstraintViolationException.class)
+		public void testCreateActivityNegative1() {
+			authenticate("user1");
+			Activity activity = activityService.create();
+			activity.setTitle("");
+			activity.setDescription("");
+			activityService.save(activity);
+			unauthenticate();
+		}
+	
 
-		activityService.save(activity);
-		unauthenticate();
-	}
-
-	// trip con actores no autorizados
+	// activity con actores no autorizados
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateActivity3() {
 		authenticate("admin");
 		Activity activity = activityService.create();
 		activity.setTitle("titulo 1");
+		Collection<String> photos = new ArrayList<String>();
+		activity.setPhotos(photos);
+		ActivityType aType = activityTypeService.findOne(84);
+		activity.setActivityType(aType);
 		activity.setDescription("Description 1");
 
 		activityService.save(activity);
@@ -115,6 +129,8 @@ public class ActivityServiceTest extends AbstractTest {
 		Activity activity = activityService.findOne(86);
 
 		activity.setTitle("title edit");
+		ActivityType aType = activityTypeService.findOne(85);
+		activity.setActivityType(aType);
 		activity.setDescription("Description edit");
 
 		activityService.save(activity);
@@ -131,25 +147,29 @@ public class ActivityServiceTest extends AbstractTest {
 
 		authenticate("user1");
 
-		Activity activity = activityService.findOne(86);
+		Activity activity = activityService.findOne(87);
+		ActivityType aType = activityTypeService.findOne(85);
+		activity.setActivityType(aType);
 
-		activity.setTitle("");
-		activity.setDescription("Description edit");
+		activity.setTitle(" ");
+		activity.setDescription(" ");
 
 		activityService.save(activity);
 
 		unauthenticate();
 	}
 
-	// editar con actores no autorizados
+	// editar con actores no autentificdo
 	@Test(expected = IllegalArgumentException.class)
 	public void editActivity3() {
 
-		authenticate("admin");
+		authenticate("");
 
-		Activity activity = activityService.findOne(86);
+		Activity activity = activityService.findOne(87);
 
 		activity.setTitle("title edit");
+		ActivityType aType = activityTypeService.findOne(85);
+		activity.setActivityType(aType);
 		activity.setDescription("Description edit");
 
 		activityService.save(activity);

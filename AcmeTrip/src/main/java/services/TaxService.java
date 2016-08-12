@@ -34,7 +34,7 @@ public class TaxService {
 	}
 
 	public Tax save(Tax tax) {
-		return taxRepository.save(tax);
+		return taxRepository.saveAndFlush(tax);
 	}
 
 	public void delete(Tax tax) {

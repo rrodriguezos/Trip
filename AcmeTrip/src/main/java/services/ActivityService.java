@@ -86,7 +86,7 @@ public class ActivityService {
 	public void save(Activity activity){
 		Assert.notNull(activity);
 
-		activityRepository.save(activity);
+		activityRepository.saveAndFlush(activity);
 	}
 
 	public void delete(Activity activity){

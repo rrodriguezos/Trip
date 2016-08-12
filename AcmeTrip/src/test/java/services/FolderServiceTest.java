@@ -70,7 +70,11 @@ public class FolderServiceTest extends AbstractTest {
 	@Test
 	public void deletFolder1() {
 		authenticate("user1");
-		folderService.delete(folderService.findOne(76));
+		Folder folder = folderService.create();
+		folder.setName("Carpeta 1");
+		folder.setSystemFolder(false);
+		folderService.save(folder);
+		folderService.delete(folder);
 		unauthenticate();
 	}
 
@@ -79,10 +83,14 @@ public class FolderServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// Eliminamos una folder no perteneciente al que lo hace
 
-	@Test(expected = TransactionSystemException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void deleteFolder2() {
 		authenticate("admin");
-		folderService.delete(folderService.findOne(47));
+		Folder folder = folderService.create();
+		folder.setSystemFolder(true);
+		folder.setName("Carpeta 1");
+		folderService.save(folder);
+		folderService.delete(folder);
 		unauthenticate();
 	}
 

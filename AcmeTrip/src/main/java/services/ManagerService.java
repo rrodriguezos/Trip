@@ -128,7 +128,7 @@ public class ManagerService {
 					encoder.encodePassword(manager.getUserAccount()
 							.getPassword(), null));
 		}
-		manager = managerRepository.save(manager);
+		manager = managerRepository.saveAndFlush(manager);
 		Assert.notNull(manager);
 		if (create) {
 			folderService.foldersByDefect(manager);

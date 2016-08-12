@@ -30,7 +30,7 @@ public class AdministratorServiceTest extends AbstractTest {
 	// creado exitosamente
 	@Test
 	public void testCreateAdmin1() {
-
+		authenticate("admin");
 		AdministratorForm adminForm;
 
 		adminForm = new AdministratorForm();
@@ -52,6 +52,7 @@ public class AdministratorServiceTest extends AbstractTest {
 	// crear admin con username vacio
 	@Test(expected = ConstraintViolationException.class)
 	public void testCreateAdmin2() {
+		authenticate("admin");
 		AdministratorForm adminForm;
 
 		adminForm = new AdministratorForm();
@@ -69,6 +70,7 @@ public class AdministratorServiceTest extends AbstractTest {
 	// telefono con patron erroneo
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateAdmin3() {
+		authenticate("admin");
 		AdministratorForm adminForm;
 
 		adminForm = new AdministratorForm();

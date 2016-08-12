@@ -49,6 +49,7 @@ public class UserServiceTest extends AbstractTest {
 		userRegisteredForm.setSurname("Rodriguez");
 		userRegisteredForm.setPhone("+34644512313");
 		userRegisteredForm.setEmailAddress("rafarod@gmail.com");
+		userRegisteredForm.setAccept(true);
 		userService.reconstruct(userRegisteredForm);
 
 	}
@@ -57,7 +58,7 @@ public class UserServiceTest extends AbstractTest {
 	// NEGATIVE TEST CASES CREATE
 	// ----------------------------------------------------
 	// crear user con username vacio
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = NullPointerException.class)
 	public void testCreateUser2() {
 		UserRegisterForm userRegisteredForm;
 
@@ -70,11 +71,12 @@ public class UserServiceTest extends AbstractTest {
 		userRegisteredForm.setSurname("Rodriguez");
 		userRegisteredForm.setPhone("+34644512313");
 		userRegisteredForm.setEmailAddress("rafarod@gmail.com");
+		userRegisteredForm.setAccept(true);
 		userService.reconstruct(userRegisteredForm);
 	}
 
 	// telefono con patron erroneo
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void testCreateUser3() {
 		UserRegisterForm userRegisterForm;
 
@@ -86,6 +88,7 @@ public class UserServiceTest extends AbstractTest {
 		userRegisterForm.setName("Rafael");
 		userRegisterForm.setSurname("Rodriguez");
 		userRegisterForm.setPhone("644512313");
+		userRegisterForm.setAccept(true);
 		userRegisterForm.setEmailAddress("rafarod@gmail.com");
 		userService.reconstruct(userRegisterForm);
 

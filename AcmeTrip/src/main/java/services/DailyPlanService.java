@@ -95,7 +95,7 @@ public class DailyPlanService {
 		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subjectEnglish, bodyEnglish);
 		messageService.broadcastAlertTripMessage(dailyPlan.getTrip(), subjectEspanol, bodyEspanol);
 		
-		dailyPlanRepository.save(dailyPlan);
+		dailyPlanRepository.saveAndFlush(dailyPlan);
 	}
 
 	public void delete(DailyPlan dailyPlan){

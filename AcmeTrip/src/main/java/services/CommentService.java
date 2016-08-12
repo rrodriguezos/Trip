@@ -83,7 +83,7 @@ public class CommentService {
 			comment.setMoment(new Date(System.currentTimeMillis()-100));
 		}
 		
-		result = commentRepository.save(comment);
+		result = commentRepository.saveAndFlush(comment);
 		return result;
 	}
 	

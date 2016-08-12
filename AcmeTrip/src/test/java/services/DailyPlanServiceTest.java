@@ -2,8 +2,6 @@ package services;
 
 import java.util.Date;
 
-import javax.validation.ConstraintViolationException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,9 @@ public class DailyPlanServiceTest extends AbstractTest {
 	private DailyPlanService dailyPlanService;
 	@Autowired
 	private TripService tripService;
-
+	
+	@Autowired
+	private HelpService helpService;
 
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
@@ -42,7 +42,8 @@ public class DailyPlanServiceTest extends AbstractTest {
 		Trip trip = tripService.findOne(76);
 		dplan.setTrip(trip);
 		dplan.setTitle("titulo 1");
-		Date weekDay = new Date(04 / 04 / 2016);
+		String weekDayString = "05/04/2016";
+		Date weekDay = helpService.formatStringToDateWithoutHour(weekDayString);
 		dplan.setWeekDay(weekDay);
 		dplan.setDescription("Descripcion 1");
 
@@ -57,7 +58,7 @@ public class DailyPlanServiceTest extends AbstractTest {
 	// NEGATIVE TEST CASES CREATE
 	// ----------------------------------------------------
 	// dailyPlan campos en blanco
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateDailyPlan2() {
 		authenticate("user1");
 		DailyPlan dplan = dailyPlanService.create();
@@ -131,7 +132,7 @@ public class DailyPlanServiceTest extends AbstractTest {
 
 	// Eliminamos un trip que no es tripId
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void deletDailyPlan3() {
 		authenticate("user1");
 		DailyPlan dailyPlan;

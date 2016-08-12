@@ -68,7 +68,7 @@ public class FolderService {
 
 		Folder result;
 		
-		result = folderRepository.save(folder);
+		result = folderRepository.saveAndFlush(folder);
 		
 		return result;
 	}

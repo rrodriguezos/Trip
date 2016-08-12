@@ -68,7 +68,7 @@ public class MessageService {
 			Message messageCheck = messageRepository.findOne(message.getId());
 			Assert.isTrue(message.getVersion() == messageCheck.getVersion());
 		}
-		result = messageRepository.save(message);
+		result = messageRepository.saveAndFlush(message);
 
 		return result;
 	}

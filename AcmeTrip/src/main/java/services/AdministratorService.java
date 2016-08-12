@@ -101,7 +101,7 @@ public class AdministratorService {
 							.getPassword(), null));
 		}
 
-		administrator = administratorRepository.save(administrator);
+		administrator = administratorRepository.saveAndFlush(administrator);
 		Assert.notNull(administrator);
 		if (create) {
 			folderService.foldersByDefect(administrator);

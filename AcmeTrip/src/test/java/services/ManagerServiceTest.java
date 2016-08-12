@@ -30,7 +30,7 @@ public class ManagerServiceTest extends AbstractTest {
 	// creado exitosamente
 	@Test
 	public void testCreateManager1() {
-
+		authenticate("admin");
 		ManagerForm managerForm;
 
 		managerForm = new ManagerForm();
@@ -52,23 +52,25 @@ public class ManagerServiceTest extends AbstractTest {
 	// crear admin con username vacio
 	@Test(expected = ConstraintViolationException.class)
 	public void testCreateManager2() {
+		authenticate("admin");
 		ManagerForm managerForm;
 
 		managerForm = new ManagerForm();
 
-		managerForm.setPassword("userTest");
-		managerForm.setConfirmPassword("userTest");
+		managerForm.setPassword("");
+		managerForm.setConfirmPassword("");
 		managerForm.setUsername("");
-		managerForm.setName("Rafael");
-		managerForm.setSurname("Rodriguez");
+		managerForm.setName("");
+		managerForm.setSurname("");
 		managerForm.setPhone("+34644512313");
-		managerForm.setEmailAddress("rafarod@gmail.com");
+		managerForm.setEmailAddress("");
 		managerService.reconstruct(managerForm);
 	}
 
 	// telefono con patron erroneo
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateManager3() {
+		authenticate("admin");
 		ManagerForm managerForm;
 
 		managerForm = new ManagerForm();

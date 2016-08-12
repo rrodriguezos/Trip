@@ -76,15 +76,15 @@ public class SlotServiceTest extends AbstractTest {
 		Activity act = activityService.findOne(86);
 		DailyPlan dailyPlan = dailyPlanService.findOne(77);
 
-		String starTimeString = "04/04/2016 22:00";
-		String endTimeString = "04/04/2016 23:00";
+		String starTimeString = "";
+		String endTimeString = "";
 
 		Date startTimeDate = helpService.formatStringToDate(starTimeString);
 		Date endTimeDate = helpService.formatStringToDate(endTimeString);
 
 		slot.setDailyPlan(dailyPlan);
-		slot.setTitle("");
-		slot.setDescription("Descripcion 1");
+		slot.setTitle(" ");
+		slot.setDescription(" ");
 		slot.setStartTime(startTimeDate);
 		slot.setEndTime(endTimeDate);
 		slot.setActivity(act);
@@ -158,7 +158,7 @@ public class SlotServiceTest extends AbstractTest {
 
 	// Eliminamos un slot que no es slotId
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void deletSlot3() {
 		authenticate("user1");
 		Slot slot;

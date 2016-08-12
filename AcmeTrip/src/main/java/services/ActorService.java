@@ -48,7 +48,7 @@ public class ActorService {
 	}
 
 	public void save(Actor actor) {
-		actorRepository.save(actor);
+		actorRepository.saveAndFlush(actor);
 	}
 
 	public void delete(Actor actor) {

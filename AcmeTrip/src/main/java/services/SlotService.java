@@ -85,7 +85,7 @@ public class SlotService {
 		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subjectEnglish, bodyEnglish);
 		messageService.broadcastAlertTripMessage(slot.getDailyPlan().getTrip(), subjectEspanol, bodyEspanol);
 		
-		slotRepository.save(slot);
+		slotRepository.saveAndFlush(slot);
 	}
 
 	public void delete(Slot slot){
