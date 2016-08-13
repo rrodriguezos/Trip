@@ -87,7 +87,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	// enviado al mismo actor que lo envia
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ConstraintViolationException.class)
 	public void testCreateMessages3() {
 		authenticate("user1");
 		Message message;
@@ -131,11 +131,11 @@ public class MessageServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// NEGATIVE TEST CASES DELETE
 	// ----------------------------------------------------
-	// Lo intenta un admin eliminar
+	// Lo intenta un actor no autentificado eliminar
 
 	@Test(expected = IllegalArgumentException.class)
 	public void deleteMessage2() {
-		authenticate("admin");
+		authenticate("none");
 		Message message;
 
 		message = messageService.findOne(42);

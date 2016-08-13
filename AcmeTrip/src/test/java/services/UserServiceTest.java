@@ -1,177 +1,102 @@
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
-
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Trip;
-import domain.User;
-import forms.AdministratorForm;
+
+import com.mchange.v1.util.UnexpectedException;
+
 import forms.UserRegisterForm;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(Parameterized.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
 		"classpath:spring/config/packages.xml" })
 @Transactional
-@TransactionConfiguration(defaultRollback = true)
+@TransactionConfiguration(defaultRollback = false)
 public class UserServiceTest extends AbstractTest {
 
 	@Autowired
 	private UserService userService;
 
-	// ----------------------------------------------------
-	// POSITIVE TEST CASES CREATE
-	// ----------------------------------------------------
-	// Crear user
-	// creado exitosamente
+	private String password;
+	private String username;
+	private String name;
+	private String phone;
+	private String email;
+
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays
+				.asList(new Object[][] {
+						{ "user1", "user1", "Rafa", "+34669988745",
+								"etsii@gmail.com" },
+						{ "user10", "user10", "", "+34669988745",
+								"etsii@gmail.com" },
+						{ "user89", "user89", "Antonio", "+34669988745",
+								"etsii@gmail.com" },
+						{ "user25", "user25", "Alex", "+34669988745",
+								"etsiigmail.com" }
+
+				});
+	}
+
+	public UserServiceTest(String password, String username, String name,
+			String phone, String email) {
+		this.password = password;
+		this.username = username;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+	}
+
+	// 1ºeditado exitosamente
+	// 2ºeditamos con datos erroneos
+	// 3ºeditamos con campos vacios
+
 	@Test
-	public void testCreateUser1() {
+	public void testEditUser() {
+		try {
+			authenticate(username);
 
-		UserRegisterForm userRegisteredForm;
+			UserRegisterForm userForm = userService.copyUser();
 
-		userRegisteredForm = new UserRegisterForm();
+			userForm.setName(name);
+			userForm.setPhone(phone);
+			userForm.setSurname("Carlos");
+			userForm.setPassword(password);
+			userForm.setUsername(username);
+			userForm.setEmailAddress(email);
+			userForm.setPasswordPast(password);
+			userForm.setConfirmPassword(password);
 
-		userRegisteredForm.setPassword("userTest");
-		userRegisteredForm.setConfirmPassword("userTest");
-		userRegisteredForm.setUsername("userTest");
-		userRegisteredForm.setName("Rafael");
-		userRegisteredForm.setSurname("Rodriguez");
-		userRegisteredForm.setPhone("+34644512313");
-		userRegisteredForm.setEmailAddress("rafarod@gmail.com");
-		userRegisteredForm.setAccept(true);
-		userService.reconstruct(userRegisteredForm);
+			userService.reconstruct(userForm);
 
-	}
+			unauthenticate();
 
-	// ----------------------------------------------------
-	// NEGATIVE TEST CASES CREATE
-	// ----------------------------------------------------
-	// crear user con username vacio
-	@Test(expected = NullPointerException.class)
-	public void testCreateUser2() {
-		UserRegisterForm userRegisteredForm;
+		} catch (DataIntegrityViolationException e) {
+			System.out.println(e);
+		} catch (TransactionSystemException e1) {
+			System.out.println(e1);
+		} catch (IllegalArgumentException e1) {
+			System.out.println(e1);
 
-		userRegisteredForm = new UserRegisterForm();
+		} catch (UnexpectedException e2) {
+			System.out.println(e2);
 
-		userRegisteredForm.setPassword("userTest");
-		userRegisteredForm.setConfirmPassword("userTest");
-		userRegisteredForm.setUsername("");
-		userRegisteredForm.setName("Rafael");
-		userRegisteredForm.setSurname("Rodriguez");
-		userRegisteredForm.setPhone("+34644512313");
-		userRegisteredForm.setEmailAddress("rafarod@gmail.com");
-		userRegisteredForm.setAccept(true);
-		userService.reconstruct(userRegisteredForm);
-	}
+			throw e2;
+		}
 
-	// telefono con patron erroneo
-	@Test(expected = NullPointerException.class)
-	public void testCreateUser3() {
-		UserRegisterForm userRegisterForm;
-
-		userRegisterForm = new UserRegisterForm();
-
-		userRegisterForm.setPassword("userTest");
-		userRegisterForm.setConfirmPassword("userTest");
-		userRegisterForm.setUsername("userTest");
-		userRegisterForm.setName("Rafael");
-		userRegisterForm.setSurname("Rodriguez");
-		userRegisterForm.setPhone("644512313");
-		userRegisterForm.setAccept(true);
-		userRegisterForm.setEmailAddress("rafarod@gmail.com");
-		userService.reconstruct(userRegisterForm);
-
-	}
-
-	// ----------------------------------------------------
-	// POSITIVE TEST CASES EDITION
-	// ----------------------------------------------------
-
-	// editado correctamente
-	public void editUser1() {
-
-		authenticate("user1");
-
-		UserRegisterForm userForm = userService.copyUser();
-
-		userForm.setName("Rafa");
-		userForm.setPhone("+34669988745");
-		userForm.setSurname("Rodriguez");
-		userForm.setPassword("user1");
-		userForm.setUsername("user1");
-		userForm.setEmailAddress("etsii@gmail.com");
-		userForm.setPasswordPast("user1");
-		userForm.setConfirmPassword("user1");
-
-		userService.reconstruct(userForm);
-
-		unauthenticate();
-	}
-
-	// ----------------------------------------------------
-	// NEGATIVE TEST CASES EDITION
-	// ----------------------------------------------------
-	// Edicion campos en blanco
-	@Test(expected = ConstraintViolationException.class)
-	public void editUser2() {
-
-		authenticate("user1");
-
-		UserRegisterForm userForm = userService.copyUser();
-
-		userForm.setName("Rafa");
-		userForm.setPhone("+34669988745");
-		userForm.setSurname("");
-		userForm.setPassword("user1");
-		userForm.setUsername("user1");
-		userForm.setEmailAddress("etsii@gmail.com");
-		userForm.setPasswordPast("user1");
-		userForm.setConfirmPassword("user1");
-
-		userService.reconstruct(userForm);
-
-		unauthenticate();
-	}
-
-	// editar con campos erroneos
-	@Test(expected = IllegalArgumentException.class)
-	public void editUser3() {
-
-		authenticate("user1");
-
-		UserRegisterForm userForm = userService.copyUser();
-
-		userForm.setName("Rafa");
-		userForm.setPhone("+34669988745");
-		userForm.setSurname("Rodriguez");
-		userForm.setPassword("user1");
-		userForm.setUsername("user1");
-		userForm.setEmailAddress("etsii@.com");
-		userForm.setPasswordPast("user1");
-		userForm.setConfirmPassword("user1");
-
-		userService.reconstruct(userForm);
-
-		unauthenticate();
-
-	}
-
-	// 4. A user who is not authenticated must be able to:
-	// 1. List and see the profile of the users who have registered to the system
-	@Test
-	public void testFindUsers() {
-		Collection<User> users = userService.findAll();
-		Assert.isTrue(users.size() == 4);
 	}
 }

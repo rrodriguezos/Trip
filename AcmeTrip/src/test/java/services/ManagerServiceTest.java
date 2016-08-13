@@ -1,89 +1,105 @@
 package services;
 
-import javax.validation.ConstraintViolationException;
+import java.util.Arrays;
+import java.util.Collection;
+
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.TransactionSystemException;
 
-import utilities.AbstractTest;
+import com.mchange.v1.util.UnexpectedException;
+
 import forms.ManagerForm;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+import utilities.AbstractTest;
+
+@RunWith(Parameterized.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
 		"classpath:spring/config/packages.xml" })
 @Transactional
-@TransactionConfiguration(defaultRollback = true)
-public class ManagerServiceTest extends AbstractTest {
-
+@TransactionConfiguration(defaultRollback = false)
+public class ManagerServiceTest extends AbstractTest{
+	
 	@Autowired
 	private ManagerService managerService;
+	
+	private String password;
+	private String passwordRepeat;
+	private String username;
+	private String name;
+	private String surname;
+	private String phone;
+	private String email;
+	
+	@Parameters
+	public static Collection<Object[]> data() {
 
-	// ----------------------------------------------------
-	// POSITIVE TEST CASES CREATE
-	// ----------------------------------------------------
-	// Crear manager
-	// creado exitosamente
+		return Arrays.asList(new Object[][] {
+				{ "userTest", "usert", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "admin", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "", "+34644512313", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "644512313", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"}});
+
+	}
+	
+	public ManagerServiceTest(String password, String passwordRepeat, String username, String name, String surname, String phone, String email){
+		this.password = password;
+		this.passwordRepeat = passwordRepeat;
+		this.username = username;
+		this.name = name;
+		this.surname = surname;
+		this.phone = phone;
+		this.email = email;
+	}
+	
+		//1º crear manager con pass diferentes
+	//2º crear manager con username vacio
+	//3ºcrear con pass vacio
+	//4º crear con username existente
+	//5º crear con un correo no valido
+	//6ºcon campo username vacio
+	//7ºtelefono con patron erroneo
+	//8º se crea exitosamente
+	
 	@Test
-	public void testCreateManager1() {
-		authenticate("admin");
-		ManagerForm managerForm;
+	public void testCreateManager() {
 
-		managerForm = new ManagerForm();
+		try {
 
-		managerForm.setPassword("userTest");
-		managerForm.setConfirmPassword("userTest");
-		managerForm.setUsername("userTest");
-		managerForm.setName("Rafael");
-		managerForm.setSurname("Rodriguez");
-		managerForm.setPhone("+34644512313");
-		managerForm.setEmailAddress("rafarod@gmail.com");
-		managerService.reconstruct(managerForm);
+			ManagerForm managerForm;
+			
+			managerForm = new ManagerForm();
+			
+			managerForm.setPassword(password);
+			managerForm.setConfirmPassword(passwordRepeat);
+			managerForm.setUsername(username);
+			managerForm.setName(name);
+			managerForm.setSurname(surname);
+			managerForm.setPhone(phone);
+			managerForm.setEmailAddress(email);
+			
+			
+			managerService.reconstruct(managerForm);
 
-	}
-
-	// ----------------------------------------------------
-	// NEGATIVE TEST CASES CREATE
-	// ----------------------------------------------------
-	// crear admin con username vacio
-	@Test(expected = ConstraintViolationException.class)
-	public void testCreateManager2() {
-		authenticate("admin");
-		ManagerForm managerForm;
-
-		managerForm = new ManagerForm();
-
-		managerForm.setPassword("");
-		managerForm.setConfirmPassword("");
-		managerForm.setUsername("");
-		managerForm.setName("");
-		managerForm.setSurname("");
-		managerForm.setPhone("+34644512313");
-		managerForm.setEmailAddress("");
-		managerService.reconstruct(managerForm);
-	}
-
-	// telefono con patron erroneo
-	@Test(expected = IllegalArgumentException.class)
-	public void testCreateManager3() {
-		authenticate("admin");
-		ManagerForm managerForm;
-
-		managerForm = new ManagerForm();
-
-		managerForm.setPassword("userTest");
-		managerForm.setConfirmPassword("userTest");
-		managerForm.setUsername("userTest");
-		managerForm.setName("Rafael");
-		managerForm.setSurname("Rodriguez");
-		managerForm.setPhone("644512313");
-		managerForm.setEmailAddress("rafarod@gmail.com");
-		managerService.reconstruct(managerForm);
-
+		} catch (TransactionSystemException e1) {
+			System.out.println(e1);
+		} catch (IllegalArgumentException e2) {
+			System.out.println(e2);
+		} catch (UnexpectedException e3) {
+			System.out.println(e3);
+			throw e3;
+		}
 	}
 
 }

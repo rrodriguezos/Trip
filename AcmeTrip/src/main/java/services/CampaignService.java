@@ -14,6 +14,7 @@ import domain.Campaign;
 import domain.ChargeRecord;
 import domain.CreditCard;
 import domain.Manager;
+import domain.User;
 import repositories.CampaignRepository;
 import repositories.CreditCardRepository;
 
@@ -94,8 +95,17 @@ public class CampaignService {
 	}
 
 	public void delete(Campaign campaign) {
+		checkPrincipal(campaign.getManager());
 		campaignRepository.delete(campaign);
 
+	}
+
+	private void checkPrincipal(Manager manager) {
+
+		manager = managerService.findByPrincipal();
+		Assert.isTrue(manager != null);
+
+		Assert.isTrue(manager.equals(manager));
 	}
 
 	public Collection<Campaign> findAllFromPrincipal() {

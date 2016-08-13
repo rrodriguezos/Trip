@@ -154,6 +154,7 @@ public class TripServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 
 	// editado correctamente
+	@Test
 	public void editTrip1() {
 
 		authenticate("user1");

@@ -109,8 +109,9 @@ public class CampaignServiceTest extends AbstractTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void deleteCampaign2() {
-		authenticate("user1");
-		campaignService.delete(campaignService.findOne(15));
+		authenticate("admin");
+		Campaign campaign = campaignService.findOne(30);
+		campaignService.delete(campaign);
 		unauthenticate();
 	}
 
@@ -128,6 +129,7 @@ public class CampaignServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 
 	// editado correctamente
+	@Test
 	public void editCampaign1() {
 
 		authenticate("manager1");

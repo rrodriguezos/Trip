@@ -94,7 +94,7 @@ public class FolderServiceTest extends AbstractTest {
 		unauthenticate();
 	}
 
-	// Eliminamos un trip que no es tripId
+	// Eliminamos una folder que no es folderId
 
 	@Test(expected = IllegalArgumentException.class)
 	public void deleteFolder3() {
@@ -108,6 +108,7 @@ public class FolderServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 
 	// editado correctamente
+	@Test
 	public void editFolder1() {
 
 		authenticate("admin");

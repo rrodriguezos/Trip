@@ -102,7 +102,7 @@ public class ActivityServiceTest extends AbstractTest {
 
 	// activity con actores no autorizados
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateActivity3() {
+	public void testCreateActivityNegative2() {
 		authenticate("admin");
 		Activity activity = activityService.create();
 		activity.setTitle("titulo 1");
