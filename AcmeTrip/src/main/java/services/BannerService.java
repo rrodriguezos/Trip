@@ -10,13 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.BannerRepository;
+import repositories.TaxRepository;
+import security.Authority;
+import domain.Actor;
 import domain.Banner;
 import domain.Campaign;
 import domain.Tax;
 import forms.BannerForm;
 import forms.PriceForm;
-import repositories.BannerRepository;
-import repositories.TaxRepository;
 
 @Service
 @Transactional
@@ -33,6 +35,9 @@ public class BannerService {
 	private AdministratorService administratorService;
 	@Autowired
 	private CampaignService campaignService;
+
+	@Autowired
+	private ActorService actorService;
 
 	// Constructor -----------------------------
 	public BannerService() {
@@ -53,6 +58,7 @@ public class BannerService {
 	}
 
 	public Banner formToBanner(BannerForm bannerForm) {
+		checkPrincipalAdministratorOrManager();
 		Campaign camp = campaignService.findOne(bannerForm.getCampId());
 		Banner banner = new Banner();
 		banner.setCampaign(camp);
@@ -70,6 +76,7 @@ public class BannerService {
 	}
 
 	public void save(Banner banner) {
+		checkPrincipalAdministratorOrManager();
 		bannerRepository.saveAndFlush(banner);
 	}
 
@@ -82,12 +89,28 @@ public class BannerService {
 		Collection<Banner> result = bannerRepository.findAll();
 		Collection<Banner> res = new LinkedList<Banner>();
 		for (Banner b : result) {
-			if (b.getCampaign().getStartMoment().after(new Date(System.currentTimeMillis()))
-					|| b.getCampaign().getEndMoment().after(new Date(System.currentTimeMillis())))
+			if (b.getCampaign().getStartMoment()
+					.after(new Date(System.currentTimeMillis()))
+					|| b.getCampaign().getEndMoment()
+							.after(new Date(System.currentTimeMillis())))
 				res.add(b);
 		}
 
 		return res;
+	}
+
+	private void checkPrincipal() {
+		Actor actor;
+		Authority authority;
+
+		actor = actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
+
+		authority = new Authority();
+		authority.setAuthority("MANAGER");
+
+		Assert.isTrue(actor.getUserAccount().getAuthorities()
+				.contains(authority));
 	}
 
 	public Banner priceFormToBanner(PriceForm priceForm) {
@@ -97,8 +120,9 @@ public class BannerService {
 	}
 
 	public void saveFinal(Banner banner) {
+		checkPrincipalAdministratorOrManager();
 		Banner ban = bannerRepository.findOne(banner.getId());
-		if(ban.getTax().getTaxType()!=banner.getTax().getTaxType()){
+		if (ban.getTax().getTaxType() != banner.getTax().getTaxType()) {
 			Tax antigua = taxRepository.findOne(ban.getTax().getId());
 			Collection<Banner> antiguos = antigua.getBanners();
 			antiguos.remove(ban);
@@ -115,15 +139,15 @@ public class BannerService {
 	}
 
 	public Collection<Banner> banners10Average() {
-		Double media =0.0;
+		Double media = 0.0;
 		Collection<Banner> banners = bannerRepository.findAll();
 		Collection<Banner> bans = new LinkedList<Banner>();
-		for(Banner b: banners){
-			media += b.getDisplay()/b.getMaxTimesDisplayed();
+		for (Banner b : banners) {
+			media += b.getDisplay() / b.getMaxTimesDisplayed();
 		}
-		Double mediaMas10 = media+media*(0.1);
-		for(Banner b: banners){
-			if(b.getDisplay()>mediaMas10){
+		Double mediaMas10 = media + media * (0.1);
+		for (Banner b : banners) {
+			if (b.getDisplay() > mediaMas10) {
 				bans.add(b);
 			}
 		}
@@ -131,20 +155,34 @@ public class BannerService {
 	}
 
 	public Collection<Banner> banners10LessAverage() {
-		Double media =0.0;
+		Double media = 0.0;
 		Collection<Banner> banners = bannerRepository.findAll();
 		Collection<Banner> bans = new LinkedList<Banner>();
-		for(Banner b: banners){
-			media += b.getDisplay()/b.getMaxTimesDisplayed();
+		for (Banner b : banners) {
+			media += b.getDisplay() / b.getMaxTimesDisplayed();
 		}
-		Double mediaMen10 = media-media*(0.1);
-		for(Banner b: banners){
-			if(b.getDisplay()>mediaMen10){
+		Double mediaMen10 = media - media * (0.1);
+		for (Banner b : banners) {
+			if (b.getDisplay() > mediaMen10) {
 				bans.add(b);
 			}
 		}
 		return bans;
 	}
-
+	private void checkPrincipalAdministratorOrManager(){
+		Actor actor;
+		Authority authority, authority2;
+	
+		actor = actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
+		
+		authority = new Authority();
+		authority.setAuthority("ADMINISTRATOR");
+		
+		authority2 = new Authority();
+		authority2.setAuthority("MANAGER");
+		
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority) || actor.getUserAccount().getAuthorities().contains(authority2));
+	}
 
 }

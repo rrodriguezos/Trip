@@ -105,7 +105,7 @@ public class ActivityService {
 	
 	public void changeAppropriated(int commentId){
 		Assert.notNull(commentId);
-		checkPrincipalAdministratorOrManager();
+		checkPrincipalManager();
 		Activity comment;
 		
 		comment = findOne(commentId);
@@ -115,7 +115,7 @@ public class ActivityService {
 		save(comment);
 	}
 	
-	private void checkPrincipalAdministratorOrManager(){
+	private void checkPrincipalManager(){
 		Actor actor;
 		Authority authority;
 	

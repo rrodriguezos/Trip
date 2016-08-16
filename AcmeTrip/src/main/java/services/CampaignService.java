@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.CampaignRepository;
+import repositories.CreditCardRepository;
 import domain.Banner;
 import domain.Campaign;
 import domain.ChargeRecord;
 import domain.CreditCard;
 import domain.Manager;
-import domain.User;
-import repositories.CampaignRepository;
-import repositories.CreditCardRepository;
 
 @Service
 @Transactional
@@ -119,16 +118,19 @@ public class CampaignService {
 			if (c.getStartMoment().before(now) && c.getEndMoment().after(now)) {
 				for (Banner b : c.getBanners()) {
 					if (b.getDisplay() != 0) {
-						CreditCard credit = creditCardRepository.findOne(c.getCreditCard().getId());
+						CreditCard credit = creditCardRepository.findOne(c
+								.getCreditCard().getId());
 						ChargeRecord charge = new ChargeRecord();
 						charge.setCreditCard(credit);
 						charge.setBanner(b);
-						charge.setCreateMoment(new Date(System.currentTimeMillis()));
+						charge.setCreateMoment(new Date(System
+								.currentTimeMillis()));
 						Double dinero = b.getPrice() * b.getDisplay();
 						dinero = dinero + dinero * b.getTax().getTaxType();
 						charge.setAmountMoney(dinero);
 						ChargeRecord res = chargeService.save(charge);
-						Collection<ChargeRecord> charges = credit.getChargeRecords();
+						Collection<ChargeRecord> charges = credit
+								.getChargeRecords();
 						charges.add(charge);
 						credit.setChargeRecords(charges);
 						creditCardRepository.saveAndFlush(credit);
