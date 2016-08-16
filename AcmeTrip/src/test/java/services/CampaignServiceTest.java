@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Campaign;
+import domain.ChargeRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
@@ -28,6 +29,8 @@ public class CampaignServiceTest extends AbstractTest {
 	private CampaignService campaignService;
 	@Autowired
 	private HelpService helpService;
+	@Autowired
+	private ChargeRecordService chargeService;
 
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
@@ -48,7 +51,6 @@ public class CampaignServiceTest extends AbstractTest {
 		Date endDate = helpService.formatStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
-
 		campaignService.save(campaign);
 		unauthenticate();
 	}
@@ -199,5 +201,50 @@ public class CampaignServiceTest extends AbstractTest {
 		authenticate("manager1");
 		Collection<Campaign> campaigns = campaignService.findAll();
 		Assert.isTrue(campaigns.size() == 4);
+		unauthenticate();
 	}
+	// Que te gusta la mandanga CHARGE RECORDS
+	// Que te gusta la mandanga POSITIVO
+		@Test
+		public void testCreateCharge() {
+			authenticate("admin");
+			Collection<ChargeRecord> chargesAntes = chargeService.findAll();
+			Integer antes = chargesAntes.size();
+			
+			campaignService.generateChargeRecords();
+			Collection<ChargeRecord> chargesDespues = chargeService.findAll();
+			Integer despues = chargesDespues.size();
+
+			Assert.isTrue(antes<despues);
+			unauthenticate();
+		}
+		
+		// Que te gusta la mandanga NEGATICO
+				@Test(expected=IllegalArgumentException.class)
+				public void testCreateChargeNoAutenticado() {
+					//falta poner control de admin en el servicio
+					Collection<ChargeRecord> chargesAntes = chargeService.findAll();
+					Integer antes = chargesAntes.size();
+					
+					campaignService.generateChargeRecords();
+					Collection<ChargeRecord> chargesDespues = chargeService.findAll();
+					Integer despues = chargesDespues.size();
+
+					Assert.isTrue(antes<despues);
+				}
+				// Que te gusta la mandanga NEGATICO2	
+				@Test(expected=IllegalArgumentException.class)
+				public void testCreateChargeManager() {
+					authenticate("manager1");
+					//falta poner control de admin en el servicio
+					Collection<ChargeRecord> chargesAntes = chargeService.findAll();
+					Integer antes = chargesAntes.size();
+					
+					campaignService.generateChargeRecords();
+					Collection<ChargeRecord> chargesDespues = chargeService.findAll();
+					Integer despues = chargesDespues.size();
+
+					Assert.isTrue(antes<despues);
+					unauthenticate();
+				}
 }

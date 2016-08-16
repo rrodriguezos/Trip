@@ -11,6 +11,9 @@ import org.springframework.util.Assert;
 
 import repositories.CampaignRepository;
 import repositories.CreditCardRepository;
+import security.Authority;
+import domain.Actor;
+import domain.Administrator;
 import domain.Banner;
 import domain.Campaign;
 import domain.ChargeRecord;
@@ -35,6 +38,12 @@ public class CampaignService {
 
 	@Autowired
 	private BannerService bannerService;
+
+	@Autowired
+	private AdministratorService administratorService;
+	
+	@Autowired
+	private ActorService actorService;
 
 	// Constructor -----------------------------
 	public CampaignService() {
@@ -94,12 +103,12 @@ public class CampaignService {
 	}
 
 	public void delete(Campaign campaign) {
-		checkPrincipal(campaign.getManager());
+		checkPrincipalManager(campaign.getManager());
 		campaignRepository.delete(campaign);
 
 	}
 
-	private void checkPrincipal(Manager manager) {
+	private void checkPrincipalManager(Manager manager) {
 
 		manager = managerService.findByPrincipal();
 		Assert.isTrue(manager != null);
@@ -107,11 +116,26 @@ public class CampaignService {
 		Assert.isTrue(manager.equals(manager));
 	}
 
+	private void checkPrincipalAdministrator() {
+		Actor actor;
+		Authority authority;
+
+		actor = actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
+
+		authority = new Authority();
+		authority.setAuthority("ADMINISTRATOR");
+
+		Assert.isTrue(actor.getUserAccount().getAuthorities()
+				.contains(authority));
+	}
+
 	public Collection<Campaign> findAllFromPrincipal() {
 		return managerService.findByPrincipal().getCampaigns();
 	}
 
 	public void generateChargeRecords() {
+		checkPrincipalAdministrator();
 		Date now = new Date(System.currentTimeMillis());
 		Collection<Campaign> campaigns = this.findAll();
 		for (Campaign c : campaigns) {
@@ -124,7 +148,7 @@ public class CampaignService {
 						charge.setCreditCard(credit);
 						charge.setBanner(b);
 						charge.setCreateMoment(new Date(System
-								.currentTimeMillis()));
+								.currentTimeMillis() - 1000));
 						Double dinero = b.getPrice() * b.getDisplay();
 						dinero = dinero + dinero * b.getTax().getTaxType();
 						charge.setAmountMoney(dinero);
