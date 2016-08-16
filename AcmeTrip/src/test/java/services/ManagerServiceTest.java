@@ -53,6 +53,8 @@ public class ManagerServiceTest extends AbstractTest{
 
 	}
 	
+	//14.1. Register managers and other administrators.
+	
 	public ManagerServiceTest(String password, String passwordRepeat, String username, String name, String surname, String phone, String email){
 		this.password = password;
 		this.passwordRepeat = passwordRepeat;

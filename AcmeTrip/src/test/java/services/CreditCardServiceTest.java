@@ -29,7 +29,9 @@ public class CreditCardServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
-
+	// 8. An actor who is authenticated as a manager must be able to:
+	// 1. Manage his or her credit cards, which includes listing, registering,
+	// and deleting them.
 	// creada exitosamente
 	@Test
 	public void testCreateCreditCard1() {

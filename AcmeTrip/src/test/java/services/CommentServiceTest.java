@@ -37,6 +37,7 @@ public class CommentServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES FLAG
 	// ----------------------------------------------------
+	//14.2. Flag comments  as inappropriate.
 	// Flag exitosamente
 
 	@Test

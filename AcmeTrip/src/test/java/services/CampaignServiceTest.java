@@ -32,7 +32,9 @@ public class CampaignServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
-
+	//8.An actor who is authenticated as a manager must be able to:
+	//3. Manage his or her campaigns, which includes listing, creating, modifying, and deleting
+	//them.
 	// creado exitosamente
 	@Test
 	public void testCreateCampaign1() {

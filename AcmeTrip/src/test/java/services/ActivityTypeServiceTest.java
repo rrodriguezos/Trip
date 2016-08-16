@@ -29,6 +29,7 @@ public class ActivityTypeServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
+	//14.3 Manage activity types.
 	// creado exitosamente
 	@Test
 	public void testCreateActivityType1() {

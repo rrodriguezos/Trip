@@ -30,8 +30,8 @@ public class ChargeRecordServiceTest extends AbstractTest {
 	@Autowired
 	private CreditCardService creditCardService;
 	
-	
-	// Display the charge records that are associated with his or her credit cards
+	//8. An actor who is authenticated as a manager must be able to:
+	// 8.2 Display the charge records that are associated with his or her credit cards
 		@Test
 		public void testFindChargeRecords() {
 			authenticate("manager1");

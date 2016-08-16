@@ -52,7 +52,7 @@ public class AdministratorServiceTest extends AbstractTest{
 				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"}});
 
 	}
-	
+	//14.1. Register managers and other administrators.
 	public AdministratorServiceTest(String password, String passwordRepeat, String username, String name, String surname, String phone, String email){
 		this.password = password;
 		this.passwordRepeat = passwordRepeat;

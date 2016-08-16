@@ -44,7 +44,7 @@ public class BannerTestService extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
-
+	// 9. An actor who is authenticated as an administrator must be able to:
 	// creado exitosamente
 	@Test
 	public void testCreateBanner1() {
@@ -54,10 +54,11 @@ public class BannerTestService extends AbstractTest {
 		String keyword1 = "asdwd1";
 		bannerForm.setKeyWs(keyword1);
 		bannerForm.setMaxTimes(20);
-		bannerForm.setPho("http://calpersloan.com/wp-content/uploads/2016/08/travel-insurance-banner-travel-insurance-banner2.jpg");
-		
+		bannerForm
+				.setPho("http://calpersloan.com/wp-content/uploads/2016/08/travel-insurance-banner-travel-insurance-banner2.jpg");
+
 		Banner banner = bannerService.formToBanner(bannerForm);
-		
+
 		banner.setTax(taxService.findOne(32));
 
 		bannerService.save(banner);
@@ -134,7 +135,9 @@ public class BannerTestService extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES EDITION
 	// ----------------------------------------------------
-
+	// 9.1. Change the price that the system charges when it displays a banner
+	// and the taxes
+	// that are applied.
 	// editado correctamente
 	@Test
 	public void editBanner1() {
@@ -143,8 +146,8 @@ public class BannerTestService extends AbstractTest {
 		Banner banner = bannerService.findOne(31);
 		banner.setPrice(50.00);
 		banner.setMaxTimesDisplayed(25);
-		String keyword1 ="keyWord1";
-		String keyword2 ="keyWord2";
+		String keyword1 = "keyWord1";
+		String keyword2 = "keyWord2";
 		banner.getKeyWords().add(keyword1);
 		banner.getKeyWords().add(keyword2);
 		bannerService.save(banner);
@@ -163,8 +166,8 @@ public class BannerTestService extends AbstractTest {
 		Banner banner = bannerService.findOne(31);
 		banner.setPrice(-25.00);
 		banner.setMaxTimesDisplayed(0);
-		String keyword1 ="keyWord1";
-		String keyword2 ="keyWord2";
+		String keyword1 = "keyWord1";
+		String keyword2 = "keyWord2";
 		banner.getKeyWords().add(keyword1);
 		banner.getKeyWords().add(keyword2);
 		bannerService.save(banner);
@@ -180,8 +183,8 @@ public class BannerTestService extends AbstractTest {
 		Banner banner = bannerService.findOne(31);
 		banner.setPrice(50.00);
 		banner.setMaxTimesDisplayed(25);
-		String keyword1 ="keyWord1";
-		String keyword2 ="keyWord2";
+		String keyword1 = "keyWord1";
+		String keyword2 = "keyWord2";
 		banner.getKeyWords().add(keyword1);
 		banner.getKeyWords().add(keyword2);
 		bannerService.save(banner);

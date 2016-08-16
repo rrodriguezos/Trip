@@ -31,8 +31,8 @@ public class MessageServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
-	// Messages
-	// creado exitosamente
+	// 12.2 Exchange messages with other users.
+	// creado exitosamente El user1 le manda un mensaje al user2
 	@Test
 	public void testCreateMessages1() {
 

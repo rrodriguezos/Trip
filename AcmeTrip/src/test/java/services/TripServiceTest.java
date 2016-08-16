@@ -35,7 +35,8 @@ public class TripServiceTest extends AbstractTest {
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
 	// A user who is authenticated as an user
-	// Manage his or her trips, which involves listing, registering, modifying,
+	// 13.3 Manage his or her trips, which involves listing, registering,
+	// modifying,
 	// and deleting them.
 	// creado exitosamente
 	@Test
@@ -228,6 +229,13 @@ public class TripServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES COPY
 	// ----------------------------------------------------
+	// 13.3 Copy a trip that he or she can display and make his or her own
+	// personal copy, which
+	// he or she can manage independently from the original trip. This
+	// functionality must
+	// be interpreted as kind of copy-and-paste; its only intended to help
+	// users register
+	// their own trips.
 	// copiado exitosamente
 	@Test
 	public void testCopyTrip1() {
@@ -273,6 +281,12 @@ public class TripServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES SUBSCRIPTION
 	// ----------------------------------------------------
+	// 13.4 Subscribe to an existing trip. Such a subscription implies that
+	// every time the trip or
+	// its daily plans change, the actor gets notified by means of a message
+	// that is sent automatically
+	// by the system. Note that subscriptions may not prevent the user who
+	// created a trip from deleting it.
 	// suscrito exitosamente
 	@Test
 	public void testSubscriptionTrip1() {
@@ -311,22 +325,24 @@ public class TripServiceTest extends AbstractTest {
 
 		unauthenticate();
 	}
-	
-	//4. A user who is not authenticated must be able to:
-			//1. Navigate through the trips
-		@Test
-		public void testFindTrips(){
-			Collection <Trip> trips = tripService.findAll();
-			Assert.isTrue(trips.size()==2);		
-		}
-		
 
-		//8. A user who is not authenticated must be able to:	
-		//Searching trips 
-		@Test
-		public void testSearchTrip(){
-			List <Trip> trips = (List<Trip>) tripService.findTripByKeyword("Title");
-			Assert.isTrue(trips.size()==2);
-		}
+	// 4. A user who is not authenticated must be able to:
+	// 1. Navigate through the trips
+	@Test
+	public void testFindTrips() {
+		Collection<Trip> trips = tripService.findAll();
+		Assert.isTrue(trips.size() == 2);
+	}
+
+	// 8. A user who is not authenticated must be able to:
+	// Search for a trip using a single key word that must appear anywhere in
+	// the information
+	// plans of which they are composed, their slots, or the activities that
+	// they involve.
+	@Test
+	public void testSearchTrip() {
+		List<Trip> trips = (List<Trip>) tripService.findTripByKeyword("Title");
+		Assert.isTrue(trips.size() == 2);
+	}
 
 }

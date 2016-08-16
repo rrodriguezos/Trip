@@ -1,102 +1,138 @@
 package services;
 
-import java.util.Arrays;
 import java.util.Collection;
+
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-
-import com.mchange.v1.util.UnexpectedException;
-
+import domain.User;
 import forms.UserRegisterForm;
 
-@RunWith(Parameterized.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
 		"classpath:spring/config/packages.xml" })
 @Transactional
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration(defaultRollback = true)
 public class UserServiceTest extends AbstractTest {
 
+	// Service under test ------------------------
 	@Autowired
 	private UserService userService;
 
-	private String password;
-	private String username;
-	private String name;
-	private String phone;
-	private String email;
+	/* *****************************************************
+	 * * FR-C11.1:* An actor who is not authenticated must be able to:* Register
+	 * to the system as a user.
+	 * ******************************************************
+	 */
 
-	@Parameters
-	public static Collection<Object[]> data() {
-		return Arrays
-				.asList(new Object[][] {
-						{ "user1", "user1", "Rafa", "+34669988745",
-								"etsii@gmail.com" },
-						{ "user10", "user10", "", "+34669988745",
-								"etsii@gmail.com" },
-						{ "user89", "user89", "Antonio", "+34669988745",
-								"etsii@gmail.com" },
-						{ "user25", "user25", "Alex", "+34669988745",
-								"etsiigmail.com" }
-
-				});
-	}
-
-	public UserServiceTest(String password, String username, String name,
-			String phone, String email) {
-		this.password = password;
-		this.username = username;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-	}
-
-	// 1ºeditado exitosamente
-	// 2ºeditamos con datos erroneos
-	// 3ºeditamos con campos vacios
-
+	/**
+	 * Positive: A non authenticated registers as a user
+	 */
 	@Test
-	public void testEditUser() {
-		try {
-			authenticate(username);
-
-			UserRegisterForm userForm = userService.copyUser();
-
-			userForm.setName(name);
-			userForm.setPhone(phone);
-			userForm.setSurname("Carlos");
-			userForm.setPassword(password);
-			userForm.setUsername(username);
-			userForm.setEmailAddress(email);
-			userForm.setPasswordPast(password);
-			userForm.setConfirmPassword(password);
-
-			userService.reconstruct(userForm);
-
-			unauthenticate();
-
-		} catch (DataIntegrityViolationException e) {
-			System.out.println(e);
-		} catch (TransactionSystemException e1) {
-			System.out.println(e1);
-		} catch (IllegalArgumentException e1) {
-			System.out.println(e1);
-
-		} catch (UnexpectedException e2) {
-			System.out.println(e2);
-
-			throw e2;
-		}
-
+	public void registerUserPositiveTest() {
+		int actual = userService.findAll().size();
+		unauthenticate();
+		UserRegisterForm registerForm = new UserRegisterForm();
+		registerForm.setName("Name Test");
+		registerForm.setSurname("Surname Test");
+		registerForm.setPhone("+34 954 758400");
+		registerForm.setUsername("Username Test");
+		registerForm.setPassword("Password Test");
+		registerForm.setConfirmPassword("Password Test");
+		registerForm.setAccept(true);
+		registerForm.setPasswordPast("Password Test");
+		registerForm.setEmailAddress("test@gmail.com");
+		User user = userService.reconstruct(registerForm);
+		userService.save(user);
+		int expected = userService.findAll().size();
+		Assert.isTrue(expected == actual + 1);
 	}
+
+	/**
+	 * Negative: An authenticated administrator attempts to register as a user
+	 */
+	@Test(expected = ConstraintViolationException.class)
+	@Rollback(true)
+	public void registerUserAsAdminNegativeTest() {
+		authenticate("admin");
+		UserRegisterForm registerForm = new UserRegisterForm();
+		registerForm.setName("Name Test");
+		registerForm.setSurname("Surname Test");
+		registerForm.setPhone("++34 954 758400");
+		registerForm.setUsername("Username Test");
+		registerForm.setPassword("Password Test");
+		registerForm.setConfirmPassword("Password Test");
+		registerForm.setAccept(true);
+		registerForm.setEmailAddress("test@gmail.com");
+		registerForm.setPasswordPast("Password Test");
+		User user = userService.reconstruct(registerForm);
+		userService.save(user);
+	}
+
+	/**
+	 * Negative: A non authenticated attempts to register as a user submitting
+	 * wrong confirmation password
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	@Rollback(true)
+	public void registerUserWrongFieldsNegativeTest() {
+		unauthenticate();
+		UserRegisterForm registerForm = new UserRegisterForm();
+		registerForm.setName("Name Test");
+		registerForm.setSurname("Surname Test");
+		registerForm.setPhone("++34 954 758400");
+		registerForm.setUsername("Username Test");
+		registerForm.setPassword("Password Test");
+		registerForm.setConfirmPassword("Different Password Test");
+		User user = userService.reconstruct(registerForm);
+		userService.save(user);
+	}
+
+	/* *****************************************************
+	 * * FR-C11.5 :* List and see the profile of the users who have registered
+	 * to the system, which consists* of the contact data plus the list of trips
+	 * that they have registered.
+	 * ******************************************************
+	 */
+
+	/**
+	 * Positive: A non authenticated can list the registered users
+	 */
+	@Test
+	public void listingUsersAsNonAuthenticatedTest() {
+		unauthenticate();
+		Collection<User> users = userService.findAll();
+		Assert.notNull(users);
+		if (!users.isEmpty()) {
+			for (User u : users) {
+				Assert.notNull(u.getTrips());
+			}
+		}
+	}
+
+	/**
+	 * Positive: An administrator can list the registered users
+	 */
+	@Test
+	public void listingUsersAsAdministratorTest() {
+		authenticate("admin");
+		Collection<User> users = userService.findAll();
+		Assert.notNull(users);
+		if (!users.isEmpty()) {
+			for (User u : users) {
+				Assert.notNull(u.getTrips());
+			}
+		}
+	}
+
 }

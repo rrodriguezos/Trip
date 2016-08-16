@@ -32,6 +32,7 @@ public class ActivityServiceTest extends AbstractTest {
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
 	// ----------------------------------------------------
+	//14.2  Flag activities as inappropriate.
 	// Flag existosamente
 
 	@Test
