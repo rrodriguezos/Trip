@@ -92,7 +92,7 @@
 		<security:intercept-url pattern="/trip/user/mylist.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/trip/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/create.do" access="hasRole('USER')" />
-		<security:intercept-url pattern="/trip/user/copy.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/trip/user/copyPaste.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/joinTrip.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/disjoinTrip.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/trip/user/subscribed.do" access="hasRole('USER')" />

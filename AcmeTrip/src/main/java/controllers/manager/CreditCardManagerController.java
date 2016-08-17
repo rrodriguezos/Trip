@@ -1,6 +1,7 @@
 package controllers.manager;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -14,41 +15,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.CreditCardService;
+import services.ManagerService;
 import controllers.AbstractController;
 import domain.Campaign;
 import domain.CreditCard;
-import services.CreditCardService;
-import services.ManagerService;
 
 @Controller
 @RequestMapping("/creditcard/manager")
 public class CreditCardManagerController extends AbstractController {
-	
-	//Constructor --------------------------------------------------------
+
+	// Constructor --------------------------------------------------------
 	public CreditCardManagerController() {
 		super();
 	}
-	
-	//Services -----------------------------------------------------------
+
+	// Services -----------------------------------------------------------
 	@Autowired
 	private CreditCardService tarjetaService;
-	
+
 	@Autowired
 	private ManagerService managerService;
-	
-	//Appropriated --------------------------------------------------------
-	@RequestMapping(value="/list")
-	public ModelAndView list(){
+
+	// Appropriated --------------------------------------------------------
+	@RequestMapping(value = "/list")
+	public ModelAndView list() {
 		ModelAndView result;
-		
-		Collection<CreditCard> tarjetas = managerService.findByPrincipal().getCreditCards();
-		
+
+		Collection<CreditCard> tarjetas = managerService.findByPrincipal()
+				.getCreditCards();
+
 		result = new ModelAndView();
 		result.addObject("creditcards", tarjetas);
-		
+
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView nuevaTarjeta() {
 		ModelAndView result;
@@ -58,13 +60,20 @@ public class CreditCardManagerController extends AbstractController {
 		return result;
 	}
 
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveNewCc(@Valid CreditCard creditcard, BindingResult binding, RedirectAttributes redir) {
 		ModelAndView result;
 		Assert.notNull(creditcard);
 		if (binding.hasErrors()) {
-			result = new ModelAndView("creditcard/manager/create.do");
+			result = new ModelAndView("creditcard/manager/create");
 			result.addObject("creditcard", creditcard);
+			Date croqueta = new Date(System.currentTimeMillis());
+			if(creditcard.getBrandName()=="" || creditcard.getCreditCardNumber()=="" || creditcard.getHolderName()=="" || creditcard.getCvvCode().equals(null) || creditcard.getExpirationMonth().equals(null) || creditcard.getExpirationYear()==null)
+				result.addObject("message2", "creditcard.enblanco");
+			else if (creditcard.getExpirationYear()< croqueta.getYear() || creditcard.getExpirationMonth()<1 ||creditcard.getExpirationMonth()>12)
+				result.addObject("message2", "creditcard.fechaMala");
+			else
 			result.addObject("message2", "campaign.creditExist.error");
 		} else {
 			try {
@@ -82,18 +91,19 @@ public class CreditCardManagerController extends AbstractController {
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam int creditCardId) {
 		ModelAndView result;
 		Campaign campaign = tarjetaService.findOne(creditCardId).getCampaign();
 		Boolean enFecha = true;
-		if (campaign!=null) {
+		if (campaign != null) {
 			enFecha = true;
 		}
 		if (!enFecha) {
 			result = new ModelAndView("creditcard/manager/list.do");
-			Collection<CreditCard> creditcards = tarjetaService.findCreditCardByPrincipal();
+			Collection<CreditCard> creditcards = tarjetaService
+					.findCreditCardByPrincipal();
 			result.addObject("creditcards", creditcards);
 			if (!enFecha) {
 				result.addObject("message", "trip.commit.error");
@@ -101,10 +111,12 @@ public class CreditCardManagerController extends AbstractController {
 		} else {
 			try {
 				tarjetaService.deleteC(creditCardId);
-				result = new ModelAndView("redirect:/creditcard/manager/list.do");
+				result = new ModelAndView(
+						"redirect:/creditcard/manager/list.do");
 			} catch (Throwable oops) {
 				result = new ModelAndView("creditcard/manager/list.do");
-				Collection<CreditCard> creditcards = tarjetaService.findCreditCardByPrincipal();
+				Collection<CreditCard> creditcards = tarjetaService
+						.findCreditCardByPrincipal();
 				result.addObject("creditcards", creditcards);
 			}
 		}

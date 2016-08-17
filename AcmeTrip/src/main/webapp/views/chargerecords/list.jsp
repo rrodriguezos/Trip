@@ -24,14 +24,14 @@
 	<display:table name="chargerecords" id="row" pagesize="5"
 		requestURI="${requestUri}" class="displaytag">
 
-		<spring:message code="chargerecord.createMoment" />
-		<display:column property="createMoment" sortable="true" />
+		<spring:message code="chargerecord.createMoment" var="createMoment"/>
+		<display:column property="createMoment" sortable="true" title="${createMoment}"/>
 
-		<spring:message code="chargerecord.amountMoney" />
-		<display:column property="amountMoney" sortable="true" />
+		<spring:message code="chargerecord.amountMoney" var="amountMoney"/>
+		<display:column property="amountMoney" sortable="true" title="${amountMoney}"/>
 
-		<spring:message code="chargerecord.number" />
-		<display:column property="creditCard.creditCardNumber" />
+		<spring:message code="chargerecord.number" var="number"/>
+		<display:column property="creditCard.creditCardNumber" title="${number}"/>
 
 		<spring:message code="chargerecord.banner" />
 		<display:column>

@@ -38,6 +38,7 @@
 	<br>
 	
 	<tr>
+	<spring:message code="message.messagePriority" />
 		<td><select NAME="messagePriority">
 				<OPTION VALUE="LOW">
 					<spring:message code="message.LOW" />
@@ -58,6 +59,7 @@
 	<input type="submit" name="delete" value="<spring:message code="message.delete"/>" onclick="return confirm('<spring:message code="message.confirm.delete" />')"/>
 	</jstl:if>
 	
-	<input type="button" name="cancel" value="<spring:message code="message.cancel" />"  />
+
+	<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: window.location.assign('folder/actor/list.do')" />
 	
 </form:form>

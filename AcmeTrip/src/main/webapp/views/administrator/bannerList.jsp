@@ -26,11 +26,10 @@
 			<img width="200px" height="200x" src="${row.getPhoto()}" />
 		</display:column>
 		<spring:message code="banner.price" var="price" />
-		<display:column property="price" />
-		<spring:message code="tax.type" var="tax.taxType" />
-		<display:column property="tax.taxType" />
+		<display:column property="price" title="${price}"/>
+		<spring:message code="tax.type" var="taxType" />
+		<display:column property="tax.taxType" title="${taxType}"/>
 
-		<spring:message code="administrator.display" var="display" />
 		<display:column>
 			<input type="button"
 				value="<spring:message code="administrator.edit" />"

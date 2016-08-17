@@ -11,14 +11,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<form:form action="${ requestUri }" modelAttribute="activitytype">
+	<form:form action="${requestUri}" modelAttribute="activitytype">
 	
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="activities" />
 
 		<acme:textbox code="activitytype.name" path="name" />
-
+		
+		
 		<acme:submit name="save" code="activitytype.save" />
 		<security:authorize access="hasRole('MANAGER')">
 			<acme:cancel url="activitytype/manager/list.do" code="activitytype.cancel" />

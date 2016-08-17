@@ -26,14 +26,14 @@
 
 		<spring:message code="campaign.startDate" var="startMoment" />
 		<display:column property="startMoment"
-			format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" />
+			format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" title="${startMoment}"/>
 
 		<spring:message code="campaign.endDate" var="endMoment" />
 		<display:column property="endMoment"
-			format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" />
+			format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" title="${endMoment}"/>
 
 		<spring:message code="campaign.creditCard" var="creditCard" />
-		<display:column property="creditCard.creditCardNumber" />
+		<display:column property="creditCard.creditCardNumber" title="${creditCard}"/>
 
 		<spring:message code="campaign.display" var="display" />
 		<display:column title="${display}">

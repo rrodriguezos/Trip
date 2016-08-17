@@ -25,6 +25,7 @@ public class ActivityType extends DomainEntity {
 	private String name;
 	
 	@NotBlank
+	@NotNull
 	@Column(unique=true)
 	public String getName() {
 		return name;

@@ -59,11 +59,17 @@ public class ActivityTypeManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
-	public ModelAndView edit(@Valid ActivityType activitytype, BindingResult binding){
+	public ModelAndView save(@Valid ActivityType activitytype, BindingResult binding){
 		ModelAndView result;
 		
 		if(binding.hasErrors()){
-			result = new ModelAndView("activitytype/edit");
+			System.out.println(binding.toString());
+			if(activitytype.getId()!=0)
+				result = new ModelAndView("activitytype/edit");
+			else
+				result = new ModelAndView("activitytype/create");
+			if(activitytype.getName()=="")
+				result.addObject("message2", "activitytype.notblank");
 			result.addObject("activitytype", activitytype);
 			result.addObject("requestUri", "activitytype/manager/edit.do");
 		}else{

@@ -25,20 +25,20 @@
 		requestURI="${requestUri}" class="displaytag">
 
 		<spring:message code="creditcard.holdername" var="holderName" />
-		<display:column property="holderName" sortable="true" />
+		<display:column property="holderName" title="${holderName}"/>
 
 		<spring:message code="creditcard.brandname" var="brandName" />
-		<display:column property="brandName" sortable="true" />
+		<display:column property="brandName" title="${brandName}"/>
 
 		<spring:message code="creditcard.number" var="creditCardNumber" />
-		<display:column property="creditCardNumber" />
+		<display:column property="creditCardNumber" title="${creditCardNumber}"/>
 
 		<spring:message code="creditcard.expirationMonth"
 			var="expirationMonth" />
-		<display:column property="expirationMonth" />
+		<display:column property="expirationMonth" title="${expirationMonth}"/>
 
 		<spring:message code="creditcard.expirationYear" var="expirationYear" />
-		<display:column property="expirationYear" />
+		<display:column property="expirationYear" title="${expirationYear}"/>
 
 		<spring:message code="creditcard.delete" />
 		<display:column>
