@@ -20,7 +20,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <security:authorize access="hasRole('ADMINISTRATOR')">
 
-<display:table name="managers" id="row" pagesize="5" requestURI="manager/administrator/list.do" class="displaytag">
+<display:table name="managers" id="row" pagesize="5" requestURI="managger/administrator/list.do" class="displaytag">
 	
 	<spring:message code="manager.username" var="username" />
 	<display:column title="${username}">
@@ -36,12 +36,12 @@
 	<spring:message code="manager.display" var="display" />
 	<display:column title="${display}">
 			<input type="button" value="<spring:message code="manager.display" />" 
-					onclick="javascript: window.location.assign('manager/administrator/display.do?managerId=${row.id}')" />
+					onclick="javascript: window.location.assign('managger/administrator/display.do?managerId=${row.id}')" />
 	</display:column>
 	
 </display:table>
 
 
 <input type="button" name="create" value="<spring:message code="manager.create" />"
-	 onclick="javascript: window.location.assign('manager/administrator/create.do')" />
+	 onclick="javascript: window.location.assign('managger/administrator/create.do')" />
 </security:authorize>

@@ -74,9 +74,9 @@
 		<security:intercept-url pattern="/tax/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/banner/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/chargerecord/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
-		<security:intercept-url pattern="/manager/administrator/create.do" access="hasRole('ADMINISTRATOR')" /> 
-		<security:intercept-url pattern="/manager/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 
-		<security:intercept-url pattern="/manager/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/managger/administrator/create.do" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/managger/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/managger/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
 		
 		<security:intercept-url pattern="/activitytype/administrator/create.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/activitytype/administrator/edit.do" access="hasRole('ADMINISTRATOR')" /> 

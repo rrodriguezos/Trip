@@ -27,7 +27,7 @@ import forms.ManagerForm;
 import services.ManagerService;
 
 @Controller
-@RequestMapping("/manager/administrator")
+@RequestMapping("/managger/administrator")
 public class ManagerAdministratorController extends AbstractController {
 	
 	// Services ---------------------------------------------------------------
@@ -49,7 +49,7 @@ public class ManagerAdministratorController extends AbstractController {
 		
 		managerForm = new ManagerForm();
 		
-		result = new ModelAndView("manager/create");
+		result = new ModelAndView("managger/create");
 		result.addObject("managerForm", managerForm);
 		return result;
 	}
@@ -97,9 +97,9 @@ public class ManagerAdministratorController extends AbstractController {
 		
 		managers = managerService.findAll();
 		
-		result = new ModelAndView("manager/list");
+		result = new ModelAndView("managger/list");
 		result.addObject("managers", managers);
-		result.addObject("requestUri", "manager/administrator/list.do");
+		result.addObject("requestUri", "managger/administrator/list.do");
 		
 		return result;
 	}
@@ -112,7 +112,7 @@ public class ManagerAdministratorController extends AbstractController {
 		
 		manager = managerService.findOne(managerId);
 		
-		result = new ModelAndView("manager/display");
+		result = new ModelAndView("managger/display");
 		result.addObject("manager", manager);
 		
 		return result;
@@ -132,7 +132,7 @@ public class ManagerAdministratorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(ManagerForm managerForm, String message){
 		ModelAndView result;
 		
-		result = new ModelAndView("manager/create");
+		result = new ModelAndView("managger/create");
 		
 		result.addObject("manager", managerForm);
 		result.addObject("message2", message);

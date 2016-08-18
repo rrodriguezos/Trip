@@ -33,7 +33,7 @@
 
 <security:authorize access="hasRole('ADMINISTRATOR')">
 
-	<form:form action="manager/administrator/create.do" modelAttribute="managerForm">
+	<form:form action="managger/administrator/create.do" modelAttribute="managerForm">
 
 
 		<acme:textbox code="manager.username" path="username" />
@@ -50,7 +50,7 @@
 		<acme:textbox code="manager.phone" path="phone" />
 
 		<acme:submit name="save" code="manager.save" />
-		<acme:cancel url="manager/administrator/list.do" code="manager.cancel" />
+		<acme:cancel url="managger/administrator/list.do" code="manager.cancel" />
 
 	</form:form>
 

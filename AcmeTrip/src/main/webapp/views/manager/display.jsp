@@ -22,4 +22,4 @@
 <acme:jstlOut code="manager.emailAddress" value="${manager.emailAddress }"/>
 <acme:jstlOut code="manager.phone" value="${manager.phone }"/>
 
-<input type="button" name="cancel" value="<spring:message code="manager.cancel"/>" onclick="javascript: window.location.assign('manager/administrator/list.do')" />
+<input type="button" name="cancel" value="<spring:message code="manager.cancel"/>" onclick="javascript: window.location.assign('managger/administrator/list.do')" />

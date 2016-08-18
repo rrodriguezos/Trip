@@ -82,7 +82,7 @@
 						</security:authorize>
 
 						<security:authorize access="hasRole('ADMINISTRATOR')">
-							<li><a href="manager/administrator/list.do"><spring:message
+							<li><a href="managger/administrator/list.do"><spring:message
 										code="master.page.administrator.register.manager" /></a></li>
 							<li><a href="administrator/administrator/list.do"><spring:message
 										code="master.page.administrator.register.administrator" /></a></li>
