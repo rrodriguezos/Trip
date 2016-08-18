@@ -8,16 +8,19 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<security:authorize access="hasRole('ADMINISTRATOR')">
 
-<display:table name="managers" id="row" pagesize="5" requestURI="${requestUri}" class="displaytag">
+<display:table name="managers" id="row" pagesize="5" requestURI="manager/administrator/list.do" class="displaytag">
 	
 	<spring:message code="manager.username" var="username" />
 	<display:column title="${username}">
@@ -38,7 +41,7 @@
 	
 </display:table>
 
-<security:authorize access="hasRole('ADMINISTRATOR')">
+
 <input type="button" name="create" value="<spring:message code="manager.create" />"
 	 onclick="javascript: window.location.assign('manager/administrator/create.do')" />
 </security:authorize>
