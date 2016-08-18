@@ -30,7 +30,7 @@ public class UserServiceTest extends AbstractTest {
 	private UserService userService;
 
 	/* *****************************************************
-	 * * FR-C11.1:* An actor who is not authenticated must be able to:* Register
+	 * *An actor who is not authenticated must be able to:* Register
 	 * to the system as a user.
 	 * ******************************************************
 	 */

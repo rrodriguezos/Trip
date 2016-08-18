@@ -97,7 +97,6 @@ public class ManagerService {
 	}
 
 	public Collection<Manager> findAll() {
-		checkPrincipalAdministrator();
 
 		Collection<Manager> result;
 

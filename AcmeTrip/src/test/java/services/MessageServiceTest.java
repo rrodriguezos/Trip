@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
@@ -9,9 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.DailyPlan;
 import domain.Message;
 import domain.Message.MessagePriority;
 
@@ -158,5 +162,13 @@ public class MessageServiceTest extends AbstractTest {
 
 		unauthenticate();
 	}
+	
+	// Listing requirement 1
+
+			@Test
+			public void testFindMessages() {
+				Collection<Message> messages = messageService.findAll();
+				Assert.isTrue(messages.size() == 6);
+			}
 
 }

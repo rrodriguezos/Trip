@@ -13,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.util.Assert;
+
+import utilities.AbstractTest;
 
 import com.mchange.v1.util.UnexpectedException;
 
+import domain.Manager;
 import forms.ManagerForm;
-
-import utilities.AbstractTest;
 
 @RunWith(Parameterized.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
@@ -102,6 +104,14 @@ public class ManagerServiceTest extends AbstractTest{
 			System.out.println(e3);
 			throw e3;
 		}
+	}
+	
+	// Listing requirement 1
+
+	@Test
+	public void testFindManagers() {
+		Collection<Manager> managers = managerService.findAll();
+		Assert.isTrue(managers.size() == 2);
 	}
 
 }

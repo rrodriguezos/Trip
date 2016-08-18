@@ -13,11 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 
 import com.mchange.v1.util.UnexpectedException;
 
+import domain.User;
 import forms.UserRegisterForm;
 
 @RunWith(Parameterized.class)
@@ -64,7 +66,7 @@ public class UserEditServiceTest extends AbstractTest {
 	}
 
 	// 1ºeditado exitosamente
-	// 2ºeditamos con datos erroneos
+	//  2ºeditamos con datos erroneos
 	// 3ºeditamos con campos vacios
 
 	@Test
@@ -101,4 +103,12 @@ public class UserEditServiceTest extends AbstractTest {
 		}
 
 	}
+	
+	// Listing requirement 1
+
+				@Test
+				public void testFindUsers() {
+					Collection<User> users = userService.findAll();
+					Assert.isTrue(users.size() == 4);
+				}
 }

@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
@@ -10,8 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.DailyPlan;
 import domain.Folder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -148,5 +152,14 @@ public class FolderServiceTest extends AbstractTest {
 
 		unauthenticate();
 	}
+	
+	
+	// Listing requirement 1
+
+			@Test
+			public void testFindFolders() {
+				Collection<Folder> folders = folderService.findAll();
+				Assert.isTrue(folders.size() == 35);
+			}
 
 }

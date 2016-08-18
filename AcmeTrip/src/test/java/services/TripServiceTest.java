@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.DailyPlan;
 import domain.Trip;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -344,5 +345,55 @@ public class TripServiceTest extends AbstractTest {
 		List<Trip> trips = (List<Trip>) tripService.findTripByKeyword("Title");
 		Assert.isTrue(trips.size() == 2);
 	}
+	
+	//Edition requirement 1
+	
+	@Test
+	public void editionTrip1() {
+
+		authenticate("user1");
+
+		Trip trip = tripService.findOne(76);
+		String startDateString = "04/04/2016 02:00";
+		String endDateString = "01/01/2017 00:00";
+
+		Date startDate = helpService.formatStringToDate(startDateString);
+		Date endDate = helpService.formatStringToDate(endDateString);
+		trip.setStartDate(startDate);
+		trip.setEndDate(endDate);
+
+		trip.setTitle("title edition 1");
+		trip.setDescription("Description edition 1");
+
+		tripService.save(trip);
+
+		unauthenticate();
+	}
+	
+	//Edition requirement 2
+	
+		@Test
+		public void editionTrip2() {
+
+			authenticate("user2");
+
+			Trip trip = tripService.findOne(80);
+			String startDateString = "05/08/2013 00:00";
+			String endDateString = "05/18/2020 00:00";
+
+			Date startDate = helpService.formatStringToDate(startDateString);
+			Date endDate = helpService.formatStringToDate(endDateString);
+			trip.setStartDate(startDate);
+			trip.setEndDate(endDate);
+
+			trip.setTitle("title edition 2");
+			trip.setDescription("Description edition 2");
+
+			tripService.save(trip);
+
+			unauthenticate();
+		}
+		
+		
 
 }

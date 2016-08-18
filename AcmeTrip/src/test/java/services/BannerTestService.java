@@ -191,5 +191,48 @@ public class BannerTestService extends AbstractTest {
 
 		unauthenticate();
 	}
+	
+	// Edition requirement 1
+		@Test
+		public void editionBanner1() {
+
+			authenticate("admin");
+			Banner banner = bannerService.findOne(31);
+			banner.setPrice(250.00);
+			banner.setMaxTimesDisplayed(100);
+			String keyword1 = "keyWord1";
+			String keyWord2 = "keyWord2";
+			String keyWord3 = "keyWord3";
+			String keyWord4 = "keyWord4";
+			String keyWord5 = "keyWord5";
+			String keyWord6 = "keyWord6";
+			banner.getKeyWords().add(keyword1);
+			banner.getKeyWords().add(keyWord2);
+			banner.getKeyWords().add(keyWord3);
+			banner.getKeyWords().add(keyWord4);
+			banner.getKeyWords().add(keyWord5);
+			banner.getKeyWords().add(keyWord6);
+			bannerService.save(banner);
+
+			unauthenticate();
+		}
+		
+		// Edition requirement 2
+				@Test
+				public void editionBanner2() {
+
+					authenticate("admin");
+					Banner banner = bannerService.findOne(31);
+					banner.setPrice(1.0);
+					banner.setMaxTimesDisplayed(1);
+					String keyword1 = "keyWord1";
+
+					banner.getKeyWords().add(keyword1);
+
+					bannerService.save(banner);
+
+					unauthenticate();
+				}
+
 
 }

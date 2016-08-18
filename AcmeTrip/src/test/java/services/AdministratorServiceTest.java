@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.util.Assert;
 
 import com.mchange.v1.util.UnexpectedException;
+
+import domain.ActivityType;
+import domain.Administrator;
 
 import forms.AdministratorForm;
 
@@ -102,6 +106,13 @@ public class AdministratorServiceTest extends AbstractTest{
 			throw e3;
 		}
 	}
+	// Listing requirement 1
+
+			@Test
+			public void testFindAdministrator() {
+				Collection<Administrator> admins = adminService.findAll();
+				Assert.isTrue(admins.size() == 1);
+			}
 
 
 }

@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.ConstraintViolationException;
@@ -11,9 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Comment;
+import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
@@ -175,5 +178,15 @@ public class CommentServiceTest extends AbstractTest {
 			commentService.save(comment);
 			unauthenticate();
 		}
+		
+		// Listing requirement 1
+
+					@Test
+					public void testFindComments() {
+						Collection<Comment> comments = commentService.findAll();
+						Assert.isTrue(comments.size() == 12);
+					}
+		
+		
 
 }

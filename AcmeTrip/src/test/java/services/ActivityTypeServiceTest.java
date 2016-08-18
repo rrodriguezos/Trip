@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Activity;
 import domain.ActivityType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -124,5 +125,29 @@ public class ActivityTypeServiceTest extends AbstractTest {
 		Collection<ActivityType> types = activityTypeService.findAll();
 		Assert.isTrue(types.size() == 2);
 	}
+	
+	// Listing requirement 1
+
+		@Test
+		public void testFindActivityType() {
+			Collection<ActivityType> activitieTypes = activityTypeService.findAll();
+			Assert.isTrue(activitieTypes.size() == 2);
+		}
+	
+	
+	//Edition requirement 1
+		@Test
+		public void editionActivityType1() {
+
+			authenticate("manager1");
+
+			ActivityType activityType = activityTypeService.findOne(84);
+
+			activityType.setName("Edition Name");
+
+			activityTypeService.save(activityType);
+
+			unauthenticate();
+		}
 
 }

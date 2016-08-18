@@ -1022,8 +1022,8 @@
 	<!-- Trips -->
 	<bean class="domain.Trip" id="trip1">
 		<property name="title" value="title1" />
-		<property name="startDate" value="04/04/2016" />
-		<property name="endDate" value="04/11/2016" />
+		<property name="startDate" value="04/04/2016 00:00" />
+		<property name="endDate" value="04/11/2016 00:00" />
 		<property name="description" value="description1" />
 		<property name="user" ref="user1" />
 		<property name="dailyPlans">
@@ -1054,8 +1054,8 @@
 
 	<bean class="domain.Trip" id="trip2">
 		<property name="title" value="title2" />
-		<property name="startDate" value="05/08/2016" />
-		<property name="endDate" value="05/18/2016" />
+		<property name="startDate" value="05/08/2016 00:00" />
+		<property name="endDate" value="05/18/2016 00:00"  />
 		<property name="description" value="description2" />
 		<property name="user" ref="user2" />
 		<property name="dailyPlans">

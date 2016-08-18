@@ -203,8 +203,8 @@ public class CampaignServiceTest extends AbstractTest {
 		Assert.isTrue(campaigns.size() == 4);
 		unauthenticate();
 	}
-	// Que te gusta la mandanga CHARGE RECORDS
-	// Que te gusta la mandanga POSITIVO
+	// TEST CASES CHARGE RECORDS
+	//  POSITIVO
 		@Test
 		public void testCreateCharge() {
 			authenticate("admin");
@@ -219,7 +219,9 @@ public class CampaignServiceTest extends AbstractTest {
 			unauthenticate();
 		}
 		
-		// Que te gusta la mandanga NEGATICO
+		// ----------------------------------------------------
+		// NEGATIVE TEST CASES EDITION 1
+		// ----------------------------------------------------
 				@Test(expected=IllegalArgumentException.class)
 				public void testCreateChargeNoAutenticado() {
 					//falta poner control de admin en el servicio
@@ -232,7 +234,9 @@ public class CampaignServiceTest extends AbstractTest {
 
 					Assert.isTrue(antes<despues);
 				}
-				// Que te gusta la mandanga NEGATICO2	
+				// ----------------------------------------------------
+				// NEGATIVE TEST CASES EDITION 2
+				// ----------------------------------------------------
 				@Test(expected=IllegalArgumentException.class)
 				public void testCreateChargeManager() {
 					authenticate("manager1");
@@ -245,6 +249,46 @@ public class CampaignServiceTest extends AbstractTest {
 					Integer despues = chargesDespues.size();
 
 					Assert.isTrue(antes<despues);
+					unauthenticate();
+				}
+				
+				// Edition requirement 1
+				@Test
+				public void editionCampaign1() {
+
+					authenticate("manager1");
+
+					Campaign campaign = campaignService.findOne(30);
+					String startDateString = "20/06/2015 12:00";
+					String endDateString = "23/08/2017 12:00";
+
+					Date startDate = helpService.formatStringToDate(startDateString);
+					Date endDate = helpService.formatStringToDate(endDateString);
+					campaign.setStartMoment(startDate);
+					campaign.setEndMoment(endDate);
+
+					campaignService.save(campaign);
+
+					unauthenticate();
+				}
+				
+				// Edition requirement 2
+				@Test
+				public void editionCampaign2() {
+
+					authenticate("manager1");
+
+					Campaign campaign = campaignService.findOne(30);
+					String startDateString = "20/11/2016 15:00";
+					String endDateString = "28/11/2016 15:00";
+
+					Date startDate = helpService.formatStringToDate(startDateString);
+					Date endDate = helpService.formatStringToDate(endDateString);
+					campaign.setStartMoment(startDate);
+					campaign.setEndMoment(endDate);
+
+					campaignService.save(campaign);
+
 					unauthenticate();
 				}
 }

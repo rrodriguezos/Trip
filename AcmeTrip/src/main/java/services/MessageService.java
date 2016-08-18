@@ -229,4 +229,12 @@ public class MessageService {
 
 	}
 
+	public Collection<Message> findAll(){
+		Collection<Message> result;
+		
+		result = messageRepository.findAll();
+		
+		return result;
+	}
+
 }

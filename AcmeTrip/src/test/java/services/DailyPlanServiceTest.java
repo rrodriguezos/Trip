@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Activity;
 import domain.DailyPlan;
 import domain.Trip;
 
@@ -143,5 +145,13 @@ public class DailyPlanServiceTest extends AbstractTest {
 
 		unauthenticate();
 	}
+	
+	// Listing requirement 1
+
+		@Test
+		public void testFindDailyPlan() {
+			Collection<DailyPlan> dailyPlans = dailyPlanService.findAll();
+			Assert.isTrue(dailyPlans.size() == 6);
+		}
 
 }
