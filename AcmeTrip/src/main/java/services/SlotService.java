@@ -129,4 +129,9 @@ public class SlotService {
 		result = slotRepository.checkOverlapping(slot.getDailyPlan().getId(), slot.getStartTime(), slot.getEndTime());
 		return result;
 	}
+
+
+	public Collection<Slot> slotByActivity(int activityId) {
+		return slotRepository.slotByActivity(activityId);
+	}
 } 

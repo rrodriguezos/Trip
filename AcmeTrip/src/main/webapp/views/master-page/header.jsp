@@ -33,7 +33,7 @@
 					code="master.page.search.trip" /></a></li>
 		<li><a href="user/list.do"><spring:message
 					code="master.page.public.usersList" /></a>
-		<li><a href="activity/list.do"><spring:message
+		<li><a href="activitytype/activitytypes.do"><spring:message
 					code="master.page.public.activitytypeList" /></a> <security:authorize
 				access="isAnonymous()">
 				<li><a class="fNiv" href="user/register.do"> <spring:message

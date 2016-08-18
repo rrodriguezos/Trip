@@ -21,4 +21,7 @@ public interface SlotRepository extends JpaRepository<Slot, Integer>{
 	
 	@Query("select a.slots from Activity a where a.title like CONCAT(?1, '%') or a.description like CONCAT(?1, '%')")
 	Collection<Slot> findTripByActivityKeyword(String key);
+
+	@Query("select a.slots from Activity a where a.id = ?1")
+	public Collection<Slot> slotByActivity(int activityId);
 }

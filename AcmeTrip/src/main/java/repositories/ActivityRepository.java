@@ -12,4 +12,7 @@ import domain.Activity;
 public interface ActivityRepository extends JpaRepository<Activity, Integer>{ 
 	@Query("select a from Activity a where a.appropriated is true")
 	Collection<Activity> findAllAppropriated();
+
+	@Query("select a.activities from ActivityType a where a.id = ?1")
+	public Collection<Activity> activitiesByActivityType(int activitytypeId);
 } 

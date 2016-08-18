@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,9 +37,14 @@ public class SearchController extends AbstractController  {
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST, params = "search")
-	public ModelAndView list(@Valid SearchForm searchForm) {
+	public ModelAndView list(@Valid SearchForm searchForm,BindingResult binding) {
 		ModelAndView result;
-
+		if (binding.hasErrors()) {
+			result = new ModelAndView("search/buscando");
+			result.addObject("searchForm", searchForm);
+		}else{
+			try{
+		
 		Assert.notNull(searchForm);
 		String text = searchForm.getText();
 		Collection<Trip> trips = new HashSet<Trip>();
@@ -48,7 +54,13 @@ public class SearchController extends AbstractController  {
 		result.addObject("trips", trips);
 		result.addObject("searchForm", searchForm);
 		result.addObject("requestUri", "search/buscando.do");
+			} catch (Throwable oops) {
 
+				result = new ModelAndView("search/buscando");
+				result.addObject("searchForm", searchForm);
+
+			}
+		}
 		return result;
 	}
 	

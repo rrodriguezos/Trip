@@ -24,7 +24,7 @@ public class TripService {
 	// Managed repository -------------------
 	@Autowired
 	private TripRepository tripRepository;
-	
+
 	@Autowired
 	private SlotRepository slotRepository;
 
@@ -37,7 +37,7 @@ public class TripService {
 
 	@Autowired
 	private DailyPlanService dailyPlanService;
-	
+
 	@Autowired
 	private AdministratorService administratorService;
 
@@ -96,24 +96,26 @@ public class TripService {
 
 	public void save(Trip trip) {
 		Assert.notNull(trip);
-		
+
 		Collection<DailyPlan> dailyPlans;
 
 		if (trip.getId() != 0) {
 			String subjectEspanol;
 			String bodyEspanol;
-			
+
 			String subjectEnglish;
 			String bodyEnglish;
 
 			subjectEspanol = "Modificación del viaje " + trip.getTitle();
 			bodyEspanol = "He hecho un cambio en mi viaje " + trip.getTitle();
-			
+
 			subjectEnglish = "Edition of the trip " + trip.getTitle();
 			bodyEnglish = "I have made a change in my trip " + trip.getTitle();
 
-			messageService.broadcastAlertTripMessage(trip, subjectEnglish, bodyEnglish);
-			messageService.broadcastAlertTripMessage(trip, subjectEspanol, bodyEspanol);
+			messageService.broadcastAlertTripMessage(trip, subjectEnglish,
+					bodyEnglish);
+			messageService.broadcastAlertTripMessage(trip, subjectEspanol,
+					bodyEspanol);
 		}
 		dailyPlans = tripRepository.getDailyPlansOutDates(trip.getId(),
 				trip.getStartDate(), trip.getEndDate());
@@ -136,12 +138,14 @@ public class TripService {
 
 		subjectEspanol = "Eliminación del viaje " + trip.getTitle();
 		bodyEspanol = "He eliminado mi viaje " + trip.getTitle();
-		
+
 		subjectEnglish = "Elimination of the trip  " + trip.getTitle();
 		bodyEnglish = "I have deleted my trip  " + trip.getTitle();
-		
-		messageService.broadcastAlertTripMessage(trip, subjectEnglish, bodyEnglish);
-		messageService.broadcastAlertTripMessage(trip, subjectEspanol, bodyEspanol);
+
+		messageService.broadcastAlertTripMessage(trip, subjectEnglish,
+				bodyEnglish);
+		messageService.broadcastAlertTripMessage(trip, subjectEspanol,
+				bodyEspanol);
 
 		tripRepository.delete(trip);
 	}
@@ -181,21 +185,21 @@ public class TripService {
 		Collection<Slot> result3Slot;
 		result3Slot = slotRepository.findTripByActivityKeyword(key);
 		Collection<Trip> result3 = new ArrayList<>();
-		for (Slot sl: result3Slot){
-			result3.add(sl.getDailyPlan().getTrip());			
+		for (Slot sl : result3Slot) {
+			result3.add(sl.getDailyPlan().getTrip());
 		}
-		for(Trip t: result1){
-			if(!result.contains(t)){
+		for (Trip t : result1) {
+			if (!result.contains(t)) {
 				result.add(t);
 			}
 		}
-		for(Trip l: result2){
-			if(!result.contains(l)){
+		for (Trip l : result2) {
+			if (!result.contains(l)) {
 				result.add(l);
 			}
 		}
-		for(Trip j: result3){
-			if(!result.contains(j)){
+		for (Trip j : result3) {
+			if (!result.contains(j)) {
 				result.add(j);
 			}
 		}
@@ -237,7 +241,7 @@ public class TripService {
 
 		return result;
 	}
-	
+
 	public int totalNumberOfTripsRegistered() {
 		Administrator admin = administratorService.findByPrincipal();
 		Assert.notNull(admin);
@@ -252,7 +256,6 @@ public class TripService {
 	public Double averageNumberOfTripsByUsers() {
 		return tripRepository.averageNumberOfTripsByUser();
 	}
-
 
 	public Collection<Trip> findAllTripsSuscrito(int userId) {
 		Collection<Trip> result;
@@ -375,11 +378,17 @@ public class TripService {
 		return myTrips;
 	}
 
-	public Collection<Trip> tripsSubscribedByUser(int userId){
+	public Collection<Trip> tripsSubscribedByUser(int userId) {
 		Collection<Trip> result;
 
 		result = tripRepository.findAllTripsSubscrito(userId);
 
 		return result;
+	}
+
+	public Trip tripByDailyplan(int dailyPlanId) {
+
+		return tripRepository.tripByDailyplan(dailyPlanId);
+
 	}
 }

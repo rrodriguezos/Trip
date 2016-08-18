@@ -38,4 +38,8 @@
 		<put-attribute name="title" value="Detalles del Viaje" />
 		<put-attribute name="body" value="/views/trip/display.jsp" />
 	</definition>
+	<definition name="trip/listAll" extends="master.page">
+		<put-attribute name="title" value="Viaje" />
+		<put-attribute name="body" value="/views/trip/listAll.jsp" />
+	</definition>
 </tiles-definitions>

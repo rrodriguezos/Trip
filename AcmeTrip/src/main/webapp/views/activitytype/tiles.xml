@@ -29,5 +29,9 @@
 		<put-attribute name="title" value="Create a new type of activity" />
 		<put-attribute name="body" value="/views/activitytype/edit.jsp" />
 	</definition>
+	<definition name="activitytype/activitytypes" extends="master.page">	
+		<put-attribute name="title" value="Navigate to trips from types of activities" />
+		<put-attribute name="body" value="/views/activitytype/activitytypes.jsp" />
+	</definition>
 	
 </tiles-definitions>

@@ -34,5 +34,9 @@
 		<put-attribute name="title" value="Details of Activity" />
 		<put-attribute name="body" value="/views/activity/display.jsp" />
 	</definition>
+	<definition name="activity/listAll" extends="master.page">
+		<put-attribute name="title" value="See Activities" />
+		<put-attribute name="body" value="/views/activity/listAll.jsp" />
+	</definition>
 	
 </tiles-definitions>

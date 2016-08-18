@@ -25,4 +25,7 @@ public interface DailyPlanRepository extends JpaRepository<DailyPlan, Integer>{
 
 	@Query("select stddev(t.dailyPlans.size) from Trip t")
 	Double standardDeviationOfDailyPlansByTrip();
+
+	@Query("select s.dailyPlan from Slot s where s.id = ?1")
+	public DailyPlan dailyPlanBySlot(int slotId);
 } 

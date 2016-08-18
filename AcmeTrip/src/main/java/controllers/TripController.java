@@ -166,4 +166,16 @@ public class TripController extends AbstractController {
 		return result;
 
 	}
+	
+	//Listing by navigate from DailyPlan ---------------
+	@RequestMapping(value="/navigateByDailyPlan", method = RequestMethod.GET)
+	public ModelAndView navigateByDailyPlan(@RequestParam int dailyPlanId) {
+		ModelAndView result;
+		Trip trip = tripService.tripByDailyplan(dailyPlanId);
+		
+		result = new ModelAndView("trip/listAll");
+		result.addObject("trip", trip);
+		result.addObject("requestURI", "trip/navigateByDailyPlan.do");
+		return result;
+	}
 }

@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import domain.Activity;
-import domain.Comment;
-import domain.Trip;
 
 import services.ActivityService;
 import services.CommentService;
 import services.TripService;
+import domain.Activity;
+import domain.Comment;
+import domain.Trip;
 
 @Controller
 @RequestMapping("/activity")
@@ -67,6 +67,17 @@ public class ActivityController extends AbstractController {
 		result.addObject("trips", trips);
 		result.addObject("comments", comments);
 		
+		return result;
+	}
+	
+	//Listing by navigate from activity type ---------------
+	@RequestMapping(value="/navigateByActivitytype", method = RequestMethod.GET)
+	public ModelAndView navigateByActivitytype(@RequestParam int activitytypeId) {
+		ModelAndView result;
+		Collection<Activity> activities = activityService.activitiesByActivityType(activitytypeId);
+		result = new ModelAndView("activity/listAll");
+		result.addObject("activities", activities);
+		result.addObject("requestURI", "activities/navigateByActivitytype.do");
 		return result;
 	}
 

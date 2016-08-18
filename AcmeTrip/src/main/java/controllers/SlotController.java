@@ -82,6 +82,17 @@ public class SlotController extends AbstractController {
 			return result;
 		}
 		
+		// Listing by navigate from activity ---------------
+		@RequestMapping(value = "/navigateByActivity", method = RequestMethod.GET)
+		public ModelAndView navigateByActivity(@RequestParam int activityId) {
+			ModelAndView result;
+			Collection<Slot> slots = slotService.slotByActivity(activityId);
+			result = new ModelAndView("slot/listAll");
+			result.addObject("slots", slots);
+			result.addObject("requestURI", "slots/navigateByActivity.do");
+			return result;
+		}
+		
 		
 	
 

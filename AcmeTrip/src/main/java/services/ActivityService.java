@@ -129,6 +129,11 @@ public class ActivityService {
 		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority));
 	}
 
+
+	public Collection<Activity> activitiesByActivityType(int activitytypeId) {
+		return activityRepository.activitiesByActivityType(activitytypeId);
+	}
+
 	
 	//Repository Methods--------------------
 } 

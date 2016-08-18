@@ -7,17 +7,18 @@ import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Banner;
-import domain.DailyPlan;
-import domain.Trip;
-import domain.User;
 import services.BannerService;
 import services.DailyPlanService;
 import services.TripService;
 import services.UserService;
+import domain.Banner;
+import domain.DailyPlan;
+import domain.Trip;
+import domain.User;
 
 @Controller
 @RequestMapping("/dailyPlan")
@@ -110,5 +111,16 @@ public class DailyPlanController extends AbstractController {
 
 		return result;
 	}
+	
+	// Listing by navigate from Slot ---------------
+		@RequestMapping(value = "/navigateBySlot", method = RequestMethod.GET)
+		public ModelAndView navigateBySlot(@RequestParam int slotId) {
+			ModelAndView result;
+			DailyPlan dailyplan = dailyPlanService.dailyPlanBySlot(slotId);
+			result = new ModelAndView("dailyPlan/listAll");
+			result.addObject("dailyplan", dailyplan);
+			result.addObject("requestURI", "dailyPlan/navigateBySlot.do");
+			return result;
+		}
 
 }

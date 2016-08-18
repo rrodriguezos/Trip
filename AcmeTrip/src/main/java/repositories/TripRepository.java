@@ -52,5 +52,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer>{
 	@Query("select stddev(u.trips.size) from User u")
 	Double standardDeviationOfTripsByUser();
 
+	@Query("select d.trip from DailyPlan d where d.id = ?1")
+	Trip tripByDailyplan(int dailyPlanId);
+	
+
+
 
 } 

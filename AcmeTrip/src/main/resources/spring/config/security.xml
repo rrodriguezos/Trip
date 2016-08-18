@@ -59,6 +59,14 @@
 		<security:intercept-url pattern="/activity/display.do" access="permitAll" />
 		
 		<security:intercept-url pattern="/comment/display.do" access="permitAll" />
+		<security:intercept-url pattern="/activity/navigateByActivitytype.do" access="permitAll" /> 
+  		<security:intercept-url pattern="/slot/navigateByActivity.do" access="permitAll" /> 
+ 		<security:intercept-url pattern="/dailyPlan/navigateBySlot.do" access="permitAll" /> 
+  		<security:intercept-url pattern="/trip/navigateByDailyPlan.do" access="permitAll" /> 
+  		<security:intercept-url pattern="/activitytype/activitytypes.do" access="permitAll" /> 
+  		
+  		
+		
 
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/administrator/administrator/list.do" access="hasRole('ADMINISTRATOR')" /> 

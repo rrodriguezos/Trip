@@ -24,5 +24,9 @@
 		<put-attribute name="title" value="Create a Daily Plan" />
 		<put-attribute name="body" value="/views/dailyPlan/create.jsp" />
 	</definition>
+		<definition name="dailyPlan/listAll" extends="master.page">
+  <put-attribute name="title" value="Ver Plan Diario" /> 
+  <put-attribute name="body" value="/views/dailyPlan/listAll.jsp" /> 
+  </definition>
 	
 </tiles-definitions>

@@ -160,4 +160,9 @@ public class DailyPlanService {
 	public Double averageNumberOfDailyPlansByTrip() {
 		return dailyPlanRepository.averageNumberOfDailyPlansByTrip();
 	}
+
+
+	public DailyPlan dailyPlanBySlot(int slotId) {
+		return dailyPlanRepository.dailyPlanBySlot(slotId);
+	}
 } 
