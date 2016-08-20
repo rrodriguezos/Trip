@@ -149,8 +149,8 @@ public class TripUserController extends AbstractController {
 		} else {
 			try {
 				tripService.delete(trip);
-				result = new ModelAndView("redirect:/trip/list.do");
-				result.addObject("requestUri", "/trip/list.do");
+				result = new ModelAndView("redirect:/trip/user/mylist.do");
+				result.addObject("requestUri", "/trip/user/mylist.do");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(trip, "trip.commit.error");
 			}

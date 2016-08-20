@@ -146,7 +146,7 @@ public class TripService {
 				bodyEnglish);
 		messageService.broadcastAlertTripMessage(trip, subjectEspanol,
 				bodyEspanol);
-
+		trip.getComments().clear();
 		tripRepository.delete(trip);
 	}
 
