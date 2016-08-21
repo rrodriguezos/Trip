@@ -33,6 +33,12 @@
 				<img height="150px" src="<jstl:out value="${photo}" />">
 			</jstl:forEach>
 		</display:column>
+		
+		<spring:message code="activity.display" var="display" />
+	<display:column title="${display}">
+			<input type="button" value="<spring:message code="activity.display" />" 
+					onclick="javascript: window.location.assign('activity/display.do?activityId=${row.id}')" />
+	</display:column>
 
 		<spring:message code="activity.slots" var="slots" />
 		<display:column title="${slots}" sortable="true">
