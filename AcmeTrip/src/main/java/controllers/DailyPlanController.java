@@ -17,6 +17,7 @@ import services.TripService;
 import services.UserService;
 import domain.Banner;
 import domain.DailyPlan;
+import domain.Slot;
 import domain.Trip;
 import domain.User;
 
@@ -122,5 +123,19 @@ public class DailyPlanController extends AbstractController {
 			result.addObject("requestURI", "dailyPlan/navigateBySlot.do");
 			return result;
 		}
+		
+		// Display --------------------------------------------------------
+				@RequestMapping(value="/display", method=RequestMethod.GET)
+				public ModelAndView display(int dailyPlanId){
+					ModelAndView result;
+					DailyPlan dPlan;
+					
+					dPlan = dailyPlanService.findOne(dailyPlanId);
+					
+					result = new ModelAndView("dailyPlan/display");
+					result.addObject("dailyPlan", dPlan);
+					
+					return result;
+				}
 
 }

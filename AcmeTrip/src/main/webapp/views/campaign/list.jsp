@@ -43,8 +43,9 @@
 		</display:column>
 
 	</display:table>
-
-	<a href="campaign/manager/create.do"><spring:message
-			code="master.page.manager.createCamp" /></a>
+	
+			<input type="button" name="create"
+		value="<spring:message code="master.page.manager.createCamp" />"
+		onclick="javascript: window.location.assign('campaign/manager/create.do')" />
 
 </security:authorize>

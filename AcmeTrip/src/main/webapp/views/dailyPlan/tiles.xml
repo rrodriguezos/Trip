@@ -20,12 +20,17 @@
 		<put-attribute name="body" value="/views/dailyPlan/list.jsp" />
 	</definition>
 	
+		<definition name="dailyPlan/display" extends="master.page">	
+		<put-attribute name="title" value="Daily Plan Details" />
+		<put-attribute name="body" value="/views/slot/display.jsp" />
+	</definition>
+	
 	<definition name="dailyPlan/create" extends="master.page">	
 		<put-attribute name="title" value="Create a Daily Plan" />
 		<put-attribute name="body" value="/views/dailyPlan/create.jsp" />
 	</definition>
 		<definition name="dailyPlan/listAll" extends="master.page">
-  <put-attribute name="title" value="Ver Plan Diario" /> 
+  <put-attribute name="title" value="See Plan Diario" /> 
   <put-attribute name="body" value="/views/dailyPlan/listAll.jsp" /> 
   </definition>
 	

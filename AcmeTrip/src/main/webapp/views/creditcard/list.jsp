@@ -53,8 +53,9 @@
 		</display:column>
 
 	</display:table>
-
-	<a href="creditcard/manager/create.do"><spring:message
-			code="master.page.manager.createCCard" /></a>
+<input type="button" name="create"
+		value="<spring:message code="master.page.manager.createCCard" />"
+		onclick="javascript: window.location.assign('creditcard/manager/create.do')" />
+		
 
 </security:authorize>

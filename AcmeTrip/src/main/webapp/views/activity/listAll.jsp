@@ -41,10 +41,9 @@
 	</display:column>
 
 		<spring:message code="activity.slots" var="slots" />
-		<display:column title="${slots}" sortable="true">
-			<a
-				href="slot/navigateByActivity.do?activityId=<jstl:out value="${row.id}"/> "><spring:message
-					code="activity.slots" /></a>
+		<display:column title="${slots}">
+		<input type="button" value="<spring:message code="activity.slots" />" 
+					onclick="javascript: window.location.assign('slot/navigateByActivity.do?activityId=${row.id}')" />
 		</display:column>
 		
 	</display:table>

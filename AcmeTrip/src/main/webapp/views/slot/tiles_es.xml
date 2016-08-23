@@ -16,21 +16,21 @@
       
 <tiles-definitions>
 	<definition name="slot/list" extends="master.page">	
-		<put-attribute name="title" value="Slots" />
+		<put-attribute name="title" value="Ranuras" />
 		<put-attribute name="body" value="/views/slot/list.jsp" />
 	</definition>
 
 	<definition name="slot/display" extends="master.page">	
-		<put-attribute name="title" value="Datos del Slot" />
+		<put-attribute name="title" value="Detalles de la Ranura" />
 		<put-attribute name="body" value="/views/slot/display.jsp" />
 	</definition>
 	<definition name="slot/create" extends="master.page">	
-		<put-attribute name="title" value="Añadir Slot" />
+		<put-attribute name="title" value="Añadir Ranura" />
 		<put-attribute name="body" value="/views/slot/create.jsp" />
 	</definition>
 	
 	<definition name="slot/listAll" extends="master.page">
-  <put-attribute name="title" value="See Slots" /> 
+  <put-attribute name="title" value="Ver Ranuras" /> 
   <put-attribute name="body" value="/views/slot/listAll.jsp" /> 
   </definition>
 	

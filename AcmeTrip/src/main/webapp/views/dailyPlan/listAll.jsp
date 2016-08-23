@@ -34,11 +34,16 @@
 	<spring:message code="dailyPlan.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" />
 	
+	<spring:message code="dailyPlan.display" var="display" />
+	<display:column title="${display}">
+		<input type="button" value="<spring:message code="dailyPlan.display" />"
+			onclick="javascript: window.location.assign('dailyPlan/display.do?slotId=${row.id}')" />
+	</display:column>
+	
 	<spring:message code="dailyPlan.trip" var="trip" />
 		<display:column title="${trip}" sortable="true">
-			<a
-				href="trip/navigateByDailyPlan.do?dailyPlanId=<jstl:out value="${row.id}"/> "><spring:message
-					code="dailyPlan.trip" /></a>
+		<input type="button" value="<spring:message code="dailyPlan.trip" />"
+				onclick="javascript: window.location.assign('trip/navigateByDailyPlan.do?dailyPlanId=${row.id}')" />
 		</display:column>	
 	
 	

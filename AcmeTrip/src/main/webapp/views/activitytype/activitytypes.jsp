@@ -23,10 +23,12 @@
 	<display:column property="name" title="${title}" sortable="true" />
 
 	<spring:message code="activitytype.activities" var="activities" />
-	<display:column title="${activities}" sortable="true">
-		<a
-			href="activity/navigateByActivitytype.do?activitytypeId=<jstl:out value="${row.id}"/> "><spring:message
-				code="activitytype.activities" /></a>
+	<display:column title="${activities}">
+
+		<input type="button"
+			value="<spring:message code="activitytype.activities" />"
+			onclick="javascript: window.location.assign('activity/navigateByActivitytype.do?activitytypeId=${row.id}')" />
+
 	</display:column>
 
 
