@@ -102,7 +102,7 @@
 		<property value="Chris" name="name" />
 		<property value="Froome" name="surname" />
 		<property value="chrisf@mail.es" name="emailAddress" />
-		<property value="+34 954 758400" name="phone" />
+		<property value="+34 (954) 758400" name="phone" />
 		<property name="userAccount" ref="userAccount1" />
 		<property name="folders">
 			<list>
@@ -126,7 +126,7 @@
 		<property value="Purito" name="surname" />
 		<property value="manolo@mail.es" name="emailAddress" />
 		<property name="userAccount" ref="userAccount2" />
-		<property value="+34 684605824" name="phone" />
+		<property value="+34 (95) 75400" name="phone" />
 		<property value="08/08/2014" name="lastLogin" />
 		<property name="folders">
 			<list>
@@ -161,7 +161,7 @@
 		<property value="charro@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount3" />
 		<property value="08/08/2014" name="lastLogin" />
-		<property value="+34 736605587" name="phone" />
+		<property value="+34 (956) 708405" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder11" />
@@ -196,7 +196,7 @@
 		<property value="Doming@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount4" />
 		<property value="08/08/2014" name="lastLogin" />
-		<property value="+34 932 856824" name="phone" />
+		<property value="+34 (932) 856824" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder16" />
@@ -228,7 +228,7 @@
 		<property value="eijude@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount5" />
 		<property value="08/08/2014" name="lastLogin" />
-		<property value="+34 634650024" name="phone" />
+		<property value="+34 (91) 8400" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder21" />
@@ -260,7 +260,7 @@
 		<property value="Beitia" name="surname" />
 		<property value="antflores@hotmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount6" />
-		<property value="+34 634655774" name="phone" />
+		<property value="+34 (94) 78400" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder26" />
@@ -297,7 +297,7 @@
 		<property value="Nadal" name="surname" />
 		<property value="rafitaNadal@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount7" />
-		<property value="+34 678658853" name="phone" />
+		<property value="+34 (91) 7584" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder31" />

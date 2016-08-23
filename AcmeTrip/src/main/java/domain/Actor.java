@@ -20,8 +20,6 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 import security.UserAccount;
 
-
-
 @Entity
 @Access(AccessType.PROPERTY)
 public abstract class Actor extends DomainEntity {
@@ -30,7 +28,6 @@ public abstract class Actor extends DomainEntity {
 	private String surname;
 	private String phone;
 	private String emailAddress;
-	
 
 	// Constructors...................
 
@@ -40,7 +37,6 @@ public abstract class Actor extends DomainEntity {
 
 	// Getters and Setters........
 
-
 	@NotBlank
 	public String getName() {
 		return name;
@@ -49,7 +45,7 @@ public abstract class Actor extends DomainEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@NotBlank
 	public String getSurname() {
 		return surname;
@@ -59,8 +55,8 @@ public abstract class Actor extends DomainEntity {
 		this.surname = surname;
 	}
 
-	@SafeHtml(whitelistType=WhiteListType.NONE)
-	@Pattern(regexp="(\\+[0-9]{1,2} ([0-9]{0,3} [0-9]{4,9}|[0-9]{4,9})|^$)") 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@Pattern(regexp = "(\\+[0-9]{1,2} ([(][0-9]{0,3}[)] [0-9]{4,9}|[0-9]{4,9})|^$)")
 	public String getPhone() {
 		return phone;
 	}
@@ -68,9 +64,8 @@ public abstract class Actor extends DomainEntity {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
 
-	@SafeHtml(whitelistType=WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@NotBlank
 	@Email
 	public String getEmailAddress() {
@@ -81,13 +76,12 @@ public abstract class Actor extends DomainEntity {
 		this.emailAddress = emailAddress;
 	}
 
-
 	// Relationships ----------------------------------------------------------
 	private Collection<Folder> folders;
 	private UserAccount userAccount;
 	private Collection<Comment> comments;
 
-	@OneToMany(mappedBy="actor")
+	@OneToMany(mappedBy = "actor")
 	@NotNull
 	@Valid
 	public Collection<Folder> getFolders() {
@@ -97,7 +91,7 @@ public abstract class Actor extends DomainEntity {
 	public void setFolders(Collection<Folder> folders) {
 		this.folders = folders;
 	}
-	
+
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	@NotNull
 	@Valid
@@ -108,14 +102,14 @@ public abstract class Actor extends DomainEntity {
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
-	
+
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="actor")
+	@OneToMany(mappedBy = "actor")
 	public Collection<Comment> getComments() {
 		return comments;
 	}
-	
+
 	public void setComments(Collection<Comment> comments) {
 		this.comments = comments;
 	}
