@@ -42,7 +42,7 @@
 		<spring:message code="slot.dailyplan" var="dailyplan" />
 		<display:column title="${dailyplan}" sortable="true">
 			<input type="button" value="<spring:message code="slot.dailyplan" />"
-				onclick="javascript: window.location.assign('dailyPlan/navigateBySlot.do?dailyPlanId=${row.id}')" />
+				onclick="javascript: window.location.assign('dailyPlan/navigateBySlot.do?slotId=${row.id}')" />
 		</display:column>
 
 	</display:table>
