@@ -58,7 +58,7 @@ public class SlotServiceTest extends AbstractTest {
 		slot.setEndTime(endTimeDate);
 		slot.setActivity(act);
 
-		Assert.isTrue(slotService.checkOverlapping(slot) == 0);
+		Assert.isTrue(slotService.comprobrarSolape(slot) == 0);
 
 		slotService.save(slot);
 
@@ -89,7 +89,7 @@ public class SlotServiceTest extends AbstractTest {
 		slot.setEndTime(endTimeDate);
 		slot.setActivity(act);
 
-		Assert.isTrue(slotService.checkOverlapping(slot) == 0);
+		Assert.isTrue(slotService.comprobrarSolape(slot) == 0);
 
 		slotService.save(slot);
 
@@ -117,7 +117,7 @@ public class SlotServiceTest extends AbstractTest {
 		slot.setEndTime(endTimeDate);
 		slot.setActivity(act);
 
-		Assert.isTrue(slotService.checkOverlapping(slot) == 0);
+		Assert.isTrue(slotService.comprobrarSolape(slot) == 0);
 
 		slotService.save(slot);
 

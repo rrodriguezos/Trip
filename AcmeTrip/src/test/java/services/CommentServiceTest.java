@@ -47,7 +47,7 @@ public class CommentServiceTest extends AbstractTest {
 	public void testFlagComment1() {
 		authenticate("admin");
 
-		commentService.changeAppropriated(92);
+		commentService.changeStateComment(92);
 
 		unauthenticate();
 	}
@@ -60,7 +60,7 @@ public class CommentServiceTest extends AbstractTest {
 	public void testFlagComment2() {
 		authenticate("admin");
 
-		commentService.changeAppropriated(48271);
+		commentService.changeStateComment(48271);
 
 		unauthenticate();
 	}
@@ -70,7 +70,7 @@ public class CommentServiceTest extends AbstractTest {
 	public void testFlagComment3() {
 		authenticate("user1");
 
-		commentService.changeAppropriated(92);
+		commentService.changeStateComment(92);
 
 		unauthenticate();
 	}

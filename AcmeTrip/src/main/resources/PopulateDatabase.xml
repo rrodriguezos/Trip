@@ -126,7 +126,7 @@
 		<property value="Purito" name="surname" />
 		<property value="manolo@mail.es" name="emailAddress" />
 		<property name="userAccount" ref="userAccount2" />
-		<property value="+34 (95) 75400" name="phone" />
+		<property value="+34 (95) 758400" name="phone" />
 		<property value="08/08/2014" name="lastLogin" />
 		<property name="folders">
 			<list>
@@ -161,7 +161,7 @@
 		<property value="charro@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount3" />
 		<property value="08/08/2014" name="lastLogin" />
-		<property value="+34 (956) 708405" name="phone" />
+		<property value="+34 (954) 758412" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder11" />
@@ -196,7 +196,7 @@
 		<property value="Doming@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount4" />
 		<property value="08/08/2014" name="lastLogin" />
-		<property value="+34 (932) 856824" name="phone" />
+		<property value="+34 (92) 888400" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder16" />
@@ -228,7 +228,7 @@
 		<property value="eijude@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount5" />
 		<property value="08/08/2014" name="lastLogin" />
-		<property value="+34 (91) 8400" name="phone" />
+		<property value="+35 (91) 758400" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder21" />
@@ -260,7 +260,7 @@
 		<property value="Beitia" name="surname" />
 		<property value="antflores@hotmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount6" />
-		<property value="+34 (94) 78400" name="phone" />
+		<property value="+33 (95) 758400" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder26" />
@@ -297,7 +297,7 @@
 		<property value="Nadal" name="surname" />
 		<property value="rafitaNadal@gmail.com" name="emailAddress" />
 		<property name="userAccount" ref="userAccount7" />
-		<property value="+34 (91) 7584" name="phone" />
+		<property value="+34 (954) 758499" name="phone" />
 		<property name="folders">
 			<list>
 				<ref bean="folder31" />
@@ -324,13 +324,6 @@
 			</list>
 		</property>
 	</bean>
-
-
-
-
-
-
-
 
 
 	<!-- Campaigns -->
@@ -1035,9 +1028,9 @@
 		</property>
 		<property name="photos">
 			<list>
-				<value>https://secure.static.tumblr.com/aa898089b8c6ec89e9929b320f6f55c7/bjkfo3u/LzSnwhppj/tumblr_static_tumblr_static_xsq8670v4g0wkcskgk00wwk_640.jpg
-				</value>
 				<value>http://data.whicdn.com/images/49250042/large.jpg
+				</value>
+				<value>https://cache-graphicslib.viator.com/graphicslib/thumbs360x240/2625/SITours/new-york-city-hop-on-hop-off-tour-in-new-york-city-292892.jpg
 				</value>
 				<value>http://static.tumblr.com/2342d30b9b026289a10960e10d0fc55e/fv0vh9t/SSDnoxl5e/tumblr_static_442nb74ho1k4owggcgg8cc0gg_2048_v2.jpg
 				</value>
@@ -1079,50 +1072,6 @@
 			</list>
 		</property>
 	</bean>
-	<bean class="domain.Trip" id="trip3">
-		<property name="title" value="title3" />
-		<property name="startDate" value="01/01/2018 00:00" />
-		<property name="endDate" value="01/01/2020 00:00" />
-		<property name="description" value="description3" />
-		<property name="user" ref="user3" />
-		<property name="dailyPlans">
-			<list>
-			</list>
-		</property>
-		<property name="photos">
-			<list>
-				<value>http://www.hispotion.com/wp-content/uploads/2013/12/Christmas-Inspiration-1-49.jpg
-				</value>
-				<value>http://65.media.tumblr.com/8f78d4cadb035c1d274bc9f66527d984/tumblr_nwzf85heA51uch37fo1_1280.jpg
-				</value>
-			</list>
-		</property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
-	<bean class="domain.Trip" id="trip4">
-		<property name="title" value="title4" />
-		<property name="startDate" value="01/01/2017 00:00" />
-		<property name="endDate" value="01/12/2017 00:00" />
-		<property name="description" value="description4" />
-		<property name="user" ref="user4" />
-		<property name="dailyPlans">
-			<list>
-			</list>
-		</property>
-		<property name="photos">
-			<list>
-				<value>https://s-media-cache-ak0.pinimg.com/736x/30/b9/6d/30b96dc8c5fca10ef91a4a678e1d8263.jpg
-				</value>
-			</list>
-		</property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-	</bean>
 
 	<!-- DailyPlans -->
 
@@ -1139,11 +1088,7 @@
 		</property>
 		<property name="photos">
 			<list>
-				<value>https://secure.static.tumblr.com/aa898089b8c6ec89e9929b320f6f55c7/bjkfo3u/LzSnwhppj/tumblr_static_tumblr_static_xsq8670v4g0wkcskgk00wwk_640.jpg
-				</value>
-				<value>http://data.whicdn.com/images/49250042/large.jpg
-				</value>
-				<value>http://static.tumblr.com/2342d30b9b026289a10960e10d0fc55e/fv0vh9t/SSDnoxl5e/tumblr_static_442nb74ho1k4owggcgg8cc0gg_2048_v2.jpg
+				<value>http://www.hispotion.com/wp-content/uploads/2013/12/Christmas-Inspiration-1-49.jpg
 				</value>
 			</list>
 		</property>
@@ -1161,11 +1106,7 @@
 		</property>
 		<property name="photos">
 			<list>
-				<value>https://secure.static.tumblr.com/aa898089b8c6ec89e9929b320f6f55c7/bjkfo3u/LzSnwhppj/tumblr_static_tumblr_static_xsq8670v4g0wkcskgk00wwk_640.jpg
-				</value>
-				<value>http://data.whicdn.com/images/49250042/large.jpg
-				</value>
-				<value>http://static.tumblr.com/2342d30b9b026289a10960e10d0fc55e/fv0vh9t/SSDnoxl5e/tumblr_static_442nb74ho1k4owggcgg8cc0gg_2048_v2.jpg
+				<value>http://65.media.tumblr.com/8f78d4cadb035c1d274bc9f66527d984/tumblr_nwzf85heA51uch37fo1_1280.jpg
 				</value>
 			</list>
 		</property>
@@ -1182,11 +1123,9 @@
 		</property>
 		<property name="photos">
 			<list>
-				<value>https://secure.static.tumblr.com/aa898089b8c6ec89e9929b320f6f55c7/bjkfo3u/LzSnwhppj/tumblr_static_tumblr_static_xsq8670v4g0wkcskgk00wwk_640.jpg
+				<value>https://s-media-cache-ak0.pinimg.com/736x/30/b9/6d/30b96dc8c5fca10ef91a4a678e1d8263.jpg
 				</value>
-				<value>http://data.whicdn.com/images/49250042/large.jpg
-				</value>
-				<value>http://static.tumblr.com/2342d30b9b026289a10960e10d0fc55e/fv0vh9t/SSDnoxl5e/tumblr_static_442nb74ho1k4owggcgg8cc0gg_2048_v2.jpg
+				<value>http://www.nuevayork.com/wp-content/uploads/2014/10/Excursion-de-un-dia-a-Washington-DC-Monumento.jpg
 				</value>
 			</list>
 		</property>
@@ -1323,12 +1262,6 @@
 		<property name="endTime" value="04/08/2016" />
 		<property name="dailyPlan" ref="dailyPlan1" />
 		<property name="activity" ref="activity1" />
-		<property name="photos">
-			<list>
-				<value>http://estaticos.telva.com/albumes/2014/06/24/ideas_invitadas_para_una_preboda/1441247326_extras_albumes_0.jpg
-				</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean class="domain.Slot" id="slot2">
@@ -1338,12 +1271,6 @@
 		<property name="endTime" value="04/08/2016" />
 		<property name="dailyPlan" ref="dailyPlan1" />
 		<property name="activity" ref="activity1" />
-		<property name="photos">
-			<list>
-				<value>http://estaticos.telva.com/albumes/2014/06/24/ideas_invitadas_para_una_preboda/1441247326_extras_albumes_0.jpg
-				</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean class="domain.Slot" id="slot3">
@@ -1353,12 +1280,6 @@
 		<property name="endTime" value="04/09/2016" />
 		<property name="dailyPlan" ref="dailyPlan2" />
 		<property name="activity" ref="activity2" />
-		<property name="photos">
-			<list>
-				<value>http://static.tumblr.com/2342d30b9b026289a10960e10d0fc55e/fv0vh9t/SSDnoxl5e/tumblr_static_442nb74ho1k4owggcgg8cc0gg_2048_v2.jpg
-				</value>
-			</list>
-		</property>
 	</bean>
 
 	<!-- Comments -->

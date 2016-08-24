@@ -22,45 +22,45 @@ import domain.ActivityType;
 @Controller
 @RequestMapping("/activity/user")
 public class ActivityUserController extends AbstractController {
-	
-	//Constructor --------------------------------------------------------
+
+	// Constructor --------------------------------------------------------
 	public ActivityUserController() {
 		super();
 	}
-	
-	//Services -----------------------------------------------------------
+
+	// Services -----------------------------------------------------------
 	@Autowired
 	private ActivityService activityService;
-	
+
 	@Autowired
-	private ActivityTypeService typeService;
-	
-	//Create-------------------------------------------
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public ModelAndView create(){
+	private ActivityTypeService activityTypeService;
+
+	// Create-------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		ModelAndView result;
 		Activity activity;
 		Collection<ActivityType> activitytypes;
-		
+
 		activity = activityService.create();
-		activitytypes = typeService.findAll();
-		
+		activitytypes = activityTypeService.findAll();
+
 		result = new ModelAndView("activity/create");
 		result.addObject("activity", activity);
 		result.addObject("activitytypes", activitytypes);
-		
+
 		return result;
 	}
-	
-	//Editing ------------------------------------------------
-	@RequestMapping(value="/edit",method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int activityId){
+
+	// Editing ------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int activityId) {
 		ModelAndView result;
 		Activity activity;
 		Collection<ActivityType> activitytypes;
-		
+
 		activity = activityService.findOne(activityId);
-		activitytypes = typeService.findAll();
+		activitytypes = activityTypeService.findAll();
 
 		result = new ModelAndView("activity/edit");
 		result.addObject("activity", activity);
@@ -69,48 +69,48 @@ public class ActivityUserController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
-	public ModelAndView edit(@Valid Activity activity, BindingResult binding){
+	// Save ------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(@Valid Activity activity, BindingResult binding) {
 		ModelAndView result;
 		Collection<ActivityType> activitytypes;
-		activitytypes = typeService.findAll();
-		if(binding.hasErrors()){
-			activitytypes = typeService.findAll();
-			
+		activitytypes = activityTypeService.findAll();
+		if (binding.hasErrors()) {
+			activitytypes = activityTypeService.findAll();
+
 			result = new ModelAndView("activity/edit");
 			result.addObject("activity", activity);
 			result.addObject("activitytypes", activitytypes);
-		}else{
-			try{
+		} else {
+			try {
 				activityService.save(activity);
 				result = new ModelAndView("redirect:/activity/list.do");
-			}catch(Throwable oops){
-				activitytypes = typeService.findAll();
-				
+			} catch (Throwable oops) {
+				activitytypes = activityTypeService.findAll();
+
 				result = new ModelAndView("activity/edit");
 				result.addObject("activity", activity);
 				result.addObject("activitytypes", activitytypes);
-				result.addObject("message2","activity.commit.error");
+				result.addObject("message2", "activity.commit.error");
 			}
 		}
 		return result;
 	}
-	
+
 	// List -------------------------------------------------------------------
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Activity> activities;
-		
+
 		activities = activityService.findAllAppropriated();
-		
+
 		result = new ModelAndView("activity/list");
-		result.addObject("requestUri","/activity/list.do");
+		result.addObject("requestUri", "/activity/list.do");
 		result.addObject("activities", activities);
-		
+
 		return result;
 	}
-	
-	
 
 }

@@ -42,13 +42,13 @@ public class UserEditServiceTest extends AbstractTest {
 	public static Collection<Object[]> data() {
 		return Arrays
 				.asList(new Object[][] {
-						{ "user1", "user1", "Rafa", "+34669988745",
+						{ "user1", "user1", "Rafa", "+34 (95) 758400",
 								"etsii@gmail.com" },
-						{ "user10", "user10", "", "+34669988745",
+						{ "user10", "user10", "", "+34 (95) 758400",
 								"etsii@gmail.com" },
-						{ "user89", "user89", "Antonio", "+34669988745",
+						{ "user89", "user89", "Antonio", "+34 (95) 758400",
 								"etsii@gmail.com" },
-						{ "user25", "user25", "Alex", "+34669988745",
+						{ "user25", "user25", "Alex", "+34 (95) 758400",
 								"etsiigmail.com" }
 
 				});

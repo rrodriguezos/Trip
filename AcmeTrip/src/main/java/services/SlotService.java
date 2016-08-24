@@ -124,9 +124,9 @@ public class SlotService {
 		return result;
 	}
 	
-	public int checkOverlapping(Slot slot) {
+	public int comprobrarSolape(Slot slot) {
 		int result;
-		result = slotRepository.checkOverlapping(slot.getDailyPlan().getId(), slot.getStartTime(), slot.getEndTime());
+		result = slotRepository.comprobrarSolape(slot.getDailyPlan().getId(), slot.getStartTime(), slot.getEndTime());
 		return result;
 	}
 

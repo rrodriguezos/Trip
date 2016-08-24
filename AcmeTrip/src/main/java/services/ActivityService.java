@@ -103,7 +103,7 @@ public class ActivityService {
 		return result;
 	}
 	
-	public void changeAppropriated(int commentId){
+	public void changeStateActivity(int commentId){
 		Assert.notNull(commentId);
 		checkPrincipalManager();
 		Activity comment;

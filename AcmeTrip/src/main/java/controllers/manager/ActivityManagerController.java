@@ -12,25 +12,26 @@ import services.ActivityService;
 @Controller
 @RequestMapping("/activity/manager")
 public class ActivityManagerController extends AbstractController {
-	
-	//Constructor --------------------------------------------------------
+
+	// Constructor --------------------------------------------------------
 	public ActivityManagerController() {
 		super();
 	}
-	
-	//Services -----------------------------------------------------------
+
+	// Services -----------------------------------------------------------
 	@Autowired
 	private ActivityService activityService;
-	
-	//Appropriated --------------------------------------------------------
-	@RequestMapping(value="/appropriated")
-	public ModelAndView appropiated(@RequestParam int activityId){
+
+	// State --------------------------------------------------------
+	@RequestMapping(value = "/appropriated")
+	public ModelAndView appropiated(@RequestParam int activityId) {
 		ModelAndView result;
-		
-		activityService.changeAppropriated(activityId);
-		
-		result = new ModelAndView("redirect:/activity/display.do?activityId="+activityId);
-		
+
+		activityService.changeStateActivity(activityId);
+
+		result = new ModelAndView("redirect:/activity/display.do?activityId="
+				+ activityId);
+
 		return result;
 	}
 }

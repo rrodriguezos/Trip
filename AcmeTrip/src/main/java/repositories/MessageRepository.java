@@ -16,5 +16,5 @@ public interface MessageRepository extends JpaRepository<Message, Integer>{
 	
 	//Messages by actor
 	@Query("select m from Message m where m.folder.actor.id=?1 and m.star is true")
-	Collection<Message> findMessagesFavoritesByActor(int actorId);
+	Collection<Message> findMessagesStarsByActor(int actorId);
 }

@@ -41,7 +41,7 @@ public class ActivityServiceTest extends AbstractTest {
 	public void testFlagActivity1() {
 		authenticate("manager1");
 
-		activityService.changeAppropriated(86);
+		activityService.changeStateActivity(86);
 
 		unauthenticate();
 	}
@@ -54,7 +54,7 @@ public class ActivityServiceTest extends AbstractTest {
 	public void testFlagActivity2() {
 		authenticate("manager1");
 
-		activityService.changeAppropriated(8746);
+		activityService.changeStateActivity(8746);
 
 		unauthenticate();
 	}
@@ -64,7 +64,7 @@ public class ActivityServiceTest extends AbstractTest {
 	public void testFlagActivity3() {
 		authenticate("user1");
 
-		activityService.changeAppropriated(92);
+		activityService.changeStateActivity(92);
 
 		unauthenticate();
 	}

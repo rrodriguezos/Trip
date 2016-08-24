@@ -169,10 +169,10 @@ public class MessageService {
 		}
 	}
 
-	public Collection<Message> findMessagesFavoritesByActor() {
+	public Collection<Message> findMessagesStarsByActor() {
 		Collection<Message> result;
 
-		result = messageRepository.findMessagesFavoritesByActor(actorService
+		result = messageRepository.findMessagesStarsByActor(actorService
 				.findByPrincipal().getId());
 		Assert.notNull(result);
 
@@ -194,7 +194,7 @@ public class MessageService {
 		return result;
 	}
 
-	public void changeFavorite(int messageId) {
+	public void changeStar(int messageId) {
 		Assert.notNull(messageId);
 		Message message;
 

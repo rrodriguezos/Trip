@@ -28,7 +28,7 @@ public class ActivityAdministratorController extends AbstractController {
 	public ModelAndView appropriated(@RequestParam int activityId){
 		ModelAndView result;
 		
-		activityService.changeAppropriated(activityId);
+		activityService.changeStateActivity(activityId);
 		
 		result = new ModelAndView("redirect:/activity/display.do?activityId="+activityId);
 		

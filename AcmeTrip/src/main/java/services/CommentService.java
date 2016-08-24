@@ -98,7 +98,7 @@ public class CommentService {
 		return result;
 	}
 	
-	public void changeAppropriated(int commentId){
+	public void changeStateComment(int commentId){
 		Assert.notNull(commentId);
 		checkPrincipalAdministrator();
 		Comment comment;

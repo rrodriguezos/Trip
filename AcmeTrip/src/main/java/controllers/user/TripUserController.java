@@ -57,7 +57,7 @@ public class TripUserController extends AbstractController {
 
 		return result;
 	}
-
+	// Edit --------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int tripId) {
 		ModelAndView result;
@@ -68,7 +68,7 @@ public class TripUserController extends AbstractController {
 		result.addObject("trip", trip);
 		return result;
 	}
-
+	// Save --------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Trip trip, BindingResult binding, RedirectAttributes redir) {
 		ModelAndView result;

@@ -45,7 +45,7 @@ public class UserServiceTest extends AbstractTest {
 		UserRegisterForm registerForm = new UserRegisterForm();
 		registerForm.setName("Name Test");
 		registerForm.setSurname("Surname Test");
-		registerForm.setPhone("+34 954 758400");
+		registerForm.setPhone("+34 (95) 758400");
 		registerForm.setUsername("Username Test");
 		registerForm.setPassword("Password Test");
 		registerForm.setConfirmPassword("Password Test");
@@ -59,16 +59,16 @@ public class UserServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * Negative: An authenticated administrator attempts to register as a user
+	 * Negative: An authenticated none attempts to register as a user
 	 */
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = IllegalArgumentException.class)
 	@Rollback(true)
 	public void registerUserAsAdminNegativeTest() {
-		authenticate("admin");
+		authenticate("none");
 		UserRegisterForm registerForm = new UserRegisterForm();
 		registerForm.setName("Name Test");
 		registerForm.setSurname("Surname Test");
-		registerForm.setPhone("++34 954 758400");
+		registerForm.setPhone("+34 (95) 758400");
 		registerForm.setUsername("Username Test");
 		registerForm.setPassword("Password Test");
 		registerForm.setConfirmPassword("Password Test");
@@ -90,7 +90,7 @@ public class UserServiceTest extends AbstractTest {
 		UserRegisterForm registerForm = new UserRegisterForm();
 		registerForm.setName("Name Test");
 		registerForm.setSurname("Surname Test");
-		registerForm.setPhone("++34 954 758400");
+		registerForm.setPhone("+34 (95) 758400");
 		registerForm.setUsername("Username Test");
 		registerForm.setPassword("Password Test");
 		registerForm.setConfirmPassword("Different Password Test");
@@ -99,7 +99,7 @@ public class UserServiceTest extends AbstractTest {
 	}
 
 	/* *****************************************************
-	 * * FR-C11.5 :* List and see the profile of the users who have registered
+	 * List and see the profile of the users who have registered
 	 * to the system, which consists* of the contact data plus the list of trips
 	 * that they have registered.
 	 * ******************************************************

@@ -48,9 +48,10 @@ public class MessageActorController extends AbstractController {
 		Folder folder;
 
 		folder = folderService.findOne(folderId);
-		if(folder.getSystemFolder() && folder.getName().equals("Starredfolder")){
-			messages = messageService.findMessagesFavoritesByActor();
-		}else{
+		if (folder.getSystemFolder()
+				&& folder.getName().equals("Starredfolder")) {
+			messages = messageService.findMessagesStarsByActor();
+		} else {
 			messages = messageService.findMessagesByFolder(folderId);
 		}
 
@@ -101,10 +102,10 @@ public class MessageActorController extends AbstractController {
 		ModelAndView result;
 		Message message;
 		Collection<Folder> folders;
-	
+
 		message = messageService.findOne(messageId);
 		folders = folderService.findFoldersToMoveByPrincipal();
-		
+
 		result = new ModelAndView("message/move");
 		result.addObject("message", message);
 		result.addObject("folders", folders);
@@ -166,51 +167,54 @@ public class MessageActorController extends AbstractController {
 	}
 
 	// Delete
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public ModelAndView sendToTrashbox(@RequestParam int messageId){
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView sendToTrashbox(@RequestParam int messageId) {
 		ModelAndView result;
 		Message message;
 		int folderId;
-		
+
 		message = messageService.findOne(messageId);
 		folderId = message.getFolder().getId();
-		
+
 		messageService.delete(messageId);
-		
-		result = new ModelAndView("redirect:/message/actor/list.do?folderId="+folderId);
-		
+
+		result = new ModelAndView("redirect:/message/actor/list.do?folderId="
+				+ folderId);
+
 		return result;
 	}
-	
-	//Favourite ----------------------------------------------------------
-	@RequestMapping(value="/favorite",method = RequestMethod.GET)
-	public ModelAndView favorite(@RequestParam int messageId){
+
+	// Favourite ----------------------------------------------------------
+	@RequestMapping(value = "/favorite", method = RequestMethod.GET)
+	public ModelAndView favorite(@RequestParam int messageId) {
 		ModelAndView result;
 		Message message;
 		int folderId;
-		
+
 		message = messageService.findOne(messageId);
 		folderId = message.getFolder().getId();
-		
-		messageService.changeFavorite(messageId);
-		
-		result = new ModelAndView("redirect:/message/actor/list.do?folderId="+folderId);
-		
+
+		messageService.changeStar(messageId);
+
+		result = new ModelAndView("redirect:/message/actor/list.do?folderId="
+				+ folderId);
+
 		return result;
 	}
-	
+
 	// Move to spam
-	@RequestMapping(value="/tospam", method=RequestMethod.GET)
-	public ModelAndView sendToSpam(@RequestParam int messageId){
+	@RequestMapping(value = "/tospam", method = RequestMethod.GET)
+	public ModelAndView sendToSpam(@RequestParam int messageId) {
 		ModelAndView result;
 		Folder folder;
 
 		folder = folderService.findFolder("Spamfolder");
-		
+
 		messageService.move(messageId, folder.getId());
-		
-		result = new ModelAndView("redirect:/message/actor/list.do?folderId="+folder.getId());
-		
+
+		result = new ModelAndView("redirect:/message/actor/list.do?folderId="
+				+ folder.getId());
+
 		return result;
 	}
 

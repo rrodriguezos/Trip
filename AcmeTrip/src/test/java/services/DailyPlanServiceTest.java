@@ -49,7 +49,7 @@ public class DailyPlanServiceTest extends AbstractTest {
 		dplan.setWeekDay(weekDay);
 		dplan.setDescription("Descripcion 1");
 
-		Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
+		Assert.isTrue(dailyPlanService.comprobrarSolape(dplan));
 
 		dailyPlanService.save(dplan);
 
@@ -71,7 +71,7 @@ public class DailyPlanServiceTest extends AbstractTest {
 		dplan.setWeekDay(weekDay);
 		dplan.setDescription("Descripcion 1");
 
-		Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
+		Assert.isTrue(dailyPlanService.comprobrarSolape(dplan));
 
 		dailyPlanService.save(dplan);
 
@@ -90,7 +90,7 @@ public class DailyPlanServiceTest extends AbstractTest {
 		dplan.setWeekDay(weekDay);
 		dplan.setDescription("Descripcion 1");
 
-		Assert.isTrue(dailyPlanService.checkOverlapping(dplan));
+		Assert.isTrue(dailyPlanService.comprobrarSolape(dplan));
 
 		dailyPlanService.save(dplan);
 

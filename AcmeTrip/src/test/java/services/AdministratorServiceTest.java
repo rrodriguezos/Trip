@@ -46,14 +46,14 @@ public class AdministratorServiceTest extends AbstractTest{
 	public static Collection<Object[]> data() {
 
 		return Arrays.asList(new Object[][] {
-				{ "userTest", "userprua", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
-				{ "userTest", "userTest", "", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
-				{ "userTest", "userTest", "admin", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
-				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@.com"},
-				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"},
-				{ "userTest", "userTest", "userTest", "Rafael", "", "+34644512313", "rafarod@gmail.com"},
+				{ "userTest", "userprua", "userTest", "Rafael", "Rodriguez", "+34 (954) 758400", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "", "Rafael", "Rodriguez", "+34 (954) 758400", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "admin", "Rafael", "Rodriguez", "+34 (954) 758400", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34 (954) 758400", "rafarod@.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34 (954) 758400", "rafarod@gmail.com"},
+				{ "userTest", "userTest", "userTest", "Rafael", "", "+34 (954) 758400", "rafarod@gmail.com"},
 				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "644512313", "rafarod@gmail.com"},
-				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34644512313", "rafarod@gmail.com"}});
+				{ "userTest", "userTest", "userTest", "Rafael", "Rodriguez", "+34 (954) 758400", "rafarod@gmail.com"}});
 
 	}
 	//14.1. Register managers and other administrators.

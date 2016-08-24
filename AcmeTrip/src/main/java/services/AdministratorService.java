@@ -69,8 +69,6 @@ public class AdministratorService {
 	}
 
 	public Collection<Administrator> findAll() {
-		checkPrincipalAdministrator();
-
 		Collection<Administrator> result;
 
 		result = administratorRepository.findAll();

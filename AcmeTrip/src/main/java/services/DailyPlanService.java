@@ -137,7 +137,7 @@ public class DailyPlanService {
 		return result;
 	}
 	
-	public Boolean checkOverlapping(DailyPlan dailyPlan){
+	public Boolean comprobrarSolape(DailyPlan dailyPlan){
 		User principal;
 		Boolean result;
 		

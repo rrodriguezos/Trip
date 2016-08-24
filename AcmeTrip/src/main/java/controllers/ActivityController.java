@@ -19,23 +19,23 @@ import domain.Trip;
 @Controller
 @RequestMapping("/activity")
 public class ActivityController extends AbstractController {
-	
+
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private ActivityService activityService;
-	
+
 	@Autowired
 	private TripService tripService;
-	
+
 	@Autowired
 	private CommentService commentService;
-		
+
 	// Constructors -----------------------------------------------------------
 	public ActivityController() {
 		super();
 	}
-	
-	// List -----------------------------------------------------------	
+
+	// List -----------------------------------------------------------
 	@RequestMapping(value = "/list")
 	public ModelAndView listAppropriated() {
 		ModelAndView result;
@@ -49,32 +49,33 @@ public class ActivityController extends AbstractController {
 
 		return result;
 	}
-	
-	//Display -----------------------------------------------------------------
-	@RequestMapping(value="/display", method=RequestMethod.GET)
-	public ModelAndView display(int activityId){
+
+	// Display -----------------------------------------------------------------
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(int activityId) {
 		ModelAndView result;
 		Activity activity;
 		Collection<Trip> trips;
 		Collection<Comment> comments;
-		
+
 		activity = activityService.findOne(activityId);
 		trips = tripService.findTripByActivity(activityId);
 		comments = commentService.findCommentsByCommentableId(activityId);
-		
+
 		result = new ModelAndView("activity/display");
 		result.addObject("activity", activity);
 		result.addObject("trips", trips);
 		result.addObject("comments", comments);
-		
+
 		return result;
 	}
-	
-	//Listing by navigate from activity type ---------------
-	@RequestMapping(value="/navigateByActivitytype", method = RequestMethod.GET)
+
+	// Listing by navigate from activity type ---------------
+	@RequestMapping(value = "/navigateByActivitytype", method = RequestMethod.GET)
 	public ModelAndView navigateByActivitytype(@RequestParam int activitytypeId) {
 		ModelAndView result;
-		Collection<Activity> activities = activityService.activitiesByActivityType(activitytypeId);
+		Collection<Activity> activities = activityService
+				.activitiesByActivityType(activitytypeId);
 		result = new ModelAndView("activity/listAll");
 		result.addObject("activities", activities);
 		result.addObject("requestURI", "activities/navigateByActivitytype.do");
