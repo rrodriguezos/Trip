@@ -31,6 +31,12 @@
 					onclick="javascript: window.location.assign('activity/display.do?activityId=${row.id}')" />
 	</display:column>
 	
+	<spring:message code="activity.activitytype" var="activitytypeHeader" />
+	<display:column title="${activitytypeHeader}">
+			<input type="button" value="<spring:message code="activity.activitytype" />" 
+					onclick="javascript: window.location.assign('activitytype/listByActivity.do?activityId=${row.id}')" />
+	</display:column>
+	
 </display:table>
 
 <security:authorize access="hasRole('USER')">

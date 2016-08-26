@@ -28,20 +28,35 @@
 	<spring:message code="slot.description" var="description" />
 	<display:column property="description" title="${description}" />
 
+	<spring:message code="slot.startTime" var="startTime" />
+	<display:column property="startTime" title="${startTime}"
+		sortable="true" format="{0, date, dd/MM/yyyy HH:mm}" />
+
+	<spring:message code="slot.endTime" var="endTime" />
+	<display:column property="endTime" title="${endTime}" sortable="true"
+		format="{0, date, dd/MM/yyyy HH:mm}" />
+
 	<spring:message code="slot.display" var="display" />
 	<display:column title="${display}">
 		<input type="button" value="<spring:message code="slot.display" />"
 			onclick="javascript: window.location.assign('slot/display.do?slotId=${row.id}')" />
 	</display:column>
 	
+	<spring:message code="slot.activity" var="activityHeader" />
+	<display:column title="${activityHeader}">
+			<input type="button" value="<spring:message code="slot.activity" />" 
+					onclick="javascript: window.location.assign('activity/listBySlot.do?slotId=${row.id}')" />
+	</display:column>
+
+
 	<security:authorize access="hasRole('USER')">
 		<jstl:if test="${mytrip == true}">
-		<spring:message code="slot.delete" var="delete" />
-		<display:column title="${delete}">
-		<input type="button" name="delete"
-			value="<spring:message code="slot.delete" />"
-			onclick="javascript: window.location.assign('slot/user/delete.do?slotId=${row.id}')" />
-		</display:column>
+			<spring:message code="slot.delete" var="delete" />
+			<display:column title="${delete}">
+				<input type="button" name="delete"
+					value="<spring:message code="slot.delete" />"
+					onclick="javascript: window.location.assign('slot/user/delete.do?slotId=${row.id}')" />
+			</display:column>
 		</jstl:if>
 	</security:authorize>
 
@@ -53,6 +68,6 @@
 		<input type="button" name="create"
 			value="<spring:message code="slot.create" />"
 			onclick="javascript: window.location.assign('slot/user/create.do?dailyPlanId=${dailyPlanId}')" />
-	
+
 	</jstl:if>
 </security:authorize>

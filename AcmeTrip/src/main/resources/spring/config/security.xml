@@ -64,6 +64,10 @@
  		<security:intercept-url pattern="/dailyPlan/navigateBySlot.do" access="permitAll" /> 
   		<security:intercept-url pattern="/trip/navigateByDailyPlan.do" access="permitAll" /> 
   		<security:intercept-url pattern="/activitytype/activitytypes.do" access="permitAll" /> 
+  		<security:intercept-url pattern="/activity/listBySlot.do" access="permitAll" />
+  		<security:intercept-url pattern="/activitytype/listByActivity.do" access="permitAll" /> 
+  		
+  		
   		
   		
 		

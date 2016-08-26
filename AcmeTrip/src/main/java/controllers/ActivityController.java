@@ -49,6 +49,22 @@ public class ActivityController extends AbstractController {
 
 		return result;
 	}
+	
+	// List -----------------------------------------------------------
+		@RequestMapping(value = "/listBySlot")
+		public ModelAndView listBySlot(@RequestParam int slotId) {
+			ModelAndView result;
+			Activity activity;
+			activity = activityService.activityBySlot(slotId);
+			
+			
+
+			result = new ModelAndView("activity/list");
+			result.addObject("activities", activity);
+			result.addObject("requestUri", "activity/list.do");
+
+			return result;
+		}
 
 	// Display -----------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)

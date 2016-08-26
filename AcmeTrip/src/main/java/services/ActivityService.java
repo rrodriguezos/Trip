@@ -134,6 +134,11 @@ public class ActivityService {
 		return activityRepository.activitiesByActivityType(activitytypeId);
 	}
 
+
+	public Activity activityBySlot(int slotId) {
+		return activityRepository.activityBySlot(slotId);
+	}
+
 	
 	//Repository Methods--------------------
 } 

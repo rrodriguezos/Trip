@@ -42,11 +42,14 @@
 	<spring:message code="dailyPlan.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" />
 	
+	
 	<spring:message code="dailyPlan.display" var="display" />
 	<display:column title="${display}">
-		<input type="button" value="<spring:message code="dailyPlan.display" />"
-			onclick="javascript: window.location.assign('dailyPlan/display.do?dailyPlanId=${row.id}')" />
+			<input type="button" value="<spring:message code="dailyPlan.display" />" 
+					onclick="javascript: window.location.assign('dailyPlan/display.do?dailyPlanId=${row.id}')" />
 	</display:column>
+		
+	
 	
 	<security:authorize access="hasRole('USER')">
 		<jstl:if test="${mytrip == true}">

@@ -27,17 +27,18 @@
 
 		<spring:message code="slot.startTime" var="startTime" />
 		<display:column property="startTime" title="${startTime}"
-			sortable="true" />
+			sortable="true" format="{0, date, dd/MM/yyyy HH:mm}" />
 
 		<spring:message code="slot.endTime" var="endTime" />
-		<display:column property="endTime" title="${endTime}" sortable="true" />
+		<display:column property="endTime" title="${endTime}" sortable="true"
+			format="{0, date, dd/MM/yyyy HH:mm}" />
 
-		<spring:message code="slot.photos" var="photos" />
-		<display:column title="${photos}" sortable="true">
-			<jstl:forEach var="photo" items="${row.photos}">
-				<img height="150px" src="<jstl:out value="${photo}" />">
-			</jstl:forEach>
+		<spring:message code="slot.display" var="display" />
+		<display:column title="${display}">
+			<input type="button" value="<spring:message code="slot.display" />"
+				onclick="javascript: window.location.assign('slot/display.do?slotId=${row.id}')" />
 		</display:column>
+
 
 		<spring:message code="slot.dailyplan" var="dailyplan" />
 		<display:column title="${dailyplan}" sortable="true">

@@ -19,10 +19,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<jstl:if test="${tieneBanner==true }" >
+	<fieldset>
+	<legend><spring:message code="banner.publi"/></legend>
+	<img width="500px" height="100x" src="${banner.getPhoto()}"/>
+	</fieldset>
+	<br>
+</jstl:if>
 
 
 <display:table name="dailyplan" id="row" requestURI="${requestURI}"
-		pagesize="5" class="displaytag" keepStatus="true">
+	pagesize="5" class="displaytag" keepStatus="true">
 
 	<spring:message code="dailyPlan.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
@@ -33,18 +40,21 @@
 
 	<spring:message code="dailyPlan.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" />
-	
+
 	<spring:message code="dailyPlan.display" var="display" />
 	<display:column title="${display}">
-		<input type="button" value="<spring:message code="dailyPlan.display" />"
-			onclick="javascript: window.location.assign('dailyPlan/display.do?slotId=${row.id}')" />
+		<input type="button"
+			value="<spring:message code="dailyPlan.display" />"
+			onclick="javascript: window.location.assign('dailyPlan/display.do?dailyPlanId=${row.id}')" />
 	</display:column>
-	
+
+
+
 	<spring:message code="dailyPlan.trip" var="trip" />
-		<display:column title="${trip}" sortable="true">
+	<display:column title="${trip}" sortable="true">
 		<input type="button" value="<spring:message code="dailyPlan.trip" />"
-				onclick="javascript: window.location.assign('trip/navigateByDailyPlan.do?dailyPlanId=${row.id}')" />
-		</display:column>	
-	
-	
+			onclick="javascript: window.location.assign('trip/navigateByDailyPlan.do?dailyPlanId=${row.id}')" />
+	</display:column>
+
+
 </display:table>

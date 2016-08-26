@@ -25,7 +25,7 @@
 		requestURI="${requestUri}" class="displaytag">
 
 		<spring:message code="chargerecord.createMoment" var="createMoment"/>
-		<display:column property="createMoment" sortable="true" title="${createMoment}"/>
+		<display:column property="createMoment" sortable="true" title="${createMoment}" format="{0, date, dd/MM/yyyy HH:mm}" />
 
 		<spring:message code="chargerecord.amountMoney" var="amountMoney"/>
 		<display:column property="amountMoney" sortable="true" title="${amountMoney}"/>

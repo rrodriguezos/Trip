@@ -29,6 +29,11 @@
 		<put-attribute name="title" value="Actividades" />
 		<put-attribute name="body" value="/views/activity/list.jsp" />
 	</definition>
+	
+	<definition name="activity/listBySlot" extends="master.page">	
+		<put-attribute name="title" value="Actividad" />
+		<put-attribute name="body" value="/views/activity/list.jsp" />
+	</definition>
 
 	<definition name="activity/display" extends="master.page">	
 		<put-attribute name="title" value="Detalles de la Actividad" />

@@ -17,9 +17,18 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<jstl:if test="${tieneBanner==true }" >
+	<fieldset>
+	<legend><spring:message code="banner.publi"/></legend>
+	<img width="500px" height="100x" src="${banner.getPhoto()}"/>
+	</fieldset>
+	<br>
+</jstl:if>
+
+
 <acme:jstlOut code="dailyPlan.title" value="${dailyPlan.title }"/>
 <acme:jstlOut code="dailyPlan.description" value="${dailyPlan.description }"/>
-<acme:jstlOut code="dailyPlan.day" value="${dailyPlan.day }"/>
+<acme:jstlOut code="dailyPlan.day" value="${dailyPlan.weekDay }"/>
 
 <b><spring:message code="dailyPlan.photos" />: </b>
 <br>

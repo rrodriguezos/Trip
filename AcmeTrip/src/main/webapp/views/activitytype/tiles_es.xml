@@ -20,6 +20,11 @@
 		<put-attribute name="body" value="/views/activitytype/list.jsp" />
 	</definition>
 	
+	<definition name="activitytype/listByActivity" extends="master.page">	
+		<put-attribute name="title" value="Tipo de actividad" />
+		<put-attribute name="body" value="/views/activitytype/list.jsp" />
+	</definition>
+	
 	<definition name="activitytype/create" extends="master.page">	
 		<put-attribute name="title" value="Crear nuevo tipo de actividad" />
 		<put-attribute name="body" value="/views/activitytype/edit.jsp" />

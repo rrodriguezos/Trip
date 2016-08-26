@@ -121,6 +121,52 @@ public class DailyPlanController extends AbstractController {
 			result = new ModelAndView("dailyPlan/listAll");
 			result.addObject("dailyplan", dailyplan);
 			result.addObject("requestURI", "dailyPlan/navigateBySlot.do");
+			
+			// Empieza el banner
+			Collection<Banner> todosBanners = bannerService.findAll();
+			Collection<Banner> bannersActivos = new LinkedList<Banner>();
+			for (Banner b : todosBanners) {
+				if (b.getCampaign().getStartMoment().before(new Date(System.currentTimeMillis()))
+						|| b.getCampaign().getEndMoment().after(new Date(System.currentTimeMillis()))) {
+					bannersActivos.add(b);
+				}
+			}
+			Boolean tieneBanner = false;
+			Collection<Banner> bannersParaUsar = new LinkedList<Banner>();
+			for (Banner c : bannersActivos) {
+				if (c.getDisplay() < c.getMaxTimesDisplayed()) {
+					for (String palabra : c.getKeyWords()) {
+						Collection<Trip> tripis = tripService.findTripByKeyword(palabra);
+						if (!tripis.isEmpty()) {
+							tieneBanner = true;
+							if (!bannersParaUsar.contains(c))
+								bannersParaUsar.add(c);
+						}
+					}
+				}
+			}
+			if (tieneBanner) {
+				Integer a = bannersParaUsar.size();
+				double random = Math.random();
+				long ra = Math.round(a * random);
+				Banner banner = new Banner();
+				int contado = 1;
+				for (Banner ban : bannersParaUsar) {
+					if (contado == ra) {
+						banner = ban;
+					}
+					contado++;
+				}
+				if (banner.getId() == 0) {
+					banner = bannersParaUsar.iterator().next();
+				}
+				if (banner.getId() != 0) {
+					bannerService.aumentaVisita(banner);
+					result.addObject("tieneBanner", tieneBanner);
+					result.addObject("banner", banner);
+				}
+			}
+			// Acaba el banner
 			return result;
 		}
 		
@@ -128,12 +174,57 @@ public class DailyPlanController extends AbstractController {
 				@RequestMapping(value="/display", method=RequestMethod.GET)
 				public ModelAndView display(int dailyPlanId){
 					ModelAndView result;
-					DailyPlan dPlan;
+					DailyPlan dailyPlan;
 					
-					dPlan = dailyPlanService.findOne(dailyPlanId);
+					dailyPlan = dailyPlanService.findOne(dailyPlanId);
 					
 					result = new ModelAndView("dailyPlan/display");
-					result.addObject("dailyPlan", dPlan);
+					result.addObject("dailyPlan", dailyPlan);
+					// Empieza el banner
+					Collection<Banner> todosBanners = bannerService.findAll();
+					Collection<Banner> bannersActivos = new LinkedList<Banner>();
+					for (Banner b : todosBanners) {
+						if (b.getCampaign().getStartMoment().before(new Date(System.currentTimeMillis()))
+								|| b.getCampaign().getEndMoment().after(new Date(System.currentTimeMillis()))) {
+							bannersActivos.add(b);
+						}
+					}
+					Boolean tieneBanner = false;
+					Collection<Banner> bannersParaUsar = new LinkedList<Banner>();
+					for (Banner c : bannersActivos) {
+						if (c.getDisplay() < c.getMaxTimesDisplayed()) {
+							for (String palabra : c.getKeyWords()) {
+								Collection<Trip> tripis = tripService.findTripByKeyword(palabra);
+								if (!tripis.isEmpty()) {
+									tieneBanner = true;
+									if (!bannersParaUsar.contains(c))
+										bannersParaUsar.add(c);
+								}
+							}
+						}
+					}
+					if (tieneBanner) {
+						Integer a = bannersParaUsar.size();
+						double random = Math.random();
+						long ra = Math.round(a * random);
+						Banner banner = new Banner();
+						int contado = 1;
+						for (Banner ban : bannersParaUsar) {
+							if (contado == ra) {
+								banner = ban;
+							}
+							contado++;
+						}
+						if (banner.getId() == 0) {
+							banner = bannersParaUsar.iterator().next();
+						}
+						if (banner.getId() != 0) {
+							bannerService.aumentaVisita(banner);
+							result.addObject("tieneBanner", tieneBanner);
+							result.addObject("banner", banner);
+						}
+					}
+					// Acaba el banner
 					
 					return result;
 				}

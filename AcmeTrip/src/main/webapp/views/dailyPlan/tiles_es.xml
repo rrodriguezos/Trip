@@ -22,7 +22,7 @@
 	
 		<definition name="dailyPlan/display" extends="master.page">	
 		<put-attribute name="title" value="Detalles del Plan Diario" />
-		<put-attribute name="body" value="/views/slot/display.jsp" />
+		<put-attribute name="body" value="/views/dailyPlan/display.jsp" />
 	</definition>
 	
 	<definition name="dailyPlan/create" extends="master.page">	
