@@ -57,6 +57,7 @@ public class TripUserController extends AbstractController {
 
 		return result;
 	}
+
 	// Edit --------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int tripId) {
@@ -68,9 +69,11 @@ public class TripUserController extends AbstractController {
 		result.addObject("trip", trip);
 		return result;
 	}
+
 	// Save --------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Trip trip, BindingResult binding, RedirectAttributes redir) {
+	public ModelAndView save(@Valid Trip trip, BindingResult binding,
+			RedirectAttributes redir) {
 		ModelAndView result;
 		int checkOverlapping = 0;
 		boolean checkDates = false;
@@ -100,6 +103,7 @@ public class TripUserController extends AbstractController {
 
 		return result;
 	}
+
 	// List ----------------------------------------------
 
 	@RequestMapping(value = "/mylist")
@@ -117,7 +121,8 @@ public class TripUserController extends AbstractController {
 		Collection<Banner> todosBanners = bannerService.findAll();
 		Collection<Banner> bannersActivos = new LinkedList<Banner>();
 		for (Banner b : todosBanners) {
-			if (b.getCampaign().getStartMoment().after(new Date(System.currentTimeMillis()))) {
+			if (b.getCampaign().getStartMoment()
+					.after(new Date(System.currentTimeMillis()))) {
 				bannersActivos.add(b);
 			}
 		}
@@ -125,17 +130,21 @@ public class TripUserController extends AbstractController {
 		Collection<Banner> bannersParaUsar = new LinkedList<Banner>();
 		for (Banner c : bannersActivos) {
 			for (String palabra : c.getKeyWords()) {
-				Collection<Trip> tripis = tripService.findTripByKeyword(palabra);
-				if (!tripis.isEmpty() && c.getDisplay() < c.getMaxTimesDisplayed()) {
+				Collection<Trip> tripis = tripService
+						.findTripByKeyword(palabra);
+				if (!tripis.isEmpty()
+						&& c.getDisplay() < c.getMaxTimesDisplayed()) {
 					tieneBanner = true;
 					bannersParaUsar.add(c);
 				}
 			}
 		}
-		Banner banner = bannersParaUsar.iterator().next();
-		bannerService.aumentaVisita(banner);
-		result.addObject("tieneBanner", tieneBanner);
-		result.addObject("banner", banner);
+		if (!bannersParaUsar.isEmpty()) {
+			Banner banner = bannersParaUsar.iterator().next();
+			bannerService.aumentaVisita(banner);
+			result.addObject("tieneBanner", tieneBanner);
+			result.addObject("banner", banner);
+		}
 		// Acaba el banner
 		return result;
 	}
@@ -235,6 +244,7 @@ public class TripUserController extends AbstractController {
 
 		return result;
 	}
+
 	// Ancillary methods
 	// --------------------------------------------------------
 
