@@ -10,7 +10,7 @@
 
 <tiles-definitions>
 	<definition name="administrator/dashboard" extends="master.page">
-		<put-attribute name="title" value="Tablero" />
+		<put-attribute name="title" value="Dashboard" />
 		<put-attribute name="body"
 			value="/views/administrator/dashboard-1.jsp" />
 	</definition>
@@ -53,7 +53,7 @@
 			value="/views/administrator/bannerEdit.jsp" />
 	</definition>
 	<definition name="banner/administrator/selectTax" extends="master.page">
-		<put-attribute name="title" value="Seleccionar Tasa" />
+		<put-attribute name="title" value="Select Tax" />
 		<put-attribute name="body" value="/views/administrator/selectTax.jsp" />
 	</definition>
 	<definition name="chargerecord/administrator/generate"
