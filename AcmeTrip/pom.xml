@@ -18,7 +18,7 @@
 	<!-- Artifact identification and properties -->
 
 	<groupId>Design-and-Testing</groupId>
-	<artifactId>AcmeTrip</artifactId>
+	<artifactId>Acme-Trip</artifactId>
 	<version>1.5</version>
 	<packaging>war</packaging>
 	
@@ -28,8 +28,8 @@
 
 	<!-- Indexing information -->
 
-	<name>Acme Trip</name>
-	<url>http://www.acme.tripcom</url>
+	<name>Acme-Trip</name>
+	<url>http://www.acmetrip.com</url>
 	<description>This is D&amp;T's acme trip project.</description>
 	
 	<!-- Build commands -->
