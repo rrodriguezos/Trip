@@ -22,7 +22,7 @@
 <security:authorize access="hasRole('MANAGER')">
 
 	<display:table name="creditcards" id="row" pagesize="5"
-		requestURI="${requestUri}" class="displaytag">
+		requestURI="creditcard/manager/list.do" class="displaytag">
 
 		<spring:message code="creditcard.holdername" var="holderName" />
 		<display:column property="holderName" title="${holderName}"/>

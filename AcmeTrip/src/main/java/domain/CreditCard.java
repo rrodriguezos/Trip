@@ -4,12 +4,14 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
@@ -63,6 +65,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 1, max = 12)
+	@NotNull
 	public Integer getExpirationMonth() {
 		return expirationMonth;
 	}
@@ -72,6 +75,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 2016, max = 9999)
+	@NotNull
 	public Integer getExpirationYear() {
 		return expirationYear;
 	}
@@ -81,6 +85,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 100, max = 999)
+	@NotNull
 	public Integer getCvvCode() {
 		return cvvCode;
 	}

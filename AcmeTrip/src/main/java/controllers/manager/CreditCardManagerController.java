@@ -62,30 +62,43 @@ public class CreditCardManagerController extends AbstractController {
 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveNewCc(@Valid CreditCard creditcard, BindingResult binding, RedirectAttributes redir) {
+	public ModelAndView saveNewCc(@Valid CreditCard creditcard,
+			BindingResult binding, RedirectAttributes redir) {
 		ModelAndView result;
 		Assert.notNull(creditcard);
 		if (binding.hasErrors()) {
 			result = new ModelAndView("creditcard/manager/create");
 			result.addObject("creditcard", creditcard);
 			Date croqueta = new Date(System.currentTimeMillis());
-			if(creditcard.getBrandName()=="" || creditcard.getCreditCardNumber()=="" || creditcard.getHolderName()=="" || creditcard.getCvvCode().equals(null) || creditcard.getExpirationMonth().equals(null) || creditcard.getExpirationYear()==null)
+			if (creditcard.getExpirationMonth() == null
+					|| creditcard.getExpirationYear() == null
+					|| creditcard.getCvvCode() == null) {
 				result.addObject("message2", "creditcard.enblanco");
-			else if (creditcard.getExpirationYear()< croqueta.getYear() || creditcard.getExpirationMonth()<1 ||creditcard.getExpirationMonth()>12)
-				result.addObject("message2", "creditcard.fechaMala");
-			else
-			result.addObject("message2", "campaign.creditExist.error");
+			} else {
+				if (creditcard.getBrandName() == ""
+						|| creditcard.getCreditCardNumber() == ""
+						|| creditcard.getHolderName() == "")
+					result.addObject("message2", "creditcard.enblanco");
+				else if (creditcard.getExpirationYear() < croqueta.getYear()
+						|| creditcard.getExpirationMonth() < 1
+						|| creditcard.getExpirationMonth() > 12)
+					result.addObject("message2", "creditcard.fechaMala");
+				else
+					result.addObject("message2", "creditcard.creditExist.error");
+			}
 		} else {
 			try {
 				tarjetaService.save(creditcard);
-				result = new ModelAndView("redirect:/creditcard/manager/list.do");
-				redir.addFlashAttribute("message", "trip.commit.ok");
+				result = new ModelAndView(
+						"redirect:/creditcard/manager/list.do");
+				redir.addFlashAttribute("message", "creditcard.commit.ok");
 
 			} catch (Throwable oops) {
 				System.out.println(oops.getLocalizedMessage());
 				result = new ModelAndView("creditcard/manager/create");
 				result.addObject("creditcard", creditcard);
-				result.addObject("message2", "campaign.creditExist.error");
+				result.addObject("message2", "creditcard.creditExist.error");
+				result.addObject("requestUri", "creditcard/manager/create.do");
 			}
 		}
 
