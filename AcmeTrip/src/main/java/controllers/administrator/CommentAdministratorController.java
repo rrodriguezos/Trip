@@ -34,7 +34,7 @@ public class CommentAdministratorController extends AbstractController {
 
 		comment = commentService.findOne(commentId);
 
-		commentService.changeStateComment(commentId);
+		commentService.changeFlagComment(commentId);
 
 		if (comment.getCommentable() instanceof Trip) {
 			result = new ModelAndView("redirect:/trip/display.do?tripId="

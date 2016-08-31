@@ -50,7 +50,7 @@ public class ActivityController extends AbstractController {
 		return result;
 	}
 	
-	// List -----------------------------------------------------------
+	// ListBySlot -----------------------------------------------------------
 		@RequestMapping(value = "/listBySlot")
 		public ModelAndView listBySlot(@RequestParam int slotId) {
 			ModelAndView result;

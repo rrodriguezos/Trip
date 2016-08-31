@@ -13,35 +13,34 @@ import domain.Commentable;
 @Transactional
 @Service
 public class CommentableService {
-	
-	//Constructor ---------------------------------------------------------------
-	public CommentableService(){
+
+	// Constructor
+	// ---------------------------------------------------------------
+	public CommentableService() {
 		super();
 	}
 
-	//Managed Repository-----------------------------------------------------------
+	// Managed
+	// Repository-----------------------------------------------------------
 	@Autowired
 	private CommentableRepository commentableRepository;
-	
-	//Suported Services------------------------------------------------------------	
-	
-	//CRUDs Methods ---------------------------------------------------------------
-	public Commentable findOne(int commentableId){
+
+	// CRUDs Methods
+	// ---------------------------------------------------------------
+	public Commentable findOne(int commentableId) {
 		Commentable result;
 		Assert.notNull(commentableId);
-		
+
 		result = commentableRepository.findOne(commentableId);
-		
+
 		return result;
 	}
-	
-	public Collection<Commentable> findAll(){
-		Collection<Commentable>  commentables;
+
+	public Collection<Commentable> findAll() {
+		Collection<Commentable> commentables;
 		commentables = commentableRepository.findAll();
-		
+
 		return commentables;
 	}
-	
-	//Other bussiness methods -----------------------------------------------------
 
 }

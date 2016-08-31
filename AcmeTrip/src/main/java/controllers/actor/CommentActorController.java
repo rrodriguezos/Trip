@@ -20,16 +20,16 @@ import domain.Trip;
 @RequestMapping("/comment/actor")
 public class CommentActorController extends AbstractController {
 
-	// Contructors----------------------------------------------------
+	// Contructors-------------------------------------------------------------------------------
 	public CommentActorController() {
 		super();
 	}
 
-	// Supporting services--------------------------------------------
+	// Supporting services-------------------------------------------------------------------
 	@Autowired
 	private CommentService commentService;
 
-	// Editing ------------------------------------------------
+	// Edit--------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int commentableId) {
 		ModelAndView result;
@@ -44,6 +44,7 @@ public class CommentActorController extends AbstractController {
 		return result;
 	}
 
+	// Save------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView edit(@Valid Comment comment, BindingResult binding) {
 		ModelAndView result;
@@ -71,7 +72,7 @@ public class CommentActorController extends AbstractController {
 		return result;
 	}
 
-	// Ancillary methods ----------------------------------------------
+	// Ancillary methods ----------------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(Comment comment) {
 		ModelAndView result;
 

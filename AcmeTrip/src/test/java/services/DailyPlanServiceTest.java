@@ -30,7 +30,7 @@ public class DailyPlanServiceTest extends AbstractTest {
 	private TripService tripService;
 	
 	@Autowired
-	private HelpService helpService;
+	private HelpDatesConvertService helpService;
 
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE

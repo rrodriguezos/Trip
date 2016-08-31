@@ -64,8 +64,8 @@ public class ActivityTypeService {
 		Assert.notNull(type);
 
 		if (type.getId() != 0) {
-			ActivityType typeCheck = typeRepository.findOne(type.getId());
-			Assert.isTrue(type.getVersion() == typeCheck.getVersion());
+			ActivityType actType = typeRepository.findOne(type.getId());
+			Assert.isTrue(type.getVersion() == actType.getVersion());
 		}
 
 		ActivityType result;

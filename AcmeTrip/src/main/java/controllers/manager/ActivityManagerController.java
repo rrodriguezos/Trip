@@ -22,12 +22,12 @@ public class ActivityManagerController extends AbstractController {
 	@Autowired
 	private ActivityService activityService;
 
-	// State --------------------------------------------------------
+	// Flag Activity --------------------------------------------------------
 	@RequestMapping(value = "/appropriated")
 	public ModelAndView appropiated(@RequestParam int activityId) {
 		ModelAndView result;
 
-		activityService.changeStateActivity(activityId);
+		activityService.changeFlagActivity(activityId);
 
 		result = new ModelAndView("redirect:/activity/display.do?activityId="
 				+ activityId);

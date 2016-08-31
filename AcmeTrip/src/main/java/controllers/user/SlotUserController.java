@@ -41,7 +41,7 @@ public class SlotUserController extends AbstractController {
 		super();
 	}
 
-	// Create --------------------------------------------
+	// Create ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int dailyPlanId) {
@@ -58,6 +58,7 @@ public class SlotUserController extends AbstractController {
 		return result;
 	}
 
+	// Save ---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Slot slot, BindingResult binding,
 			RedirectAttributes redir) {
@@ -77,11 +78,11 @@ public class SlotUserController extends AbstractController {
 				|| comprobrarSolape != 0) {
 			result = createEditModelAndView(slot);
 			if (comprobrarFecha1) {
-				result.addObject("message2", "slot.overlapping.error");
+				result.addObject("message2", "slot.solape.error");
 			} else if (comprobrarSolape != 0) {
-				result.addObject("message2", "slot.overlapping.error2");
+				result.addObject("message2", "slot.solape.error2");
 			} else if (comprobrarFecha2) {
-				result.addObject("message2", "slot.overlapping.error3");
+				result.addObject("message2", "slot.solape.error3");
 			}
 		} else {
 			try {
@@ -99,7 +100,7 @@ public class SlotUserController extends AbstractController {
 		return result;
 	}
 
-	// Actions ---------------------------------------
+	// Delete-------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam int slotId) {
 		ModelAndView result;
@@ -114,8 +115,7 @@ public class SlotUserController extends AbstractController {
 		return result;
 	}
 
-	// Ancillary methods
-	// --------------------------------------------------------
+	// Ancillary methods---------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(Slot slot) {
 		ModelAndView result;

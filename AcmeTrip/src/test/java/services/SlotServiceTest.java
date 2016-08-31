@@ -29,7 +29,7 @@ public class SlotServiceTest extends AbstractTest {
 	@Autowired
 	private DailyPlanService dailyPlanService;
 	@Autowired
-	private HelpService helpService;
+	private HelpDatesConvertService helpService;
 	@Autowired
 	private ActivityService activityService;
 
@@ -48,8 +48,8 @@ public class SlotServiceTest extends AbstractTest {
 		String starTimeString = "04/04/2016 22:00";
 		String endTimeString = "04/04/2016 23:00";
 
-		Date startTimeDate = helpService.formatStringToDate(starTimeString);
-		Date endTimeDate = helpService.formatStringToDate(endTimeString);
+		Date startTimeDate = helpService.formatFromStringToDate(starTimeString);
+		Date endTimeDate = helpService.formatFromStringToDate(endTimeString);
 
 		slot.setDailyPlan(dailyPlan);
 		slot.setTitle("titulo 1");
@@ -79,8 +79,8 @@ public class SlotServiceTest extends AbstractTest {
 		String starTimeString = "";
 		String endTimeString = "";
 
-		Date startTimeDate = helpService.formatStringToDate(starTimeString);
-		Date endTimeDate = helpService.formatStringToDate(endTimeString);
+		Date startTimeDate = helpService.formatFromStringToDate(starTimeString);
+		Date endTimeDate = helpService.formatFromStringToDate(endTimeString);
 
 		slot.setDailyPlan(dailyPlan);
 		slot.setTitle(" ");
@@ -107,8 +107,8 @@ public class SlotServiceTest extends AbstractTest {
 		String starTimeString = "04/04/2016 22:00";
 		String endTimeString = "04/04/2016 23:00";
 
-		Date startTimeDate = helpService.formatStringToDate(starTimeString);
-		Date endTimeDate = helpService.formatStringToDate(endTimeString);
+		Date startTimeDate = helpService.formatFromStringToDate(starTimeString);
+		Date endTimeDate = helpService.formatFromStringToDate(endTimeString);
 
 		slot.setDailyPlan(dailyPlan);
 		slot.setTitle("titulo 1");

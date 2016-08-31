@@ -25,7 +25,7 @@ public class CommentController extends AbstractController {
 	@Autowired
 	private CommentService commentService;
 	
-	//Display
+	//Display----------------------------------------------------------------
 	@RequestMapping(value="/display", method=RequestMethod.GET)
 	public ModelAndView display(@RequestParam int commentId){
 		ModelAndView result;

@@ -12,9 +12,9 @@ import org.springframework.util.Assert;
 
 @Service
 @Transactional
-public class HelpService {
+public class HelpDatesConvertService {
 
-	public String completeDate(Date date, String starting) {
+	public String fechaCompleta(Date date, String starting) {
 		String result;
 		DateFormat format;
 
@@ -25,7 +25,7 @@ public class HelpService {
 		return result;
 	}
 
-	public Date formatStringToDate(String date) {
+	public Date formatFromStringToDate(String date) {
 		Date result = null;
 		DateFormat format;
 

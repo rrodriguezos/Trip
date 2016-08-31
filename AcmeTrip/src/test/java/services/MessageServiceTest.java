@@ -56,7 +56,7 @@ public class MessageServiceTest extends AbstractTest {
 		message.setSender(sender);
 		message.setMessagePriority(MessagePriority.NEUTRAL);
 
-		message = messageService.saveToSend(message);
+		message = messageService.saveAndSend(message);
 		messageService.save(message);
 
 		unauthenticate();
@@ -84,7 +84,7 @@ public class MessageServiceTest extends AbstractTest {
 		message.setSender(sender);
 		message.setMessagePriority(MessagePriority.NEUTRAL);
 
-		message = messageService.saveToSend(message);
+		message = messageService.saveAndSend(message);
 		messageService.save(message);
 
 		unauthenticate();
@@ -109,7 +109,7 @@ public class MessageServiceTest extends AbstractTest {
 		message.setSender(sender);
 		message.setMessagePriority(MessagePriority.NEUTRAL);
 
-		message = messageService.saveToSend(message);
+		message = messageService.saveAndSend(message);
 		messageService.save(message);
 
 		unauthenticate();

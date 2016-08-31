@@ -25,13 +25,12 @@ public class FolderActorController extends AbstractController {
 		super();
 	}
 
-	// Supporting
-	// services---------------------------------------------------------
+	// Supporting services---------------------------------------------------------
 
 	@Autowired
 	private FolderService folderService;
 
-	// Listing
+	//List-----------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -46,7 +45,7 @@ public class FolderActorController extends AbstractController {
 		return result;
 	}
 
-	// Creating
+	//Create--------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -60,7 +59,7 @@ public class FolderActorController extends AbstractController {
 		return result;
 	}
 
-	// Editing ------------------------------------------------
+	//Edit ------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int folderId) {
 		ModelAndView result;
@@ -72,7 +71,7 @@ public class FolderActorController extends AbstractController {
 		return result;
 	}
 
-	// Save
+	//Save----------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Folder folder, BindingResult bindingResult) {
 		ModelAndView result;
@@ -90,7 +89,7 @@ public class FolderActorController extends AbstractController {
 		return result;
 	}
 
-	// Delete
+	//Delete---------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(Folder folder, BindingResult binding) {
 		ModelAndView result;
@@ -108,7 +107,7 @@ public class FolderActorController extends AbstractController {
 		return result;
 	}
 
-	// Ancillary methods
+	//Ancillary methods------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(Folder folder) {
 		ModelAndView result;
 

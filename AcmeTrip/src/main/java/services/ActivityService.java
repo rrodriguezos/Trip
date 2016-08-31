@@ -94,7 +94,7 @@ public class ActivityService {
 	}
 
 
-	//Other Methods--------------------
+	//Other Methods---------------------------------------------------------
 	public Collection<Activity> findAllAppropriated(){
 		Collection<Activity> result;
 
@@ -103,7 +103,7 @@ public class ActivityService {
 		return result;
 	}
 	
-	public void changeStateActivity(int commentId){
+	public void changeFlagActivity(int commentId){
 		Assert.notNull(commentId);
 		checkPrincipalManager();
 		Activity comment;

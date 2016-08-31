@@ -35,7 +35,22 @@ public class ActivityUserController extends AbstractController {
 	@Autowired
 	private ActivityTypeService activityTypeService;
 
-	// Create-------------------------------------------
+	// List -------------------------------------------------------------------
+	@RequestMapping("/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Activity> activities;
+
+		activities = activityService.findAllAppropriated();
+
+		result = new ModelAndView("activity/list");
+		result.addObject("requestUri", "/activity/list.do");
+		result.addObject("activities", activities);
+
+		return result;
+	}
+
+	// Create---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -52,7 +67,7 @@ public class ActivityUserController extends AbstractController {
 		return result;
 	}
 
-	// Editing ------------------------------------------------
+	// Edit -------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int activityId) {
 		ModelAndView result;
@@ -69,8 +84,7 @@ public class ActivityUserController extends AbstractController {
 		return result;
 	}
 
-	// Save ------------------------------------------------
-
+	// Save -------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView edit(@Valid Activity activity, BindingResult binding) {
 		ModelAndView result;
@@ -95,21 +109,6 @@ public class ActivityUserController extends AbstractController {
 				result.addObject("message2", "activity.commit.error");
 			}
 		}
-		return result;
-	}
-
-	// List -------------------------------------------------------------------
-	@RequestMapping("/list")
-	public ModelAndView list() {
-		ModelAndView result;
-		Collection<Activity> activities;
-
-		activities = activityService.findAllAppropriated();
-
-		result = new ModelAndView("activity/list");
-		result.addObject("requestUri", "/activity/list.do");
-		result.addObject("activities", activities);
-
 		return result;
 	}
 

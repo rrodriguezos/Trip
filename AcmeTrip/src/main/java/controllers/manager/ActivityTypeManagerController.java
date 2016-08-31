@@ -19,36 +19,51 @@ import services.ActivityTypeService;
 @Controller
 @RequestMapping("/activitytype/manager")
 public class ActivityTypeManagerController extends AbstractController {
-	
-	//Constructor --------------------------------------------------------
+
+	// Constructor --------------------------------------------------------
 	public ActivityTypeManagerController() {
 		super();
 	}
-	
-	//Services -----------------------------------------------------------
+
+	// Services -----------------------------------------------------------
 	@Autowired
 	private ActivityTypeService activitytypeService;
-	
-	//Create-------------------------------------------
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public ModelAndView create(){
+
+	// List -------------------------------------------------------------------
+	@RequestMapping("/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<ActivityType> activitytypes;
+
+		activitytypes = activitytypeService.findAll();
+
+		result = new ModelAndView("activitytype/list");
+		result.addObject("requestUri", "/activitytype/manager/list.do");
+		result.addObject("activitytypes", activitytypes);
+
+		return result;
+	}
+
+	// Create-----------------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		ModelAndView result;
 		ActivityType activitytype;
-		
+
 		activitytype = activitytypeService.create();
 		result = new ModelAndView("activitytype/create");
 		result.addObject("activitytype", activitytype);
 		result.addObject("requestUri", "activitytype/manager/edit.do");
-		
+
 		return result;
 	}
-	
-	//Editing ------------------------------------------------
-	@RequestMapping(value="/edit",method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int activitytypeId){
+
+	// Edit ----------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int activitytypeId) {
 		ModelAndView result;
 		ActivityType activitytype;
-		
+
 		activitytype = activitytypeService.findOne(activitytypeId);
 
 		result = new ModelAndView("activitytype/edit");
@@ -58,49 +73,35 @@ public class ActivityTypeManagerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value="/edit",method = RequestMethod.POST, params="save")
-	public ModelAndView save(@Valid ActivityType activitytype, BindingResult binding){
+	// Save----------------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid ActivityType activitytype,
+			BindingResult binding) {
 		ModelAndView result;
-		
-		if(binding.hasErrors()){
+
+		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
-			if(activitytype.getId()!=0)
+			if (activitytype.getId() != 0)
 				result = new ModelAndView("activitytype/edit");
 			else
 				result = new ModelAndView("activitytype/create");
-			if(activitytype.getName()=="")
+			if (activitytype.getName() == "")
 				result.addObject("message2", "activitytype.notblank");
 			result.addObject("activitytype", activitytype);
 			result.addObject("requestUri", "activitytype/manager/edit.do");
-		}else{
-			try{
+		} else {
+			try {
 				activitytypeService.save(activitytype);
-				result = new ModelAndView("redirect:/activitytype/manager/list.do");
-			}catch(Throwable oops){
+				result = new ModelAndView(
+						"redirect:/activitytype/manager/list.do");
+			} catch (Throwable oops) {
 				result = new ModelAndView("activitytype/edit");
 				result.addObject("activitytype", activitytype);
 				result.addObject("requestUri", "activitytype/manager/edit.do");
-				result.addObject("message2","activitytype.commit.error");
+				result.addObject("message2", "activitytype.commit.error");
 			}
 		}
 		return result;
 	}
-	
-	// List -------------------------------------------------------------------
-	@RequestMapping("/list")
-	public ModelAndView list() {
-		ModelAndView result;
-		Collection<ActivityType> activitytypes;
-		
-		activitytypes = activitytypeService.findAll();
-		
-		result = new ModelAndView("activitytype/list");
-		result.addObject("requestUri","/activitytype/manager/list.do");
-		result.addObject("activitytypes", activitytypes);
-		
-		return result;
-	}
-	
-	
 
 }

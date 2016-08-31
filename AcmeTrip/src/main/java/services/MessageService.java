@@ -53,7 +53,7 @@ public class MessageService {
 
 		result = new Message();
 		result.setSender(sender);
-		result.setMoment(new Date(System.currentTimeMillis()-1000));
+		result.setMoment(new Date(System.currentTimeMillis() - 1000));
 		result.setFolder(folder);
 
 		return result;
@@ -63,7 +63,6 @@ public class MessageService {
 		Message result;
 		Assert.notNull(message);
 
-		// CONCURRENCY CHECK
 		if (message.getId() != 0) {
 			Message messageCheck = messageRepository.findOne(message.getId());
 			Assert.isTrue(message.getVersion() == messageCheck.getVersion());
@@ -73,7 +72,7 @@ public class MessageService {
 		return result;
 	}
 
-	public Message saveToSend(Message message) {
+	public Message saveAndSend(Message message) {
 		Assert.notNull(message);
 		Message result;
 
@@ -229,11 +228,11 @@ public class MessageService {
 
 	}
 
-	public Collection<Message> findAll(){
+	public Collection<Message> findAll() {
 		Collection<Message> result;
-		
+
 		result = messageRepository.findAll();
-		
+
 		return result;
 	}
 

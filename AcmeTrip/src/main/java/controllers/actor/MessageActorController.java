@@ -24,13 +24,12 @@ import domain.Message;
 @RequestMapping("/message/actor")
 public class MessageActorController extends AbstractController {
 
-	// Constructor-----------------------------------------------------------------
+	//Constructor-----------------------------------------------------------------
 	public MessageActorController() {
 		super();
 	}
 
-	// Supporting
-	// services---------------------------------------------------------
+	//Supporting services---------------------------------------------------------
 	@Autowired
 	private ActorService actorService;
 
@@ -40,7 +39,7 @@ public class MessageActorController extends AbstractController {
 	@Autowired
 	private FolderService folderService;
 
-	// Listing
+	//List-----------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam int folderId) {
 		ModelAndView result;
@@ -63,7 +62,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Display
+	//Display-----------------------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam int messageId) {
 		ModelAndView result;
@@ -77,7 +76,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Creating
+	//Create--------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -96,7 +95,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Editing ------------------------------------------------
+	//Edit ------------------------------------------------------------------------------
 	@RequestMapping(value = "/move", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int messageId) {
 		ModelAndView result;
@@ -112,7 +111,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Save
+	//Save----------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Message message, BindingResult bindingResult) {
 		ModelAndView result;
@@ -129,7 +128,7 @@ public class MessageActorController extends AbstractController {
 			result.addObject("actors", actors);
 		} else {
 			try {
-				messageService.saveToSend(message);
+				messageService.saveAndSend(message);
 				result = new ModelAndView("redirect:/folder/actor/list.do");
 			} catch (Throwable oops) {
 				result = new ModelAndView("message/create");
@@ -141,7 +140,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Save
+	//Move----------------------------------------------------------------------------------
 	@RequestMapping(value = "/move", method = RequestMethod.POST, params = "save")
 	public ModelAndView move(@Valid Message message, BindingResult bindingResult) {
 		ModelAndView result;
@@ -166,7 +165,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Delete
+	//Delete---------------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView sendToTrashbox(@RequestParam int messageId) {
 		ModelAndView result;
@@ -184,7 +183,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Favourite ----------------------------------------------------------
+	//Flag--------------------------------------------------------------------------
 	@RequestMapping(value = "/favorite", method = RequestMethod.GET)
 	public ModelAndView favorite(@RequestParam int messageId) {
 		ModelAndView result;
@@ -202,7 +201,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Move to spam
+	// Flag Spam------------------------------------------------------------------------------
 	@RequestMapping(value = "/tospam", method = RequestMethod.GET)
 	public ModelAndView sendToSpam(@RequestParam int messageId) {
 		ModelAndView result;
@@ -218,7 +217,7 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	// Ancillary methods
+	//Ancillary methods------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(Message message) {
 		ModelAndView result;
 

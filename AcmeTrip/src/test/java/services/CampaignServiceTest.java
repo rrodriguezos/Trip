@@ -28,7 +28,7 @@ public class CampaignServiceTest extends AbstractTest {
 	@Autowired
 	private CampaignService campaignService;
 	@Autowired
-	private HelpService helpService;
+	private HelpDatesConvertService helpService;
 	@Autowired
 	private ChargeRecordService chargeService;
 
@@ -47,8 +47,8 @@ public class CampaignServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
 		campaignService.save(campaign);
@@ -67,8 +67,8 @@ public class CampaignServiceTest extends AbstractTest {
 		String startDateString = "";
 		String endDateString = "";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
 
@@ -85,8 +85,8 @@ public class CampaignServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
 
@@ -142,8 +142,8 @@ public class CampaignServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 03:00";
 		String endDateString = "04/05/2016 03:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
 
@@ -165,8 +165,8 @@ public class CampaignServiceTest extends AbstractTest {
 		String startDateString = "";
 		String endDateString = "";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
 
@@ -185,8 +185,8 @@ public class CampaignServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 03:00";
 		String endDateString = "04/05/2016 03:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		campaign.setStartMoment(startDate);
 		campaign.setEndMoment(endDate);
 
@@ -262,8 +262,8 @@ public class CampaignServiceTest extends AbstractTest {
 					String startDateString = "20/06/2015 12:00";
 					String endDateString = "23/08/2017 12:00";
 
-					Date startDate = helpService.formatStringToDate(startDateString);
-					Date endDate = helpService.formatStringToDate(endDateString);
+					Date startDate = helpService.formatFromStringToDate(startDateString);
+					Date endDate = helpService.formatFromStringToDate(endDateString);
 					campaign.setStartMoment(startDate);
 					campaign.setEndMoment(endDate);
 
@@ -282,8 +282,8 @@ public class CampaignServiceTest extends AbstractTest {
 					String startDateString = "20/11/2016 15:00";
 					String endDateString = "28/11/2016 15:00";
 
-					Date startDate = helpService.formatStringToDate(startDateString);
-					Date endDate = helpService.formatStringToDate(endDateString);
+					Date startDate = helpService.formatFromStringToDate(startDateString);
+					Date endDate = helpService.formatFromStringToDate(endDateString);
 					campaign.setStartMoment(startDate);
 					campaign.setEndMoment(endDate);
 

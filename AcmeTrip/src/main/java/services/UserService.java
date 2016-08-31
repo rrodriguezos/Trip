@@ -173,6 +173,7 @@ public class UserService {
 		return result;
 	}
 
+	// DashBoard
 	public int totalNumberofUsersRegistered() {
 		Administrator administrator = administratorService.findByPrincipal();
 		Assert.notNull(administrator);
@@ -205,7 +206,7 @@ public class UserService {
 		return result;
 	}
 
-	public void reconstructPerfil(UserRegisterForm userForm) {
+	public void reconstructPerfilUsuario(UserRegisterForm userForm) {
 		User result;
 
 		result = findByPrincipal();
@@ -244,10 +245,11 @@ public class UserService {
 
 	}
 
+	// dashBoard
 	@SuppressWarnings("deprecation")
 	public Collection<User> inactivesOneYear() {
 		Date unAno = new Date(System.currentTimeMillis());
-		unAno.setYear(unAno.getYear()-1);
+		unAno.setYear(unAno.getYear() - 1);
 		return userRepository.usersWhoInactiveMoreThanYear(unAno);
 	}
 

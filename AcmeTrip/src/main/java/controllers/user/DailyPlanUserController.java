@@ -29,13 +29,14 @@ public class DailyPlanUserController extends AbstractController {
 	@Autowired
 	private TripService tripService;
 
-	// Constructors --------------------------------------
+	// Constructors
+	// ----------------------------------------------------------------
 
 	public DailyPlanUserController() {
 		super();
 	}
 
-	// Create --------------------------------------------
+	// Create-----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int tripId) {
@@ -52,7 +53,7 @@ public class DailyPlanUserController extends AbstractController {
 		return result;
 	}
 
-	// Save --------------------------------------------
+	// Save-------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid DailyPlan dailyPlan, BindingResult binding,
 			RedirectAttributes redir) {
@@ -65,7 +66,7 @@ public class DailyPlanUserController extends AbstractController {
 		if (binding.hasErrors() || !comprobrarSolapamientoFechas) {
 			result = createEditModelAndView(dailyPlan);
 			if (!comprobrarSolapamientoFechas) {
-				result.addObject("message2", "dailyPlan.overlapping.error");
+				result.addObject("message2", "dailyPlan.solape.error");
 			}
 		} else {
 			try {
@@ -84,7 +85,7 @@ public class DailyPlanUserController extends AbstractController {
 		return result;
 	}
 
-	// Delete ---------------------------------------
+	// Delete-----------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView save(@RequestParam int dailyPlanId) {
 		ModelAndView result;

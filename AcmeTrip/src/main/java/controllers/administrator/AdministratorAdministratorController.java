@@ -40,7 +40,7 @@ public class AdministratorAdministratorController extends AbstractController {
 		super();
 	}
 
-	// Creation ---------------------------------------------------------------		
+	// Create ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -55,7 +55,7 @@ public class AdministratorAdministratorController extends AbstractController {
 	}
 	
 	
-	// Edition ----------------------------------------------------------------
+	// Save ----------------------------------------------------------------
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params="save")
 	public ModelAndView save(@Valid AdministratorForm administratorForm, BindingResult binding){

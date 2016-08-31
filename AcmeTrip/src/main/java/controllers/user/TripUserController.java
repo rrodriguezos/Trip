@@ -44,66 +44,6 @@ public class TripUserController extends AbstractController {
 		super();
 	}
 
-	// Create --------------------------------------------
-
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
-		ModelAndView result;
-		Trip trip;
-
-		trip = tripService.create();
-
-		result = createEditModelAndView(trip);
-
-		return result;
-	}
-
-	// Edit --------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int tripId) {
-		ModelAndView result;
-		Trip trip;
-		trip = tripService.findOne(tripId);
-
-		result = createEditModelAndView(trip);
-		result.addObject("trip", trip);
-		return result;
-	}
-
-	// Save --------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Trip trip, BindingResult binding,
-			RedirectAttributes redir) {
-		ModelAndView result;
-		int checkOverlapping = 0;
-		boolean checkDates = false;
-		if (trip.getStartDate() != null && trip.getEndDate() != null) {
-			if (trip.getId() == 0) {
-				checkOverlapping = tripService.findOverlappedByUser(trip);
-			}
-			checkDates = trip.getStartDate().after(trip.getEndDate());
-		}
-
-		if (binding.hasErrors() || checkOverlapping != 0 || checkDates) {
-			result = createEditModelAndView(trip);
-			if (checkOverlapping != 0 || checkDates) {
-				result.addObject("message2", "trip.overlapping.error");
-			}
-		} else {
-			try {
-				tripService.save(trip);
-				result = new ModelAndView("redirect:/trip/user/mylist.do");
-				result.addObject("requestUri", "/trip/user/mylist.do");
-				redir.addFlashAttribute("message", "trip.commit.ok");
-
-			} catch (Throwable oops) {
-				result = createEditModelAndView(trip, "trip.commit.error");
-			}
-		}
-
-		return result;
-	}
-
 	// List ----------------------------------------------
 
 	@RequestMapping(value = "/mylist")
@@ -149,6 +89,67 @@ public class TripUserController extends AbstractController {
 		return result;
 	}
 
+	// Create --------------------------------------------------------------
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Trip trip;
+
+		trip = tripService.create();
+
+		result = createEditModelAndView(trip);
+
+		return result;
+	}
+
+	// Edit -----------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int tripId) {
+		ModelAndView result;
+		Trip trip;
+		trip = tripService.findOne(tripId);
+
+		result = createEditModelAndView(trip);
+		result.addObject("trip", trip);
+		return result;
+	}
+
+	// Save --------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid Trip trip, BindingResult binding,
+			RedirectAttributes redir) {
+		ModelAndView result;
+		int comprobrarSolape = 0;
+		boolean checkDates = false;
+		if (trip.getStartDate() != null && trip.getEndDate() != null) {
+			if (trip.getId() == 0) {
+				comprobrarSolape = tripService.findSolapeByUser(trip);
+			}
+			checkDates = trip.getStartDate().after(trip.getEndDate());
+		}
+
+		if (binding.hasErrors() || comprobrarSolape != 0 || checkDates) {
+			result = createEditModelAndView(trip);
+			if (comprobrarSolape != 0 || checkDates) {
+				result.addObject("message2", "trip.solape.error");
+			}
+		} else {
+			try {
+				tripService.save(trip);
+				result = new ModelAndView("redirect:/trip/user/mylist.do");
+				result.addObject("requestUri", "/trip/user/mylist.do");
+				redir.addFlashAttribute("message", "trip.commit.ok");
+
+			} catch (Throwable oops) {
+				result = createEditModelAndView(trip, "trip.commit.error");
+			}
+		}
+
+		return result;
+	}
+
+	// Delete --------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid Trip trip, BindingResult binding) {
 		ModelAndView result;
@@ -228,6 +229,8 @@ public class TripUserController extends AbstractController {
 
 	}
 
+	// Suscriptions
+	// --------------------------------------------------------------
 	@RequestMapping(value = "/subscribed")
 	public ModelAndView subscriptions() {
 

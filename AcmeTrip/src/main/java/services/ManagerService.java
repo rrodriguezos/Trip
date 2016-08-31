@@ -43,10 +43,10 @@ public class ManagerService {
 
 	@Autowired
 	private AdministratorService administratorService;
-	
+
 	@Autowired
 	private CreditCardService creditCardService;
-	
+
 	@Autowired
 	private CampaignRepository campaignRepository;
 
@@ -190,6 +190,7 @@ public class ManagerService {
 		return result;
 	}
 
+	// dashboard
 	public Collection<Manager> managersMoreCampaigns() {
 		Administrator administrator = administratorService.findByPrincipal();
 		Assert.notNull(administrator);

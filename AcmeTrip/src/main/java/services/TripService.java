@@ -41,12 +41,12 @@ public class TripService {
 	@Autowired
 	private AdministratorService administratorService;
 
-	// COnstructors -------------------------
+	// COnstructors -------------------------------------------------------
 	public TripService() {
 		super();
 	}
 
-	// Simple CRUD methods--------------------
+	// Simple CRUD methods--------------------------------------------------
 
 	public Trip create() {
 		Trip result;
@@ -233,7 +233,7 @@ public class TripService {
 		return result;
 	}
 
-	public int findOverlappedByUser(Trip trip) {
+	public int findSolapeByUser(Trip trip) {
 		int result;
 
 		result = tripRepository.findOverlappedByUser(trip.getUser().getId(),
@@ -242,6 +242,7 @@ public class TripService {
 		return result;
 	}
 
+	// Dashboard
 	public int totalNumberOfTripsRegistered() {
 		Administrator admin = administratorService.findByPrincipal();
 		Assert.notNull(admin);

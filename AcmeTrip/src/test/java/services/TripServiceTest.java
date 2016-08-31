@@ -30,7 +30,7 @@ public class TripServiceTest extends AbstractTest {
 	private TripService tripService;
 
 	@Autowired
-	private HelpService helpService;
+	private HelpDatesConvertService helpService;
 
 	// ----------------------------------------------------
 	// POSITIVE TEST CASES CREATE
@@ -49,8 +49,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 		trip.setDescription("Descripcion 1");
@@ -71,8 +71,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "";
 		String endDateString = "";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 		trip.setDescription("");
@@ -90,8 +90,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 		trip.setDescription("Descripcion 1");
@@ -109,8 +109,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 		trip.setDescription("Descripcion 1");
@@ -165,8 +165,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 
@@ -191,8 +191,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 
@@ -214,8 +214,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "04/05/2016 02:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 
@@ -357,8 +357,8 @@ public class TripServiceTest extends AbstractTest {
 		String startDateString = "04/04/2016 02:00";
 		String endDateString = "01/01/2017 00:00";
 
-		Date startDate = helpService.formatStringToDate(startDateString);
-		Date endDate = helpService.formatStringToDate(endDateString);
+		Date startDate = helpService.formatFromStringToDate(startDateString);
+		Date endDate = helpService.formatFromStringToDate(endDateString);
 		trip.setStartDate(startDate);
 		trip.setEndDate(endDate);
 
@@ -381,8 +381,8 @@ public class TripServiceTest extends AbstractTest {
 			String startDateString = "05/08/2013 00:00";
 			String endDateString = "05/18/2020 00:00";
 
-			Date startDate = helpService.formatStringToDate(startDateString);
-			Date endDate = helpService.formatStringToDate(endDateString);
+			Date startDate = helpService.formatFromStringToDate(startDateString);
+			Date endDate = helpService.formatFromStringToDate(endDateString);
 			trip.setStartDate(startDate);
 			trip.setEndDate(endDate);
 

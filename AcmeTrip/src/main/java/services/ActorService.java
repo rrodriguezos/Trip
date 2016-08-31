@@ -54,13 +54,13 @@ public class ActorService {
 	public void delete(Actor actor) {
 		actorRepository.delete(actor);
 	}
-	
-	//Other business methods-------------------------------------------------
-	
-	public Actor findByPrincipal(){
+
+	// Other business methods-------------------------------------------------
+
+	public Actor findByPrincipal() {
 		Actor result;
 		UserAccount userAccount;
-		
+
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		result = findByUserAccount(userAccount);
@@ -68,15 +68,15 @@ public class ActorService {
 
 		return result;
 	}
-	
+
 	public Actor findByUserAccount(UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
 		Actor result;
 
-		result = actorRepository.findByUserAccountId(userAccount.getId());		
+		result = actorRepository.findByUserAccountId(userAccount.getId());
 
 		return result;
 	}
-	
+
 }

@@ -17,109 +17,114 @@ import domain.Commentable;
 @Transactional
 @Service
 public class CommentService {
-	
-	//Constructor ---------------------------------------------------------------
-	public CommentService(){
+
+	// Constructor
+	// ---------------------------------------------------------------
+	public CommentService() {
 		super();
 	}
 
-	//Managed Repository-----------------------------------------------------------
+	// Managed
+	// Repository-----------------------------------------------------------
 	@Autowired
 	private CommentRepository commentRepository;
-	
-	//Supported Services------------------------------------------------------------	
+
+	// Supported
+	// Services------------------------------------------------------------
 	@Autowired
 	private CommentableService commentableService;
-	
+
 	@Autowired
 	private ActorService actorService;
-	
-	//Suported Services------------------------------------------------------------	
-	
-	//CRUD methods-------------------------------------------------------------
-	public Collection<Comment> findAll(){
+
+	// CRUD methods-------------------------------------------------------------
+	public Collection<Comment> findAll() {
 		Collection<Comment> result;
-		
+
 		result = commentRepository.findAll();
-		
+
 		return result;
 	}
-	public Comment create(int commentableId){
+
+	public Comment create(int commentableId) {
 		Comment result;
 		Commentable commentable;
 		Actor principal;
-		
+
 		commentable = commentableService.findOne(commentableId);
 		principal = actorService.findByPrincipal();
-		
+
 		result = new Comment();
 		result.setCommentable(commentable);
 		result.setActor(principal);
-		result.setMoment(new Date(System.currentTimeMillis()-100));
+		result.setMoment(new Date(System.currentTimeMillis() - 100));
 		result.setAppropriated(true);
-		
+
 		return result;
 	}
-	public Comment findOne(int commentId){
-		Assert.isTrue(commentId!=0);
-		
+
+	public Comment findOne(int commentId) {
+		Assert.isTrue(commentId != 0);
+
 		Comment result;
-		
+
 		result = commentRepository.findOne(commentId);
 		Assert.notNull(result);
-		
+
 		return result;
 	}
-	
-	public Comment save(Comment comment){
+
+	public Comment save(Comment comment) {
 		Assert.notNull(comment);
-		Comment result; 
-		if(comment.getId()!=0){
+		Comment result;
+		if (comment.getId() != 0) {
 			Comment commentCheck = commentRepository.findOne(comment.getId());
 			Assert.isTrue(comment.getVersion() == commentCheck.getVersion());
 		}
-		
-		if (comment.getId() == 0){
-			comment.setMoment(new Date(System.currentTimeMillis()-100));
+
+		if (comment.getId() == 0) {
+			comment.setMoment(new Date(System.currentTimeMillis() - 100));
 		}
-		
+
 		result = commentRepository.saveAndFlush(comment);
 		return result;
 	}
-	
-	//Other Business Methods ------------------------------------------------------	
-	
-	public Collection<Comment> findCommentsByCommentableId(int commentableId){
+
+	// Other Business Methods
+	// ------------------------------------------------------
+
+	public Collection<Comment> findCommentsByCommentableId(int commentableId) {
 		Collection<Comment> result;
-		
+
 		result = commentRepository.findCommentsByCommentableId(commentableId);
 		Assert.notNull(result);
-		
+
 		return result;
 	}
-	
-	public void changeStateComment(int commentId){
+
+	public void changeFlagComment(int commentId) {
 		Assert.notNull(commentId);
 		checkPrincipalAdministrator();
 		Comment comment;
-		
+
 		comment = findOne(commentId);
-		
+
 		comment.setAppropriated(!comment.getAppropriated());
-		
+
 		save(comment);
 	}
-	
-	private void checkPrincipalAdministrator(){
+
+	private void checkPrincipalAdministrator() {
 		Actor actor;
 		Authority authority;
-	
+
 		actor = actorService.findByPrincipal();
 		Assert.isTrue(actor != null);
-		
+
 		authority = new Authority();
 		authority.setAuthority("ADMINISTRATOR");
-		
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority));
+
+		Assert.isTrue(actor.getUserAccount().getAuthorities()
+				.contains(authority));
 	}
 }

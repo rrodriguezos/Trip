@@ -56,7 +56,7 @@ public class ActivityTypeController extends AbstractController   {
 				return result;
 			}
 			
-			// List -----------------------------------------------------------
+			// ListByActivity -----------------------------------------------------------
 			@RequestMapping(value = "/listByActivity")
 			public ModelAndView listBySlot(@RequestParam int activityId) {
 				ModelAndView result;

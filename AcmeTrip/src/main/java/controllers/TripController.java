@@ -60,19 +60,7 @@ public class TripController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/search", method = RequestMethod.POST, params = "searchTrip")
-	public ModelAndView list(@Valid String search) {
-		ModelAndView result;
-		Collection<Trip> trips;
-
-		trips = tripService.findTripByKeyword(search);
-
-		result = new ModelAndView("trip/list");
-		result.addObject("trips", trips);
-
-		return result;
-	}
-
+	// Display -----------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam int tripId) {
 		ModelAndView result;
@@ -122,8 +110,10 @@ public class TripController extends AbstractController {
 		Collection<Banner> todosBanners = bannerService.findAll();
 		Collection<Banner> bannersActivos = new LinkedList<Banner>();
 		for (Banner b : todosBanners) {
-			if (b.getCampaign().getStartMoment().before(new Date(System.currentTimeMillis()))
-					|| b.getCampaign().getEndMoment().after(new Date(System.currentTimeMillis()))) {
+			if (b.getCampaign().getStartMoment()
+					.before(new Date(System.currentTimeMillis()))
+					|| b.getCampaign().getEndMoment()
+							.after(new Date(System.currentTimeMillis()))) {
 				bannersActivos.add(b);
 			}
 		}
@@ -132,7 +122,8 @@ public class TripController extends AbstractController {
 		for (Banner c : bannersActivos) {
 			if (c.getDisplay() < c.getMaxTimesDisplayed()) {
 				for (String palabra : c.getKeyWords()) {
-					Collection<Trip> tripis = tripService.findTripByKeyword(palabra);
+					Collection<Trip> tripis = tripService
+							.findTripByKeyword(palabra);
 					if (!tripis.isEmpty()) {
 						tieneBanner = true;
 						if (!bannersParaUsar.contains(c))
@@ -166,13 +157,14 @@ public class TripController extends AbstractController {
 		return result;
 
 	}
-	
-	//Listing by navigate from DailyPlan ---------------
-	@RequestMapping(value="/navigateByDailyPlan", method = RequestMethod.GET)
+
+	// Listing by navigate from DailyPlan
+	// ---------------------------------------------------
+	@RequestMapping(value = "/navigateByDailyPlan", method = RequestMethod.GET)
 	public ModelAndView navigateByDailyPlan(@RequestParam int dailyPlanId) {
 		ModelAndView result;
 		Trip trip = tripService.tripByDailyplan(dailyPlanId);
-		
+
 		result = new ModelAndView("trip/listAll");
 		result.addObject("trip", trip);
 		result.addObject("requestURI", "trip/navigateByDailyPlan.do");

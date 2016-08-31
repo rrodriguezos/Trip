@@ -108,8 +108,8 @@ public class AdministratorService {
 
 	}
 
-	// Other bussiness methods-----------------------------------------------------
-
+	// Other bussiness
+	// methods-----------------------------------------------------
 
 	public Administrator reconstruct(AdministratorForm administratorForm) {
 		Administrator res;

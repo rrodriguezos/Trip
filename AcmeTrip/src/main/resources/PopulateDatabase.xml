@@ -949,7 +949,7 @@
 	<bean id="message1" class="domain.Message">
 		<property name="subject" value="subject1" />
 		<property name="body" value="body1" />
-		<property name="moment" value="04/02/2016" />
+		<property name="moment" value="05/10/2015" />
 		<property name="messagePriority" value="LOW" />
 		<property name="sender" ref="user1" />
 		<property name="star" value="false" />
@@ -960,7 +960,7 @@
 	<bean id="message2" class="domain.Message">
 		<property name="subject" value="subject1" />
 		<property name="body" value="body1" />
-		<property name="moment" value="04/02/2016" />
+		<property name="moment" value="05/10/2015" />
 		<property name="star" value="false" />
 		<property name="messagePriority" value="NEUTRAL" />
 		<property name="sender" ref="user1" />
@@ -1185,8 +1185,8 @@
 
 	<!-- Activities -->
 	<bean class="domain.Activity" id="activity1">
-		<property name="title" value="activity1" />
-		<property name="description" value="description1" />
+		<property name="title" value="Picnic en un precipicio" />
+		<property name="description" value="Nos gusta el riesgo" />
 		<property name="appropriated" value="false" />
 		<property name="manager" ref="manager1" />
 		<property name="user" ref="user1" />
@@ -1286,8 +1286,8 @@
 
 	<bean id="comment1" class="domain.Comment">
 		<property name="title" value="Comentario 1" />
-		<property name="text" value="Cuerpo del comentario 1" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 1" />
+		<property name="moment" value="02/02/2016" />
 		<property name="commentable" ref="trip1" />
 		<property name="actor" ref="user1" />
 		<property name="appropriated" value="true" />
@@ -1295,8 +1295,8 @@
 
 	<bean id="comment2" class="domain.Comment">
 		<property name="title" value="Comentario 2" />
-		<property name="text" value="Cuerpo del comentario 2" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 2" />
+		<property name="moment" value="03/02/2016" />
 		<property name="commentable" ref="trip1" />
 		<property name="actor" ref="user3" />
 		<property name="appropriated" value="false" />
@@ -1304,8 +1304,8 @@
 
 	<bean id="comment3" class="domain.Comment">
 		<property name="title" value="Comentario 3" />
-		<property name="text" value="Cuerpo del comentario 3" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 3" />
+		<property name="moment" value="03/03/2015" />
 		<property name="commentable" ref="trip1" />
 		<property name="actor" ref="user2" />
 		<property name="appropriated" value="true" />
@@ -1313,8 +1313,8 @@
 
 	<bean id="comment4" class="domain.Comment">
 		<property name="title" value="Comentario 4" />
-		<property name="text" value="Cuerpo del comentario 4" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 4" />
+		<property name="moment" value="02/03/2015" />
 		<property name="commentable" ref="trip2" />
 		<property name="actor" ref="user1" />
 		<property name="appropriated" value="true" />
@@ -1322,8 +1322,8 @@
 
 	<bean id="comment5" class="domain.Comment">
 		<property name="title" value="Comentario 2" />
-		<property name="text" value="Cuerpo del comentario 2" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 2" />
+		<property name="moment" value="04/04/2016" />
 		<property name="commentable" ref="trip2" />
 		<property name="actor" ref="user2" />
 		<property name="appropriated" value="true" />
@@ -1331,8 +1331,8 @@
 
 	<bean id="comment6" class="domain.Comment">
 		<property name="title" value="Comentario 3" />
-		<property name="text" value="Cuerpo del comentario 3" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 3" />
+		<property name="moment" value="06/04/2016" />
 		<property name="commentable" ref="trip2" />
 		<property name="actor" ref="user2" />
 		<property name="appropriated" value="true" />
@@ -1340,8 +1340,8 @@
 
 	<bean id="comment7" class="domain.Comment">
 		<property name="title" value="Comentario 7" />
-		<property name="text" value="Cuerpo del comentario 7" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 7" />
+		<property name="moment" value="05/04/2016" />
 		<property name="commentable" ref="activity1" />
 		<property name="actor" ref="user1" />
 		<property name="appropriated" value="true" />
@@ -1349,7 +1349,7 @@
 
 	<bean id="comment8" class="domain.Comment">
 		<property name="title" value="Comentario 8" />
-		<property name="text" value="Cuerpo del comentario 8" />
+		<property name="text" value="Texto 8" />
 		<property name="moment" value="04/07/2015" />
 		<property name="commentable" ref="activity1" />
 		<property name="actor" ref="user4" />
@@ -1358,8 +1358,8 @@
 
 	<bean id="comment9" class="domain.Comment">
 		<property name="title" value="Comentario 9" />
-		<property name="text" value="Cuerpo del comentario 9" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 9" />
+		<property name="moment" value="05/04/2016" />
 		<property name="commentable" ref="activity1" />
 		<property name="actor" ref="user3" />
 		<property name="appropriated" value="true" />
@@ -1367,8 +1367,8 @@
 
 	<bean id="comment10" class="domain.Comment">
 		<property name="title" value="Comentario 10" />
-		<property name="text" value="Cuerpo del comentario 10" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 10" />
+		<property name="moment" value="05/04/2016" />
 		<property name="commentable" ref="activity1" />
 		<property name="actor" ref="user2" />
 		<property name="appropriated" value="true" />
@@ -1376,8 +1376,8 @@
 
 	<bean id="comment11" class="domain.Comment">
 		<property name="title" value="Comentario 11" />
-		<property name="text" value="Cuerpo del comentario 11" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 11" />
+		<property name="moment" value="05/04/2016" />
 		<property name="commentable" ref="activity2" />
 		<property name="actor" ref="user2" />
 		<property name="appropriated" value="true" />
@@ -1385,8 +1385,8 @@
 
 	<bean id="comment12" class="domain.Comment">
 		<property name="title" value="Comentario 12" />
-		<property name="text" value="Cuerpo del comentario 12" />
-		<property name="moment" value="04/02/2016" />
+		<property name="text" value="Texto 12" />
+		<property name="moment" value="05/10/2015" />
 		<property name="commentable" ref="activity2" />
 		<property name="actor" ref="user1" />
 		<property name="appropriated" value="true" />
